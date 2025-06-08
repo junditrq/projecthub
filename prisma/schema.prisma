@@ -1,0 +1,159 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+model ProjectIdea {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  name      String
+  // year      Int you can get this from the createdAt
+  slug      String   @unique
+  groups    Group[]
+}
+
+model Group {
+  id            String      @id @default(uuid())
+  createdAt     DateTime    @default(now())
+  publishers    Publisher[]
+  projectIdeaId String
+  projectIdea   ProjectIdea @relation(fields: [projectIdeaId], references: [id])
+}
+
+model Publisher {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  name       String // when the user is going to publish a project they must provide their name as this one exactly, this can be verified on the frontend
+  canPublish Boolean  @default(true)
+
+  group   Group  @relation(fields: [groupId], references: [id])
+  groupId String
+
+  user   User? // once the user has published a project and provided their collegeId then we can create a relationship, and mark all other publishers in the same group as canPublish = false
+  userId String?
+
+  project Project?
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email       String? @unique
+  githubId    String? @unique
+  linkedinId  String? @unique
+  website     String?
+  phoneNumber String? @unique
+
+  name      String?
+  avatarUrl String?
+
+  bio String?
+
+  publisher   Publisher? @relation(fields: [publisherId], references: [id])
+  publisherId String     @unique
+  Likes       Likes[]
+}
+
+model Project {
+  id                   String                @id @default(uuid())
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  name                 String
+  slug                 String                @unique
+  description          String?
+  ProjectRepo          ProjectRepo[]
+  status               ProjectStatus         @default(pending)
+  thumbnailUrl         String
+  projectPreviewImages ProjectPreviewImage[]
+  collegeYear          CollegeYears
+
+  publishser  Publisher? @relation(fields: [publisherId], references: [id])
+  publisherId String     @unique
+
+  categroies Categorie[]
+  tags       Tag[]
+  Likes      Likes[]
+}
+
+model ProjectRepo {
+  id           String          @id @default(uuid())
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  type         ProjectRepoType
+  url          String
+  project      Project         @relation(fields: [projectId], references: [id])
+  projectId    String
+  contributors Contributor[]
+}
+
+model ProjectPreviewImage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+}
+
+model Contributor {
+  id            String       @id @default(uuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  userId        String       @unique
+  ProjectRepo   ProjectRepo? @relation(fields: [projectRepoId], references: [id])
+  projectRepoId String?
+}
+
+model Categorie {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  name      String
+  projects  Project[]
+}
+
+model Tag {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  name      String
+  projects  Project[]
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String
+}
+
+enum ProjectRepoType {
+  frontend
+  backend
+  mobile
+  monorepo
+}
+
+enum ProjectStatus {
+  pending
+  approved
+  rejected
+}
+
+enum CollegeYears {
+  second
+  third
+  fourth
+  fifth
+}
