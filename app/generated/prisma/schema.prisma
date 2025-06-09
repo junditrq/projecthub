@@ -80,10 +80,10 @@ model Project {
   projectPreviewImages ProjectPreviewImage[]
   collegeYear          CollegeYears
 
-  publishser  Publisher? @relation(fields: [publisherId], references: [id])
-  publisherId String     @unique
+  publisher   Publisher @relation(fields: [publisherId], references: [id])
+  publisherId String    @unique
 
-  categroies Categorie[]
+  categories Category[]
   tags       Tag[]
   Likes      Likes[]
 }
@@ -115,15 +115,17 @@ model Contributor {
   projectRepoId String?
 }
 
-model Categorie {
+model Category {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   name      String
+  slug      String
   projects  Project[]
 }
 
 model Tag {
   id        String    @id @default(uuid())
+  slug      String
   createdAt DateTime  @default(now())
   name      String
   projects  Project[]

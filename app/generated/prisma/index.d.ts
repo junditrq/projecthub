@@ -54,10 +54,10 @@ export type ProjectPreviewImage = $Result.DefaultSelection<Prisma.$ProjectPrevie
  */
 export type Contributor = $Result.DefaultSelection<Prisma.$ContributorPayload>
 /**
- * Model Categorie
+ * Model Category
  * 
  */
-export type Categorie = $Result.DefaultSelection<Prisma.$CategoriePayload>
+export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
 /**
  * Model Tag
  * 
@@ -321,14 +321,14 @@ export class PrismaClient<
   get contributor(): Prisma.ContributorDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.categorie`: Exposes CRUD operations for the **Categorie** model.
+   * `prisma.category`: Exposes CRUD operations for the **Category** model.
     * Example usage:
     * ```ts
     * // Fetch zero or more Categories
-    * const categories = await prisma.categorie.findMany()
+    * const categories = await prisma.category.findMany()
     * ```
     */
-  get categorie(): Prisma.CategorieDelegate<ExtArgs, ClientOptions>;
+  get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.tag`: Exposes CRUD operations for the **Tag** model.
@@ -797,7 +797,7 @@ export namespace Prisma {
     ProjectRepo: 'ProjectRepo',
     ProjectPreviewImage: 'ProjectPreviewImage',
     Contributor: 'Contributor',
-    Categorie: 'Categorie',
+    Category: 'Category',
     Tag: 'Tag',
     Likes: 'Likes'
   };
@@ -818,7 +818,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "projectIdea" | "group" | "publisher" | "user" | "project" | "projectRepo" | "projectPreviewImage" | "contributor" | "categorie" | "tag" | "likes"
+      modelProps: "projectIdea" | "group" | "publisher" | "user" | "project" | "projectRepo" | "projectPreviewImage" | "contributor" | "category" | "tag" | "likes"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1414,77 +1414,77 @@ export namespace Prisma {
           }
         }
       }
-      Categorie: {
-        payload: Prisma.$CategoriePayload<ExtArgs>
-        fields: Prisma.CategorieFieldRefs
+      Category: {
+        payload: Prisma.$CategoryPayload<ExtArgs>
+        fields: Prisma.CategoryFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.CategorieFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload> | null
+            args: Prisma.CategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.CategorieFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>
+            args: Prisma.CategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
           }
           findFirst: {
-            args: Prisma.CategorieFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload> | null
+            args: Prisma.CategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.CategorieFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>
+            args: Prisma.CategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
           }
           findMany: {
-            args: Prisma.CategorieFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>[]
+            args: Prisma.CategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
           }
           create: {
-            args: Prisma.CategorieCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>
+            args: Prisma.CategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
           }
           createMany: {
-            args: Prisma.CategorieCreateManyArgs<ExtArgs>
+            args: Prisma.CategoryCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.CategorieCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>[]
+            args: Prisma.CategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
           }
           delete: {
-            args: Prisma.CategorieDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>
+            args: Prisma.CategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
           }
           update: {
-            args: Prisma.CategorieUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>
+            args: Prisma.CategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
           }
           deleteMany: {
-            args: Prisma.CategorieDeleteManyArgs<ExtArgs>
+            args: Prisma.CategoryDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.CategorieUpdateManyArgs<ExtArgs>
+            args: Prisma.CategoryUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.CategorieUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>[]
+            args: Prisma.CategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
           }
           upsert: {
-            args: Prisma.CategorieUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CategoriePayload>
+            args: Prisma.CategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
           }
           aggregate: {
-            args: Prisma.CategorieAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateCategorie>
+            args: Prisma.CategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategory>
           }
           groupBy: {
-            args: Prisma.CategorieGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CategorieGroupByOutputType>[]
+            args: Prisma.CategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoryGroupByOutputType>[]
           }
           count: {
-            args: Prisma.CategorieCountArgs<ExtArgs>
-            result: $Utils.Optional<CategorieCountAggregateOutputType> | number
+            args: Prisma.CategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoryCountAggregateOutputType> | number
           }
         }
       }
@@ -1728,7 +1728,7 @@ export namespace Prisma {
     projectRepo?: ProjectRepoOmit
     projectPreviewImage?: ProjectPreviewImageOmit
     contributor?: ContributorOmit
-    categorie?: CategorieOmit
+    category?: CategoryOmit
     tag?: TagOmit
     likes?: LikesOmit
   }
@@ -1920,7 +1920,7 @@ export namespace Prisma {
   export type ProjectCountOutputType = {
     ProjectRepo: number
     projectPreviewImages: number
-    categroies: number
+    categories: number
     tags: number
     Likes: number
   }
@@ -1928,7 +1928,7 @@ export namespace Prisma {
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ProjectRepo?: boolean | ProjectCountOutputTypeCountProjectRepoArgs
     projectPreviewImages?: boolean | ProjectCountOutputTypeCountProjectPreviewImagesArgs
-    categroies?: boolean | ProjectCountOutputTypeCountCategroiesArgs
+    categories?: boolean | ProjectCountOutputTypeCountCategoriesArgs
     tags?: boolean | ProjectCountOutputTypeCountTagsArgs
     Likes?: boolean | ProjectCountOutputTypeCountLikesArgs
   }
@@ -1961,8 +1961,8 @@ export namespace Prisma {
   /**
    * ProjectCountOutputType without action
    */
-  export type ProjectCountOutputTypeCountCategroiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CategorieWhereInput
+  export type ProjectCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
   }
 
   /**
@@ -2012,32 +2012,32 @@ export namespace Prisma {
 
 
   /**
-   * Count Type CategorieCountOutputType
+   * Count Type CategoryCountOutputType
    */
 
-  export type CategorieCountOutputType = {
+  export type CategoryCountOutputType = {
     projects: number
   }
 
-  export type CategorieCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    projects?: boolean | CategorieCountOutputTypeCountProjectsArgs
+  export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projects?: boolean | CategoryCountOutputTypeCountProjectsArgs
   }
 
   // Custom InputTypes
   /**
-   * CategorieCountOutputType without action
+   * CategoryCountOutputType without action
    */
-  export type CategorieCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the CategorieCountOutputType
+     * Select specific fields to fetch from the CategoryCountOutputType
      */
-    select?: CategorieCountOutputTypeSelect<ExtArgs> | null
+    select?: CategoryCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * CategorieCountOutputType without action
+   * CategoryCountOutputType without action
    */
-  export type CategorieCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectWhereInput
   }
 
@@ -6717,8 +6717,8 @@ export namespace Prisma {
     publisherId?: boolean
     ProjectRepo?: boolean | Project$ProjectRepoArgs<ExtArgs>
     projectPreviewImages?: boolean | Project$projectPreviewImagesArgs<ExtArgs>
-    publishser?: boolean | Project$publishserArgs<ExtArgs>
-    categroies?: boolean | Project$categroiesArgs<ExtArgs>
+    publisher?: boolean | PublisherDefaultArgs<ExtArgs>
+    categories?: boolean | Project$categoriesArgs<ExtArgs>
     tags?: boolean | Project$tagsArgs<ExtArgs>
     Likes?: boolean | Project$LikesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
@@ -6735,7 +6735,7 @@ export namespace Prisma {
     thumbnailUrl?: boolean
     collegeYear?: boolean
     publisherId?: boolean
-    publishser?: boolean | Project$publishserArgs<ExtArgs>
+    publisher?: boolean | PublisherDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
   export type ProjectSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6749,7 +6749,7 @@ export namespace Prisma {
     thumbnailUrl?: boolean
     collegeYear?: boolean
     publisherId?: boolean
-    publishser?: boolean | Project$publishserArgs<ExtArgs>
+    publisher?: boolean | PublisherDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
   export type ProjectSelectScalar = {
@@ -6769,17 +6769,17 @@ export namespace Prisma {
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ProjectRepo?: boolean | Project$ProjectRepoArgs<ExtArgs>
     projectPreviewImages?: boolean | Project$projectPreviewImagesArgs<ExtArgs>
-    publishser?: boolean | Project$publishserArgs<ExtArgs>
-    categroies?: boolean | Project$categroiesArgs<ExtArgs>
+    publisher?: boolean | PublisherDefaultArgs<ExtArgs>
+    categories?: boolean | Project$categoriesArgs<ExtArgs>
     tags?: boolean | Project$tagsArgs<ExtArgs>
     Likes?: boolean | Project$LikesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    publishser?: boolean | Project$publishserArgs<ExtArgs>
+    publisher?: boolean | PublisherDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    publishser?: boolean | Project$publishserArgs<ExtArgs>
+    publisher?: boolean | PublisherDefaultArgs<ExtArgs>
   }
 
   export type $ProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6787,8 +6787,8 @@ export namespace Prisma {
     objects: {
       ProjectRepo: Prisma.$ProjectRepoPayload<ExtArgs>[]
       projectPreviewImages: Prisma.$ProjectPreviewImagePayload<ExtArgs>[]
-      publishser: Prisma.$PublisherPayload<ExtArgs> | null
-      categroies: Prisma.$CategoriePayload<ExtArgs>[]
+      publisher: Prisma.$PublisherPayload<ExtArgs>
+      categories: Prisma.$CategoryPayload<ExtArgs>[]
       tags: Prisma.$TagPayload<ExtArgs>[]
       Likes: Prisma.$LikesPayload<ExtArgs>[]
     }
@@ -7199,8 +7199,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     ProjectRepo<T extends Project$ProjectRepoArgs<ExtArgs> = {}>(args?: Subset<T, Project$ProjectRepoArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectRepoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projectPreviewImages<T extends Project$projectPreviewImagesArgs<ExtArgs> = {}>(args?: Subset<T, Project$projectPreviewImagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPreviewImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    publishser<T extends Project$publishserArgs<ExtArgs> = {}>(args?: Subset<T, Project$publishserArgs<ExtArgs>>): Prisma__PublisherClient<$Result.GetResult<Prisma.$PublisherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    categroies<T extends Project$categroiesArgs<ExtArgs> = {}>(args?: Subset<T, Project$categroiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    publisher<T extends PublisherDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PublisherDefaultArgs<ExtArgs>>): Prisma__PublisherClient<$Result.GetResult<Prisma.$PublisherPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    categories<T extends Project$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Project$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tags<T extends Project$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Project$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Likes<T extends Project$LikesArgs<ExtArgs> = {}>(args?: Subset<T, Project$LikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7686,46 +7686,27 @@ export namespace Prisma {
   }
 
   /**
-   * Project.publishser
+   * Project.categories
    */
-  export type Project$publishserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Project$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Publisher
+     * Select specific fields to fetch from the Category
      */
-    select?: PublisherSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Publisher
+     * Omit specific fields from the Category
      */
-    omit?: PublisherOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PublisherInclude<ExtArgs> | null
-    where?: PublisherWhereInput
-  }
-
-  /**
-   * Project.categroies
-   */
-  export type Project$categroiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Categorie
-     */
-    select?: CategorieSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Categorie
-     */
-    omit?: CategorieOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategorieInclude<ExtArgs> | null
-    where?: CategorieWhereInput
-    orderBy?: CategorieOrderByWithRelationInput | CategorieOrderByWithRelationInput[]
-    cursor?: CategorieWhereUniqueInput
+    include?: CategoryInclude<ExtArgs> | null
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    cursor?: CategoryWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: CategorieScalarFieldEnum | CategorieScalarFieldEnum[]
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
   }
 
   /**
@@ -11006,71 +10987,77 @@ export namespace Prisma {
 
 
   /**
-   * Model Categorie
+   * Model Category
    */
 
-  export type AggregateCategorie = {
-    _count: CategorieCountAggregateOutputType | null
-    _min: CategorieMinAggregateOutputType | null
-    _max: CategorieMaxAggregateOutputType | null
+  export type AggregateCategory = {
+    _count: CategoryCountAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
   }
 
-  export type CategorieMinAggregateOutputType = {
+  export type CategoryMinAggregateOutputType = {
     id: string | null
     createdAt: Date | null
     name: string | null
+    slug: string | null
   }
 
-  export type CategorieMaxAggregateOutputType = {
+  export type CategoryMaxAggregateOutputType = {
     id: string | null
     createdAt: Date | null
     name: string | null
+    slug: string | null
   }
 
-  export type CategorieCountAggregateOutputType = {
+  export type CategoryCountAggregateOutputType = {
     id: number
     createdAt: number
     name: number
+    slug: number
     _all: number
   }
 
 
-  export type CategorieMinAggregateInputType = {
+  export type CategoryMinAggregateInputType = {
     id?: true
     createdAt?: true
     name?: true
+    slug?: true
   }
 
-  export type CategorieMaxAggregateInputType = {
+  export type CategoryMaxAggregateInputType = {
     id?: true
     createdAt?: true
     name?: true
+    slug?: true
   }
 
-  export type CategorieCountAggregateInputType = {
+  export type CategoryCountAggregateInputType = {
     id?: true
     createdAt?: true
     name?: true
+    slug?: true
     _all?: true
   }
 
-  export type CategorieAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Categorie to aggregate.
+     * Filter which Category to aggregate.
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Categories to fetch.
      */
-    orderBy?: CategorieOrderByWithRelationInput | CategorieOrderByWithRelationInput[]
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: CategorieWhereUniqueInput
+    cursor?: CategoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -11088,103 +11075,108 @@ export namespace Prisma {
      * 
      * Count returned Categories
     **/
-    _count?: true | CategorieCountAggregateInputType
+    _count?: true | CategoryCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: CategorieMinAggregateInputType
+    _min?: CategoryMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: CategorieMaxAggregateInputType
+    _max?: CategoryMaxAggregateInputType
   }
 
-  export type GetCategorieAggregateType<T extends CategorieAggregateArgs> = {
-        [P in keyof T & keyof AggregateCategorie]: P extends '_count' | 'count'
+  export type GetCategoryAggregateType<T extends CategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategory]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateCategorie[P]>
-      : GetScalarType<T[P], AggregateCategorie[P]>
+        : GetScalarType<T[P], AggregateCategory[P]>
+      : GetScalarType<T[P], AggregateCategory[P]>
   }
 
 
 
 
-  export type CategorieGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CategorieWhereInput
-    orderBy?: CategorieOrderByWithAggregationInput | CategorieOrderByWithAggregationInput[]
-    by: CategorieScalarFieldEnum[] | CategorieScalarFieldEnum
-    having?: CategorieScalarWhereWithAggregatesInput
+  export type CategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithAggregationInput | CategoryOrderByWithAggregationInput[]
+    by: CategoryScalarFieldEnum[] | CategoryScalarFieldEnum
+    having?: CategoryScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: CategorieCountAggregateInputType | true
-    _min?: CategorieMinAggregateInputType
-    _max?: CategorieMaxAggregateInputType
+    _count?: CategoryCountAggregateInputType | true
+    _min?: CategoryMinAggregateInputType
+    _max?: CategoryMaxAggregateInputType
   }
 
-  export type CategorieGroupByOutputType = {
+  export type CategoryGroupByOutputType = {
     id: string
     createdAt: Date
     name: string
-    _count: CategorieCountAggregateOutputType | null
-    _min: CategorieMinAggregateOutputType | null
-    _max: CategorieMaxAggregateOutputType | null
+    slug: string
+    _count: CategoryCountAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
   }
 
-  type GetCategorieGroupByPayload<T extends CategorieGroupByArgs> = Prisma.PrismaPromise<
+  type GetCategoryGroupByPayload<T extends CategoryGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<CategorieGroupByOutputType, T['by']> &
+      PickEnumerable<CategoryGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof CategorieGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof CategoryGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], CategorieGroupByOutputType[P]>
-            : GetScalarType<T[P], CategorieGroupByOutputType[P]>
+              : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoryGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type CategorieSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     name?: boolean
-    projects?: boolean | Categorie$projectsArgs<ExtArgs>
-    _count?: boolean | CategorieCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["categorie"]>
+    slug?: boolean
+    projects?: boolean | Category$projectsArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["category"]>
 
-  export type CategorieSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     name?: boolean
-  }, ExtArgs["result"]["categorie"]>
+    slug?: boolean
+  }, ExtArgs["result"]["category"]>
 
-  export type CategorieSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type CategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     name?: boolean
-  }, ExtArgs["result"]["categorie"]>
+    slug?: boolean
+  }, ExtArgs["result"]["category"]>
 
-  export type CategorieSelectScalar = {
+  export type CategorySelectScalar = {
     id?: boolean
     createdAt?: boolean
     name?: boolean
+    slug?: boolean
   }
 
-  export type CategorieOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "name", ExtArgs["result"]["categorie"]>
-  export type CategorieInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    projects?: boolean | Categorie$projectsArgs<ExtArgs>
-    _count?: boolean | CategorieCountOutputTypeDefaultArgs<ExtArgs>
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "name" | "slug", ExtArgs["result"]["category"]>
+  export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projects?: boolean | Category$projectsArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CategorieIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type CategorieIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
-  export type $CategoriePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Categorie"
+  export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Category"
     objects: {
       projects: Prisma.$ProjectPayload<ExtArgs>[]
     }
@@ -11192,136 +11184,137 @@ export namespace Prisma {
       id: string
       createdAt: Date
       name: string
-    }, ExtArgs["result"]["categorie"]>
+      slug: string
+    }, ExtArgs["result"]["category"]>
     composites: {}
   }
 
-  type CategorieGetPayload<S extends boolean | null | undefined | CategorieDefaultArgs> = $Result.GetResult<Prisma.$CategoriePayload, S>
+  type CategoryGetPayload<S extends boolean | null | undefined | CategoryDefaultArgs> = $Result.GetResult<Prisma.$CategoryPayload, S>
 
-  type CategorieCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CategorieFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CategorieCountAggregateInputType | true
+  type CategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CategoryCountAggregateInputType | true
     }
 
-  export interface CategorieDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Categorie'], meta: { name: 'Categorie' } }
+  export interface CategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Category'], meta: { name: 'Category' } }
     /**
-     * Find zero or one Categorie that matches the filter.
-     * @param {CategorieFindUniqueArgs} args - Arguments to find a Categorie
+     * Find zero or one Category that matches the filter.
+     * @param {CategoryFindUniqueArgs} args - Arguments to find a Category
      * @example
-     * // Get one Categorie
-     * const categorie = await prisma.categorie.findUnique({
+     * // Get one Category
+     * const category = await prisma.category.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends CategorieFindUniqueArgs>(args: SelectSubset<T, CategorieFindUniqueArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends CategoryFindUniqueArgs>(args: SelectSubset<T, CategoryFindUniqueArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Categorie that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Category that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {CategorieFindUniqueOrThrowArgs} args - Arguments to find a Categorie
+     * @param {CategoryFindUniqueOrThrowArgs} args - Arguments to find a Category
      * @example
-     * // Get one Categorie
-     * const categorie = await prisma.categorie.findUniqueOrThrow({
+     * // Get one Category
+     * const category = await prisma.category.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends CategorieFindUniqueOrThrowArgs>(args: SelectSubset<T, CategorieFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends CategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, CategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Categorie that matches the filter.
+     * Find the first Category that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieFindFirstArgs} args - Arguments to find a Categorie
+     * @param {CategoryFindFirstArgs} args - Arguments to find a Category
      * @example
-     * // Get one Categorie
-     * const categorie = await prisma.categorie.findFirst({
+     * // Get one Category
+     * const category = await prisma.category.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends CategorieFindFirstArgs>(args?: SelectSubset<T, CategorieFindFirstArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends CategoryFindFirstArgs>(args?: SelectSubset<T, CategoryFindFirstArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Categorie that matches the filter or
+     * Find the first Category that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieFindFirstOrThrowArgs} args - Arguments to find a Categorie
+     * @param {CategoryFindFirstOrThrowArgs} args - Arguments to find a Category
      * @example
-     * // Get one Categorie
-     * const categorie = await prisma.categorie.findFirstOrThrow({
+     * // Get one Category
+     * const category = await prisma.category.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends CategorieFindFirstOrThrowArgs>(args?: SelectSubset<T, CategorieFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends CategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, CategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Categories that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {CategoryFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Categories
-     * const categories = await prisma.categorie.findMany()
+     * const categories = await prisma.category.findMany()
      * 
      * // Get first 10 Categories
-     * const categories = await prisma.categorie.findMany({ take: 10 })
+     * const categories = await prisma.category.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const categorieWithIdOnly = await prisma.categorie.findMany({ select: { id: true } })
+     * const categoryWithIdOnly = await prisma.category.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends CategorieFindManyArgs>(args?: SelectSubset<T, CategorieFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends CategoryFindManyArgs>(args?: SelectSubset<T, CategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Categorie.
-     * @param {CategorieCreateArgs} args - Arguments to create a Categorie.
+     * Create a Category.
+     * @param {CategoryCreateArgs} args - Arguments to create a Category.
      * @example
-     * // Create one Categorie
-     * const Categorie = await prisma.categorie.create({
+     * // Create one Category
+     * const Category = await prisma.category.create({
      *   data: {
-     *     // ... data to create a Categorie
+     *     // ... data to create a Category
      *   }
      * })
      * 
      */
-    create<T extends CategorieCreateArgs>(args: SelectSubset<T, CategorieCreateArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends CategoryCreateArgs>(args: SelectSubset<T, CategoryCreateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Categories.
-     * @param {CategorieCreateManyArgs} args - Arguments to create many Categories.
+     * @param {CategoryCreateManyArgs} args - Arguments to create many Categories.
      * @example
      * // Create many Categories
-     * const categorie = await prisma.categorie.createMany({
+     * const category = await prisma.category.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends CategorieCreateManyArgs>(args?: SelectSubset<T, CategorieCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends CategoryCreateManyArgs>(args?: SelectSubset<T, CategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create many Categories and returns the data saved in the database.
-     * @param {CategorieCreateManyAndReturnArgs} args - Arguments to create many Categories.
+     * @param {CategoryCreateManyAndReturnArgs} args - Arguments to create many Categories.
      * @example
      * // Create many Categories
-     * const categorie = await prisma.categorie.createManyAndReturn({
+     * const category = await prisma.category.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
      * // Create many Categories and only return the `id`
-     * const categorieWithIdOnly = await prisma.categorie.createManyAndReturn({
+     * const categoryWithIdOnly = await prisma.category.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -11331,28 +11324,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends CategorieCreateManyAndReturnArgs>(args?: SelectSubset<T, CategorieCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends CategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, CategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Categorie.
-     * @param {CategorieDeleteArgs} args - Arguments to delete one Categorie.
+     * Delete a Category.
+     * @param {CategoryDeleteArgs} args - Arguments to delete one Category.
      * @example
-     * // Delete one Categorie
-     * const Categorie = await prisma.categorie.delete({
+     * // Delete one Category
+     * const Category = await prisma.category.delete({
      *   where: {
-     *     // ... filter to delete one Categorie
+     *     // ... filter to delete one Category
      *   }
      * })
      * 
      */
-    delete<T extends CategorieDeleteArgs>(args: SelectSubset<T, CategorieDeleteArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends CategoryDeleteArgs>(args: SelectSubset<T, CategoryDeleteArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Categorie.
-     * @param {CategorieUpdateArgs} args - Arguments to update one Categorie.
+     * Update one Category.
+     * @param {CategoryUpdateArgs} args - Arguments to update one Category.
      * @example
-     * // Update one Categorie
-     * const categorie = await prisma.categorie.update({
+     * // Update one Category
+     * const category = await prisma.category.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11362,30 +11355,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends CategorieUpdateArgs>(args: SelectSubset<T, CategorieUpdateArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends CategoryUpdateArgs>(args: SelectSubset<T, CategoryUpdateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Categories.
-     * @param {CategorieDeleteManyArgs} args - Arguments to filter Categories to delete.
+     * @param {CategoryDeleteManyArgs} args - Arguments to filter Categories to delete.
      * @example
      * // Delete a few Categories
-     * const { count } = await prisma.categorie.deleteMany({
+     * const { count } = await prisma.category.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends CategorieDeleteManyArgs>(args?: SelectSubset<T, CategorieDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends CategoryDeleteManyArgs>(args?: SelectSubset<T, CategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Categories.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {CategoryUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
      * // Update many Categories
-     * const categorie = await prisma.categorie.updateMany({
+     * const category = await prisma.category.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11395,14 +11388,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends CategorieUpdateManyArgs>(args: SelectSubset<T, CategorieUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends CategoryUpdateManyArgs>(args: SelectSubset<T, CategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Categories and returns the data updated in the database.
-     * @param {CategorieUpdateManyAndReturnArgs} args - Arguments to update many Categories.
+     * @param {CategoryUpdateManyAndReturnArgs} args - Arguments to update many Categories.
      * @example
      * // Update many Categories
-     * const categorie = await prisma.categorie.updateManyAndReturn({
+     * const category = await prisma.category.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11412,7 +11405,7 @@ export namespace Prisma {
      * })
      * 
      * // Update zero or more Categories and only return the `id`
-     * const categorieWithIdOnly = await prisma.categorie.updateManyAndReturn({
+     * const categoryWithIdOnly = await prisma.category.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -11425,56 +11418,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends CategorieUpdateManyAndReturnArgs>(args: SelectSubset<T, CategorieUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends CategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, CategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Categorie.
-     * @param {CategorieUpsertArgs} args - Arguments to update or create a Categorie.
+     * Create or update one Category.
+     * @param {CategoryUpsertArgs} args - Arguments to update or create a Category.
      * @example
-     * // Update or create a Categorie
-     * const categorie = await prisma.categorie.upsert({
+     * // Update or create a Category
+     * const category = await prisma.category.upsert({
      *   create: {
-     *     // ... data to create a Categorie
+     *     // ... data to create a Category
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Categorie we want to update
+     *     // ... the filter for the Category we want to update
      *   }
      * })
      */
-    upsert<T extends CategorieUpsertArgs>(args: SelectSubset<T, CategorieUpsertArgs<ExtArgs>>): Prisma__CategorieClient<$Result.GetResult<Prisma.$CategoriePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends CategoryUpsertArgs>(args: SelectSubset<T, CategoryUpsertArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
      * Count the number of Categories.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieCountArgs} args - Arguments to filter Categories to count.
+     * @param {CategoryCountArgs} args - Arguments to filter Categories to count.
      * @example
      * // Count the number of Categories
-     * const count = await prisma.categorie.count({
+     * const count = await prisma.category.count({
      *   where: {
      *     // ... the filter for the Categories we want to count
      *   }
      * })
     **/
-    count<T extends CategorieCountArgs>(
-      args?: Subset<T, CategorieCountArgs>,
+    count<T extends CategoryCountArgs>(
+      args?: Subset<T, CategoryCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], CategorieCountAggregateOutputType>
+          : GetScalarType<T['select'], CategoryCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Categorie.
+     * Allows you to perform aggregations operations on a Category.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {CategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -11494,13 +11487,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends CategorieAggregateArgs>(args: Subset<T, CategorieAggregateArgs>): Prisma.PrismaPromise<GetCategorieAggregateType<T>>
+    aggregate<T extends CategoryAggregateArgs>(args: Subset<T, CategoryAggregateArgs>): Prisma.PrismaPromise<GetCategoryAggregateType<T>>
 
     /**
-     * Group by Categorie.
+     * Group by Category.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {CategorieGroupByArgs} args - Group by arguments.
+     * @param {CategoryGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -11515,14 +11508,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends CategorieGroupByArgs,
+      T extends CategoryGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CategorieGroupByArgs['orderBy'] }
-        : { orderBy?: CategorieGroupByArgs['orderBy'] },
+        ? { orderBy: CategoryGroupByArgs['orderBy'] }
+        : { orderBy?: CategoryGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -11571,22 +11564,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, CategorieGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategorieGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, CategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Categorie model
+   * Fields of the Category model
    */
-  readonly fields: CategorieFieldRefs;
+  readonly fields: CategoryFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Categorie.
+   * The delegate class that acts as a "Promise-like" for Category.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__CategorieClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    projects<T extends Categorie$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Categorie$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    projects<T extends Category$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Category$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11613,92 +11606,93 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Categorie model
+   * Fields of the Category model
    */
-  interface CategorieFieldRefs {
-    readonly id: FieldRef<"Categorie", 'String'>
-    readonly createdAt: FieldRef<"Categorie", 'DateTime'>
-    readonly name: FieldRef<"Categorie", 'String'>
+  interface CategoryFieldRefs {
+    readonly id: FieldRef<"Category", 'String'>
+    readonly createdAt: FieldRef<"Category", 'DateTime'>
+    readonly name: FieldRef<"Category", 'String'>
+    readonly slug: FieldRef<"Category", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * Categorie findUnique
+   * Category findUnique
    */
-  export type CategorieFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * Filter, which Categorie to fetch.
+     * Filter, which Category to fetch.
      */
-    where: CategorieWhereUniqueInput
+    where: CategoryWhereUniqueInput
   }
 
   /**
-   * Categorie findUniqueOrThrow
+   * Category findUniqueOrThrow
    */
-  export type CategorieFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * Filter, which Categorie to fetch.
+     * Filter, which Category to fetch.
      */
-    where: CategorieWhereUniqueInput
+    where: CategoryWhereUniqueInput
   }
 
   /**
-   * Categorie findFirst
+   * Category findFirst
    */
-  export type CategorieFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * Filter, which Categorie to fetch.
+     * Filter, which Category to fetch.
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Categories to fetch.
      */
-    orderBy?: CategorieOrderByWithRelationInput | CategorieOrderByWithRelationInput[]
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for searching for Categories.
      */
-    cursor?: CategorieWhereUniqueInput
+    cursor?: CategoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -11716,41 +11710,41 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Categories.
      */
-    distinct?: CategorieScalarFieldEnum | CategorieScalarFieldEnum[]
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
   }
 
   /**
-   * Categorie findFirstOrThrow
+   * Category findFirstOrThrow
    */
-  export type CategorieFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * Filter, which Categorie to fetch.
+     * Filter, which Category to fetch.
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Categories to fetch.
      */
-    orderBy?: CategorieOrderByWithRelationInput | CategorieOrderByWithRelationInput[]
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for searching for Categories.
      */
-    cursor?: CategorieWhereUniqueInput
+    cursor?: CategoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -11768,41 +11762,41 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Categories.
      */
-    distinct?: CategorieScalarFieldEnum | CategorieScalarFieldEnum[]
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
   }
 
   /**
-   * Categorie findMany
+   * Category findMany
    */
-  export type CategorieFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
      * Filter, which Categories to fetch.
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Categories to fetch.
      */
-    orderBy?: CategorieOrderByWithRelationInput | CategorieOrderByWithRelationInput[]
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for listing Categories.
      */
-    cursor?: CategorieWhereUniqueInput
+    cursor?: CategoryWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -11815,99 +11809,99 @@ export namespace Prisma {
      * Skip the first `n` Categories.
      */
     skip?: number
-    distinct?: CategorieScalarFieldEnum | CategorieScalarFieldEnum[]
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
   }
 
   /**
-   * Categorie create
+   * Category create
    */
-  export type CategorieCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * The data needed to create a Categorie.
+     * The data needed to create a Category.
      */
-    data: XOR<CategorieCreateInput, CategorieUncheckedCreateInput>
+    data: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
   }
 
   /**
-   * Categorie createMany
+   * Category createMany
    */
-  export type CategorieCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Categories.
      */
-    data: CategorieCreateManyInput | CategorieCreateManyInput[]
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Categorie createManyAndReturn
+   * Category createManyAndReturn
    */
-  export type CategorieCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelectCreateManyAndReturn<ExtArgs> | null
+    select?: CategorySelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * The data used to create many Categories.
      */
-    data: CategorieCreateManyInput | CategorieCreateManyInput[]
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Categorie update
+   * Category update
    */
-  export type CategorieUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * The data needed to update a Categorie.
+     * The data needed to update a Category.
      */
-    data: XOR<CategorieUpdateInput, CategorieUncheckedUpdateInput>
+    data: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
     /**
-     * Choose, which Categorie to update.
+     * Choose, which Category to update.
      */
-    where: CategorieWhereUniqueInput
+    where: CategoryWhereUniqueInput
   }
 
   /**
-   * Categorie updateMany
+   * Category updateMany
    */
-  export type CategorieUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Categories.
      */
-    data: XOR<CategorieUpdateManyMutationInput, CategorieUncheckedUpdateManyInput>
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
     /**
      * Filter which Categories to update
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * Limit how many Categories to update.
      */
@@ -11915,25 +11909,25 @@ export namespace Prisma {
   }
 
   /**
-   * Categorie updateManyAndReturn
+   * Category updateManyAndReturn
    */
-  export type CategorieUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: CategorySelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * The data used to update Categories.
      */
-    data: XOR<CategorieUpdateManyMutationInput, CategorieUncheckedUpdateManyInput>
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
     /**
      * Filter which Categories to update
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * Limit how many Categories to update.
      */
@@ -11941,65 +11935,65 @@ export namespace Prisma {
   }
 
   /**
-   * Categorie upsert
+   * Category upsert
    */
-  export type CategorieUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * The filter to search for the Categorie to update in case it exists.
+     * The filter to search for the Category to update in case it exists.
      */
-    where: CategorieWhereUniqueInput
+    where: CategoryWhereUniqueInput
     /**
-     * In case the Categorie found by the `where` argument doesn't exist, create a new Categorie with this data.
+     * In case the Category found by the `where` argument doesn't exist, create a new Category with this data.
      */
-    create: XOR<CategorieCreateInput, CategorieUncheckedCreateInput>
+    create: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
     /**
-     * In case the Categorie was found with the provided `where` argument, update it with this data.
+     * In case the Category was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<CategorieUpdateInput, CategorieUncheckedUpdateInput>
+    update: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
   }
 
   /**
-   * Categorie delete
+   * Category delete
    */
-  export type CategorieDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
     /**
-     * Filter which Categorie to delete.
+     * Filter which Category to delete.
      */
-    where: CategorieWhereUniqueInput
+    where: CategoryWhereUniqueInput
   }
 
   /**
-   * Categorie deleteMany
+   * Category deleteMany
    */
-  export type CategorieDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Filter which Categories to delete
      */
-    where?: CategorieWhereInput
+    where?: CategoryWhereInput
     /**
      * Limit how many Categories to delete.
      */
@@ -12007,9 +12001,9 @@ export namespace Prisma {
   }
 
   /**
-   * Categorie.projects
+   * Category.projects
    */
-  export type Categorie$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Category$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Project
      */
@@ -12031,21 +12025,21 @@ export namespace Prisma {
   }
 
   /**
-   * Categorie without action
+   * Category without action
    */
-  export type CategorieDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Categorie
+     * Select specific fields to fetch from the Category
      */
-    select?: CategorieSelect<ExtArgs> | null
+    select?: CategorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Categorie
+     * Omit specific fields from the Category
      */
-    omit?: CategorieOmit<ExtArgs> | null
+    omit?: CategoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CategorieInclude<ExtArgs> | null
+    include?: CategoryInclude<ExtArgs> | null
   }
 
 
@@ -12061,18 +12055,21 @@ export namespace Prisma {
 
   export type TagMinAggregateOutputType = {
     id: string | null
+    slug: string | null
     createdAt: Date | null
     name: string | null
   }
 
   export type TagMaxAggregateOutputType = {
     id: string | null
+    slug: string | null
     createdAt: Date | null
     name: string | null
   }
 
   export type TagCountAggregateOutputType = {
     id: number
+    slug: number
     createdAt: number
     name: number
     _all: number
@@ -12081,18 +12078,21 @@ export namespace Prisma {
 
   export type TagMinAggregateInputType = {
     id?: true
+    slug?: true
     createdAt?: true
     name?: true
   }
 
   export type TagMaxAggregateInputType = {
     id?: true
+    slug?: true
     createdAt?: true
     name?: true
   }
 
   export type TagCountAggregateInputType = {
     id?: true
+    slug?: true
     createdAt?: true
     name?: true
     _all?: true
@@ -12172,6 +12172,7 @@ export namespace Prisma {
 
   export type TagGroupByOutputType = {
     id: string
+    slug: string
     createdAt: Date
     name: string
     _count: TagCountAggregateOutputType | null
@@ -12195,6 +12196,7 @@ export namespace Prisma {
 
   export type TagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     createdAt?: boolean
     name?: boolean
     projects?: boolean | Tag$projectsArgs<ExtArgs>
@@ -12203,23 +12205,26 @@ export namespace Prisma {
 
   export type TagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     createdAt?: boolean
     name?: boolean
   }, ExtArgs["result"]["tag"]>
 
   export type TagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    slug?: boolean
     createdAt?: boolean
     name?: boolean
   }, ExtArgs["result"]["tag"]>
 
   export type TagSelectScalar = {
     id?: boolean
+    slug?: boolean
     createdAt?: boolean
     name?: boolean
   }
 
-  export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "name", ExtArgs["result"]["tag"]>
+  export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "createdAt" | "name", ExtArgs["result"]["tag"]>
   export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projects?: boolean | Tag$projectsArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
@@ -12234,6 +12239,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      slug: string
       createdAt: Date
       name: string
     }, ExtArgs["result"]["tag"]>
@@ -12661,6 +12667,7 @@ export namespace Prisma {
    */
   interface TagFieldRefs {
     readonly id: FieldRef<"Tag", 'String'>
+    readonly slug: FieldRef<"Tag", 'String'>
     readonly createdAt: FieldRef<"Tag", 'DateTime'>
     readonly name: FieldRef<"Tag", 'String'>
   }
@@ -14257,17 +14264,19 @@ export namespace Prisma {
   export type ContributorScalarFieldEnum = (typeof ContributorScalarFieldEnum)[keyof typeof ContributorScalarFieldEnum]
 
 
-  export const CategorieScalarFieldEnum: {
+  export const CategoryScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
-    name: 'name'
+    name: 'name',
+    slug: 'slug'
   };
 
-  export type CategorieScalarFieldEnum = (typeof CategorieScalarFieldEnum)[keyof typeof CategorieScalarFieldEnum]
+  export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
   export const TagScalarFieldEnum: {
     id: 'id',
+    slug: 'slug',
     createdAt: 'createdAt',
     name: 'name'
   };
@@ -14681,8 +14690,8 @@ export namespace Prisma {
     publisherId?: StringFilter<"Project"> | string
     ProjectRepo?: ProjectRepoListRelationFilter
     projectPreviewImages?: ProjectPreviewImageListRelationFilter
-    publishser?: XOR<PublisherNullableScalarRelationFilter, PublisherWhereInput> | null
-    categroies?: CategorieListRelationFilter
+    publisher?: XOR<PublisherScalarRelationFilter, PublisherWhereInput>
+    categories?: CategoryListRelationFilter
     tags?: TagListRelationFilter
     Likes?: LikesListRelationFilter
   }
@@ -14700,8 +14709,8 @@ export namespace Prisma {
     publisherId?: SortOrder
     ProjectRepo?: ProjectRepoOrderByRelationAggregateInput
     projectPreviewImages?: ProjectPreviewImageOrderByRelationAggregateInput
-    publishser?: PublisherOrderByWithRelationInput
-    categroies?: CategorieOrderByRelationAggregateInput
+    publisher?: PublisherOrderByWithRelationInput
+    categories?: CategoryOrderByRelationAggregateInput
     tags?: TagOrderByRelationAggregateInput
     Likes?: LikesOrderByRelationAggregateInput
   }
@@ -14722,8 +14731,8 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFilter<"Project"> | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoListRelationFilter
     projectPreviewImages?: ProjectPreviewImageListRelationFilter
-    publishser?: XOR<PublisherNullableScalarRelationFilter, PublisherWhereInput> | null
-    categroies?: CategorieListRelationFilter
+    publisher?: XOR<PublisherScalarRelationFilter, PublisherWhereInput>
+    categories?: CategoryListRelationFilter
     tags?: TagListRelationFilter
     Likes?: LikesListRelationFilter
   }, "id" | "slug" | "publisherId">
@@ -14923,49 +14932,54 @@ export namespace Prisma {
     projectRepoId?: StringNullableWithAggregatesFilter<"Contributor"> | string | null
   }
 
-  export type CategorieWhereInput = {
-    AND?: CategorieWhereInput | CategorieWhereInput[]
-    OR?: CategorieWhereInput[]
-    NOT?: CategorieWhereInput | CategorieWhereInput[]
-    id?: StringFilter<"Categorie"> | string
-    createdAt?: DateTimeFilter<"Categorie"> | Date | string
-    name?: StringFilter<"Categorie"> | string
+  export type CategoryWhereInput = {
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    id?: StringFilter<"Category"> | string
+    createdAt?: DateTimeFilter<"Category"> | Date | string
+    name?: StringFilter<"Category"> | string
+    slug?: StringFilter<"Category"> | string
     projects?: ProjectListRelationFilter
   }
 
-  export type CategorieOrderByWithRelationInput = {
+  export type CategoryOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
     projects?: ProjectOrderByRelationAggregateInput
   }
 
-  export type CategorieWhereUniqueInput = Prisma.AtLeast<{
+  export type CategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: CategorieWhereInput | CategorieWhereInput[]
-    OR?: CategorieWhereInput[]
-    NOT?: CategorieWhereInput | CategorieWhereInput[]
-    createdAt?: DateTimeFilter<"Categorie"> | Date | string
-    name?: StringFilter<"Categorie"> | string
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    createdAt?: DateTimeFilter<"Category"> | Date | string
+    name?: StringFilter<"Category"> | string
+    slug?: StringFilter<"Category"> | string
     projects?: ProjectListRelationFilter
   }, "id">
 
-  export type CategorieOrderByWithAggregationInput = {
+  export type CategoryOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
-    _count?: CategorieCountOrderByAggregateInput
-    _max?: CategorieMaxOrderByAggregateInput
-    _min?: CategorieMinOrderByAggregateInput
+    slug?: SortOrder
+    _count?: CategoryCountOrderByAggregateInput
+    _max?: CategoryMaxOrderByAggregateInput
+    _min?: CategoryMinOrderByAggregateInput
   }
 
-  export type CategorieScalarWhereWithAggregatesInput = {
-    AND?: CategorieScalarWhereWithAggregatesInput | CategorieScalarWhereWithAggregatesInput[]
-    OR?: CategorieScalarWhereWithAggregatesInput[]
-    NOT?: CategorieScalarWhereWithAggregatesInput | CategorieScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Categorie"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Categorie"> | Date | string
-    name?: StringWithAggregatesFilter<"Categorie"> | string
+  export type CategoryScalarWhereWithAggregatesInput = {
+    AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    OR?: CategoryScalarWhereWithAggregatesInput[]
+    NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Category"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
+    name?: StringWithAggregatesFilter<"Category"> | string
+    slug?: StringWithAggregatesFilter<"Category"> | string
   }
 
   export type TagWhereInput = {
@@ -14973,6 +14987,7 @@ export namespace Prisma {
     OR?: TagWhereInput[]
     NOT?: TagWhereInput | TagWhereInput[]
     id?: StringFilter<"Tag"> | string
+    slug?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
     name?: StringFilter<"Tag"> | string
     projects?: ProjectListRelationFilter
@@ -14980,6 +14995,7 @@ export namespace Prisma {
 
   export type TagOrderByWithRelationInput = {
     id?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
     projects?: ProjectOrderByRelationAggregateInput
@@ -14990,6 +15006,7 @@ export namespace Prisma {
     AND?: TagWhereInput | TagWhereInput[]
     OR?: TagWhereInput[]
     NOT?: TagWhereInput | TagWhereInput[]
+    slug?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
     name?: StringFilter<"Tag"> | string
     projects?: ProjectListRelationFilter
@@ -14997,6 +15014,7 @@ export namespace Prisma {
 
   export type TagOrderByWithAggregationInput = {
     id?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
     _count?: TagCountOrderByAggregateInput
@@ -15009,6 +15027,7 @@ export namespace Prisma {
     OR?: TagScalarWhereWithAggregatesInput[]
     NOT?: TagScalarWhereWithAggregatesInput | TagScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Tag"> | string
+    slug?: StringWithAggregatesFilter<"Tag"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Tag"> | Date | string
     name?: StringWithAggregatesFilter<"Tag"> | string
   }
@@ -15172,7 +15191,7 @@ export namespace Prisma {
     userId?: string | null
     group: GroupCreateNestedOneWithoutPublishersInput
     user?: UserCreateNestedOneWithoutPublisherInput
-    project?: ProjectCreateNestedOneWithoutPublishserInput
+    project?: ProjectCreateNestedOneWithoutPublisherInput
   }
 
   export type PublisherUncheckedCreateInput = {
@@ -15183,7 +15202,7 @@ export namespace Prisma {
     groupId: string
     userId?: string | null
     user?: UserUncheckedCreateNestedOneWithoutPublisherInput
-    project?: ProjectUncheckedCreateNestedOneWithoutPublishserInput
+    project?: ProjectUncheckedCreateNestedOneWithoutPublisherInput
   }
 
   export type PublisherUpdateInput = {
@@ -15194,7 +15213,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     group?: GroupUpdateOneRequiredWithoutPublishersNestedInput
     user?: UserUpdateOneWithoutPublisherNestedInput
-    project?: ProjectUpdateOneWithoutPublishserNestedInput
+    project?: ProjectUpdateOneWithoutPublisherNestedInput
   }
 
   export type PublisherUncheckedUpdateInput = {
@@ -15205,7 +15224,7 @@ export namespace Prisma {
     groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUncheckedUpdateOneWithoutPublisherNestedInput
-    project?: ProjectUncheckedUpdateOneWithoutPublishserNestedInput
+    project?: ProjectUncheckedUpdateOneWithoutPublisherNestedInput
   }
 
   export type PublisherCreateManyInput = {
@@ -15354,8 +15373,8 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageCreateNestedManyWithoutProjectInput
-    publishser?: PublisherCreateNestedOneWithoutProjectInput
-    categroies?: CategorieCreateNestedManyWithoutProjectsInput
+    publisher: PublisherCreateNestedOneWithoutProjectInput
+    categories?: CategoryCreateNestedManyWithoutProjectsInput
     tags?: TagCreateNestedManyWithoutProjectsInput
     Likes?: LikesCreateNestedManyWithoutProjectInput
   }
@@ -15373,7 +15392,7 @@ export namespace Prisma {
     publisherId: string
     ProjectRepo?: ProjectRepoUncheckedCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageUncheckedCreateNestedManyWithoutProjectInput
-    categroies?: CategorieUncheckedCreateNestedManyWithoutProjectsInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutProjectsInput
     tags?: TagUncheckedCreateNestedManyWithoutProjectsInput
     Likes?: LikesUncheckedCreateNestedManyWithoutProjectInput
   }
@@ -15390,8 +15409,8 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUpdateManyWithoutProjectNestedInput
-    publishser?: PublisherUpdateOneWithoutProjectNestedInput
-    categroies?: CategorieUpdateManyWithoutProjectsNestedInput
+    publisher?: PublisherUpdateOneRequiredWithoutProjectNestedInput
+    categories?: CategoryUpdateManyWithoutProjectsNestedInput
     tags?: TagUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUpdateManyWithoutProjectNestedInput
   }
@@ -15409,7 +15428,7 @@ export namespace Prisma {
     publisherId?: StringFieldUpdateOperationsInput | string
     ProjectRepo?: ProjectRepoUncheckedUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUncheckedUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUncheckedUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutProjectsNestedInput
     tags?: TagUncheckedUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUncheckedUpdateManyWithoutProjectNestedInput
   }
@@ -15614,54 +15633,62 @@ export namespace Prisma {
     projectRepoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type CategorieCreateInput = {
+  export type CategoryCreateInput = {
     id?: string
     createdAt?: Date | string
     name: string
-    projects?: ProjectCreateNestedManyWithoutCategroiesInput
+    slug: string
+    projects?: ProjectCreateNestedManyWithoutCategoriesInput
   }
 
-  export type CategorieUncheckedCreateInput = {
+  export type CategoryUncheckedCreateInput = {
     id?: string
     createdAt?: Date | string
     name: string
-    projects?: ProjectUncheckedCreateNestedManyWithoutCategroiesInput
+    slug: string
+    projects?: ProjectUncheckedCreateNestedManyWithoutCategoriesInput
   }
 
-  export type CategorieUpdateInput = {
+  export type CategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
-    projects?: ProjectUpdateManyWithoutCategroiesNestedInput
+    slug?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUpdateManyWithoutCategoriesNestedInput
   }
 
-  export type CategorieUncheckedUpdateInput = {
+  export type CategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
-    projects?: ProjectUncheckedUpdateManyWithoutCategroiesNestedInput
+    slug?: StringFieldUpdateOperationsInput | string
+    projects?: ProjectUncheckedUpdateManyWithoutCategoriesNestedInput
   }
 
-  export type CategorieCreateManyInput = {
+  export type CategoryCreateManyInput = {
     id?: string
     createdAt?: Date | string
     name: string
+    slug: string
   }
 
-  export type CategorieUpdateManyMutationInput = {
+  export type CategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
-  export type CategorieUncheckedUpdateManyInput = {
+  export type CategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type TagCreateInput = {
     id?: string
+    slug: string
     createdAt?: Date | string
     name: string
     projects?: ProjectCreateNestedManyWithoutTagsInput
@@ -15669,6 +15696,7 @@ export namespace Prisma {
 
   export type TagUncheckedCreateInput = {
     id?: string
+    slug: string
     createdAt?: Date | string
     name: string
     projects?: ProjectUncheckedCreateNestedManyWithoutTagsInput
@@ -15676,6 +15704,7 @@ export namespace Prisma {
 
   export type TagUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUpdateManyWithoutTagsNestedInput
@@ -15683,6 +15712,7 @@ export namespace Prisma {
 
   export type TagUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
     projects?: ProjectUncheckedUpdateManyWithoutTagsNestedInput
@@ -15690,18 +15720,21 @@ export namespace Prisma {
 
   export type TagCreateManyInput = {
     id?: string
+    slug: string
     createdAt?: Date | string
     name: string
   }
 
   export type TagUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type TagUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
   }
@@ -16054,10 +16087,15 @@ export namespace Prisma {
     none?: ProjectPreviewImageWhereInput
   }
 
-  export type CategorieListRelationFilter = {
-    every?: CategorieWhereInput
-    some?: CategorieWhereInput
-    none?: CategorieWhereInput
+  export type PublisherScalarRelationFilter = {
+    is?: PublisherWhereInput
+    isNot?: PublisherWhereInput
+  }
+
+  export type CategoryListRelationFilter = {
+    every?: CategoryWhereInput
+    some?: CategoryWhereInput
+    none?: CategoryWhereInput
   }
 
   export type TagListRelationFilter = {
@@ -16074,7 +16112,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type CategorieOrderByRelationAggregateInput = {
+  export type CategoryOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16257,38 +16295,44 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type CategorieCountOrderByAggregateInput = {
+  export type CategoryCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
   }
 
-  export type CategorieMaxOrderByAggregateInput = {
+  export type CategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
   }
 
-  export type CategorieMinOrderByAggregateInput = {
+  export type CategoryMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
+    slug?: SortOrder
   }
 
   export type TagCountOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
   }
 
   export type TagMaxOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
   }
 
   export type TagMinOrderByAggregateInput = {
     id?: SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
     name?: SortOrder
   }
@@ -16437,9 +16481,9 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ProjectCreateNestedOneWithoutPublishserInput = {
-    create?: XOR<ProjectCreateWithoutPublishserInput, ProjectUncheckedCreateWithoutPublishserInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutPublishserInput
+  export type ProjectCreateNestedOneWithoutPublisherInput = {
+    create?: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutPublisherInput
     connect?: ProjectWhereUniqueInput
   }
 
@@ -16449,9 +16493,9 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ProjectUncheckedCreateNestedOneWithoutPublishserInput = {
-    create?: XOR<ProjectCreateWithoutPublishserInput, ProjectUncheckedCreateWithoutPublishserInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutPublishserInput
+  export type ProjectUncheckedCreateNestedOneWithoutPublisherInput = {
+    create?: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutPublisherInput
     connect?: ProjectWhereUniqueInput
   }
 
@@ -16481,14 +16525,14 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPublisherInput, UserUpdateWithoutPublisherInput>, UserUncheckedUpdateWithoutPublisherInput>
   }
 
-  export type ProjectUpdateOneWithoutPublishserNestedInput = {
-    create?: XOR<ProjectCreateWithoutPublishserInput, ProjectUncheckedCreateWithoutPublishserInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutPublishserInput
-    upsert?: ProjectUpsertWithoutPublishserInput
+  export type ProjectUpdateOneWithoutPublisherNestedInput = {
+    create?: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutPublisherInput
+    upsert?: ProjectUpsertWithoutPublisherInput
     disconnect?: ProjectWhereInput | boolean
     delete?: ProjectWhereInput | boolean
     connect?: ProjectWhereUniqueInput
-    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutPublishserInput, ProjectUpdateWithoutPublishserInput>, ProjectUncheckedUpdateWithoutPublishserInput>
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutPublisherInput, ProjectUpdateWithoutPublisherInput>, ProjectUncheckedUpdateWithoutPublisherInput>
   }
 
   export type UserUncheckedUpdateOneWithoutPublisherNestedInput = {
@@ -16501,14 +16545,14 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPublisherInput, UserUpdateWithoutPublisherInput>, UserUncheckedUpdateWithoutPublisherInput>
   }
 
-  export type ProjectUncheckedUpdateOneWithoutPublishserNestedInput = {
-    create?: XOR<ProjectCreateWithoutPublishserInput, ProjectUncheckedCreateWithoutPublishserInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutPublishserInput
-    upsert?: ProjectUpsertWithoutPublishserInput
+  export type ProjectUncheckedUpdateOneWithoutPublisherNestedInput = {
+    create?: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutPublisherInput
+    upsert?: ProjectUpsertWithoutPublisherInput
     disconnect?: ProjectWhereInput | boolean
     delete?: ProjectWhereInput | boolean
     connect?: ProjectWhereUniqueInput
-    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutPublishserInput, ProjectUpdateWithoutPublishserInput>, ProjectUncheckedUpdateWithoutPublishserInput>
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutPublisherInput, ProjectUpdateWithoutPublisherInput>, ProjectUncheckedUpdateWithoutPublisherInput>
   }
 
   export type PublisherCreateNestedOneWithoutUserInput = {
@@ -16589,10 +16633,10 @@ export namespace Prisma {
     connect?: PublisherWhereUniqueInput
   }
 
-  export type CategorieCreateNestedManyWithoutProjectsInput = {
-    create?: XOR<CategorieCreateWithoutProjectsInput, CategorieUncheckedCreateWithoutProjectsInput> | CategorieCreateWithoutProjectsInput[] | CategorieUncheckedCreateWithoutProjectsInput[]
-    connectOrCreate?: CategorieCreateOrConnectWithoutProjectsInput | CategorieCreateOrConnectWithoutProjectsInput[]
-    connect?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
+  export type CategoryCreateNestedManyWithoutProjectsInput = {
+    create?: XOR<CategoryCreateWithoutProjectsInput, CategoryUncheckedCreateWithoutProjectsInput> | CategoryCreateWithoutProjectsInput[] | CategoryUncheckedCreateWithoutProjectsInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutProjectsInput | CategoryCreateOrConnectWithoutProjectsInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
   }
 
   export type TagCreateNestedManyWithoutProjectsInput = {
@@ -16622,10 +16666,10 @@ export namespace Prisma {
     connect?: ProjectPreviewImageWhereUniqueInput | ProjectPreviewImageWhereUniqueInput[]
   }
 
-  export type CategorieUncheckedCreateNestedManyWithoutProjectsInput = {
-    create?: XOR<CategorieCreateWithoutProjectsInput, CategorieUncheckedCreateWithoutProjectsInput> | CategorieCreateWithoutProjectsInput[] | CategorieUncheckedCreateWithoutProjectsInput[]
-    connectOrCreate?: CategorieCreateOrConnectWithoutProjectsInput | CategorieCreateOrConnectWithoutProjectsInput[]
-    connect?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
+  export type CategoryUncheckedCreateNestedManyWithoutProjectsInput = {
+    create?: XOR<CategoryCreateWithoutProjectsInput, CategoryUncheckedCreateWithoutProjectsInput> | CategoryCreateWithoutProjectsInput[] | CategoryUncheckedCreateWithoutProjectsInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutProjectsInput | CategoryCreateOrConnectWithoutProjectsInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
   }
 
   export type TagUncheckedCreateNestedManyWithoutProjectsInput = {
@@ -16677,27 +16721,25 @@ export namespace Prisma {
     deleteMany?: ProjectPreviewImageScalarWhereInput | ProjectPreviewImageScalarWhereInput[]
   }
 
-  export type PublisherUpdateOneWithoutProjectNestedInput = {
+  export type PublisherUpdateOneRequiredWithoutProjectNestedInput = {
     create?: XOR<PublisherCreateWithoutProjectInput, PublisherUncheckedCreateWithoutProjectInput>
     connectOrCreate?: PublisherCreateOrConnectWithoutProjectInput
     upsert?: PublisherUpsertWithoutProjectInput
-    disconnect?: PublisherWhereInput | boolean
-    delete?: PublisherWhereInput | boolean
     connect?: PublisherWhereUniqueInput
     update?: XOR<XOR<PublisherUpdateToOneWithWhereWithoutProjectInput, PublisherUpdateWithoutProjectInput>, PublisherUncheckedUpdateWithoutProjectInput>
   }
 
-  export type CategorieUpdateManyWithoutProjectsNestedInput = {
-    create?: XOR<CategorieCreateWithoutProjectsInput, CategorieUncheckedCreateWithoutProjectsInput> | CategorieCreateWithoutProjectsInput[] | CategorieUncheckedCreateWithoutProjectsInput[]
-    connectOrCreate?: CategorieCreateOrConnectWithoutProjectsInput | CategorieCreateOrConnectWithoutProjectsInput[]
-    upsert?: CategorieUpsertWithWhereUniqueWithoutProjectsInput | CategorieUpsertWithWhereUniqueWithoutProjectsInput[]
-    set?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    disconnect?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    delete?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    connect?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    update?: CategorieUpdateWithWhereUniqueWithoutProjectsInput | CategorieUpdateWithWhereUniqueWithoutProjectsInput[]
-    updateMany?: CategorieUpdateManyWithWhereWithoutProjectsInput | CategorieUpdateManyWithWhereWithoutProjectsInput[]
-    deleteMany?: CategorieScalarWhereInput | CategorieScalarWhereInput[]
+  export type CategoryUpdateManyWithoutProjectsNestedInput = {
+    create?: XOR<CategoryCreateWithoutProjectsInput, CategoryUncheckedCreateWithoutProjectsInput> | CategoryCreateWithoutProjectsInput[] | CategoryUncheckedCreateWithoutProjectsInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutProjectsInput | CategoryCreateOrConnectWithoutProjectsInput[]
+    upsert?: CategoryUpsertWithWhereUniqueWithoutProjectsInput | CategoryUpsertWithWhereUniqueWithoutProjectsInput[]
+    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    update?: CategoryUpdateWithWhereUniqueWithoutProjectsInput | CategoryUpdateWithWhereUniqueWithoutProjectsInput[]
+    updateMany?: CategoryUpdateManyWithWhereWithoutProjectsInput | CategoryUpdateManyWithWhereWithoutProjectsInput[]
+    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
   }
 
   export type TagUpdateManyWithoutProjectsNestedInput = {
@@ -16755,17 +16797,17 @@ export namespace Prisma {
     deleteMany?: ProjectPreviewImageScalarWhereInput | ProjectPreviewImageScalarWhereInput[]
   }
 
-  export type CategorieUncheckedUpdateManyWithoutProjectsNestedInput = {
-    create?: XOR<CategorieCreateWithoutProjectsInput, CategorieUncheckedCreateWithoutProjectsInput> | CategorieCreateWithoutProjectsInput[] | CategorieUncheckedCreateWithoutProjectsInput[]
-    connectOrCreate?: CategorieCreateOrConnectWithoutProjectsInput | CategorieCreateOrConnectWithoutProjectsInput[]
-    upsert?: CategorieUpsertWithWhereUniqueWithoutProjectsInput | CategorieUpsertWithWhereUniqueWithoutProjectsInput[]
-    set?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    disconnect?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    delete?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    connect?: CategorieWhereUniqueInput | CategorieWhereUniqueInput[]
-    update?: CategorieUpdateWithWhereUniqueWithoutProjectsInput | CategorieUpdateWithWhereUniqueWithoutProjectsInput[]
-    updateMany?: CategorieUpdateManyWithWhereWithoutProjectsInput | CategorieUpdateManyWithWhereWithoutProjectsInput[]
-    deleteMany?: CategorieScalarWhereInput | CategorieScalarWhereInput[]
+  export type CategoryUncheckedUpdateManyWithoutProjectsNestedInput = {
+    create?: XOR<CategoryCreateWithoutProjectsInput, CategoryUncheckedCreateWithoutProjectsInput> | CategoryCreateWithoutProjectsInput[] | CategoryUncheckedCreateWithoutProjectsInput[]
+    connectOrCreate?: CategoryCreateOrConnectWithoutProjectsInput | CategoryCreateOrConnectWithoutProjectsInput[]
+    upsert?: CategoryUpsertWithWhereUniqueWithoutProjectsInput | CategoryUpsertWithWhereUniqueWithoutProjectsInput[]
+    set?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    disconnect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    delete?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    connect?: CategoryWhereUniqueInput | CategoryWhereUniqueInput[]
+    update?: CategoryUpdateWithWhereUniqueWithoutProjectsInput | CategoryUpdateWithWhereUniqueWithoutProjectsInput[]
+    updateMany?: CategoryUpdateManyWithWhereWithoutProjectsInput | CategoryUpdateManyWithWhereWithoutProjectsInput[]
+    deleteMany?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
   }
 
   export type TagUncheckedUpdateManyWithoutProjectsNestedInput = {
@@ -16885,41 +16927,41 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectRepoUpdateToOneWithWhereWithoutContributorsInput, ProjectRepoUpdateWithoutContributorsInput>, ProjectRepoUncheckedUpdateWithoutContributorsInput>
   }
 
-  export type ProjectCreateNestedManyWithoutCategroiesInput = {
-    create?: XOR<ProjectCreateWithoutCategroiesInput, ProjectUncheckedCreateWithoutCategroiesInput> | ProjectCreateWithoutCategroiesInput[] | ProjectUncheckedCreateWithoutCategroiesInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutCategroiesInput | ProjectCreateOrConnectWithoutCategroiesInput[]
+  export type ProjectCreateNestedManyWithoutCategoriesInput = {
+    create?: XOR<ProjectCreateWithoutCategoriesInput, ProjectUncheckedCreateWithoutCategoriesInput> | ProjectCreateWithoutCategoriesInput[] | ProjectUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutCategoriesInput | ProjectCreateOrConnectWithoutCategoriesInput[]
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type ProjectUncheckedCreateNestedManyWithoutCategroiesInput = {
-    create?: XOR<ProjectCreateWithoutCategroiesInput, ProjectUncheckedCreateWithoutCategroiesInput> | ProjectCreateWithoutCategroiesInput[] | ProjectUncheckedCreateWithoutCategroiesInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutCategroiesInput | ProjectCreateOrConnectWithoutCategroiesInput[]
+  export type ProjectUncheckedCreateNestedManyWithoutCategoriesInput = {
+    create?: XOR<ProjectCreateWithoutCategoriesInput, ProjectUncheckedCreateWithoutCategoriesInput> | ProjectCreateWithoutCategoriesInput[] | ProjectUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutCategoriesInput | ProjectCreateOrConnectWithoutCategoriesInput[]
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type ProjectUpdateManyWithoutCategroiesNestedInput = {
-    create?: XOR<ProjectCreateWithoutCategroiesInput, ProjectUncheckedCreateWithoutCategroiesInput> | ProjectCreateWithoutCategroiesInput[] | ProjectUncheckedCreateWithoutCategroiesInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutCategroiesInput | ProjectCreateOrConnectWithoutCategroiesInput[]
-    upsert?: ProjectUpsertWithWhereUniqueWithoutCategroiesInput | ProjectUpsertWithWhereUniqueWithoutCategroiesInput[]
+  export type ProjectUpdateManyWithoutCategoriesNestedInput = {
+    create?: XOR<ProjectCreateWithoutCategoriesInput, ProjectUncheckedCreateWithoutCategoriesInput> | ProjectCreateWithoutCategoriesInput[] | ProjectUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutCategoriesInput | ProjectCreateOrConnectWithoutCategoriesInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutCategoriesInput | ProjectUpsertWithWhereUniqueWithoutCategoriesInput[]
     set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    update?: ProjectUpdateWithWhereUniqueWithoutCategroiesInput | ProjectUpdateWithWhereUniqueWithoutCategroiesInput[]
-    updateMany?: ProjectUpdateManyWithWhereWithoutCategroiesInput | ProjectUpdateManyWithWhereWithoutCategroiesInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutCategoriesInput | ProjectUpdateWithWhereUniqueWithoutCategoriesInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutCategoriesInput | ProjectUpdateManyWithWhereWithoutCategoriesInput[]
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
-  export type ProjectUncheckedUpdateManyWithoutCategroiesNestedInput = {
-    create?: XOR<ProjectCreateWithoutCategroiesInput, ProjectUncheckedCreateWithoutCategroiesInput> | ProjectCreateWithoutCategroiesInput[] | ProjectUncheckedCreateWithoutCategroiesInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutCategroiesInput | ProjectCreateOrConnectWithoutCategroiesInput[]
-    upsert?: ProjectUpsertWithWhereUniqueWithoutCategroiesInput | ProjectUpsertWithWhereUniqueWithoutCategroiesInput[]
+  export type ProjectUncheckedUpdateManyWithoutCategoriesNestedInput = {
+    create?: XOR<ProjectCreateWithoutCategoriesInput, ProjectUncheckedCreateWithoutCategoriesInput> | ProjectCreateWithoutCategoriesInput[] | ProjectUncheckedCreateWithoutCategoriesInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutCategoriesInput | ProjectCreateOrConnectWithoutCategoriesInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutCategoriesInput | ProjectUpsertWithWhereUniqueWithoutCategoriesInput[]
     set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    update?: ProjectUpdateWithWhereUniqueWithoutCategroiesInput | ProjectUpdateWithWhereUniqueWithoutCategroiesInput[]
-    updateMany?: ProjectUpdateManyWithWhereWithoutCategroiesInput | ProjectUpdateManyWithWhereWithoutCategroiesInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutCategoriesInput | ProjectUpdateWithWhereUniqueWithoutCategoriesInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutCategoriesInput | ProjectUpdateManyWithWhereWithoutCategoriesInput[]
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
@@ -17216,7 +17258,7 @@ export namespace Prisma {
     canPublish?: boolean
     userId?: string | null
     user?: UserCreateNestedOneWithoutPublisherInput
-    project?: ProjectCreateNestedOneWithoutPublishserInput
+    project?: ProjectCreateNestedOneWithoutPublisherInput
   }
 
   export type PublisherUncheckedCreateWithoutGroupInput = {
@@ -17226,7 +17268,7 @@ export namespace Prisma {
     canPublish?: boolean
     userId?: string | null
     user?: UserUncheckedCreateNestedOneWithoutPublisherInput
-    project?: ProjectUncheckedCreateNestedOneWithoutPublishserInput
+    project?: ProjectUncheckedCreateNestedOneWithoutPublisherInput
   }
 
   export type PublisherCreateOrConnectWithoutGroupInput = {
@@ -17363,7 +17405,7 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutPublisherInput, UserUncheckedCreateWithoutPublisherInput>
   }
 
-  export type ProjectCreateWithoutPublishserInput = {
+  export type ProjectCreateWithoutPublisherInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17375,12 +17417,12 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageCreateNestedManyWithoutProjectInput
-    categroies?: CategorieCreateNestedManyWithoutProjectsInput
+    categories?: CategoryCreateNestedManyWithoutProjectsInput
     tags?: TagCreateNestedManyWithoutProjectsInput
     Likes?: LikesCreateNestedManyWithoutProjectInput
   }
 
-  export type ProjectUncheckedCreateWithoutPublishserInput = {
+  export type ProjectUncheckedCreateWithoutPublisherInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17392,14 +17434,14 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUncheckedCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageUncheckedCreateNestedManyWithoutProjectInput
-    categroies?: CategorieUncheckedCreateNestedManyWithoutProjectsInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutProjectsInput
     tags?: TagUncheckedCreateNestedManyWithoutProjectsInput
     Likes?: LikesUncheckedCreateNestedManyWithoutProjectInput
   }
 
-  export type ProjectCreateOrConnectWithoutPublishserInput = {
+  export type ProjectCreateOrConnectWithoutPublisherInput = {
     where: ProjectWhereUniqueInput
-    create: XOR<ProjectCreateWithoutPublishserInput, ProjectUncheckedCreateWithoutPublishserInput>
+    create: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput>
   }
 
   export type GroupUpsertWithoutPublishersInput = {
@@ -17466,18 +17508,18 @@ export namespace Prisma {
     Likes?: LikesUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ProjectUpsertWithoutPublishserInput = {
-    update: XOR<ProjectUpdateWithoutPublishserInput, ProjectUncheckedUpdateWithoutPublishserInput>
-    create: XOR<ProjectCreateWithoutPublishserInput, ProjectUncheckedCreateWithoutPublishserInput>
+  export type ProjectUpsertWithoutPublisherInput = {
+    update: XOR<ProjectUpdateWithoutPublisherInput, ProjectUncheckedUpdateWithoutPublisherInput>
+    create: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput>
     where?: ProjectWhereInput
   }
 
-  export type ProjectUpdateToOneWithWhereWithoutPublishserInput = {
+  export type ProjectUpdateToOneWithWhereWithoutPublisherInput = {
     where?: ProjectWhereInput
-    data: XOR<ProjectUpdateWithoutPublishserInput, ProjectUncheckedUpdateWithoutPublishserInput>
+    data: XOR<ProjectUpdateWithoutPublisherInput, ProjectUncheckedUpdateWithoutPublisherInput>
   }
 
-  export type ProjectUpdateWithoutPublishserInput = {
+  export type ProjectUpdateWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17489,12 +17531,12 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUpdateManyWithoutProjectsNestedInput
     tags?: TagUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUpdateManyWithoutProjectNestedInput
   }
 
-  export type ProjectUncheckedUpdateWithoutPublishserInput = {
+  export type ProjectUncheckedUpdateWithoutPublisherInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17506,7 +17548,7 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUncheckedUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUncheckedUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUncheckedUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutProjectsNestedInput
     tags?: TagUncheckedUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUncheckedUpdateManyWithoutProjectNestedInput
   }
@@ -17518,7 +17560,7 @@ export namespace Prisma {
     canPublish?: boolean
     userId?: string | null
     group: GroupCreateNestedOneWithoutPublishersInput
-    project?: ProjectCreateNestedOneWithoutPublishserInput
+    project?: ProjectCreateNestedOneWithoutPublisherInput
   }
 
   export type PublisherUncheckedCreateWithoutUserInput = {
@@ -17528,7 +17570,7 @@ export namespace Prisma {
     canPublish?: boolean
     groupId: string
     userId?: string | null
-    project?: ProjectUncheckedCreateNestedOneWithoutPublishserInput
+    project?: ProjectUncheckedCreateNestedOneWithoutPublisherInput
   }
 
   export type PublisherCreateOrConnectWithoutUserInput = {
@@ -17576,7 +17618,7 @@ export namespace Prisma {
     canPublish?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     group?: GroupUpdateOneRequiredWithoutPublishersNestedInput
-    project?: ProjectUpdateOneWithoutPublishserNestedInput
+    project?: ProjectUpdateOneWithoutPublisherNestedInput
   }
 
   export type PublisherUncheckedUpdateWithoutUserInput = {
@@ -17586,7 +17628,7 @@ export namespace Prisma {
     canPublish?: BoolFieldUpdateOperationsInput | boolean
     groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    project?: ProjectUncheckedUpdateOneWithoutPublishserNestedInput
+    project?: ProjectUncheckedUpdateOneWithoutPublisherNestedInput
   }
 
   export type LikesUpsertWithWhereUniqueWithoutUserInput = {
@@ -17688,31 +17730,35 @@ export namespace Prisma {
     create: XOR<PublisherCreateWithoutProjectInput, PublisherUncheckedCreateWithoutProjectInput>
   }
 
-  export type CategorieCreateWithoutProjectsInput = {
+  export type CategoryCreateWithoutProjectsInput = {
     id?: string
     createdAt?: Date | string
     name: string
+    slug: string
   }
 
-  export type CategorieUncheckedCreateWithoutProjectsInput = {
+  export type CategoryUncheckedCreateWithoutProjectsInput = {
     id?: string
     createdAt?: Date | string
     name: string
+    slug: string
   }
 
-  export type CategorieCreateOrConnectWithoutProjectsInput = {
-    where: CategorieWhereUniqueInput
-    create: XOR<CategorieCreateWithoutProjectsInput, CategorieUncheckedCreateWithoutProjectsInput>
+  export type CategoryCreateOrConnectWithoutProjectsInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutProjectsInput, CategoryUncheckedCreateWithoutProjectsInput>
   }
 
   export type TagCreateWithoutProjectsInput = {
     id?: string
+    slug: string
     createdAt?: Date | string
     name: string
   }
 
   export type TagUncheckedCreateWithoutProjectsInput = {
     id?: string
+    slug: string
     createdAt?: Date | string
     name: string
   }
@@ -17828,29 +17874,30 @@ export namespace Prisma {
     user?: UserUncheckedUpdateOneWithoutPublisherNestedInput
   }
 
-  export type CategorieUpsertWithWhereUniqueWithoutProjectsInput = {
-    where: CategorieWhereUniqueInput
-    update: XOR<CategorieUpdateWithoutProjectsInput, CategorieUncheckedUpdateWithoutProjectsInput>
-    create: XOR<CategorieCreateWithoutProjectsInput, CategorieUncheckedCreateWithoutProjectsInput>
+  export type CategoryUpsertWithWhereUniqueWithoutProjectsInput = {
+    where: CategoryWhereUniqueInput
+    update: XOR<CategoryUpdateWithoutProjectsInput, CategoryUncheckedUpdateWithoutProjectsInput>
+    create: XOR<CategoryCreateWithoutProjectsInput, CategoryUncheckedCreateWithoutProjectsInput>
   }
 
-  export type CategorieUpdateWithWhereUniqueWithoutProjectsInput = {
-    where: CategorieWhereUniqueInput
-    data: XOR<CategorieUpdateWithoutProjectsInput, CategorieUncheckedUpdateWithoutProjectsInput>
+  export type CategoryUpdateWithWhereUniqueWithoutProjectsInput = {
+    where: CategoryWhereUniqueInput
+    data: XOR<CategoryUpdateWithoutProjectsInput, CategoryUncheckedUpdateWithoutProjectsInput>
   }
 
-  export type CategorieUpdateManyWithWhereWithoutProjectsInput = {
-    where: CategorieScalarWhereInput
-    data: XOR<CategorieUpdateManyMutationInput, CategorieUncheckedUpdateManyWithoutProjectsInput>
+  export type CategoryUpdateManyWithWhereWithoutProjectsInput = {
+    where: CategoryScalarWhereInput
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyWithoutProjectsInput>
   }
 
-  export type CategorieScalarWhereInput = {
-    AND?: CategorieScalarWhereInput | CategorieScalarWhereInput[]
-    OR?: CategorieScalarWhereInput[]
-    NOT?: CategorieScalarWhereInput | CategorieScalarWhereInput[]
-    id?: StringFilter<"Categorie"> | string
-    createdAt?: DateTimeFilter<"Categorie"> | Date | string
-    name?: StringFilter<"Categorie"> | string
+  export type CategoryScalarWhereInput = {
+    AND?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+    OR?: CategoryScalarWhereInput[]
+    NOT?: CategoryScalarWhereInput | CategoryScalarWhereInput[]
+    id?: StringFilter<"Category"> | string
+    createdAt?: DateTimeFilter<"Category"> | Date | string
+    name?: StringFilter<"Category"> | string
+    slug?: StringFilter<"Category"> | string
   }
 
   export type TagUpsertWithWhereUniqueWithoutProjectsInput = {
@@ -17874,6 +17921,7 @@ export namespace Prisma {
     OR?: TagScalarWhereInput[]
     NOT?: TagScalarWhereInput | TagScalarWhereInput[]
     id?: StringFilter<"Tag"> | string
+    slug?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
     name?: StringFilter<"Tag"> | string
   }
@@ -17905,8 +17953,8 @@ export namespace Prisma {
     thumbnailUrl: string
     collegeYear: $Enums.CollegeYears
     projectPreviewImages?: ProjectPreviewImageCreateNestedManyWithoutProjectInput
-    publishser?: PublisherCreateNestedOneWithoutProjectInput
-    categroies?: CategorieCreateNestedManyWithoutProjectsInput
+    publisher: PublisherCreateNestedOneWithoutProjectInput
+    categories?: CategoryCreateNestedManyWithoutProjectsInput
     tags?: TagCreateNestedManyWithoutProjectsInput
     Likes?: LikesCreateNestedManyWithoutProjectInput
   }
@@ -17923,7 +17971,7 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     publisherId: string
     projectPreviewImages?: ProjectPreviewImageUncheckedCreateNestedManyWithoutProjectInput
-    categroies?: CategorieUncheckedCreateNestedManyWithoutProjectsInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutProjectsInput
     tags?: TagUncheckedCreateNestedManyWithoutProjectsInput
     Likes?: LikesUncheckedCreateNestedManyWithoutProjectInput
   }
@@ -17979,8 +18027,8 @@ export namespace Prisma {
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     projectPreviewImages?: ProjectPreviewImageUpdateManyWithoutProjectNestedInput
-    publishser?: PublisherUpdateOneWithoutProjectNestedInput
-    categroies?: CategorieUpdateManyWithoutProjectsNestedInput
+    publisher?: PublisherUpdateOneRequiredWithoutProjectNestedInput
+    categories?: CategoryUpdateManyWithoutProjectsNestedInput
     tags?: TagUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUpdateManyWithoutProjectNestedInput
   }
@@ -17997,7 +18045,7 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     publisherId?: StringFieldUpdateOperationsInput | string
     projectPreviewImages?: ProjectPreviewImageUncheckedUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUncheckedUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutProjectsNestedInput
     tags?: TagUncheckedUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUncheckedUpdateManyWithoutProjectNestedInput
   }
@@ -18040,8 +18088,8 @@ export namespace Prisma {
     thumbnailUrl: string
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoCreateNestedManyWithoutProjectInput
-    publishser?: PublisherCreateNestedOneWithoutProjectInput
-    categroies?: CategorieCreateNestedManyWithoutProjectsInput
+    publisher: PublisherCreateNestedOneWithoutProjectInput
+    categories?: CategoryCreateNestedManyWithoutProjectsInput
     tags?: TagCreateNestedManyWithoutProjectsInput
     Likes?: LikesCreateNestedManyWithoutProjectInput
   }
@@ -18058,7 +18106,7 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     publisherId: string
     ProjectRepo?: ProjectRepoUncheckedCreateNestedManyWithoutProjectInput
-    categroies?: CategorieUncheckedCreateNestedManyWithoutProjectsInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutProjectsInput
     tags?: TagUncheckedCreateNestedManyWithoutProjectsInput
     Likes?: LikesUncheckedCreateNestedManyWithoutProjectInput
   }
@@ -18090,8 +18138,8 @@ export namespace Prisma {
     thumbnailUrl?: StringFieldUpdateOperationsInput | string
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUpdateManyWithoutProjectNestedInput
-    publishser?: PublisherUpdateOneWithoutProjectNestedInput
-    categroies?: CategorieUpdateManyWithoutProjectsNestedInput
+    publisher?: PublisherUpdateOneRequiredWithoutProjectNestedInput
+    categories?: CategoryUpdateManyWithoutProjectsNestedInput
     tags?: TagUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUpdateManyWithoutProjectNestedInput
   }
@@ -18108,7 +18156,7 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     publisherId?: StringFieldUpdateOperationsInput | string
     ProjectRepo?: ProjectRepoUncheckedUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUncheckedUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutProjectsNestedInput
     tags?: TagUncheckedUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUncheckedUpdateManyWithoutProjectNestedInput
   }
@@ -18165,7 +18213,7 @@ export namespace Prisma {
     projectId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProjectCreateWithoutCategroiesInput = {
+  export type ProjectCreateWithoutCategoriesInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18177,12 +18225,12 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageCreateNestedManyWithoutProjectInput
-    publishser?: PublisherCreateNestedOneWithoutProjectInput
+    publisher: PublisherCreateNestedOneWithoutProjectInput
     tags?: TagCreateNestedManyWithoutProjectsInput
     Likes?: LikesCreateNestedManyWithoutProjectInput
   }
 
-  export type ProjectUncheckedCreateWithoutCategroiesInput = {
+  export type ProjectUncheckedCreateWithoutCategoriesInput = {
     id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18199,25 +18247,25 @@ export namespace Prisma {
     Likes?: LikesUncheckedCreateNestedManyWithoutProjectInput
   }
 
-  export type ProjectCreateOrConnectWithoutCategroiesInput = {
+  export type ProjectCreateOrConnectWithoutCategoriesInput = {
     where: ProjectWhereUniqueInput
-    create: XOR<ProjectCreateWithoutCategroiesInput, ProjectUncheckedCreateWithoutCategroiesInput>
+    create: XOR<ProjectCreateWithoutCategoriesInput, ProjectUncheckedCreateWithoutCategoriesInput>
   }
 
-  export type ProjectUpsertWithWhereUniqueWithoutCategroiesInput = {
+  export type ProjectUpsertWithWhereUniqueWithoutCategoriesInput = {
     where: ProjectWhereUniqueInput
-    update: XOR<ProjectUpdateWithoutCategroiesInput, ProjectUncheckedUpdateWithoutCategroiesInput>
-    create: XOR<ProjectCreateWithoutCategroiesInput, ProjectUncheckedCreateWithoutCategroiesInput>
+    update: XOR<ProjectUpdateWithoutCategoriesInput, ProjectUncheckedUpdateWithoutCategoriesInput>
+    create: XOR<ProjectCreateWithoutCategoriesInput, ProjectUncheckedCreateWithoutCategoriesInput>
   }
 
-  export type ProjectUpdateWithWhereUniqueWithoutCategroiesInput = {
+  export type ProjectUpdateWithWhereUniqueWithoutCategoriesInput = {
     where: ProjectWhereUniqueInput
-    data: XOR<ProjectUpdateWithoutCategroiesInput, ProjectUncheckedUpdateWithoutCategroiesInput>
+    data: XOR<ProjectUpdateWithoutCategoriesInput, ProjectUncheckedUpdateWithoutCategoriesInput>
   }
 
-  export type ProjectUpdateManyWithWhereWithoutCategroiesInput = {
+  export type ProjectUpdateManyWithWhereWithoutCategoriesInput = {
     where: ProjectScalarWhereInput
-    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutCategroiesInput>
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutCategoriesInput>
   }
 
   export type ProjectScalarWhereInput = {
@@ -18248,8 +18296,8 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageCreateNestedManyWithoutProjectInput
-    publishser?: PublisherCreateNestedOneWithoutProjectInput
-    categroies?: CategorieCreateNestedManyWithoutProjectsInput
+    publisher: PublisherCreateNestedOneWithoutProjectInput
+    categories?: CategoryCreateNestedManyWithoutProjectsInput
     Likes?: LikesCreateNestedManyWithoutProjectInput
   }
 
@@ -18266,7 +18314,7 @@ export namespace Prisma {
     publisherId: string
     ProjectRepo?: ProjectRepoUncheckedCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageUncheckedCreateNestedManyWithoutProjectInput
-    categroies?: CategorieUncheckedCreateNestedManyWithoutProjectsInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutProjectsInput
     Likes?: LikesUncheckedCreateNestedManyWithoutProjectInput
   }
 
@@ -18338,8 +18386,8 @@ export namespace Prisma {
     collegeYear: $Enums.CollegeYears
     ProjectRepo?: ProjectRepoCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageCreateNestedManyWithoutProjectInput
-    publishser?: PublisherCreateNestedOneWithoutProjectInput
-    categroies?: CategorieCreateNestedManyWithoutProjectsInput
+    publisher: PublisherCreateNestedOneWithoutProjectInput
+    categories?: CategoryCreateNestedManyWithoutProjectsInput
     tags?: TagCreateNestedManyWithoutProjectsInput
   }
 
@@ -18356,7 +18404,7 @@ export namespace Prisma {
     publisherId: string
     ProjectRepo?: ProjectRepoUncheckedCreateNestedManyWithoutProjectInput
     projectPreviewImages?: ProjectPreviewImageUncheckedCreateNestedManyWithoutProjectInput
-    categroies?: CategorieUncheckedCreateNestedManyWithoutProjectsInput
+    categories?: CategoryUncheckedCreateNestedManyWithoutProjectsInput
     tags?: TagUncheckedCreateNestedManyWithoutProjectsInput
   }
 
@@ -18429,8 +18477,8 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUpdateManyWithoutProjectNestedInput
-    publishser?: PublisherUpdateOneWithoutProjectNestedInput
-    categroies?: CategorieUpdateManyWithoutProjectsNestedInput
+    publisher?: PublisherUpdateOneRequiredWithoutProjectNestedInput
+    categories?: CategoryUpdateManyWithoutProjectsNestedInput
     tags?: TagUpdateManyWithoutProjectsNestedInput
   }
 
@@ -18447,7 +18495,7 @@ export namespace Prisma {
     publisherId?: StringFieldUpdateOperationsInput | string
     ProjectRepo?: ProjectRepoUncheckedUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUncheckedUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUncheckedUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutProjectsNestedInput
     tags?: TagUncheckedUpdateManyWithoutProjectsNestedInput
   }
 
@@ -18488,7 +18536,7 @@ export namespace Prisma {
     canPublish?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutPublisherNestedInput
-    project?: ProjectUpdateOneWithoutPublishserNestedInput
+    project?: ProjectUpdateOneWithoutPublisherNestedInput
   }
 
   export type PublisherUncheckedUpdateWithoutGroupInput = {
@@ -18498,7 +18546,7 @@ export namespace Prisma {
     canPublish?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUncheckedUpdateOneWithoutPublisherNestedInput
-    project?: ProjectUncheckedUpdateOneWithoutPublishserNestedInput
+    project?: ProjectUncheckedUpdateOneWithoutPublisherNestedInput
   }
 
   export type PublisherUncheckedUpdateManyWithoutGroupInput = {
@@ -18593,38 +18641,44 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type CategorieUpdateWithoutProjectsInput = {
+  export type CategoryUpdateWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
-  export type CategorieUncheckedUpdateWithoutProjectsInput = {
+  export type CategoryUncheckedUpdateWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
-  export type CategorieUncheckedUpdateManyWithoutProjectsInput = {
+  export type CategoryUncheckedUpdateManyWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type TagUpdateWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type TagUncheckedUpdateWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type TagUncheckedUpdateManyWithoutProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     name?: StringFieldUpdateOperationsInput | string
   }
@@ -18675,7 +18729,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProjectUpdateWithoutCategroiesInput = {
+  export type ProjectUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18687,12 +18741,12 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUpdateManyWithoutProjectNestedInput
-    publishser?: PublisherUpdateOneWithoutProjectNestedInput
+    publisher?: PublisherUpdateOneRequiredWithoutProjectNestedInput
     tags?: TagUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUpdateManyWithoutProjectNestedInput
   }
 
-  export type ProjectUncheckedUpdateWithoutCategroiesInput = {
+  export type ProjectUncheckedUpdateWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18709,7 +18763,7 @@ export namespace Prisma {
     Likes?: LikesUncheckedUpdateManyWithoutProjectNestedInput
   }
 
-  export type ProjectUncheckedUpdateManyWithoutCategroiesInput = {
+  export type ProjectUncheckedUpdateManyWithoutCategoriesInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18734,8 +18788,8 @@ export namespace Prisma {
     collegeYear?: EnumCollegeYearsFieldUpdateOperationsInput | $Enums.CollegeYears
     ProjectRepo?: ProjectRepoUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUpdateManyWithoutProjectNestedInput
-    publishser?: PublisherUpdateOneWithoutProjectNestedInput
-    categroies?: CategorieUpdateManyWithoutProjectsNestedInput
+    publisher?: PublisherUpdateOneRequiredWithoutProjectNestedInput
+    categories?: CategoryUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUpdateManyWithoutProjectNestedInput
   }
 
@@ -18752,7 +18806,7 @@ export namespace Prisma {
     publisherId?: StringFieldUpdateOperationsInput | string
     ProjectRepo?: ProjectRepoUncheckedUpdateManyWithoutProjectNestedInput
     projectPreviewImages?: ProjectPreviewImageUncheckedUpdateManyWithoutProjectNestedInput
-    categroies?: CategorieUncheckedUpdateManyWithoutProjectsNestedInput
+    categories?: CategoryUncheckedUpdateManyWithoutProjectsNestedInput
     Likes?: LikesUncheckedUpdateManyWithoutProjectNestedInput
   }
 

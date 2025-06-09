@@ -193,14 +193,16 @@ exports.Prisma.ContributorScalarFieldEnum = {
   projectRepoId: 'projectRepoId'
 };
 
-exports.Prisma.CategorieScalarFieldEnum = {
+exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  name: 'name'
+  name: 'name',
+  slug: 'slug'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   createdAt: 'createdAt',
   name: 'name'
 };
@@ -255,7 +257,7 @@ exports.Prisma.ModelName = {
   ProjectRepo: 'ProjectRepo',
   ProjectPreviewImage: 'ProjectPreviewImage',
   Contributor: 'Contributor',
-  Categorie: 'Categorie',
+  Category: 'Category',
   Tag: 'Tag',
   Likes: 'Likes'
 };
