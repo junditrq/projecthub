@@ -20,7 +20,7 @@ const tags = [
   "JavaScript",
   "Vue.js",
   "Next.js",
-  "Nuxti",
+  "Nuxt",
   "NestJS",
   "Express",
   "React Native",
@@ -32,10 +32,37 @@ const tags = [
   "Livewire",
   "Swift",
   "Java (Android)",
-  "Livewire",
   "Tailwind CSS",
   "Blade",
   "Flutter Web",
+  // Frontend
+  "Svelte",
+  "Redux",
+  "GraphQL",
+  "Vite",
+  "Bootstrap",
+  "Material-UI",
+  "Sass",
+  "Less",
+  "Styled Components",
+  // Backend
+  "Ruby on Rails",
+  "Flask",
+  "FastAPI",
+  "Go",
+  "Rust",
+  "Kotlin",
+  ".NET Core",
+  // Mobile
+  "SwiftUI",
+  "Jetpack Compose",
+  // Database
+  "PostgreSQL",
+  "MySQL",
+  "MongoDB",
+  "Redis",
+  "Firebase",
+  "Prisma",
 ];
 
 const categories = ["Web", "Mobile"];
