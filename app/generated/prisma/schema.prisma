@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -14,130 +8,20 @@ generator client {
   output   = "../app/generated/prisma"
 }
 
-model ProjectIdea {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  name      String
-  // year      Int you can get this from the createdAt
-  slug      String   @unique
-  groups    Group[]
+enum UserRole {
+  admin
+  visitor
+  student
+
+  @@map("user_role")
 }
 
-model Group {
-  id            String      @id @default(uuid())
-  createdAt     DateTime    @default(now())
-  publishers    Publisher[]
-  projectIdeaId String
-  projectIdea   ProjectIdea @relation(fields: [projectIdeaId], references: [id])
-}
+enum VerificationStatus {
+  pending
+  approved
+  rejected
 
-model Publisher {
-  id         String   @id @default(uuid())
-  createdAt  DateTime @default(now())
-  name       String // when the user is going to publish a project they must provide their name as this one exactly, this can be verified on the frontend
-  canPublish Boolean  @default(true)
-
-  group   Group  @relation(fields: [groupId], references: [id])
-  groupId String
-
-  user   User? // once the user has published a project and provided their collegeId then we can create a relationship, and mark all other publishers in the same group as canPublish = false
-  userId String?
-
-  project Project?
-}
-
-model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  email       String? @unique
-  githubId    String? @unique
-  linkedinId  String? @unique
-  website     String?
-  phoneNumber String? @unique
-
-  name      String?
-  avatarUrl String?
-
-  bio String?
-
-  publisher   Publisher? @relation(fields: [publisherId], references: [id])
-  publisherId String     @unique
-  Likes       Likes[]
-}
-
-model Project {
-  id                   String                @id @default(uuid())
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
-  name                 String
-  slug                 String                @unique
-  description          String?
-  ProjectRepo          ProjectRepo[]
-  status               ProjectStatus         @default(pending)
-  thumbnailUrl         String
-  projectPreviewImages ProjectPreviewImage[]
-  collegeYear          CollegeYears
-
-  publisher   Publisher @relation(fields: [publisherId], references: [id])
-  publisherId String    @unique
-
-  categories Category[]
-  tags       Tag[]
-  Likes      Likes[]
-}
-
-model ProjectRepo {
-  id           String          @id @default(uuid())
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  type         ProjectRepoType
-  url          String
-  project      Project         @relation(fields: [projectId], references: [id])
-  projectId    String
-  contributors Contributor[]
-}
-
-model ProjectPreviewImage {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  project   Project  @relation(fields: [projectId], references: [id])
-  projectId String
-}
-
-model Contributor {
-  id            String       @id @default(uuid())
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  userId        String       @unique
-  ProjectRepo   ProjectRepo? @relation(fields: [projectRepoId], references: [id])
-  projectRepoId String?
-}
-
-model Category {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  name      String
-  slug      String
-  projects  Project[]
-}
-
-model Tag {
-  id        String    @id @default(uuid())
-  slug      String
-  createdAt DateTime  @default(now())
-  name      String
-  projects  Project[]
-}
-
-model Likes {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  project   Project  @relation(fields: [projectId], references: [id])
-  projectId String
+  @@map("verification_status")
 }
 
 enum ProjectRepoType {
@@ -145,17 +29,225 @@ enum ProjectRepoType {
   backend
   mobile
   monorepo
+
+  @@map("project_repo_type")
 }
 
-enum ProjectStatus {
-  pending
-  approved
-  rejected
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  role UserRole @default(visitor)
+
+  githubUsername String? @map("github_username")
+  linkedinUrl    String? @map("linkedin_url")
+
+  student              Student?
+  verificationRequests VerificationRequest[] @relation("ReviewedBy")
+  VerificationRequest  VerificationRequest[] @relation("RequestedBy")
+  likes                Like[]
+
+  @@map("users")
 }
 
-enum CollegeYears {
-  second
-  third
-  fourth
-  fifth
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Student {
+  id         String  @id @default(uuid())
+  arabicName String  @map("arabic_name")
+  groupId    String  @map("group_id")
+  userId     String? @unique @map("user_id")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  group             Group         @relation(fields: [groupId], references: [id])
+  user              User?         @relation(fields: [userId], references: [id])
+  publishedProjects Project[]
+  repos             ProjectRepo[]
+
+  @@map("students")
+}
+
+model VerificationRequest {
+  id String @id @default(uuid())
+
+  userId       String  @map("user_id")
+  reviewedById String? @map("reviewed_by_id")
+
+  submittedArabicName String @map("submitted_arabic_name")
+  collegeIdPicUrl     String @map("college_id_pic_url")
+
+  status VerificationStatus @default(pending)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user       User  @relation("RequestedBy", fields: [userId], references: [id])
+  reviewedBy User? @relation("ReviewedBy", fields: [reviewedById], references: [id])
+
+  @@map("verification_requests")
+}
+
+model Group {
+  id            String  @id @default(uuid())
+  projectIdeaId String? @map("project_idea_id")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  projectIdea ProjectIdea? @relation(fields: [projectIdeaId], references: [id])
+  projects    Project[]
+  students    Student[]
+
+  @@map("groups")
+}
+
+model ProjectIdea {
+  id        String   @id @default(uuid())
+  name      String
+  year      Int
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  groups Group[]
+
+  @@map("project_ideas")
+}
+
+model Project {
+  id                 String   @id @default(uuid())
+  name               String
+  desc               String?
+  groupId            String   @map("group_id")
+  publisherStudentId String   @map("publisher_student_id")
+  thumbnail          String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relations
+  group      Group         @relation(fields: [groupId], references: [id])
+  publisher  Student       @relation(fields: [publisherStudentId], references: [id])
+  likes      Like[]
+  previews   Preview[]
+  repos      ProjectRepo[]
+  categories Category[]
+  tags       Tag[]
+
+  @@map("projects")
+}
+
+model ProjectRepo {
+  id        String          @id @default(uuid())
+  type      ProjectRepoType
+  projectId String          @map("project_id")
+  url       String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  project      Project   @relation(fields: [projectId], references: [id])
+  contributors Student[]
+
+  @@map("project_repos")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  projectId String   @map("project_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now())
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@map("likes")
+}
+
+model Preview {
+  id        String   @id @default(uuid())
+  url       String
+  projectId String   @unique @map("project_id")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("previews")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects Project[]
+
+  @@map("categories")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects Project[]
+
+  @@map("tags")
 }

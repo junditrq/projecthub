@@ -108,6 +108,7 @@ async function seedGroups() {
         data: {
           name: group.projectIdea,
           slug,
+          year: 2024,
         },
       });
       projectMap.set(slug, projectIdea);
@@ -116,10 +117,9 @@ async function seedGroups() {
     await prisma.group.create({
       data: {
         projectIdeaId: projectIdea.id,
-        publishers: {
+        students: {
           create: group.publishers.map((p) => ({
-            name: p,
-            canPublish: true,
+            arabicName: p,
           })),
         },
       },

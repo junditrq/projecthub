@@ -120,98 +120,132 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.ProjectIdeaScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
   name: 'name',
-  slug: 'slug'
+  email: 'email',
+  emailVerified: 'emailVerified',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  role: 'role',
+  githubUsername: 'githubUsername',
+  linkedinUrl: 'linkedinUrl'
+};
+
+exports.Prisma.AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+};
+
+exports.Prisma.StudentScalarFieldEnum = {
+  id: 'id',
+  arabicName: 'arabicName',
+  groupId: 'groupId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.VerificationRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  reviewedById: 'reviewedById',
+  submittedArabicName: 'submittedArabicName',
+  collegeIdPicUrl: 'collegeIdPicUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.GroupScalarFieldEnum = {
   id: 'id',
+  projectIdeaId: 'projectIdeaId',
   createdAt: 'createdAt',
-  projectIdeaId: 'projectIdeaId'
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.PublisherScalarFieldEnum = {
+exports.Prisma.ProjectIdeaScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
   name: 'name',
-  canPublish: 'canPublish',
-  groupId: 'groupId',
-  userId: 'userId'
-};
-
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
+  year: 'year',
+  slug: 'slug',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  email: 'email',
-  githubId: 'githubId',
-  linkedinId: 'linkedinId',
-  website: 'website',
-  phoneNumber: 'phoneNumber',
-  name: 'name',
-  avatarUrl: 'avatarUrl',
-  bio: 'bio',
-  publisherId: 'publisherId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   name: 'name',
-  slug: 'slug',
-  description: 'description',
-  status: 'status',
-  thumbnailUrl: 'thumbnailUrl',
-  collegeYear: 'collegeYear',
-  publisherId: 'publisherId'
+  desc: 'desc',
+  groupId: 'groupId',
+  publisherStudentId: 'publisherStudentId',
+  thumbnail: 'thumbnail',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProjectRepoScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
   type: 'type',
+  projectId: 'projectId',
   url: 'url',
-  projectId: 'projectId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ProjectPreviewImageScalarFieldEnum = {
+exports.Prisma.LikeScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
-  projectId: 'projectId'
-};
-
-exports.Prisma.ContributorScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
+  projectId: 'projectId',
   userId: 'userId',
-  projectRepoId: 'projectRepoId'
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PreviewScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  projectId: 'projectId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
   name: 'name',
-  slug: 'slug'
+  slug: 'slug',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   slug: 'slug',
   createdAt: 'createdAt',
-  name: 'name'
-};
-
-exports.Prisma.LikesScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  userId: 'userId',
-  projectId: 'projectId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -228,17 +262,16 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.ProjectStatus = exports.$Enums.ProjectStatus = {
+exports.UserRole = exports.$Enums.UserRole = {
+  admin: 'admin',
+  visitor: 'visitor',
+  student: 'student'
+};
+
+exports.VerificationStatus = exports.$Enums.VerificationStatus = {
   pending: 'pending',
   approved: 'approved',
   rejected: 'rejected'
-};
-
-exports.CollegeYears = exports.$Enums.CollegeYears = {
-  second: 'second',
-  third: 'third',
-  fourth: 'fourth',
-  fifth: 'fifth'
 };
 
 exports.ProjectRepoType = exports.$Enums.ProjectRepoType = {
@@ -249,17 +282,20 @@ exports.ProjectRepoType = exports.$Enums.ProjectRepoType = {
 };
 
 exports.Prisma.ModelName = {
-  ProjectIdea: 'ProjectIdea',
-  Group: 'Group',
-  Publisher: 'Publisher',
   User: 'User',
+  Account: 'Account',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken',
+  Student: 'Student',
+  VerificationRequest: 'VerificationRequest',
+  Group: 'Group',
+  ProjectIdea: 'ProjectIdea',
   Project: 'Project',
   ProjectRepo: 'ProjectRepo',
-  ProjectPreviewImage: 'ProjectPreviewImage',
-  Contributor: 'Contributor',
+  Like: 'Like',
+  Preview: 'Preview',
   Category: 'Category',
-  Tag: 'Tag',
-  Likes: 'Likes'
+  Tag: 'Tag'
 };
 
 /**
