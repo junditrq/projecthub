@@ -1,5 +1,5 @@
 import { PrismaClient } from "@/app/generated/prisma";
-import { groups } from "@/groups-2025";
+import { groups } from "@/resources/groups-2025";
 import slugify from "slugify";
 
 const prisma = new PrismaClient();
