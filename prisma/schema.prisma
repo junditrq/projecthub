@@ -50,10 +50,13 @@ model User {
   githubUsername String? @map("github_username")
   linkedinUrl    String? @map("linkedin_url")
 
-  student              Student?
-  verificationRequests VerificationRequest[] @relation("ReviewedBy")
-  VerificationRequest  VerificationRequest[] @relation("RequestedBy")
-  likes                Like[]
+  // relations
+  student Student?
+
+  reviewedVerificationRequests  VerificationRequest[] @relation("ReviewedVerificationRequests")
+  requestedVerificationRequests VerificationRequest[] @relation("RequestedVerificationRequests")
+
+  likes Like[]
 
   @@map("users")
 }
@@ -130,8 +133,8 @@ model VerificationRequest {
   updatedAt DateTime @updatedAt
 
   // Relations
-  user       User  @relation("RequestedBy", fields: [userId], references: [id])
-  reviewedBy User? @relation("ReviewedBy", fields: [reviewedById], references: [id])
+  user       User  @relation("RequestedVerificationRequests", fields: [userId], references: [id])
+  reviewedBy User? @relation("ReviewedVerificationRequests", fields: [reviewedById], references: [id])
 
   @@map("verification_requests")
 }

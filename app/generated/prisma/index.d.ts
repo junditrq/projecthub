@@ -2099,16 +2099,16 @@ export namespace Prisma {
   export type UserCountOutputType = {
     accounts: number
     sessions: number
-    verificationRequests: number
-    VerificationRequest: number
+    reviewedVerificationRequests: number
+    requestedVerificationRequests: number
     likes: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
-    verificationRequests?: boolean | UserCountOutputTypeCountVerificationRequestsArgs
-    VerificationRequest?: boolean | UserCountOutputTypeCountVerificationRequestArgs
+    reviewedVerificationRequests?: boolean | UserCountOutputTypeCountReviewedVerificationRequestsArgs
+    requestedVerificationRequests?: boolean | UserCountOutputTypeCountRequestedVerificationRequestsArgs
     likes?: boolean | UserCountOutputTypeCountLikesArgs
   }
 
@@ -2140,14 +2140,14 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountVerificationRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountReviewedVerificationRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VerificationRequestWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountVerificationRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountRequestedVerificationRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VerificationRequestWhereInput
   }
 
@@ -2641,8 +2641,8 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     student?: boolean | User$studentArgs<ExtArgs>
-    verificationRequests?: boolean | User$verificationRequestsArgs<ExtArgs>
-    VerificationRequest?: boolean | User$VerificationRequestArgs<ExtArgs>
+    reviewedVerificationRequests?: boolean | User$reviewedVerificationRequestsArgs<ExtArgs>
+    requestedVerificationRequests?: boolean | User$requestedVerificationRequestsArgs<ExtArgs>
     likes?: boolean | User$likesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2691,8 +2691,8 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     student?: boolean | User$studentArgs<ExtArgs>
-    verificationRequests?: boolean | User$verificationRequestsArgs<ExtArgs>
-    VerificationRequest?: boolean | User$VerificationRequestArgs<ExtArgs>
+    reviewedVerificationRequests?: boolean | User$reviewedVerificationRequestsArgs<ExtArgs>
+    requestedVerificationRequests?: boolean | User$requestedVerificationRequestsArgs<ExtArgs>
     likes?: boolean | User$likesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2705,8 +2705,8 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       student: Prisma.$StudentPayload<ExtArgs> | null
-      verificationRequests: Prisma.$VerificationRequestPayload<ExtArgs>[]
-      VerificationRequest: Prisma.$VerificationRequestPayload<ExtArgs>[]
+      reviewedVerificationRequests: Prisma.$VerificationRequestPayload<ExtArgs>[]
+      requestedVerificationRequests: Prisma.$VerificationRequestPayload<ExtArgs>[]
       likes: Prisma.$LikePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3117,8 +3117,8 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     student<T extends User$studentArgs<ExtArgs> = {}>(args?: Subset<T, User$studentArgs<ExtArgs>>): Prisma__StudentClient<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    verificationRequests<T extends User$verificationRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$verificationRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    VerificationRequest<T extends User$VerificationRequestArgs<ExtArgs> = {}>(args?: Subset<T, User$VerificationRequestArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reviewedVerificationRequests<T extends User$reviewedVerificationRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedVerificationRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    requestedVerificationRequests<T extends User$requestedVerificationRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$requestedVerificationRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VerificationRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     likes<T extends User$likesArgs<ExtArgs> = {}>(args?: Subset<T, User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3614,9 +3614,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.verificationRequests
+   * User.reviewedVerificationRequests
    */
-  export type User$verificationRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$reviewedVerificationRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the VerificationRequest
      */
@@ -3638,9 +3638,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.VerificationRequest
+   * User.requestedVerificationRequests
    */
-  export type User$VerificationRequestArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$requestedVerificationRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the VerificationRequest
      */
@@ -18350,8 +18350,8 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
-    verificationRequests?: VerificationRequestListRelationFilter
-    VerificationRequest?: VerificationRequestListRelationFilter
+    reviewedVerificationRequests?: VerificationRequestListRelationFilter
+    requestedVerificationRequests?: VerificationRequestListRelationFilter
     likes?: LikeListRelationFilter
   }
 
@@ -18369,8 +18369,8 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     student?: StudentOrderByWithRelationInput
-    verificationRequests?: VerificationRequestOrderByRelationAggregateInput
-    VerificationRequest?: VerificationRequestOrderByRelationAggregateInput
+    reviewedVerificationRequests?: VerificationRequestOrderByRelationAggregateInput
+    requestedVerificationRequests?: VerificationRequestOrderByRelationAggregateInput
     likes?: LikeOrderByRelationAggregateInput
   }
 
@@ -18391,8 +18391,8 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
-    verificationRequests?: VerificationRequestListRelationFilter
-    VerificationRequest?: VerificationRequestListRelationFilter
+    reviewedVerificationRequests?: VerificationRequestListRelationFilter
+    requestedVerificationRequests?: VerificationRequestListRelationFilter
     likes?: LikeListRelationFilter
   }, "id" | "email">
 
@@ -19257,8 +19257,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
   }
 
@@ -19276,8 +19276,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -19295,8 +19295,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
   }
 
@@ -19314,8 +19314,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -19628,8 +19628,8 @@ export namespace Prisma {
     status?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutVerificationRequestInput
-    reviewedBy?: UserCreateNestedOneWithoutVerificationRequestsInput
+    user: UserCreateNestedOneWithoutRequestedVerificationRequestsInput
+    reviewedBy?: UserCreateNestedOneWithoutReviewedVerificationRequestsInput
   }
 
   export type VerificationRequestUncheckedCreateInput = {
@@ -19650,8 +19650,8 @@ export namespace Prisma {
     status?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutVerificationRequestNestedInput
-    reviewedBy?: UserUpdateOneWithoutVerificationRequestsNestedInput
+    user?: UserUpdateOneRequiredWithoutRequestedVerificationRequestsNestedInput
+    reviewedBy?: UserUpdateOneWithoutReviewedVerificationRequestsNestedInput
   }
 
   export type VerificationRequestUncheckedUpdateInput = {
@@ -21391,15 +21391,15 @@ export namespace Prisma {
     deleteMany?: ProjectRepoScalarWhereInput | ProjectRepoScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutVerificationRequestInput = {
-    create?: XOR<UserCreateWithoutVerificationRequestInput, UserUncheckedCreateWithoutVerificationRequestInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVerificationRequestInput
+  export type UserCreateNestedOneWithoutRequestedVerificationRequestsInput = {
+    create?: XOR<UserCreateWithoutRequestedVerificationRequestsInput, UserUncheckedCreateWithoutRequestedVerificationRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRequestedVerificationRequestsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutVerificationRequestsInput = {
-    create?: XOR<UserCreateWithoutVerificationRequestsInput, UserUncheckedCreateWithoutVerificationRequestsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVerificationRequestsInput
+  export type UserCreateNestedOneWithoutReviewedVerificationRequestsInput = {
+    create?: XOR<UserCreateWithoutReviewedVerificationRequestsInput, UserUncheckedCreateWithoutReviewedVerificationRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewedVerificationRequestsInput
     connect?: UserWhereUniqueInput
   }
 
@@ -21407,22 +21407,22 @@ export namespace Prisma {
     set?: $Enums.VerificationStatus
   }
 
-  export type UserUpdateOneRequiredWithoutVerificationRequestNestedInput = {
-    create?: XOR<UserCreateWithoutVerificationRequestInput, UserUncheckedCreateWithoutVerificationRequestInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVerificationRequestInput
-    upsert?: UserUpsertWithoutVerificationRequestInput
+  export type UserUpdateOneRequiredWithoutRequestedVerificationRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutRequestedVerificationRequestsInput, UserUncheckedCreateWithoutRequestedVerificationRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRequestedVerificationRequestsInput
+    upsert?: UserUpsertWithoutRequestedVerificationRequestsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVerificationRequestInput, UserUpdateWithoutVerificationRequestInput>, UserUncheckedUpdateWithoutVerificationRequestInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRequestedVerificationRequestsInput, UserUpdateWithoutRequestedVerificationRequestsInput>, UserUncheckedUpdateWithoutRequestedVerificationRequestsInput>
   }
 
-  export type UserUpdateOneWithoutVerificationRequestsNestedInput = {
-    create?: XOR<UserCreateWithoutVerificationRequestsInput, UserUncheckedCreateWithoutVerificationRequestsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutVerificationRequestsInput
-    upsert?: UserUpsertWithoutVerificationRequestsInput
+  export type UserUpdateOneWithoutReviewedVerificationRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutReviewedVerificationRequestsInput, UserUncheckedCreateWithoutReviewedVerificationRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReviewedVerificationRequestsInput
+    upsert?: UserUpsertWithoutReviewedVerificationRequestsInput
     disconnect?: UserWhereInput | boolean
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVerificationRequestsInput, UserUpdateWithoutVerificationRequestsInput>, UserUncheckedUpdateWithoutVerificationRequestsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewedVerificationRequestsInput, UserUpdateWithoutReviewedVerificationRequestsInput>, UserUncheckedUpdateWithoutReviewedVerificationRequestsInput>
   }
 
   export type ProjectIdeaCreateNestedOneWithoutGroupsInput = {
@@ -22310,7 +22310,7 @@ export namespace Prisma {
     status?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutVerificationRequestInput
+    user: UserCreateNestedOneWithoutRequestedVerificationRequestsInput
   }
 
   export type VerificationRequestUncheckedCreateWithoutReviewedByInput = {
@@ -22340,7 +22340,7 @@ export namespace Prisma {
     status?: $Enums.VerificationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
-    reviewedBy?: UserCreateNestedOneWithoutVerificationRequestsInput
+    reviewedBy?: UserCreateNestedOneWithoutReviewedVerificationRequestsInput
   }
 
   export type VerificationRequestUncheckedCreateWithoutUserInput = {
@@ -22561,8 +22561,8 @@ export namespace Prisma {
     linkedinUrl?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
   }
 
@@ -22579,8 +22579,8 @@ export namespace Prisma {
     linkedinUrl?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22613,8 +22613,8 @@ export namespace Prisma {
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
   }
 
@@ -22631,8 +22631,8 @@ export namespace Prisma {
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22649,8 +22649,8 @@ export namespace Prisma {
     linkedinUrl?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
   }
 
@@ -22667,8 +22667,8 @@ export namespace Prisma {
     linkedinUrl?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22701,8 +22701,8 @@ export namespace Prisma {
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
   }
 
@@ -22719,8 +22719,8 @@ export namespace Prisma {
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22758,8 +22758,8 @@ export namespace Prisma {
     linkedinUrl?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    verificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
   }
 
@@ -22776,8 +22776,8 @@ export namespace Prisma {
     linkedinUrl?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    verificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -22900,8 +22900,8 @@ export namespace Prisma {
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
   }
 
@@ -22918,8 +22918,8 @@ export namespace Prisma {
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22981,7 +22981,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ProjectRepo"> | Date | string
   }
 
-  export type UserCreateWithoutVerificationRequestInput = {
+  export type UserCreateWithoutRequestedVerificationRequestsInput = {
     id?: string
     name?: string | null
     email?: string | null
@@ -22995,11 +22995,11 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
+    reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
     likes?: LikeCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutVerificationRequestInput = {
+  export type UserUncheckedCreateWithoutRequestedVerificationRequestsInput = {
     id?: string
     name?: string | null
     email?: string | null
@@ -23013,16 +23013,16 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutVerificationRequestInput = {
+  export type UserCreateOrConnectWithoutRequestedVerificationRequestsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutVerificationRequestInput, UserUncheckedCreateWithoutVerificationRequestInput>
+    create: XOR<UserCreateWithoutRequestedVerificationRequestsInput, UserUncheckedCreateWithoutRequestedVerificationRequestsInput>
   }
 
-  export type UserCreateWithoutVerificationRequestsInput = {
+  export type UserCreateWithoutReviewedVerificationRequestsInput = {
     id?: string
     name?: string | null
     email?: string | null
@@ -23036,11 +23036,11 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
-    VerificationRequest?: VerificationRequestCreateNestedManyWithoutUserInput
+    requestedVerificationRequests?: VerificationRequestCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutVerificationRequestsInput = {
+  export type UserUncheckedCreateWithoutReviewedVerificationRequestsInput = {
     id?: string
     name?: string | null
     email?: string | null
@@ -23054,27 +23054,27 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
-    VerificationRequest?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
+    requestedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutVerificationRequestsInput = {
+  export type UserCreateOrConnectWithoutReviewedVerificationRequestsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutVerificationRequestsInput, UserUncheckedCreateWithoutVerificationRequestsInput>
+    create: XOR<UserCreateWithoutReviewedVerificationRequestsInput, UserUncheckedCreateWithoutReviewedVerificationRequestsInput>
   }
 
-  export type UserUpsertWithoutVerificationRequestInput = {
-    update: XOR<UserUpdateWithoutVerificationRequestInput, UserUncheckedUpdateWithoutVerificationRequestInput>
-    create: XOR<UserCreateWithoutVerificationRequestInput, UserUncheckedCreateWithoutVerificationRequestInput>
+  export type UserUpsertWithoutRequestedVerificationRequestsInput = {
+    update: XOR<UserUpdateWithoutRequestedVerificationRequestsInput, UserUncheckedUpdateWithoutRequestedVerificationRequestsInput>
+    create: XOR<UserCreateWithoutRequestedVerificationRequestsInput, UserUncheckedCreateWithoutRequestedVerificationRequestsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutVerificationRequestInput = {
+  export type UserUpdateToOneWithWhereWithoutRequestedVerificationRequestsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutVerificationRequestInput, UserUncheckedUpdateWithoutVerificationRequestInput>
+    data: XOR<UserUpdateWithoutRequestedVerificationRequestsInput, UserUncheckedUpdateWithoutRequestedVerificationRequestsInput>
   }
 
-  export type UserUpdateWithoutVerificationRequestInput = {
+  export type UserUpdateWithoutRequestedVerificationRequestsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23088,11 +23088,11 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
+    reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutVerificationRequestInput = {
+  export type UserUncheckedUpdateWithoutRequestedVerificationRequestsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23106,22 +23106,22 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUpsertWithoutVerificationRequestsInput = {
-    update: XOR<UserUpdateWithoutVerificationRequestsInput, UserUncheckedUpdateWithoutVerificationRequestsInput>
-    create: XOR<UserCreateWithoutVerificationRequestsInput, UserUncheckedCreateWithoutVerificationRequestsInput>
+  export type UserUpsertWithoutReviewedVerificationRequestsInput = {
+    update: XOR<UserUpdateWithoutReviewedVerificationRequestsInput, UserUncheckedUpdateWithoutReviewedVerificationRequestsInput>
+    create: XOR<UserCreateWithoutReviewedVerificationRequestsInput, UserUncheckedCreateWithoutReviewedVerificationRequestsInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutVerificationRequestsInput = {
+  export type UserUpdateToOneWithWhereWithoutReviewedVerificationRequestsInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutVerificationRequestsInput, UserUncheckedUpdateWithoutVerificationRequestsInput>
+    data: XOR<UserUpdateWithoutReviewedVerificationRequestsInput, UserUncheckedUpdateWithoutReviewedVerificationRequestsInput>
   }
 
-  export type UserUpdateWithoutVerificationRequestsInput = {
+  export type UserUpdateWithoutReviewedVerificationRequestsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23135,11 +23135,11 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
-    VerificationRequest?: VerificationRequestUpdateManyWithoutUserNestedInput
+    requestedVerificationRequests?: VerificationRequestUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutVerificationRequestsInput = {
+  export type UserUncheckedUpdateWithoutReviewedVerificationRequestsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23153,7 +23153,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
-    VerificationRequest?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
+    requestedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -23874,8 +23874,8 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikesInput = {
@@ -23892,8 +23892,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
-    verificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
-    VerificationRequest?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
+    requestedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikesInput = {
@@ -23967,8 +23967,8 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesInput = {
@@ -23985,8 +23985,8 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
-    verificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
-    VerificationRequest?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
+    reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
+    requestedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectCreateWithoutPreviewsInput = {
@@ -24280,7 +24280,7 @@ export namespace Prisma {
     status?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutVerificationRequestNestedInput
+    user?: UserUpdateOneRequiredWithoutRequestedVerificationRequestsNestedInput
   }
 
   export type VerificationRequestUncheckedUpdateWithoutReviewedByInput = {
@@ -24310,7 +24310,7 @@ export namespace Prisma {
     status?: EnumVerificationStatusFieldUpdateOperationsInput | $Enums.VerificationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedBy?: UserUpdateOneWithoutVerificationRequestsNestedInput
+    reviewedBy?: UserUpdateOneWithoutReviewedVerificationRequestsNestedInput
   }
 
   export type VerificationRequestUncheckedUpdateWithoutUserInput = {
