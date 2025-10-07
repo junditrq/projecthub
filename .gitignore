@@ -43,3 +43,5 @@ next-env.d.ts
 groups-*.js
 *.xlsx
 TODO.md
+
+/minio-data
