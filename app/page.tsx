@@ -1,7 +1,6 @@
-"use client";
+import { auth } from "@/auth";
 import NavBar from "@/components/navbar";
 import ProjectCard from "@/components/project-card";
-import { ProjectCardProps } from "@/components/project-card/types";
 import TagsFilter from "@/components/tags-filter";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -107,7 +106,7 @@ const TAGS = [
   },
 ];
 
-const project: ProjectCardProps = {
+const project: any = {
   id: "0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6",
   name: "Smart Greenhouse Automation",
   description:
@@ -154,7 +153,10 @@ const project: ProjectCardProps = {
   },
 };
 
-const Page = () => {
+const Page = async () => {
+  const session = await auth();
+  console.log(session);
+
   return (
     <>
       <NavBar />
@@ -177,7 +179,7 @@ const Page = () => {
                 size={16}
               />
             </div>
-            <div className="grid grid-cols-[1fr_2fr] gap-2">
+            {/* <div className="grid grid-cols-[1fr_2fr] gap-2">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button
@@ -197,7 +199,6 @@ const Page = () => {
                     <SheetTitle className="text-2xl">Filters</SheetTitle>
                   </SheetHeader>
 
-                  {/* 6 rem is the height of the SheetHeader */}
                   <Separator />
                   <ScrollArea className="max-h-[calc(100vh-6rem)]">
                     <section className="p-4">
@@ -232,7 +233,6 @@ const Page = () => {
                       <TagsFilter tags={TAGS} />
                     </section>
 
-                    {/* last separator */}
                     <Separator className="mb-24" />
                   </ScrollArea>
                 </SheetContent>
@@ -249,7 +249,7 @@ const Page = () => {
                   <ArrowRight />
                 </Link>
               </Button>
-            </div>
+            </div> */}
           </div>
           <div className="grid grid-cols-[repeat(auto-fill,_minmax(min(380px,100%),1fr))] place-content-center justify-center gap-4 px-4 pb-4">
             <ProjectCard project={project} />
