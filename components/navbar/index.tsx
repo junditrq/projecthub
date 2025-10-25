@@ -1,5 +1,5 @@
+import OAuthButton from "@/components/buttons/oath-button";
 import Link from "next/link";
-import OAuthButton from "../buttons/oath-button";
 const NavBar = () => {
   return (
     <nav className="border-b p-4">

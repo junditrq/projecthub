@@ -1,5 +1,5 @@
-import { Project } from './project.entity';
-import { Student } from './student.entity';
+import { Project } from "./project.entity";
+import { Student } from "./student.entity";
 
 export interface ProjectRepo {
   id: string;

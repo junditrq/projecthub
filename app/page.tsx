@@ -56,7 +56,7 @@ const project = {
 
 const Page = async () => {
   const session = await auth();
-  console.log(session);
+  console.log("User session:", session);
 
   return (
     <>
@@ -68,6 +68,7 @@ const Page = async () => {
           <div className="mb-4 flex flex-col justify-between gap-4 px-4 py-4 md:px-8 lg:flex-row">
             <div className="relative w-full lg:max-w-[22rem]">
               <Input className="border pr-8" placeholder="Search projects..." />
+
               <Search
                 className="absolute top-1/2 right-2 -translate-y-1/2"
                 size={16}

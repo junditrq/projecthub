@@ -1,3 +1,1 @@
-interface IUserRepo {
-
-}
+interface IUserRepo {}
