@@ -4,8 +4,7 @@ import FiltersSheet from "@/components/filters-sheet";
 import NavBar from "@/components/navbar";
 import PageHeading from "@/components/page-heading";
 import ProjectCard from "@/components/project-card";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import SearchInput from "@/components/search-input";
 
 const project = {
   id: "0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6",
@@ -66,14 +65,7 @@ const Page = async () => {
 
         <div className="container mx-auto md:px-10 lg:px-24">
           <div className="mb-4 flex flex-col justify-between gap-4 px-4 py-4 md:px-8 lg:flex-row">
-            <div className="relative w-full lg:max-w-[22rem]">
-              <Input className="border pr-8" placeholder="Search projects..." />
-
-              <Search
-                className="absolute top-1/2 right-2 -translate-y-1/2"
-                size={16}
-              />
-            </div>
+            <SearchInput />
             <div className="grid grid-cols-[1fr_2fr] gap-2">
               <FiltersSheet />
               <UploadYourProjectButton />
