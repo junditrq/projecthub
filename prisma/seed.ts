@@ -96,6 +96,7 @@ async function seedCategories() {
 }
 
 async function seedGroups() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- intentional: ok to use any in seed data map
   const projectMap = new Map<string, any>();
 
   for (const group of groups) {
