@@ -12,8 +12,7 @@ const NavBar = async () => {
             href="/"
             className="font-geist-mono text-xl font-medium tracking-wide underline"
           >
-            <span className="block sm:hidden">P1</span>
-            <span className="hidden sm:block">ProjectHub</span>
+            <span>ProjectHub</span>
           </Link>
         </div>
         {!session?.user ? <SignInButton /> : <SignOutButton />}

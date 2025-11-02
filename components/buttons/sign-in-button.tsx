@@ -9,7 +9,9 @@ const SignInButton = () => {
         await signIn("google");
       }}
     >
-      <span>log in with google</span>
+      <span>
+        log in <span className="hidden sm:inline">with google</span>
+      </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 488 512"
