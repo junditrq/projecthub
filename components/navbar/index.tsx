@@ -1,6 +1,9 @@
-import OAuthButton from "@/components/buttons/oath-button";
+import { auth } from "@/auth";
 import Link from "next/link";
-const NavBar = () => {
+import SignInButton from "../buttons/sign-in-button";
+import SignOutButton from "../buttons/sign-out-button";
+const NavBar = async () => {
+  const session = await auth();
   return (
     <nav className="border-b p-4">
       <div className="mx-auto flex max-w-[90rem] items-center justify-between px-4">
@@ -13,7 +16,7 @@ const NavBar = () => {
             <span className="hidden sm:block">ProjectHub</span>
           </Link>
         </div>
-        <OAuthButton />
+        {!session?.user ? <SignInButton /> : <SignOutButton />}
       </div>
     </nav>
   );
