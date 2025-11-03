@@ -1,8 +1,9 @@
+import { ShadcnButtonProps } from "../ui/button";
 import OAuthButton from "./oath-button";
 
-const SignInButton = ({ onClick }: { onClick?: () => void }) => {
+const SignInButton = ({ ...props }: ShadcnButtonProps) => {
   return (
-    <OAuthButton onClick={onClick}>
+    <OAuthButton {...props}>
       <span>
         log in <span className="hidden sm:inline">with google</span>
       </span>

@@ -55,7 +55,7 @@ const NeedsAuthButton = ({
         <p className="mt-4 mb-6 max-w-[40ch]">
           You need to be logged in before you can perform this action
         </p>
-        <SignInButtonClient />
+        <SignInButtonClient className="!px-8 !py-6" />
       </DialogContent>
     </Dialog>
   );
