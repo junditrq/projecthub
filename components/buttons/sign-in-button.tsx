@@ -1,5 +1,5 @@
 import { ShadcnButtonProps } from "../ui/button";
-import OAuthButton from "./oath-button";
+import OAuthButton from "./oauth-button";
 
 const SignInButton = ({ ...props }: ShadcnButtonProps) => {
   return (
