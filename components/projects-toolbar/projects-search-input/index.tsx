@@ -1,13 +1,13 @@
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
-import { Input } from "../ui/input";
 
 type SearchInputProps = {
-  className?: string;
+  className?: HTMLDivElement["className"];
   placeholder?: string;
 };
 
-const SearchInput = ({
+const ProjectsSearchInput = ({
   className,
   placeholder = "Search projects...",
 }: SearchInputProps) => {
@@ -19,4 +19,4 @@ const SearchInput = ({
   );
 };
 
-export default SearchInput;
+export default ProjectsSearchInput;

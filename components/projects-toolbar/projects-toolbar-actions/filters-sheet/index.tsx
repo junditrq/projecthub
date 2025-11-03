@@ -1,18 +1,18 @@
 "use client";
-import { Filter } from "lucide-react";
-import { Button } from "../ui/button";
+import TagsFilter from "@/components/common/tags-filter";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "../ui/sheet";
-import { Separator } from "../ui/separator";
-import { ScrollArea } from "../ui/scroll-area";
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet";
 import { Label } from "@radix-ui/react-label";
-import TagsFilter from "../tags-filter";
-import { Checkbox } from "../ui/checkbox";
+import { Filter } from "lucide-react";
 
 const FiltersSheet = () => {
   return (

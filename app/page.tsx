@@ -1,10 +1,8 @@
 import { auth } from "@/auth";
-import UploadYourProjectButton from "@/components/buttons/upload-your-project-button";
-import FiltersSheet from "@/components/filters-sheet";
 import NavBar from "@/components/navbar";
 import PageHeading from "@/components/page-heading";
 import ProjectCard from "@/components/project-card";
-import SearchInput from "@/components/search-input";
+import ProjectsToolbar from "@/components/projects-toolbar";
 
 const project = {
   id: "0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6",
@@ -64,13 +62,8 @@ const Page = async () => {
         <PageHeading title="Projects" />
 
         <div className="container mx-auto md:px-10 lg:px-24">
-          <div className="mb-4 flex flex-col justify-between gap-4 px-4 py-4 md:px-8 lg:flex-row">
-            <SearchInput />
-            <div className="grid grid-cols-[1fr_2fr] gap-2">
-              <FiltersSheet />
-              <UploadYourProjectButton />
-            </div>
-          </div>
+          <ProjectsToolbar />
+
           <div className="grid grid-cols-[repeat(auto-fill,_minmax(min(380px,100%),1fr))] place-content-center justify-center gap-4 px-4 pb-4">
             <ProjectCard project={project} />
             <ProjectCard project={project} />
