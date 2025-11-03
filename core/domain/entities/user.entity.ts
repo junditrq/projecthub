@@ -1,5 +1,5 @@
-import { Student } from "./student.entity";
 import { Like } from "./like.entity";
+import { Student } from "./student.entity";
 
 export interface User {
   id: string;
@@ -9,6 +9,7 @@ export interface User {
   role: UserRole;
   githubUsername?: string;
   linkedinUrl?: string;
+  hasBeenPrompted: boolean;
   student?: Student;
   likes: Like[];
 }
