@@ -2455,6 +2455,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     githubUsername: string | null
     linkedinUrl: string | null
+    hasBeenPrompoted: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2468,6 +2469,7 @@ export namespace Prisma {
     role: $Enums.UserRole | null
     githubUsername: string | null
     linkedinUrl: string | null
+    hasBeenPrompoted: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2481,6 +2483,7 @@ export namespace Prisma {
     role: number
     githubUsername: number
     linkedinUrl: number
+    hasBeenPrompoted: number
     _all: number
   }
 
@@ -2496,6 +2499,7 @@ export namespace Prisma {
     role?: true
     githubUsername?: true
     linkedinUrl?: true
+    hasBeenPrompoted?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2509,6 +2513,7 @@ export namespace Prisma {
     role?: true
     githubUsername?: true
     linkedinUrl?: true
+    hasBeenPrompoted?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2522,6 +2527,7 @@ export namespace Prisma {
     role?: true
     githubUsername?: true
     linkedinUrl?: true
+    hasBeenPrompoted?: true
     _all?: true
   }
 
@@ -2608,6 +2614,7 @@ export namespace Prisma {
     role: $Enums.UserRole
     githubUsername: string | null
     linkedinUrl: string | null
+    hasBeenPrompoted: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2638,6 +2645,7 @@ export namespace Prisma {
     role?: boolean
     githubUsername?: boolean
     linkedinUrl?: boolean
+    hasBeenPrompoted?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     student?: boolean | User$studentArgs<ExtArgs>
@@ -2658,6 +2666,7 @@ export namespace Prisma {
     role?: boolean
     githubUsername?: boolean
     linkedinUrl?: boolean
+    hasBeenPrompoted?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2671,6 +2680,7 @@ export namespace Prisma {
     role?: boolean
     githubUsername?: boolean
     linkedinUrl?: boolean
+    hasBeenPrompoted?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2684,9 +2694,10 @@ export namespace Prisma {
     role?: boolean
     githubUsername?: boolean
     linkedinUrl?: boolean
+    hasBeenPrompoted?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "githubUsername" | "linkedinUrl", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "role" | "githubUsername" | "linkedinUrl" | "hasBeenPrompoted", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -2720,6 +2731,7 @@ export namespace Prisma {
       role: $Enums.UserRole
       githubUsername: string | null
       linkedinUrl: string | null
+      hasBeenPrompoted: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3159,6 +3171,7 @@ export namespace Prisma {
     readonly role: FieldRef<"User", 'UserRole'>
     readonly githubUsername: FieldRef<"User", 'String'>
     readonly linkedinUrl: FieldRef<"User", 'String'>
+    readonly hasBeenPrompoted: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -18043,7 +18056,8 @@ export namespace Prisma {
     updatedAt: 'updatedAt',
     role: 'role',
     githubUsername: 'githubUsername',
-    linkedinUrl: 'linkedinUrl'
+    linkedinUrl: 'linkedinUrl',
+    hasBeenPrompoted: 'hasBeenPrompoted'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18275,6 +18289,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -18347,6 +18368,7 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     githubUsername?: StringNullableFilter<"User"> | string | null
     linkedinUrl?: StringNullableFilter<"User"> | string | null
+    hasBeenPrompoted?: BoolFilter<"User"> | boolean
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
@@ -18366,6 +18388,7 @@ export namespace Prisma {
     role?: SortOrder
     githubUsername?: SortOrderInput | SortOrder
     linkedinUrl?: SortOrderInput | SortOrder
+    hasBeenPrompoted?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     student?: StudentOrderByWithRelationInput
@@ -18388,6 +18411,7 @@ export namespace Prisma {
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     githubUsername?: StringNullableFilter<"User"> | string | null
     linkedinUrl?: StringNullableFilter<"User"> | string | null
+    hasBeenPrompoted?: BoolFilter<"User"> | boolean
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     student?: XOR<StudentNullableScalarRelationFilter, StudentWhereInput> | null
@@ -18407,6 +18431,7 @@ export namespace Prisma {
     role?: SortOrder
     githubUsername?: SortOrderInput | SortOrder
     linkedinUrl?: SortOrderInput | SortOrder
+    hasBeenPrompoted?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -18426,6 +18451,7 @@ export namespace Prisma {
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     githubUsername?: StringNullableWithAggregatesFilter<"User"> | string | null
     linkedinUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    hasBeenPrompoted?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type AccountWhereInput = {
@@ -19254,6 +19280,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
@@ -19273,6 +19300,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
@@ -19292,6 +19320,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
@@ -19311,6 +19340,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -19330,6 +19360,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -19343,6 +19374,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -19356,6 +19388,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AccountCreateInput = {
@@ -20261,6 +20294,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type AccountListRelationFilter = {
     every?: AccountWhereInput
     some?: AccountWhereInput
@@ -20322,6 +20360,7 @@ export namespace Prisma {
     role?: SortOrder
     githubUsername?: SortOrder
     linkedinUrl?: SortOrder
+    hasBeenPrompoted?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -20335,6 +20374,7 @@ export namespace Prisma {
     role?: SortOrder
     githubUsername?: SortOrder
     linkedinUrl?: SortOrder
+    hasBeenPrompoted?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -20348,6 +20388,7 @@ export namespace Prisma {
     role?: SortOrder
     githubUsername?: SortOrder
     linkedinUrl?: SortOrder
+    hasBeenPrompoted?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20422,6 +20463,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -21083,6 +21132,10 @@ export namespace Prisma {
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
     set?: $Enums.UserRole
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -22036,6 +22089,11 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22128,6 +22186,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22559,6 +22625,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
     reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
@@ -22577,6 +22644,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
@@ -22611,6 +22679,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
@@ -22629,6 +22698,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -22647,6 +22717,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
     reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
@@ -22665,6 +22736,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
     reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
@@ -22699,6 +22771,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
     reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
@@ -22717,6 +22790,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
     reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -22756,6 +22830,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     reviewedVerificationRequests?: VerificationRequestCreateNestedManyWithoutReviewedByInput
@@ -22774,6 +22849,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     reviewedVerificationRequests?: VerificationRequestUncheckedCreateNestedManyWithoutReviewedByInput
@@ -22898,6 +22974,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     reviewedVerificationRequests?: VerificationRequestUpdateManyWithoutReviewedByNestedInput
@@ -22916,6 +22993,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     reviewedVerificationRequests?: VerificationRequestUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -22992,6 +23070,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
@@ -23010,6 +23089,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
@@ -23033,6 +23113,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
@@ -23051,6 +23132,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
@@ -23085,6 +23167,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
@@ -23103,6 +23186,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -23132,6 +23216,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
@@ -23150,6 +23235,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput
@@ -23871,6 +23957,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     student?: StudentCreateNestedOneWithoutUserInput
@@ -23889,6 +23976,7 @@ export namespace Prisma {
     role?: $Enums.UserRole
     githubUsername?: string | null
     linkedinUrl?: string | null
+    hasBeenPrompoted?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     student?: StudentUncheckedCreateNestedOneWithoutUserInput
@@ -23964,6 +24052,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     student?: StudentUpdateOneWithoutUserNestedInput
@@ -23982,6 +24071,7 @@ export namespace Prisma {
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     githubUsername?: NullableStringFieldUpdateOperationsInput | string | null
     linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    hasBeenPrompoted?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     student?: StudentUncheckedUpdateOneWithoutUserNestedInput

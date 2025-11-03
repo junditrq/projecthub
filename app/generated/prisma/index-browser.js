@@ -130,7 +130,8 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt',
   role: 'role',
   githubUsername: 'githubUsername',
-  linkedinUrl: 'linkedinUrl'
+  linkedinUrl: 'linkedinUrl',
+  hasBeenPrompoted: 'hasBeenPrompoted'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
