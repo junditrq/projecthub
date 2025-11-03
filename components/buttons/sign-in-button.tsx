@@ -1,14 +1,8 @@
-import { signIn } from "@/auth";
 import OAuthButton from "./oath-button";
 
-const SignInButton = () => {
+const SignInButton = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <OAuthButton
-      action={async () => {
-        "use server";
-        await signIn("google");
-      }}
-    >
+    <OAuthButton onClick={onClick}>
       <span>
         log in <span className="hidden sm:inline">with google</span>
       </span>

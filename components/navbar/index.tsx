@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import SignInButton from "../buttons/sign-in-button";
+import SignInButtonServer from "../buttons/sign-in-button-server";
 import SignOutButton from "../buttons/sign-out-button";
 const NavBar = async () => {
   const session = await auth();
@@ -15,7 +15,7 @@ const NavBar = async () => {
             <span>ProjectHub</span>
           </Link>
         </div>
-        {!session?.user ? <SignInButton /> : <SignOutButton />}
+        {!session?.user ? <SignInButtonServer /> : <SignOutButton />}
       </div>
     </nav>
   );

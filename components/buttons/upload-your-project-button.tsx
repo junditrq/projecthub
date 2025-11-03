@@ -1,10 +1,10 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import NeedsAuthButton from "./needs-auth-button";
 
 const UploadYourProjectButton = () => {
   return (
-    <Button
+    <NeedsAuthButton
       variant={"default"}
       className="flex cursor-pointer gap-2 border-2"
       asChild
@@ -13,7 +13,7 @@ const UploadYourProjectButton = () => {
         Upload your <span className="hidden sm:inline">own</span> Project
         <ArrowRight />
       </Link>
-    </Button>
+    </NeedsAuthButton>
   );
 };
 export default UploadYourProjectButton;

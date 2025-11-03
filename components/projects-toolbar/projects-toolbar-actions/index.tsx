@@ -11,7 +11,9 @@ const ProjectsToolbarActions = ({ className }: FiltersActionsProps) => {
   return (
     <div className={cn("grid grid-cols-[1fr_2fr] gap-2", className)}>
       <FiltersSheet />
+      {/* <SignInAlert> */}
       <UploadYourProjectButton />
+      {/* </SignInAlert> */}
     </div>
   );
 };
