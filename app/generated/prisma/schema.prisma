@@ -50,7 +50,7 @@ model User {
   githubUsername String? @map("github_username")
   linkedinUrl    String? @map("linkedin_url")
 
-  hasBeenPrompoted Boolean @default(false) @map("has_been_prompoted")
+  hasBeenPrompted Boolean @default(false) @map("has_been_prompted")
 
   // relations
   student Student?

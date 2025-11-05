@@ -25,6 +25,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     /** OpenID ID Token */
     hasBeenPrompted: boolean;
+    userId: string | undefined;
   }
 }
 

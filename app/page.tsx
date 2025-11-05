@@ -3,6 +3,7 @@ import NavBar from "@/components/navbar";
 import PageHeading from "@/components/page-heading";
 import ProjectCard from "@/components/project-card";
 import ProjectsToolbar from "@/components/projects-toolbar";
+import InitialUserDialog from "./components/initial-user-dialog";
 
 const project = {
   id: "0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6",
@@ -71,6 +72,7 @@ const Page = async () => {
           </div>
         </div>
       </main>
+      <InitialUserDialog />
     </>
   );
 };

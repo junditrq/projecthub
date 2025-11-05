@@ -4,16 +4,25 @@ import Google from "next-auth/providers/google";
 export const authConfig = {
   pages: {},
   callbacks: {
-    jwt: async ({ user, token }) => {
+    jwt: async ({ user, token, trigger, session }) => {
       if (user) {
-        token.hasBeenPrompoted = !!user.hasBeenPrompted;
+        token.hasBeenPrompted = !!user.hasBeenPrompted;
+        token.userId = user.id;
       }
+
+      if (trigger === "update" && session?.hasBeenPrompted !== undefined) {
+        token.hasBeenPrompted = session.hasBeenPrompted;
+      }
+
       return token;
     },
 
     session: async ({ session, token }) => {
       if (session.user) {
-        session.user.hasBeenPrompted = !!token.hasBeenPrompoted;
+        session.user.hasBeenPrompted = !!token.hasBeenPrompted;
+      }
+      if (token.userId) {
+        session.user.id = token.userId;
       }
       return session;
     },
