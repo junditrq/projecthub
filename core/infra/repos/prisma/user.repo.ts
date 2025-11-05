@@ -20,12 +20,9 @@ export class PrismaUserRepo implements IUserRepo {
   }
 
   async findById(userId: string): Promise<User | null> {
-    const user = await this.prisma.user.findFirst({
+    const user = await this.prisma.user.findUniqueOrThrow({
       where: { id: userId },
     });
-    if (!user) {
-      return null;
-    }
     return UserMapper.toDomain(user);
   }
 }
