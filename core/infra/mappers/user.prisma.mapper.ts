@@ -1,7 +1,7 @@
 import { Prisma, User as PrismaUser } from "@/app/generated/prisma";
 import { User } from "@/core/domain/entities/user.entity";
 
-export class UserMapper {
+export class PrismaUserMapper {
   static toDomain(prismaUser: PrismaUser): User {
     return User.reconstitute({
       email: prismaUser.email,

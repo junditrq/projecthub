@@ -43,7 +43,6 @@ export class User {
   }
 
   public markAsPrompted() {
-    console.log("props" + this._props.name);
     if (this._props.hasBeenPrompted) {
       throw new Error("User has already been prompted");
     }

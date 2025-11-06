@@ -1,7 +1,7 @@
 import { User } from "@/core/domain/entities/user.entity";
 import { IUserRepo } from "@/core/domain/repos/user.repo";
 import prisma from "@/lib/prisma";
-import { UserMapper } from "../../mappers/user.mapper";
+import { PrismaUserMapper } from "../../mappers/user.prisma.mapper";
 
 export class PrismaUserRepo implements IUserRepo {
   private prisma;
@@ -17,17 +17,17 @@ export class PrismaUserRepo implements IUserRepo {
 
     if (!user) return null;
 
-    return UserMapper.toDomain(user);
+    return PrismaUserMapper.toDomain(user);
   }
 
   async update(user: User): Promise<User> {
-    const data = UserMapper.toPersistene(user);
+    const data = PrismaUserMapper.toPersistene(user);
 
     const updatedUser = await this.prisma.user.update({
       where: { id: user.id },
       data,
     });
 
-    return UserMapper.toDomain(updatedUser);
+    return PrismaUserMapper.toDomain(updatedUser);
   }
 }

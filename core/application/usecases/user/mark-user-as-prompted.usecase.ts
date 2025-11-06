@@ -1,5 +1,6 @@
-import { User } from "@/core/domain/entities/user.entity";
 import { IUserRepo } from "@/core/domain/repos/user.repo";
+import { UserResponseDTO } from "../../dtos/user.dto";
+import { UserDTOMapper } from "../../mappers/user.mapper";
 
 export class MarkUserAsPromptedUseCase {
   private userRepo: IUserRepo;
@@ -8,12 +9,13 @@ export class MarkUserAsPromptedUseCase {
     this.userRepo = userRepo;
   }
 
-  async execute(userId: string): Promise<User> {
+  async execute(userId: string): Promise<UserResponseDTO> {
     const user = await this.userRepo.findById(userId);
     if (!user) {
       throw new Error("User has not been found");
     }
     user.markAsPrompted();
-    return await this.userRepo.update(user);
+    const updatedUser = await this.userRepo.update(user);
+    return UserDTOMapper.toResponseDTO(updatedUser);
   }
 }
