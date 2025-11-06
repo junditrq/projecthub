@@ -23,7 +23,6 @@ export async function markUserAsPromptedAction() {
 
     // Execute use case
     const user = await markUserAsPromptedUseCase.execute(session.user.id);
-    console.log(user);
 
     return {
       success: true,

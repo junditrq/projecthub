@@ -10,19 +10,24 @@ export class PrismaUserRepo implements IUserRepo {
     this.prisma = prisma;
   }
 
-  async markAsPrompted(userId: string): Promise<User> {
-    const user = await this.prisma.user.update({
+  async findById(userId: string): Promise<User | null> {
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      data: { hasBeenPrompted: true },
     });
+
+    if (!user) return null;
 
     return UserMapper.toDomain(user);
   }
 
-  async findById(userId: string): Promise<User | null> {
-    const user = await this.prisma.user.findUniqueOrThrow({
-      where: { id: userId },
+  async update(user: User): Promise<User> {
+    const data = UserMapper.toPersistene(user);
+
+    const updatedUser = await this.prisma.user.update({
+      where: { id: user.id },
+      data,
     });
-    return UserMapper.toDomain(user);
+
+    return UserMapper.toDomain(updatedUser);
   }
 }

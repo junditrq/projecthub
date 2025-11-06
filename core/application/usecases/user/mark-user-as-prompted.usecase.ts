@@ -9,6 +9,11 @@ export class MarkUserAsPromptedUseCase {
   }
 
   async execute(userId: string): Promise<User> {
-    return await this.userRepo.markAsPrompted(userId);
+    const user = await this.userRepo.findById(userId);
+    if (!user) {
+      throw new Error("User has not been found");
+    }
+    user.markAsPrompted();
+    return await this.userRepo.update(user);
   }
 }
