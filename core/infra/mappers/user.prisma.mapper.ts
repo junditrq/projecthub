@@ -15,7 +15,7 @@ export class PrismaUserMapper {
     });
   }
 
-  static toPersistene(user: User): Prisma.UserUpdateInput {
+  static toPersistence(user: User): Prisma.UserUpdateInput {
     return {
       id: user.id,
       email: user.email,
