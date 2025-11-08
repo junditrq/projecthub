@@ -18,18 +18,20 @@ const InitialUserDialog = () => {
   }, [data?.user, status]);
 
   const handleOpenChange = async (open: boolean) => {
-    if (open === false) {
-      const result = await markUserAsPromptedAction();
-
-      if (result.success) {
-        await update({
-          hasBeenPrompted: true,
-        });
-      } else {
-        console.error(result.error || "Failed to update");
-      }
-    }
     setOpen(open);
+    if (open === false) {
+      const { serverError } = await markUserAsPromptedAction();
+
+      if (serverError) {
+        console.error(serverError);
+      }
+
+      // We don't care if the db updates or not the user has been prompted but the
+      // request to set the flag has failed
+      await update({
+        hasBeenPrompted: true,
+      });
+    }
   };
 
   return (
