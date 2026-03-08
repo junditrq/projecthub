@@ -1,0 +1,18 @@
+import { ICategoryRepo } from "@/core/domain/repos/category.repo";
+import prisma from "@/lib/prisma";
+import { PrismaCategoryMapper } from "../../mappers/category.prisma.mapper";
+
+export class PrismaCategoryRepo implements ICategoryRepo {
+  private prisma;
+
+  constructor() {
+    this.prisma = prisma;
+  }
+
+  async findAll() {
+    const categories = await this.prisma.category.findMany({
+      orderBy: { name: "asc" },
+    });
+    return categories.map(PrismaCategoryMapper.toDomain);
+  }
+}
