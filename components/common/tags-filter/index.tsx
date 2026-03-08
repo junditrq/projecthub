@@ -1,18 +1,12 @@
 "use client";
-import { Prisma } from "@/app/generated/prisma";
+import { TagDTO } from "@/core/application/dtos/tag.dto";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { useMemo, useRef } from "react";
 import Select from "react-select";
 
 type TagsFilterProps = {
-  tags: Prisma.TagGetPayload<{
-    select: {
-      id: true;
-      name: true;
-      slug: true;
-    };
-  }>[];
+  tags: TagDTO[];
 };
 
 const TagsFilter = ({ tags }: TagsFilterProps) => {
@@ -20,13 +14,7 @@ const TagsFilter = ({ tags }: TagsFilterProps) => {
   const { theme } = useTheme();
 
   const options = useMemo(
-    () =>
-      tags.map((tag) => {
-        return {
-          label: tag.slug,
-          value: tag.id,
-        };
-      }),
+    () => tags.map((t) => ({ label: t.slug, value: t.id })),
     [tags],
   );
 
