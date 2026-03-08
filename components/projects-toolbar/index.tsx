@@ -1,4 +1,3 @@
-"use client";
 import { cn } from "@/lib/utils";
 import ProjectsSearchInput from "./projects-search-input";
 import ProjectsToolbarActions from "./projects-toolbar-actions";

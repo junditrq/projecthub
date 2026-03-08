@@ -1,4 +1,3 @@
-"use client";
 import UploadYourProjectButton from "@/components/buttons/upload-your-project-button";
 import { cn } from "@/lib/utils";
 import FiltersSheet from "./filters-sheet";
