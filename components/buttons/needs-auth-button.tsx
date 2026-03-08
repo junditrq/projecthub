@@ -1,10 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Button, ShadcnButtonProps } from "../ui/button";
-import { Dialog, DialogContent } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import SignInButtonClient from "./sign-in-button-client";
 
 const NeedsAuthButton = ({
