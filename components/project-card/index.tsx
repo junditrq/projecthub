@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ArrowBigUp } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { Button } from "../ui/button";
+import NeedsAuthButton from "../buttons/needs-auth-button";
 import { Separator } from "../ui/separator";
 import ContributorAvatar from "./contributor-avatar";
 import ProjectCategory from "./project-category";
@@ -63,7 +63,7 @@ export default function ProjectCard({
             ))}
           </div>
 
-          <Button
+          <NeedsAuthButton
             variant={isLiked ? "default" : "outline"}
             className={cn(
               "flex !h-8 w-18 cursor-pointer items-center gap-1 rounded-full !px-2 !py-0",
@@ -86,7 +86,7 @@ export default function ProjectCard({
               {/* <span>{isLiked ? "Liked" : "Like"}</span>{" "} */}
               {numberOfLikes}
             </span>
-          </Button>
+          </NeedsAuthButton>
         </div>
       </CardContent>
     </Card>
