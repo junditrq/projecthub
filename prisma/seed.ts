@@ -9,7 +9,7 @@ const mySlugify = (string: string) =>
     lower: true,
   });
 
-const tags = [
+const tags = new Set([
   "Spring Boot",
   "React.js",
   "Flutter Mobile",
@@ -63,7 +63,7 @@ const tags = [
   "Redis",
   "Firebase",
   "Prisma",
-];
+]);
 
 const categories = ["Web", "Mobile"];
 
@@ -99,6 +99,20 @@ async function seedGroups() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- intentional: ok to use any in seed data map
   const projectMap = new Map<string, any>();
 
+  const academicYear = await prisma.academicYear.create({
+    data: {
+      label: "2024-2025",
+    },
+  });
+
+  const subject = await prisma.subject.create({
+    data: {
+      name: "Project 1",
+      slug: "project-1",
+      yearLevel: 3,
+    },
+  });
+
   for (const group of groups) {
     const slug = mySlugify(group.projectIdea);
 
@@ -109,7 +123,8 @@ async function seedGroups() {
         data: {
           name: group.projectIdea,
           slug,
-          year: 2024,
+          academicYearId: academicYear.id,
+          subjectId: subject.id,
         },
       });
       projectMap.set(slug, projectIdea);

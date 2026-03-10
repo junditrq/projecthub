@@ -102,17 +102,41 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
+model AcademicYear {
+  id        String   @id @default(uuid())
+  label     String   @unique // 2025-2026 for example
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectIdeas ProjectIdea[]
+
+  @@map("academic_years")
+}
+
+model Subject {
+  id        String @id @default(uuid())
+  name      String @unique
+  slug      String @unique
+  yearLevel Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projectIdeas ProjectIdea[]
+
+  @@map("subjects")
+}
+
 model Student {
   id         String  @id @default(uuid())
   arabicName String  @map("arabic_name")
-  groupId    String  @map("group_id")
   userId     String? @unique @map("user_id")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  group             Group         @relation(fields: [groupId], references: [id])
+  groups            Group[] // can be in multiple groups across different academic years and subjects
   user              User?         @relation(fields: [userId], references: [id])
   publishedProjects Project[]
   repos             ProjectRepo[]
@@ -159,12 +183,17 @@ model Group {
 model ProjectIdea {
   id        String   @id @default(uuid())
   name      String
-  year      Int
   slug      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   groups Group[]
+
+  academicYearId String       @map("academic_year_id")
+  academicYear   AcademicYear @relation(fields: [academicYearId], references: [id])
+
+  subjectId String  @map("subject_id")
+  subject   Subject @relation(fields: [subjectId], references: [id])
 
   @@map("project_ideas")
 }

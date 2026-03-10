@@ -162,10 +162,25 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.AcademicYearScalarFieldEnum = {
+  id: 'id',
+  label: 'label',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  yearLevel: 'yearLevel',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.StudentScalarFieldEnum = {
   id: 'id',
   arabicName: 'arabicName',
-  groupId: 'groupId',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -192,10 +207,11 @@ exports.Prisma.GroupScalarFieldEnum = {
 exports.Prisma.ProjectIdeaScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  year: 'year',
   slug: 'slug',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  academicYearId: 'academicYearId',
+  subjectId: 'subjectId'
 };
 
 exports.Prisma.ProjectScalarFieldEnum = {
@@ -287,6 +303,8 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
+  AcademicYear: 'AcademicYear',
+  Subject: 'Subject',
   Student: 'Student',
   VerificationRequest: 'VerificationRequest',
   Group: 'Group',

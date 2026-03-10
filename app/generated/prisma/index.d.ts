@@ -34,6 +34,16 @@ export type Session = $Result.DefaultSelection<Prisma.$SessionPayload>
  */
 export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTokenPayload>
 /**
+ * Model AcademicYear
+ * 
+ */
+export type AcademicYear = $Result.DefaultSelection<Prisma.$AcademicYearPayload>
+/**
+ * Model Subject
+ * 
+ */
+export type Subject = $Result.DefaultSelection<Prisma.$SubjectPayload>
+/**
  * Model Student
  * 
  */
@@ -293,6 +303,26 @@ export class PrismaClient<
     * ```
     */
   get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.academicYear`: Exposes CRUD operations for the **AcademicYear** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AcademicYears
+    * const academicYears = await prisma.academicYear.findMany()
+    * ```
+    */
+  get academicYear(): Prisma.AcademicYearDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subject`: Exposes CRUD operations for the **Subject** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subjects
+    * const subjects = await prisma.subject.findMany()
+    * ```
+    */
+  get subject(): Prisma.SubjectDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.student`: Exposes CRUD operations for the **Student** model.
@@ -837,6 +867,8 @@ export namespace Prisma {
     Account: 'Account',
     Session: 'Session',
     VerificationToken: 'VerificationToken',
+    AcademicYear: 'AcademicYear',
+    Subject: 'Subject',
     Student: 'Student',
     VerificationRequest: 'VerificationRequest',
     Group: 'Group',
@@ -865,7 +897,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "student" | "verificationRequest" | "group" | "projectIdea" | "project" | "projectRepo" | "like" | "preview" | "category" | "tag"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "academicYear" | "subject" | "student" | "verificationRequest" | "group" | "projectIdea" | "project" | "projectRepo" | "like" | "preview" | "category" | "tag"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1162,6 +1194,154 @@ export namespace Prisma {
           count: {
             args: Prisma.VerificationTokenCountArgs<ExtArgs>
             result: $Utils.Optional<VerificationTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      AcademicYear: {
+        payload: Prisma.$AcademicYearPayload<ExtArgs>
+        fields: Prisma.AcademicYearFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AcademicYearFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AcademicYearFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>
+          }
+          findFirst: {
+            args: Prisma.AcademicYearFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AcademicYearFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>
+          }
+          findMany: {
+            args: Prisma.AcademicYearFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>[]
+          }
+          create: {
+            args: Prisma.AcademicYearCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>
+          }
+          createMany: {
+            args: Prisma.AcademicYearCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AcademicYearCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>[]
+          }
+          delete: {
+            args: Prisma.AcademicYearDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>
+          }
+          update: {
+            args: Prisma.AcademicYearUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>
+          }
+          deleteMany: {
+            args: Prisma.AcademicYearDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AcademicYearUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AcademicYearUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>[]
+          }
+          upsert: {
+            args: Prisma.AcademicYearUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AcademicYearPayload>
+          }
+          aggregate: {
+            args: Prisma.AcademicYearAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAcademicYear>
+          }
+          groupBy: {
+            args: Prisma.AcademicYearGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AcademicYearGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AcademicYearCountArgs<ExtArgs>
+            result: $Utils.Optional<AcademicYearCountAggregateOutputType> | number
+          }
+        }
+      }
+      Subject: {
+        payload: Prisma.$SubjectPayload<ExtArgs>
+        fields: Prisma.SubjectFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubjectFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubjectFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          findFirst: {
+            args: Prisma.SubjectFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubjectFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          findMany: {
+            args: Prisma.SubjectFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>[]
+          }
+          create: {
+            args: Prisma.SubjectCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          createMany: {
+            args: Prisma.SubjectCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubjectCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>[]
+          }
+          delete: {
+            args: Prisma.SubjectDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          update: {
+            args: Prisma.SubjectUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubjectDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubjectUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubjectUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubjectUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubjectPayload>
+          }
+          aggregate: {
+            args: Prisma.SubjectAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubject>
+          }
+          groupBy: {
+            args: Prisma.SubjectGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubjectGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubjectCountArgs<ExtArgs>
+            result: $Utils.Optional<SubjectCountAggregateOutputType> | number
           }
         }
       }
@@ -1993,6 +2173,8 @@ export namespace Prisma {
     account?: AccountOmit
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
+    academicYear?: AcademicYearOmit
+    subject?: SubjectOmit
     student?: StudentOmit
     verificationRequest?: VerificationRequestOmit
     group?: GroupOmit
@@ -2160,15 +2342,79 @@ export namespace Prisma {
 
 
   /**
+   * Count Type AcademicYearCountOutputType
+   */
+
+  export type AcademicYearCountOutputType = {
+    projectIdeas: number
+  }
+
+  export type AcademicYearCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectIdeas?: boolean | AcademicYearCountOutputTypeCountProjectIdeasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * AcademicYearCountOutputType without action
+   */
+  export type AcademicYearCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYearCountOutputType
+     */
+    select?: AcademicYearCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * AcademicYearCountOutputType without action
+   */
+  export type AcademicYearCountOutputTypeCountProjectIdeasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectIdeaWhereInput
+  }
+
+
+  /**
+   * Count Type SubjectCountOutputType
+   */
+
+  export type SubjectCountOutputType = {
+    projectIdeas: number
+  }
+
+  export type SubjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectIdeas?: boolean | SubjectCountOutputTypeCountProjectIdeasArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubjectCountOutputType
+     */
+    select?: SubjectCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountProjectIdeasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectIdeaWhereInput
+  }
+
+
+  /**
    * Count Type StudentCountOutputType
    */
 
   export type StudentCountOutputType = {
+    groups: number
     publishedProjects: number
     repos: number
   }
 
   export type StudentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    groups?: boolean | StudentCountOutputTypeCountGroupsArgs
     publishedProjects?: boolean | StudentCountOutputTypeCountPublishedProjectsArgs
     repos?: boolean | StudentCountOutputTypeCountReposArgs
   }
@@ -2182,6 +2428,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the StudentCountOutputType
      */
     select?: StudentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * StudentCountOutputType without action
+   */
+  export type StudentCountOutputTypeCountGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupWhereInput
   }
 
   /**
@@ -6915,6 +7168,2180 @@ export namespace Prisma {
 
 
   /**
+   * Model AcademicYear
+   */
+
+  export type AggregateAcademicYear = {
+    _count: AcademicYearCountAggregateOutputType | null
+    _min: AcademicYearMinAggregateOutputType | null
+    _max: AcademicYearMaxAggregateOutputType | null
+  }
+
+  export type AcademicYearMinAggregateOutputType = {
+    id: string | null
+    label: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AcademicYearMaxAggregateOutputType = {
+    id: string | null
+    label: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AcademicYearCountAggregateOutputType = {
+    id: number
+    label: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AcademicYearMinAggregateInputType = {
+    id?: true
+    label?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AcademicYearMaxAggregateInputType = {
+    id?: true
+    label?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AcademicYearCountAggregateInputType = {
+    id?: true
+    label?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AcademicYearAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AcademicYear to aggregate.
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicYears to fetch.
+     */
+    orderBy?: AcademicYearOrderByWithRelationInput | AcademicYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AcademicYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicYears.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AcademicYears
+    **/
+    _count?: true | AcademicYearCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AcademicYearMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AcademicYearMaxAggregateInputType
+  }
+
+  export type GetAcademicYearAggregateType<T extends AcademicYearAggregateArgs> = {
+        [P in keyof T & keyof AggregateAcademicYear]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAcademicYear[P]>
+      : GetScalarType<T[P], AggregateAcademicYear[P]>
+  }
+
+
+
+
+  export type AcademicYearGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AcademicYearWhereInput
+    orderBy?: AcademicYearOrderByWithAggregationInput | AcademicYearOrderByWithAggregationInput[]
+    by: AcademicYearScalarFieldEnum[] | AcademicYearScalarFieldEnum
+    having?: AcademicYearScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AcademicYearCountAggregateInputType | true
+    _min?: AcademicYearMinAggregateInputType
+    _max?: AcademicYearMaxAggregateInputType
+  }
+
+  export type AcademicYearGroupByOutputType = {
+    id: string
+    label: string
+    createdAt: Date
+    updatedAt: Date
+    _count: AcademicYearCountAggregateOutputType | null
+    _min: AcademicYearMinAggregateOutputType | null
+    _max: AcademicYearMaxAggregateOutputType | null
+  }
+
+  type GetAcademicYearGroupByPayload<T extends AcademicYearGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AcademicYearGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AcademicYearGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AcademicYearGroupByOutputType[P]>
+            : GetScalarType<T[P], AcademicYearGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AcademicYearSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    projectIdeas?: boolean | AcademicYear$projectIdeasArgs<ExtArgs>
+    _count?: boolean | AcademicYearCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["academicYear"]>
+
+  export type AcademicYearSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["academicYear"]>
+
+  export type AcademicYearSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    label?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["academicYear"]>
+
+  export type AcademicYearSelectScalar = {
+    id?: boolean
+    label?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AcademicYearOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "label" | "createdAt" | "updatedAt", ExtArgs["result"]["academicYear"]>
+  export type AcademicYearInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectIdeas?: boolean | AcademicYear$projectIdeasArgs<ExtArgs>
+    _count?: boolean | AcademicYearCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type AcademicYearIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type AcademicYearIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $AcademicYearPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AcademicYear"
+    objects: {
+      projectIdeas: Prisma.$ProjectIdeaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      label: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["academicYear"]>
+    composites: {}
+  }
+
+  type AcademicYearGetPayload<S extends boolean | null | undefined | AcademicYearDefaultArgs> = $Result.GetResult<Prisma.$AcademicYearPayload, S>
+
+  type AcademicYearCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AcademicYearFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AcademicYearCountAggregateInputType | true
+    }
+
+  export interface AcademicYearDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AcademicYear'], meta: { name: 'AcademicYear' } }
+    /**
+     * Find zero or one AcademicYear that matches the filter.
+     * @param {AcademicYearFindUniqueArgs} args - Arguments to find a AcademicYear
+     * @example
+     * // Get one AcademicYear
+     * const academicYear = await prisma.academicYear.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AcademicYearFindUniqueArgs>(args: SelectSubset<T, AcademicYearFindUniqueArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AcademicYear that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AcademicYearFindUniqueOrThrowArgs} args - Arguments to find a AcademicYear
+     * @example
+     * // Get one AcademicYear
+     * const academicYear = await prisma.academicYear.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AcademicYearFindUniqueOrThrowArgs>(args: SelectSubset<T, AcademicYearFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AcademicYear that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearFindFirstArgs} args - Arguments to find a AcademicYear
+     * @example
+     * // Get one AcademicYear
+     * const academicYear = await prisma.academicYear.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AcademicYearFindFirstArgs>(args?: SelectSubset<T, AcademicYearFindFirstArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AcademicYear that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearFindFirstOrThrowArgs} args - Arguments to find a AcademicYear
+     * @example
+     * // Get one AcademicYear
+     * const academicYear = await prisma.academicYear.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AcademicYearFindFirstOrThrowArgs>(args?: SelectSubset<T, AcademicYearFindFirstOrThrowArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AcademicYears that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AcademicYears
+     * const academicYears = await prisma.academicYear.findMany()
+     * 
+     * // Get first 10 AcademicYears
+     * const academicYears = await prisma.academicYear.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const academicYearWithIdOnly = await prisma.academicYear.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AcademicYearFindManyArgs>(args?: SelectSubset<T, AcademicYearFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AcademicYear.
+     * @param {AcademicYearCreateArgs} args - Arguments to create a AcademicYear.
+     * @example
+     * // Create one AcademicYear
+     * const AcademicYear = await prisma.academicYear.create({
+     *   data: {
+     *     // ... data to create a AcademicYear
+     *   }
+     * })
+     * 
+     */
+    create<T extends AcademicYearCreateArgs>(args: SelectSubset<T, AcademicYearCreateArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AcademicYears.
+     * @param {AcademicYearCreateManyArgs} args - Arguments to create many AcademicYears.
+     * @example
+     * // Create many AcademicYears
+     * const academicYear = await prisma.academicYear.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AcademicYearCreateManyArgs>(args?: SelectSubset<T, AcademicYearCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AcademicYears and returns the data saved in the database.
+     * @param {AcademicYearCreateManyAndReturnArgs} args - Arguments to create many AcademicYears.
+     * @example
+     * // Create many AcademicYears
+     * const academicYear = await prisma.academicYear.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AcademicYears and only return the `id`
+     * const academicYearWithIdOnly = await prisma.academicYear.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AcademicYearCreateManyAndReturnArgs>(args?: SelectSubset<T, AcademicYearCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AcademicYear.
+     * @param {AcademicYearDeleteArgs} args - Arguments to delete one AcademicYear.
+     * @example
+     * // Delete one AcademicYear
+     * const AcademicYear = await prisma.academicYear.delete({
+     *   where: {
+     *     // ... filter to delete one AcademicYear
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AcademicYearDeleteArgs>(args: SelectSubset<T, AcademicYearDeleteArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AcademicYear.
+     * @param {AcademicYearUpdateArgs} args - Arguments to update one AcademicYear.
+     * @example
+     * // Update one AcademicYear
+     * const academicYear = await prisma.academicYear.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AcademicYearUpdateArgs>(args: SelectSubset<T, AcademicYearUpdateArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AcademicYears.
+     * @param {AcademicYearDeleteManyArgs} args - Arguments to filter AcademicYears to delete.
+     * @example
+     * // Delete a few AcademicYears
+     * const { count } = await prisma.academicYear.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AcademicYearDeleteManyArgs>(args?: SelectSubset<T, AcademicYearDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AcademicYears.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AcademicYears
+     * const academicYear = await prisma.academicYear.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AcademicYearUpdateManyArgs>(args: SelectSubset<T, AcademicYearUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AcademicYears and returns the data updated in the database.
+     * @param {AcademicYearUpdateManyAndReturnArgs} args - Arguments to update many AcademicYears.
+     * @example
+     * // Update many AcademicYears
+     * const academicYear = await prisma.academicYear.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AcademicYears and only return the `id`
+     * const academicYearWithIdOnly = await prisma.academicYear.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AcademicYearUpdateManyAndReturnArgs>(args: SelectSubset<T, AcademicYearUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AcademicYear.
+     * @param {AcademicYearUpsertArgs} args - Arguments to update or create a AcademicYear.
+     * @example
+     * // Update or create a AcademicYear
+     * const academicYear = await prisma.academicYear.upsert({
+     *   create: {
+     *     // ... data to create a AcademicYear
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AcademicYear we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AcademicYearUpsertArgs>(args: SelectSubset<T, AcademicYearUpsertArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AcademicYears.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearCountArgs} args - Arguments to filter AcademicYears to count.
+     * @example
+     * // Count the number of AcademicYears
+     * const count = await prisma.academicYear.count({
+     *   where: {
+     *     // ... the filter for the AcademicYears we want to count
+     *   }
+     * })
+    **/
+    count<T extends AcademicYearCountArgs>(
+      args?: Subset<T, AcademicYearCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AcademicYearCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AcademicYear.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AcademicYearAggregateArgs>(args: Subset<T, AcademicYearAggregateArgs>): Prisma.PrismaPromise<GetAcademicYearAggregateType<T>>
+
+    /**
+     * Group by AcademicYear.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AcademicYearGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AcademicYearGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AcademicYearGroupByArgs['orderBy'] }
+        : { orderBy?: AcademicYearGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AcademicYearGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAcademicYearGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AcademicYear model
+   */
+  readonly fields: AcademicYearFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AcademicYear.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AcademicYearClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    projectIdeas<T extends AcademicYear$projectIdeasArgs<ExtArgs> = {}>(args?: Subset<T, AcademicYear$projectIdeasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectIdeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AcademicYear model
+   */
+  interface AcademicYearFieldRefs {
+    readonly id: FieldRef<"AcademicYear", 'String'>
+    readonly label: FieldRef<"AcademicYear", 'String'>
+    readonly createdAt: FieldRef<"AcademicYear", 'DateTime'>
+    readonly updatedAt: FieldRef<"AcademicYear", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AcademicYear findUnique
+   */
+  export type AcademicYearFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicYear to fetch.
+     */
+    where: AcademicYearWhereUniqueInput
+  }
+
+  /**
+   * AcademicYear findUniqueOrThrow
+   */
+  export type AcademicYearFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicYear to fetch.
+     */
+    where: AcademicYearWhereUniqueInput
+  }
+
+  /**
+   * AcademicYear findFirst
+   */
+  export type AcademicYearFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicYear to fetch.
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicYears to fetch.
+     */
+    orderBy?: AcademicYearOrderByWithRelationInput | AcademicYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AcademicYears.
+     */
+    cursor?: AcademicYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicYears.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AcademicYears.
+     */
+    distinct?: AcademicYearScalarFieldEnum | AcademicYearScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicYear findFirstOrThrow
+   */
+  export type AcademicYearFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicYear to fetch.
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicYears to fetch.
+     */
+    orderBy?: AcademicYearOrderByWithRelationInput | AcademicYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AcademicYears.
+     */
+    cursor?: AcademicYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicYears.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AcademicYears.
+     */
+    distinct?: AcademicYearScalarFieldEnum | AcademicYearScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicYear findMany
+   */
+  export type AcademicYearFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * Filter, which AcademicYears to fetch.
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AcademicYears to fetch.
+     */
+    orderBy?: AcademicYearOrderByWithRelationInput | AcademicYearOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AcademicYears.
+     */
+    cursor?: AcademicYearWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AcademicYears from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AcademicYears.
+     */
+    skip?: number
+    distinct?: AcademicYearScalarFieldEnum | AcademicYearScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicYear create
+   */
+  export type AcademicYearCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AcademicYear.
+     */
+    data: XOR<AcademicYearCreateInput, AcademicYearUncheckedCreateInput>
+  }
+
+  /**
+   * AcademicYear createMany
+   */
+  export type AcademicYearCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AcademicYears.
+     */
+    data: AcademicYearCreateManyInput | AcademicYearCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AcademicYear createManyAndReturn
+   */
+  export type AcademicYearCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * The data used to create many AcademicYears.
+     */
+    data: AcademicYearCreateManyInput | AcademicYearCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AcademicYear update
+   */
+  export type AcademicYearUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AcademicYear.
+     */
+    data: XOR<AcademicYearUpdateInput, AcademicYearUncheckedUpdateInput>
+    /**
+     * Choose, which AcademicYear to update.
+     */
+    where: AcademicYearWhereUniqueInput
+  }
+
+  /**
+   * AcademicYear updateMany
+   */
+  export type AcademicYearUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AcademicYears.
+     */
+    data: XOR<AcademicYearUpdateManyMutationInput, AcademicYearUncheckedUpdateManyInput>
+    /**
+     * Filter which AcademicYears to update
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * Limit how many AcademicYears to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AcademicYear updateManyAndReturn
+   */
+  export type AcademicYearUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * The data used to update AcademicYears.
+     */
+    data: XOR<AcademicYearUpdateManyMutationInput, AcademicYearUncheckedUpdateManyInput>
+    /**
+     * Filter which AcademicYears to update
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * Limit how many AcademicYears to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AcademicYear upsert
+   */
+  export type AcademicYearUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AcademicYear to update in case it exists.
+     */
+    where: AcademicYearWhereUniqueInput
+    /**
+     * In case the AcademicYear found by the `where` argument doesn't exist, create a new AcademicYear with this data.
+     */
+    create: XOR<AcademicYearCreateInput, AcademicYearUncheckedCreateInput>
+    /**
+     * In case the AcademicYear was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AcademicYearUpdateInput, AcademicYearUncheckedUpdateInput>
+  }
+
+  /**
+   * AcademicYear delete
+   */
+  export type AcademicYearDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+    /**
+     * Filter which AcademicYear to delete.
+     */
+    where: AcademicYearWhereUniqueInput
+  }
+
+  /**
+   * AcademicYear deleteMany
+   */
+  export type AcademicYearDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AcademicYears to delete
+     */
+    where?: AcademicYearWhereInput
+    /**
+     * Limit how many AcademicYears to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AcademicYear.projectIdeas
+   */
+  export type AcademicYear$projectIdeasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectIdea
+     */
+    select?: ProjectIdeaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectIdea
+     */
+    omit?: ProjectIdeaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectIdeaInclude<ExtArgs> | null
+    where?: ProjectIdeaWhereInput
+    orderBy?: ProjectIdeaOrderByWithRelationInput | ProjectIdeaOrderByWithRelationInput[]
+    cursor?: ProjectIdeaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectIdeaScalarFieldEnum | ProjectIdeaScalarFieldEnum[]
+  }
+
+  /**
+   * AcademicYear without action
+   */
+  export type AcademicYearDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AcademicYear
+     */
+    select?: AcademicYearSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AcademicYear
+     */
+    omit?: AcademicYearOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AcademicYearInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Subject
+   */
+
+  export type AggregateSubject = {
+    _count: SubjectCountAggregateOutputType | null
+    _avg: SubjectAvgAggregateOutputType | null
+    _sum: SubjectSumAggregateOutputType | null
+    _min: SubjectMinAggregateOutputType | null
+    _max: SubjectMaxAggregateOutputType | null
+  }
+
+  export type SubjectAvgAggregateOutputType = {
+    yearLevel: number | null
+  }
+
+  export type SubjectSumAggregateOutputType = {
+    yearLevel: number | null
+  }
+
+  export type SubjectMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    yearLevel: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubjectMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    yearLevel: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type SubjectCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    yearLevel: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type SubjectAvgAggregateInputType = {
+    yearLevel?: true
+  }
+
+  export type SubjectSumAggregateInputType = {
+    yearLevel?: true
+  }
+
+  export type SubjectMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    yearLevel?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubjectMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    yearLevel?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type SubjectCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    yearLevel?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type SubjectAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subject to aggregate.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subjects
+    **/
+    _count?: true | SubjectCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SubjectAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SubjectSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubjectMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubjectMaxAggregateInputType
+  }
+
+  export type GetSubjectAggregateType<T extends SubjectAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubject]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubject[P]>
+      : GetScalarType<T[P], AggregateSubject[P]>
+  }
+
+
+
+
+  export type SubjectGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubjectWhereInput
+    orderBy?: SubjectOrderByWithAggregationInput | SubjectOrderByWithAggregationInput[]
+    by: SubjectScalarFieldEnum[] | SubjectScalarFieldEnum
+    having?: SubjectScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubjectCountAggregateInputType | true
+    _avg?: SubjectAvgAggregateInputType
+    _sum?: SubjectSumAggregateInputType
+    _min?: SubjectMinAggregateInputType
+    _max?: SubjectMaxAggregateInputType
+  }
+
+  export type SubjectGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    yearLevel: number
+    createdAt: Date
+    updatedAt: Date
+    _count: SubjectCountAggregateOutputType | null
+    _avg: SubjectAvgAggregateOutputType | null
+    _sum: SubjectSumAggregateOutputType | null
+    _min: SubjectMinAggregateOutputType | null
+    _max: SubjectMaxAggregateOutputType | null
+  }
+
+  type GetSubjectGroupByPayload<T extends SubjectGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubjectGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubjectGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubjectGroupByOutputType[P]>
+            : GetScalarType<T[P], SubjectGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    yearLevel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    projectIdeas?: boolean | Subject$projectIdeasArgs<ExtArgs>
+    _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subject"]>
+
+  export type SubjectSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    yearLevel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["subject"]>
+
+  export type SubjectSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    yearLevel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["subject"]>
+
+  export type SubjectSelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    yearLevel?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type SubjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "yearLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["subject"]>
+  export type SubjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectIdeas?: boolean | Subject$projectIdeasArgs<ExtArgs>
+    _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SubjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SubjectIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $SubjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subject"
+    objects: {
+      projectIdeas: Prisma.$ProjectIdeaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      yearLevel: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["subject"]>
+    composites: {}
+  }
+
+  type SubjectGetPayload<S extends boolean | null | undefined | SubjectDefaultArgs> = $Result.GetResult<Prisma.$SubjectPayload, S>
+
+  type SubjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubjectFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubjectCountAggregateInputType | true
+    }
+
+  export interface SubjectDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subject'], meta: { name: 'Subject' } }
+    /**
+     * Find zero or one Subject that matches the filter.
+     * @param {SubjectFindUniqueArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubjectFindUniqueArgs>(args: SelectSubset<T, SubjectFindUniqueArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subject that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubjectFindUniqueOrThrowArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubjectFindUniqueOrThrowArgs>(args: SelectSubset<T, SubjectFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subject that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectFindFirstArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubjectFindFirstArgs>(args?: SelectSubset<T, SubjectFindFirstArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subject that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectFindFirstOrThrowArgs} args - Arguments to find a Subject
+     * @example
+     * // Get one Subject
+     * const subject = await prisma.subject.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubjectFindFirstOrThrowArgs>(args?: SelectSubset<T, SubjectFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subjects that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subjects
+     * const subjects = await prisma.subject.findMany()
+     * 
+     * // Get first 10 Subjects
+     * const subjects = await prisma.subject.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subjectWithIdOnly = await prisma.subject.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubjectFindManyArgs>(args?: SelectSubset<T, SubjectFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subject.
+     * @param {SubjectCreateArgs} args - Arguments to create a Subject.
+     * @example
+     * // Create one Subject
+     * const Subject = await prisma.subject.create({
+     *   data: {
+     *     // ... data to create a Subject
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubjectCreateArgs>(args: SelectSubset<T, SubjectCreateArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subjects.
+     * @param {SubjectCreateManyArgs} args - Arguments to create many Subjects.
+     * @example
+     * // Create many Subjects
+     * const subject = await prisma.subject.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubjectCreateManyArgs>(args?: SelectSubset<T, SubjectCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Subjects and returns the data saved in the database.
+     * @param {SubjectCreateManyAndReturnArgs} args - Arguments to create many Subjects.
+     * @example
+     * // Create many Subjects
+     * const subject = await prisma.subject.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Subjects and only return the `id`
+     * const subjectWithIdOnly = await prisma.subject.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubjectCreateManyAndReturnArgs>(args?: SelectSubset<T, SubjectCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Subject.
+     * @param {SubjectDeleteArgs} args - Arguments to delete one Subject.
+     * @example
+     * // Delete one Subject
+     * const Subject = await prisma.subject.delete({
+     *   where: {
+     *     // ... filter to delete one Subject
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubjectDeleteArgs>(args: SelectSubset<T, SubjectDeleteArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subject.
+     * @param {SubjectUpdateArgs} args - Arguments to update one Subject.
+     * @example
+     * // Update one Subject
+     * const subject = await prisma.subject.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubjectUpdateArgs>(args: SelectSubset<T, SubjectUpdateArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subjects.
+     * @param {SubjectDeleteManyArgs} args - Arguments to filter Subjects to delete.
+     * @example
+     * // Delete a few Subjects
+     * const { count } = await prisma.subject.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubjectDeleteManyArgs>(args?: SelectSubset<T, SubjectDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subjects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subjects
+     * const subject = await prisma.subject.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubjectUpdateManyArgs>(args: SelectSubset<T, SubjectUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subjects and returns the data updated in the database.
+     * @param {SubjectUpdateManyAndReturnArgs} args - Arguments to update many Subjects.
+     * @example
+     * // Update many Subjects
+     * const subject = await prisma.subject.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Subjects and only return the `id`
+     * const subjectWithIdOnly = await prisma.subject.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubjectUpdateManyAndReturnArgs>(args: SelectSubset<T, SubjectUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Subject.
+     * @param {SubjectUpsertArgs} args - Arguments to update or create a Subject.
+     * @example
+     * // Update or create a Subject
+     * const subject = await prisma.subject.upsert({
+     *   create: {
+     *     // ... data to create a Subject
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subject we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubjectUpsertArgs>(args: SelectSubset<T, SubjectUpsertArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subjects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectCountArgs} args - Arguments to filter Subjects to count.
+     * @example
+     * // Count the number of Subjects
+     * const count = await prisma.subject.count({
+     *   where: {
+     *     // ... the filter for the Subjects we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubjectCountArgs>(
+      args?: Subset<T, SubjectCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubjectCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subject.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubjectAggregateArgs>(args: Subset<T, SubjectAggregateArgs>): Prisma.PrismaPromise<GetSubjectAggregateType<T>>
+
+    /**
+     * Group by Subject.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubjectGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubjectGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubjectGroupByArgs['orderBy'] }
+        : { orderBy?: SubjectGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubjectGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subject model
+   */
+  readonly fields: SubjectFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subject.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    projectIdeas<T extends Subject$projectIdeasArgs<ExtArgs> = {}>(args?: Subset<T, Subject$projectIdeasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectIdeaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subject model
+   */
+  interface SubjectFieldRefs {
+    readonly id: FieldRef<"Subject", 'String'>
+    readonly name: FieldRef<"Subject", 'String'>
+    readonly slug: FieldRef<"Subject", 'String'>
+    readonly yearLevel: FieldRef<"Subject", 'Int'>
+    readonly createdAt: FieldRef<"Subject", 'DateTime'>
+    readonly updatedAt: FieldRef<"Subject", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subject findUnique
+   */
+  export type SubjectFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject findUniqueOrThrow
+   */
+  export type SubjectFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject findFirst
+   */
+  export type SubjectFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subjects.
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subjects.
+     */
+    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject findFirstOrThrow
+   */
+  export type SubjectFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subject to fetch.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subjects.
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subjects.
+     */
+    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject findMany
+   */
+  export type SubjectFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Subjects to fetch.
+     */
+    where?: SubjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subjects to fetch.
+     */
+    orderBy?: SubjectOrderByWithRelationInput | SubjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subjects.
+     */
+    cursor?: SubjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subjects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subjects.
+     */
+    skip?: number
+    distinct?: SubjectScalarFieldEnum | SubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject create
+   */
+  export type SubjectCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subject.
+     */
+    data: XOR<SubjectCreateInput, SubjectUncheckedCreateInput>
+  }
+
+  /**
+   * Subject createMany
+   */
+  export type SubjectCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subjects.
+     */
+    data: SubjectCreateManyInput | SubjectCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subject createManyAndReturn
+   */
+  export type SubjectCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * The data used to create many Subjects.
+     */
+    data: SubjectCreateManyInput | SubjectCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subject update
+   */
+  export type SubjectUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subject.
+     */
+    data: XOR<SubjectUpdateInput, SubjectUncheckedUpdateInput>
+    /**
+     * Choose, which Subject to update.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject updateMany
+   */
+  export type SubjectUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subjects.
+     */
+    data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyInput>
+    /**
+     * Filter which Subjects to update
+     */
+    where?: SubjectWhereInput
+    /**
+     * Limit how many Subjects to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subject updateManyAndReturn
+   */
+  export type SubjectUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * The data used to update Subjects.
+     */
+    data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyInput>
+    /**
+     * Filter which Subjects to update
+     */
+    where?: SubjectWhereInput
+    /**
+     * Limit how many Subjects to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subject upsert
+   */
+  export type SubjectUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subject to update in case it exists.
+     */
+    where: SubjectWhereUniqueInput
+    /**
+     * In case the Subject found by the `where` argument doesn't exist, create a new Subject with this data.
+     */
+    create: XOR<SubjectCreateInput, SubjectUncheckedCreateInput>
+    /**
+     * In case the Subject was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubjectUpdateInput, SubjectUncheckedUpdateInput>
+  }
+
+  /**
+   * Subject delete
+   */
+  export type SubjectDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    /**
+     * Filter which Subject to delete.
+     */
+    where: SubjectWhereUniqueInput
+  }
+
+  /**
+   * Subject deleteMany
+   */
+  export type SubjectDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subjects to delete
+     */
+    where?: SubjectWhereInput
+    /**
+     * Limit how many Subjects to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subject.projectIdeas
+   */
+  export type Subject$projectIdeasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectIdea
+     */
+    select?: ProjectIdeaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectIdea
+     */
+    omit?: ProjectIdeaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectIdeaInclude<ExtArgs> | null
+    where?: ProjectIdeaWhereInput
+    orderBy?: ProjectIdeaOrderByWithRelationInput | ProjectIdeaOrderByWithRelationInput[]
+    cursor?: ProjectIdeaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectIdeaScalarFieldEnum | ProjectIdeaScalarFieldEnum[]
+  }
+
+  /**
+   * Subject without action
+   */
+  export type SubjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Student
    */
 
@@ -6927,7 +9354,6 @@ export namespace Prisma {
   export type StudentMinAggregateOutputType = {
     id: string | null
     arabicName: string | null
-    groupId: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6936,7 +9362,6 @@ export namespace Prisma {
   export type StudentMaxAggregateOutputType = {
     id: string | null
     arabicName: string | null
-    groupId: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6945,7 +9370,6 @@ export namespace Prisma {
   export type StudentCountAggregateOutputType = {
     id: number
     arabicName: number
-    groupId: number
     userId: number
     createdAt: number
     updatedAt: number
@@ -6956,7 +9380,6 @@ export namespace Prisma {
   export type StudentMinAggregateInputType = {
     id?: true
     arabicName?: true
-    groupId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -6965,7 +9388,6 @@ export namespace Prisma {
   export type StudentMaxAggregateInputType = {
     id?: true
     arabicName?: true
-    groupId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -6974,7 +9396,6 @@ export namespace Prisma {
   export type StudentCountAggregateInputType = {
     id?: true
     arabicName?: true
-    groupId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -7056,7 +9477,6 @@ export namespace Prisma {
   export type StudentGroupByOutputType = {
     id: string
     arabicName: string
-    groupId: string
     userId: string | null
     createdAt: Date
     updatedAt: Date
@@ -7082,11 +9502,10 @@ export namespace Prisma {
   export type StudentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     arabicName?: boolean
-    groupId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    group?: boolean | GroupDefaultArgs<ExtArgs>
+    groups?: boolean | Student$groupsArgs<ExtArgs>
     user?: boolean | Student$userArgs<ExtArgs>
     publishedProjects?: boolean | Student$publishedProjectsArgs<ExtArgs>
     repos?: boolean | Student$reposArgs<ExtArgs>
@@ -7096,55 +9515,48 @@ export namespace Prisma {
   export type StudentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     arabicName?: boolean
-    groupId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    group?: boolean | GroupDefaultArgs<ExtArgs>
     user?: boolean | Student$userArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     arabicName?: boolean
-    groupId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    group?: boolean | GroupDefaultArgs<ExtArgs>
     user?: boolean | Student$userArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
 
   export type StudentSelectScalar = {
     id?: boolean
     arabicName?: boolean
-    groupId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "arabicName" | "groupId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
+  export type StudentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "arabicName" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
   export type StudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    group?: boolean | GroupDefaultArgs<ExtArgs>
+    groups?: boolean | Student$groupsArgs<ExtArgs>
     user?: boolean | Student$userArgs<ExtArgs>
     publishedProjects?: boolean | Student$publishedProjectsArgs<ExtArgs>
     repos?: boolean | Student$reposArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type StudentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    group?: boolean | GroupDefaultArgs<ExtArgs>
     user?: boolean | Student$userArgs<ExtArgs>
   }
   export type StudentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    group?: boolean | GroupDefaultArgs<ExtArgs>
     user?: boolean | Student$userArgs<ExtArgs>
   }
 
   export type $StudentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Student"
     objects: {
-      group: Prisma.$GroupPayload<ExtArgs>
+      groups: Prisma.$GroupPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs> | null
       publishedProjects: Prisma.$ProjectPayload<ExtArgs>[]
       repos: Prisma.$ProjectRepoPayload<ExtArgs>[]
@@ -7152,7 +9564,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       arabicName: string
-      groupId: string
       userId: string | null
       createdAt: Date
       updatedAt: Date
@@ -7550,7 +9961,7 @@ export namespace Prisma {
    */
   export interface Prisma__StudentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    group<T extends GroupDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupDefaultArgs<ExtArgs>>): Prisma__GroupClient<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    groups<T extends Student$groupsArgs<ExtArgs> = {}>(args?: Subset<T, Student$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends Student$userArgs<ExtArgs> = {}>(args?: Subset<T, Student$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     publishedProjects<T extends Student$publishedProjectsArgs<ExtArgs> = {}>(args?: Subset<T, Student$publishedProjectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     repos<T extends Student$reposArgs<ExtArgs> = {}>(args?: Subset<T, Student$reposArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectRepoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -7585,7 +9996,6 @@ export namespace Prisma {
   interface StudentFieldRefs {
     readonly id: FieldRef<"Student", 'String'>
     readonly arabicName: FieldRef<"Student", 'String'>
-    readonly groupId: FieldRef<"Student", 'String'>
     readonly userId: FieldRef<"Student", 'String'>
     readonly createdAt: FieldRef<"Student", 'DateTime'>
     readonly updatedAt: FieldRef<"Student", 'DateTime'>
@@ -7982,6 +10392,30 @@ export namespace Prisma {
      * Limit how many Students to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Student.groups
+   */
+  export type Student$groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Group
+     */
+    select?: GroupSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Group
+     */
+    omit?: GroupOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupInclude<ExtArgs> | null
+    where?: GroupWhereInput
+    orderBy?: GroupOrderByWithRelationInput | GroupOrderByWithRelationInput[]
+    cursor?: GroupWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupScalarFieldEnum | GroupScalarFieldEnum[]
   }
 
   /**
@@ -10322,82 +12756,70 @@ export namespace Prisma {
 
   export type AggregateProjectIdea = {
     _count: ProjectIdeaCountAggregateOutputType | null
-    _avg: ProjectIdeaAvgAggregateOutputType | null
-    _sum: ProjectIdeaSumAggregateOutputType | null
     _min: ProjectIdeaMinAggregateOutputType | null
     _max: ProjectIdeaMaxAggregateOutputType | null
-  }
-
-  export type ProjectIdeaAvgAggregateOutputType = {
-    year: number | null
-  }
-
-  export type ProjectIdeaSumAggregateOutputType = {
-    year: number | null
   }
 
   export type ProjectIdeaMinAggregateOutputType = {
     id: string | null
     name: string | null
-    year: number | null
     slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    academicYearId: string | null
+    subjectId: string | null
   }
 
   export type ProjectIdeaMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    year: number | null
     slug: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    academicYearId: string | null
+    subjectId: string | null
   }
 
   export type ProjectIdeaCountAggregateOutputType = {
     id: number
     name: number
-    year: number
     slug: number
     createdAt: number
     updatedAt: number
+    academicYearId: number
+    subjectId: number
     _all: number
   }
 
 
-  export type ProjectIdeaAvgAggregateInputType = {
-    year?: true
-  }
-
-  export type ProjectIdeaSumAggregateInputType = {
-    year?: true
-  }
-
   export type ProjectIdeaMinAggregateInputType = {
     id?: true
     name?: true
-    year?: true
     slug?: true
     createdAt?: true
     updatedAt?: true
+    academicYearId?: true
+    subjectId?: true
   }
 
   export type ProjectIdeaMaxAggregateInputType = {
     id?: true
     name?: true
-    year?: true
     slug?: true
     createdAt?: true
     updatedAt?: true
+    academicYearId?: true
+    subjectId?: true
   }
 
   export type ProjectIdeaCountAggregateInputType = {
     id?: true
     name?: true
-    year?: true
     slug?: true
     createdAt?: true
     updatedAt?: true
+    academicYearId?: true
+    subjectId?: true
     _all?: true
   }
 
@@ -10439,18 +12861,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ProjectIdeaAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProjectIdeaSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProjectIdeaMinAggregateInputType
@@ -10481,8 +12891,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProjectIdeaCountAggregateInputType | true
-    _avg?: ProjectIdeaAvgAggregateInputType
-    _sum?: ProjectIdeaSumAggregateInputType
     _min?: ProjectIdeaMinAggregateInputType
     _max?: ProjectIdeaMaxAggregateInputType
   }
@@ -10490,13 +12898,12 @@ export namespace Prisma {
   export type ProjectIdeaGroupByOutputType = {
     id: string
     name: string
-    year: number
     slug: string
     createdAt: Date
     updatedAt: Date
+    academicYearId: string
+    subjectId: string
     _count: ProjectIdeaCountAggregateOutputType | null
-    _avg: ProjectIdeaAvgAggregateOutputType | null
-    _sum: ProjectIdeaSumAggregateOutputType | null
     _min: ProjectIdeaMinAggregateOutputType | null
     _max: ProjectIdeaMaxAggregateOutputType | null
   }
@@ -10518,61 +12925,82 @@ export namespace Prisma {
   export type ProjectIdeaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    year?: boolean
     slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    academicYearId?: boolean
+    subjectId?: boolean
     groups?: boolean | ProjectIdea$groupsArgs<ExtArgs>
+    academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
     _count?: boolean | ProjectIdeaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["projectIdea"]>
 
   export type ProjectIdeaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    year?: boolean
     slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    academicYearId?: boolean
+    subjectId?: boolean
+    academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["projectIdea"]>
 
   export type ProjectIdeaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    year?: boolean
     slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    academicYearId?: boolean
+    subjectId?: boolean
+    academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["projectIdea"]>
 
   export type ProjectIdeaSelectScalar = {
     id?: boolean
     name?: boolean
-    year?: boolean
     slug?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    academicYearId?: boolean
+    subjectId?: boolean
   }
 
-  export type ProjectIdeaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "year" | "slug" | "createdAt" | "updatedAt", ExtArgs["result"]["projectIdea"]>
+  export type ProjectIdeaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "createdAt" | "updatedAt" | "academicYearId" | "subjectId", ExtArgs["result"]["projectIdea"]>
   export type ProjectIdeaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     groups?: boolean | ProjectIdea$groupsArgs<ExtArgs>
+    academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
     _count?: boolean | ProjectIdeaCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ProjectIdeaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ProjectIdeaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProjectIdeaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+  }
+  export type ProjectIdeaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    academicYear?: boolean | AcademicYearDefaultArgs<ExtArgs>
+    subject?: boolean | SubjectDefaultArgs<ExtArgs>
+  }
 
   export type $ProjectIdeaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ProjectIdea"
     objects: {
       groups: Prisma.$GroupPayload<ExtArgs>[]
+      academicYear: Prisma.$AcademicYearPayload<ExtArgs>
+      subject: Prisma.$SubjectPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      year: number
       slug: string
       createdAt: Date
       updatedAt: Date
+      academicYearId: string
+      subjectId: string
     }, ExtArgs["result"]["projectIdea"]>
     composites: {}
   }
@@ -10968,6 +13396,8 @@ export namespace Prisma {
   export interface Prisma__ProjectIdeaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     groups<T extends ProjectIdea$groupsArgs<ExtArgs> = {}>(args?: Subset<T, ProjectIdea$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    academicYear<T extends AcademicYearDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AcademicYearDefaultArgs<ExtArgs>>): Prisma__AcademicYearClient<$Result.GetResult<Prisma.$AcademicYearPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    subject<T extends SubjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubjectDefaultArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10999,10 +13429,11 @@ export namespace Prisma {
   interface ProjectIdeaFieldRefs {
     readonly id: FieldRef<"ProjectIdea", 'String'>
     readonly name: FieldRef<"ProjectIdea", 'String'>
-    readonly year: FieldRef<"ProjectIdea", 'Int'>
     readonly slug: FieldRef<"ProjectIdea", 'String'>
     readonly createdAt: FieldRef<"ProjectIdea", 'DateTime'>
     readonly updatedAt: FieldRef<"ProjectIdea", 'DateTime'>
+    readonly academicYearId: FieldRef<"ProjectIdea", 'String'>
+    readonly subjectId: FieldRef<"ProjectIdea", 'String'>
   }
     
 
@@ -11252,6 +13683,10 @@ export namespace Prisma {
      */
     data: ProjectIdeaCreateManyInput | ProjectIdeaCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectIdeaIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -11322,6 +13757,10 @@ export namespace Prisma {
      * Limit how many ProjectIdeas to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectIdeaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -18100,10 +20539,31 @@ export namespace Prisma {
   export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
+  export const AcademicYearScalarFieldEnum: {
+    id: 'id',
+    label: 'label',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AcademicYearScalarFieldEnum = (typeof AcademicYearScalarFieldEnum)[keyof typeof AcademicYearScalarFieldEnum]
+
+
+  export const SubjectScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    yearLevel: 'yearLevel',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type SubjectScalarFieldEnum = (typeof SubjectScalarFieldEnum)[keyof typeof SubjectScalarFieldEnum]
+
+
   export const StudentScalarFieldEnum: {
     id: 'id',
     arabicName: 'arabicName',
-    groupId: 'groupId',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -18139,10 +20599,11 @@ export namespace Prisma {
   export const ProjectIdeaScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    year: 'year',
     slug: 'slug',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    academicYearId: 'academicYearId',
+    subjectId: 'subjectId'
   };
 
   export type ProjectIdeaScalarFieldEnum = (typeof ProjectIdeaScalarFieldEnum)[keyof typeof ProjectIdeaScalarFieldEnum]
@@ -18640,17 +21101,128 @@ export namespace Prisma {
     expires?: DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
   }
 
+  export type AcademicYearWhereInput = {
+    AND?: AcademicYearWhereInput | AcademicYearWhereInput[]
+    OR?: AcademicYearWhereInput[]
+    NOT?: AcademicYearWhereInput | AcademicYearWhereInput[]
+    id?: StringFilter<"AcademicYear"> | string
+    label?: StringFilter<"AcademicYear"> | string
+    createdAt?: DateTimeFilter<"AcademicYear"> | Date | string
+    updatedAt?: DateTimeFilter<"AcademicYear"> | Date | string
+    projectIdeas?: ProjectIdeaListRelationFilter
+  }
+
+  export type AcademicYearOrderByWithRelationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    projectIdeas?: ProjectIdeaOrderByRelationAggregateInput
+  }
+
+  export type AcademicYearWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    label?: string
+    AND?: AcademicYearWhereInput | AcademicYearWhereInput[]
+    OR?: AcademicYearWhereInput[]
+    NOT?: AcademicYearWhereInput | AcademicYearWhereInput[]
+    createdAt?: DateTimeFilter<"AcademicYear"> | Date | string
+    updatedAt?: DateTimeFilter<"AcademicYear"> | Date | string
+    projectIdeas?: ProjectIdeaListRelationFilter
+  }, "id" | "label">
+
+  export type AcademicYearOrderByWithAggregationInput = {
+    id?: SortOrder
+    label?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AcademicYearCountOrderByAggregateInput
+    _max?: AcademicYearMaxOrderByAggregateInput
+    _min?: AcademicYearMinOrderByAggregateInput
+  }
+
+  export type AcademicYearScalarWhereWithAggregatesInput = {
+    AND?: AcademicYearScalarWhereWithAggregatesInput | AcademicYearScalarWhereWithAggregatesInput[]
+    OR?: AcademicYearScalarWhereWithAggregatesInput[]
+    NOT?: AcademicYearScalarWhereWithAggregatesInput | AcademicYearScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AcademicYear"> | string
+    label?: StringWithAggregatesFilter<"AcademicYear"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AcademicYear"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AcademicYear"> | Date | string
+  }
+
+  export type SubjectWhereInput = {
+    AND?: SubjectWhereInput | SubjectWhereInput[]
+    OR?: SubjectWhereInput[]
+    NOT?: SubjectWhereInput | SubjectWhereInput[]
+    id?: StringFilter<"Subject"> | string
+    name?: StringFilter<"Subject"> | string
+    slug?: StringFilter<"Subject"> | string
+    yearLevel?: IntFilter<"Subject"> | number
+    createdAt?: DateTimeFilter<"Subject"> | Date | string
+    updatedAt?: DateTimeFilter<"Subject"> | Date | string
+    projectIdeas?: ProjectIdeaListRelationFilter
+  }
+
+  export type SubjectOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    yearLevel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    projectIdeas?: ProjectIdeaOrderByRelationAggregateInput
+  }
+
+  export type SubjectWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    slug?: string
+    AND?: SubjectWhereInput | SubjectWhereInput[]
+    OR?: SubjectWhereInput[]
+    NOT?: SubjectWhereInput | SubjectWhereInput[]
+    yearLevel?: IntFilter<"Subject"> | number
+    createdAt?: DateTimeFilter<"Subject"> | Date | string
+    updatedAt?: DateTimeFilter<"Subject"> | Date | string
+    projectIdeas?: ProjectIdeaListRelationFilter
+  }, "id" | "name" | "slug">
+
+  export type SubjectOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    yearLevel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: SubjectCountOrderByAggregateInput
+    _avg?: SubjectAvgOrderByAggregateInput
+    _max?: SubjectMaxOrderByAggregateInput
+    _min?: SubjectMinOrderByAggregateInput
+    _sum?: SubjectSumOrderByAggregateInput
+  }
+
+  export type SubjectScalarWhereWithAggregatesInput = {
+    AND?: SubjectScalarWhereWithAggregatesInput | SubjectScalarWhereWithAggregatesInput[]
+    OR?: SubjectScalarWhereWithAggregatesInput[]
+    NOT?: SubjectScalarWhereWithAggregatesInput | SubjectScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Subject"> | string
+    name?: StringWithAggregatesFilter<"Subject"> | string
+    slug?: StringWithAggregatesFilter<"Subject"> | string
+    yearLevel?: IntWithAggregatesFilter<"Subject"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Subject"> | Date | string
+  }
+
   export type StudentWhereInput = {
     AND?: StudentWhereInput | StudentWhereInput[]
     OR?: StudentWhereInput[]
     NOT?: StudentWhereInput | StudentWhereInput[]
     id?: StringFilter<"Student"> | string
     arabicName?: StringFilter<"Student"> | string
-    groupId?: StringFilter<"Student"> | string
     userId?: StringNullableFilter<"Student"> | string | null
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
-    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    groups?: GroupListRelationFilter
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     publishedProjects?: ProjectListRelationFilter
     repos?: ProjectRepoListRelationFilter
@@ -18659,11 +21231,10 @@ export namespace Prisma {
   export type StudentOrderByWithRelationInput = {
     id?: SortOrder
     arabicName?: SortOrder
-    groupId?: SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    group?: GroupOrderByWithRelationInput
+    groups?: GroupOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
     publishedProjects?: ProjectOrderByRelationAggregateInput
     repos?: ProjectRepoOrderByRelationAggregateInput
@@ -18676,10 +21247,9 @@ export namespace Prisma {
     OR?: StudentWhereInput[]
     NOT?: StudentWhereInput | StudentWhereInput[]
     arabicName?: StringFilter<"Student"> | string
-    groupId?: StringFilter<"Student"> | string
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
-    group?: XOR<GroupScalarRelationFilter, GroupWhereInput>
+    groups?: GroupListRelationFilter
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     publishedProjects?: ProjectListRelationFilter
     repos?: ProjectRepoListRelationFilter
@@ -18688,7 +21258,6 @@ export namespace Prisma {
   export type StudentOrderByWithAggregationInput = {
     id?: SortOrder
     arabicName?: SortOrder
-    groupId?: SortOrder
     userId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -18703,7 +21272,6 @@ export namespace Prisma {
     NOT?: StudentScalarWhereWithAggregatesInput | StudentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Student"> | string
     arabicName?: StringWithAggregatesFilter<"Student"> | string
-    groupId?: StringWithAggregatesFilter<"Student"> | string
     userId?: StringNullableWithAggregatesFilter<"Student"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Student"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Student"> | Date | string
@@ -18844,21 +21412,27 @@ export namespace Prisma {
     NOT?: ProjectIdeaWhereInput | ProjectIdeaWhereInput[]
     id?: StringFilter<"ProjectIdea"> | string
     name?: StringFilter<"ProjectIdea"> | string
-    year?: IntFilter<"ProjectIdea"> | number
     slug?: StringFilter<"ProjectIdea"> | string
     createdAt?: DateTimeFilter<"ProjectIdea"> | Date | string
     updatedAt?: DateTimeFilter<"ProjectIdea"> | Date | string
+    academicYearId?: StringFilter<"ProjectIdea"> | string
+    subjectId?: StringFilter<"ProjectIdea"> | string
     groups?: GroupListRelationFilter
+    academicYear?: XOR<AcademicYearScalarRelationFilter, AcademicYearWhereInput>
+    subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
   }
 
   export type ProjectIdeaOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    year?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    academicYearId?: SortOrder
+    subjectId?: SortOrder
     groups?: GroupOrderByRelationAggregateInput
+    academicYear?: AcademicYearOrderByWithRelationInput
+    subject?: SubjectOrderByWithRelationInput
   }
 
   export type ProjectIdeaWhereUniqueInput = Prisma.AtLeast<{
@@ -18868,24 +21442,26 @@ export namespace Prisma {
     OR?: ProjectIdeaWhereInput[]
     NOT?: ProjectIdeaWhereInput | ProjectIdeaWhereInput[]
     name?: StringFilter<"ProjectIdea"> | string
-    year?: IntFilter<"ProjectIdea"> | number
     createdAt?: DateTimeFilter<"ProjectIdea"> | Date | string
     updatedAt?: DateTimeFilter<"ProjectIdea"> | Date | string
+    academicYearId?: StringFilter<"ProjectIdea"> | string
+    subjectId?: StringFilter<"ProjectIdea"> | string
     groups?: GroupListRelationFilter
+    academicYear?: XOR<AcademicYearScalarRelationFilter, AcademicYearWhereInput>
+    subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
   }, "id" | "slug">
 
   export type ProjectIdeaOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    year?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    academicYearId?: SortOrder
+    subjectId?: SortOrder
     _count?: ProjectIdeaCountOrderByAggregateInput
-    _avg?: ProjectIdeaAvgOrderByAggregateInput
     _max?: ProjectIdeaMaxOrderByAggregateInput
     _min?: ProjectIdeaMinOrderByAggregateInput
-    _sum?: ProjectIdeaSumOrderByAggregateInput
   }
 
   export type ProjectIdeaScalarWhereWithAggregatesInput = {
@@ -18894,10 +21470,11 @@ export namespace Prisma {
     NOT?: ProjectIdeaScalarWhereWithAggregatesInput | ProjectIdeaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ProjectIdea"> | string
     name?: StringWithAggregatesFilter<"ProjectIdea"> | string
-    year?: IntWithAggregatesFilter<"ProjectIdea"> | number
     slug?: StringWithAggregatesFilter<"ProjectIdea"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ProjectIdea"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProjectIdea"> | Date | string
+    academicYearId?: StringWithAggregatesFilter<"ProjectIdea"> | string
+    subjectId?: StringWithAggregatesFilter<"ProjectIdea"> | string
   }
 
   export type ProjectWhereInput = {
@@ -19585,12 +22162,132 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AcademicYearCreateInput = {
+    id?: string
+    label: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectIdeas?: ProjectIdeaCreateNestedManyWithoutAcademicYearInput
+  }
+
+  export type AcademicYearUncheckedCreateInput = {
+    id?: string
+    label: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectIdeas?: ProjectIdeaUncheckedCreateNestedManyWithoutAcademicYearInput
+  }
+
+  export type AcademicYearUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectIdeas?: ProjectIdeaUpdateManyWithoutAcademicYearNestedInput
+  }
+
+  export type AcademicYearUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectIdeas?: ProjectIdeaUncheckedUpdateManyWithoutAcademicYearNestedInput
+  }
+
+  export type AcademicYearCreateManyInput = {
+    id?: string
+    label: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicYearUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicYearUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    yearLevel: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectIdeas?: ProjectIdeaCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    yearLevel: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectIdeas?: ProjectIdeaUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    yearLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectIdeas?: ProjectIdeaUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    yearLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectIdeas?: ProjectIdeaUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    yearLevel: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubjectUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    yearLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    yearLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StudentCreateInput = {
     id?: string
     arabicName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    group: GroupCreateNestedOneWithoutStudentsInput
+    groups?: GroupCreateNestedManyWithoutStudentsInput
     user?: UserCreateNestedOneWithoutStudentInput
     publishedProjects?: ProjectCreateNestedManyWithoutPublisherInput
     repos?: ProjectRepoCreateNestedManyWithoutContributorsInput
@@ -19599,10 +22296,10 @@ export namespace Prisma {
   export type StudentUncheckedCreateInput = {
     id?: string
     arabicName: string
-    groupId: string
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    groups?: GroupUncheckedCreateNestedManyWithoutStudentsInput
     publishedProjects?: ProjectUncheckedCreateNestedManyWithoutPublisherInput
     repos?: ProjectRepoUncheckedCreateNestedManyWithoutContributorsInput
   }
@@ -19612,7 +22309,7 @@ export namespace Prisma {
     arabicName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    group?: GroupUpdateOneRequiredWithoutStudentsNestedInput
+    groups?: GroupUpdateManyWithoutStudentsNestedInput
     user?: UserUpdateOneWithoutStudentNestedInput
     publishedProjects?: ProjectUpdateManyWithoutPublisherNestedInput
     repos?: ProjectRepoUpdateManyWithoutContributorsNestedInput
@@ -19621,10 +22318,10 @@ export namespace Prisma {
   export type StudentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUncheckedUpdateManyWithoutStudentsNestedInput
     publishedProjects?: ProjectUncheckedUpdateManyWithoutPublisherNestedInput
     repos?: ProjectRepoUncheckedUpdateManyWithoutContributorsNestedInput
   }
@@ -19632,7 +22329,6 @@ export namespace Prisma {
   export type StudentCreateManyInput = {
     id?: string
     arabicName: string
-    groupId: string
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19648,7 +22344,6 @@ export namespace Prisma {
   export type StudentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19735,7 +22430,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     projectIdea?: ProjectIdeaCreateNestedOneWithoutGroupsInput
     projects?: ProjectCreateNestedManyWithoutGroupInput
-    students?: StudentCreateNestedManyWithoutGroupInput
+    students?: StudentCreateNestedManyWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateInput = {
@@ -19744,7 +22439,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutGroupInput
-    students?: StudentUncheckedCreateNestedManyWithoutGroupInput
+    students?: StudentUncheckedCreateNestedManyWithoutGroupsInput
   }
 
   export type GroupUpdateInput = {
@@ -19753,7 +22448,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectIdea?: ProjectIdeaUpdateOneWithoutGroupsNestedInput
     projects?: ProjectUpdateManyWithoutGroupNestedInput
-    students?: StudentUpdateManyWithoutGroupNestedInput
+    students?: StudentUpdateManyWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateInput = {
@@ -19762,7 +22457,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutGroupNestedInput
-    students?: StudentUncheckedUpdateManyWithoutGroupNestedInput
+    students?: StudentUncheckedUpdateManyWithoutGroupsNestedInput
   }
 
   export type GroupCreateManyInput = {
@@ -19788,56 +22483,60 @@ export namespace Prisma {
   export type ProjectIdeaCreateInput = {
     id?: string
     name: string
-    year: number
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
     groups?: GroupCreateNestedManyWithoutProjectIdeaInput
+    academicYear: AcademicYearCreateNestedOneWithoutProjectIdeasInput
+    subject: SubjectCreateNestedOneWithoutProjectIdeasInput
   }
 
   export type ProjectIdeaUncheckedCreateInput = {
     id?: string
     name: string
-    year: number
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    academicYearId: string
+    subjectId: string
     groups?: GroupUncheckedCreateNestedManyWithoutProjectIdeaInput
   }
 
   export type ProjectIdeaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     groups?: GroupUpdateManyWithoutProjectIdeaNestedInput
+    academicYear?: AcademicYearUpdateOneRequiredWithoutProjectIdeasNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutProjectIdeasNestedInput
   }
 
   export type ProjectIdeaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
     groups?: GroupUncheckedUpdateManyWithoutProjectIdeaNestedInput
   }
 
   export type ProjectIdeaCreateManyInput = {
     id?: string
     name: string
-    year: number
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    academicYearId: string
+    subjectId: string
   }
 
   export type ProjectIdeaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -19846,10 +22545,11 @@ export namespace Prisma {
   export type ProjectIdeaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProjectCreateInput = {
@@ -20607,9 +23307,103 @@ export namespace Prisma {
     expires?: SortOrder
   }
 
-  export type GroupScalarRelationFilter = {
-    is?: GroupWhereInput
-    isNot?: GroupWhereInput
+  export type ProjectIdeaListRelationFilter = {
+    every?: ProjectIdeaWhereInput
+    some?: ProjectIdeaWhereInput
+    none?: ProjectIdeaWhereInput
+  }
+
+  export type ProjectIdeaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AcademicYearCountOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AcademicYearMaxOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AcademicYearMinOrderByAggregateInput = {
+    id?: SortOrder
+    label?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type SubjectCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    yearLevel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubjectAvgOrderByAggregateInput = {
+    yearLevel?: SortOrder
+  }
+
+  export type SubjectMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    yearLevel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubjectMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    yearLevel?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type SubjectSumOrderByAggregateInput = {
+    yearLevel?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type GroupListRelationFilter = {
+    every?: GroupWhereInput
+    some?: GroupWhereInput
+    none?: GroupWhereInput
   }
 
   export type UserNullableScalarRelationFilter = {
@@ -20629,6 +23423,10 @@ export namespace Prisma {
     none?: ProjectRepoWhereInput
   }
 
+  export type GroupOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -20640,7 +23438,6 @@ export namespace Prisma {
   export type StudentCountOrderByAggregateInput = {
     id?: SortOrder
     arabicName?: SortOrder
-    groupId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20649,7 +23446,6 @@ export namespace Prisma {
   export type StudentMaxOrderByAggregateInput = {
     id?: SortOrder
     arabicName?: SortOrder
-    groupId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20658,7 +23454,6 @@ export namespace Prisma {
   export type StudentMinOrderByAggregateInput = {
     id?: SortOrder
     arabicName?: SortOrder
-    groupId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -20750,76 +23545,49 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+  export type AcademicYearScalarRelationFilter = {
+    is?: AcademicYearWhereInput
+    isNot?: AcademicYearWhereInput
   }
 
-  export type GroupListRelationFilter = {
-    every?: GroupWhereInput
-    some?: GroupWhereInput
-    none?: GroupWhereInput
-  }
-
-  export type GroupOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type SubjectScalarRelationFilter = {
+    is?: SubjectWhereInput
+    isNot?: SubjectWhereInput
   }
 
   export type ProjectIdeaCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    year?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type ProjectIdeaAvgOrderByAggregateInput = {
-    year?: SortOrder
+    academicYearId?: SortOrder
+    subjectId?: SortOrder
   }
 
   export type ProjectIdeaMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    year?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    academicYearId?: SortOrder
+    subjectId?: SortOrder
   }
 
   export type ProjectIdeaMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    year?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    academicYearId?: SortOrder
+    subjectId?: SortOrder
   }
 
-  export type ProjectIdeaSumOrderByAggregateInput = {
-    year?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+  export type GroupScalarRelationFilter = {
+    is?: GroupWhereInput
+    isNot?: GroupWhereInput
   }
 
   export type StudentScalarRelationFilter = {
@@ -21334,10 +24102,102 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSessionsInput, UserUpdateWithoutSessionsInput>, UserUncheckedUpdateWithoutSessionsInput>
   }
 
-  export type GroupCreateNestedOneWithoutStudentsInput = {
-    create?: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput>
-    connectOrCreate?: GroupCreateOrConnectWithoutStudentsInput
-    connect?: GroupWhereUniqueInput
+  export type ProjectIdeaCreateNestedManyWithoutAcademicYearInput = {
+    create?: XOR<ProjectIdeaCreateWithoutAcademicYearInput, ProjectIdeaUncheckedCreateWithoutAcademicYearInput> | ProjectIdeaCreateWithoutAcademicYearInput[] | ProjectIdeaUncheckedCreateWithoutAcademicYearInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutAcademicYearInput | ProjectIdeaCreateOrConnectWithoutAcademicYearInput[]
+    createMany?: ProjectIdeaCreateManyAcademicYearInputEnvelope
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+  }
+
+  export type ProjectIdeaUncheckedCreateNestedManyWithoutAcademicYearInput = {
+    create?: XOR<ProjectIdeaCreateWithoutAcademicYearInput, ProjectIdeaUncheckedCreateWithoutAcademicYearInput> | ProjectIdeaCreateWithoutAcademicYearInput[] | ProjectIdeaUncheckedCreateWithoutAcademicYearInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutAcademicYearInput | ProjectIdeaCreateOrConnectWithoutAcademicYearInput[]
+    createMany?: ProjectIdeaCreateManyAcademicYearInputEnvelope
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+  }
+
+  export type ProjectIdeaUpdateManyWithoutAcademicYearNestedInput = {
+    create?: XOR<ProjectIdeaCreateWithoutAcademicYearInput, ProjectIdeaUncheckedCreateWithoutAcademicYearInput> | ProjectIdeaCreateWithoutAcademicYearInput[] | ProjectIdeaUncheckedCreateWithoutAcademicYearInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutAcademicYearInput | ProjectIdeaCreateOrConnectWithoutAcademicYearInput[]
+    upsert?: ProjectIdeaUpsertWithWhereUniqueWithoutAcademicYearInput | ProjectIdeaUpsertWithWhereUniqueWithoutAcademicYearInput[]
+    createMany?: ProjectIdeaCreateManyAcademicYearInputEnvelope
+    set?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    disconnect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    delete?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    update?: ProjectIdeaUpdateWithWhereUniqueWithoutAcademicYearInput | ProjectIdeaUpdateWithWhereUniqueWithoutAcademicYearInput[]
+    updateMany?: ProjectIdeaUpdateManyWithWhereWithoutAcademicYearInput | ProjectIdeaUpdateManyWithWhereWithoutAcademicYearInput[]
+    deleteMany?: ProjectIdeaScalarWhereInput | ProjectIdeaScalarWhereInput[]
+  }
+
+  export type ProjectIdeaUncheckedUpdateManyWithoutAcademicYearNestedInput = {
+    create?: XOR<ProjectIdeaCreateWithoutAcademicYearInput, ProjectIdeaUncheckedCreateWithoutAcademicYearInput> | ProjectIdeaCreateWithoutAcademicYearInput[] | ProjectIdeaUncheckedCreateWithoutAcademicYearInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutAcademicYearInput | ProjectIdeaCreateOrConnectWithoutAcademicYearInput[]
+    upsert?: ProjectIdeaUpsertWithWhereUniqueWithoutAcademicYearInput | ProjectIdeaUpsertWithWhereUniqueWithoutAcademicYearInput[]
+    createMany?: ProjectIdeaCreateManyAcademicYearInputEnvelope
+    set?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    disconnect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    delete?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    update?: ProjectIdeaUpdateWithWhereUniqueWithoutAcademicYearInput | ProjectIdeaUpdateWithWhereUniqueWithoutAcademicYearInput[]
+    updateMany?: ProjectIdeaUpdateManyWithWhereWithoutAcademicYearInput | ProjectIdeaUpdateManyWithWhereWithoutAcademicYearInput[]
+    deleteMany?: ProjectIdeaScalarWhereInput | ProjectIdeaScalarWhereInput[]
+  }
+
+  export type ProjectIdeaCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ProjectIdeaCreateWithoutSubjectInput, ProjectIdeaUncheckedCreateWithoutSubjectInput> | ProjectIdeaCreateWithoutSubjectInput[] | ProjectIdeaUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutSubjectInput | ProjectIdeaCreateOrConnectWithoutSubjectInput[]
+    createMany?: ProjectIdeaCreateManySubjectInputEnvelope
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+  }
+
+  export type ProjectIdeaUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ProjectIdeaCreateWithoutSubjectInput, ProjectIdeaUncheckedCreateWithoutSubjectInput> | ProjectIdeaCreateWithoutSubjectInput[] | ProjectIdeaUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutSubjectInput | ProjectIdeaCreateOrConnectWithoutSubjectInput[]
+    createMany?: ProjectIdeaCreateManySubjectInputEnvelope
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ProjectIdeaUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ProjectIdeaCreateWithoutSubjectInput, ProjectIdeaUncheckedCreateWithoutSubjectInput> | ProjectIdeaCreateWithoutSubjectInput[] | ProjectIdeaUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutSubjectInput | ProjectIdeaCreateOrConnectWithoutSubjectInput[]
+    upsert?: ProjectIdeaUpsertWithWhereUniqueWithoutSubjectInput | ProjectIdeaUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ProjectIdeaCreateManySubjectInputEnvelope
+    set?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    disconnect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    delete?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    update?: ProjectIdeaUpdateWithWhereUniqueWithoutSubjectInput | ProjectIdeaUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ProjectIdeaUpdateManyWithWhereWithoutSubjectInput | ProjectIdeaUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ProjectIdeaScalarWhereInput | ProjectIdeaScalarWhereInput[]
+  }
+
+  export type ProjectIdeaUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ProjectIdeaCreateWithoutSubjectInput, ProjectIdeaUncheckedCreateWithoutSubjectInput> | ProjectIdeaCreateWithoutSubjectInput[] | ProjectIdeaUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ProjectIdeaCreateOrConnectWithoutSubjectInput | ProjectIdeaCreateOrConnectWithoutSubjectInput[]
+    upsert?: ProjectIdeaUpsertWithWhereUniqueWithoutSubjectInput | ProjectIdeaUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ProjectIdeaCreateManySubjectInputEnvelope
+    set?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    disconnect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    delete?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    connect?: ProjectIdeaWhereUniqueInput | ProjectIdeaWhereUniqueInput[]
+    update?: ProjectIdeaUpdateWithWhereUniqueWithoutSubjectInput | ProjectIdeaUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ProjectIdeaUpdateManyWithWhereWithoutSubjectInput | ProjectIdeaUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ProjectIdeaScalarWhereInput | ProjectIdeaScalarWhereInput[]
+  }
+
+  export type GroupCreateNestedManyWithoutStudentsInput = {
+    create?: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput> | GroupCreateWithoutStudentsInput[] | GroupUncheckedCreateWithoutStudentsInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutStudentsInput | GroupCreateOrConnectWithoutStudentsInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutStudentInput = {
@@ -21359,6 +24219,12 @@ export namespace Prisma {
     connect?: ProjectRepoWhereUniqueInput | ProjectRepoWhereUniqueInput[]
   }
 
+  export type GroupUncheckedCreateNestedManyWithoutStudentsInput = {
+    create?: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput> | GroupCreateWithoutStudentsInput[] | GroupUncheckedCreateWithoutStudentsInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutStudentsInput | GroupCreateOrConnectWithoutStudentsInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutPublisherInput = {
     create?: XOR<ProjectCreateWithoutPublisherInput, ProjectUncheckedCreateWithoutPublisherInput> | ProjectCreateWithoutPublisherInput[] | ProjectUncheckedCreateWithoutPublisherInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutPublisherInput | ProjectCreateOrConnectWithoutPublisherInput[]
@@ -21372,12 +24238,17 @@ export namespace Prisma {
     connect?: ProjectRepoWhereUniqueInput | ProjectRepoWhereUniqueInput[]
   }
 
-  export type GroupUpdateOneRequiredWithoutStudentsNestedInput = {
-    create?: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput>
-    connectOrCreate?: GroupCreateOrConnectWithoutStudentsInput
-    upsert?: GroupUpsertWithoutStudentsInput
-    connect?: GroupWhereUniqueInput
-    update?: XOR<XOR<GroupUpdateToOneWithWhereWithoutStudentsInput, GroupUpdateWithoutStudentsInput>, GroupUncheckedUpdateWithoutStudentsInput>
+  export type GroupUpdateManyWithoutStudentsNestedInput = {
+    create?: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput> | GroupCreateWithoutStudentsInput[] | GroupUncheckedCreateWithoutStudentsInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutStudentsInput | GroupCreateOrConnectWithoutStudentsInput[]
+    upsert?: GroupUpsertWithWhereUniqueWithoutStudentsInput | GroupUpsertWithWhereUniqueWithoutStudentsInput[]
+    set?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    disconnect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    delete?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    update?: GroupUpdateWithWhereUniqueWithoutStudentsInput | GroupUpdateWithWhereUniqueWithoutStudentsInput[]
+    updateMany?: GroupUpdateManyWithWhereWithoutStudentsInput | GroupUpdateManyWithWhereWithoutStudentsInput[]
+    deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
   }
 
   export type UserUpdateOneWithoutStudentNestedInput = {
@@ -21415,6 +24286,19 @@ export namespace Prisma {
     update?: ProjectRepoUpdateWithWhereUniqueWithoutContributorsInput | ProjectRepoUpdateWithWhereUniqueWithoutContributorsInput[]
     updateMany?: ProjectRepoUpdateManyWithWhereWithoutContributorsInput | ProjectRepoUpdateManyWithWhereWithoutContributorsInput[]
     deleteMany?: ProjectRepoScalarWhereInput | ProjectRepoScalarWhereInput[]
+  }
+
+  export type GroupUncheckedUpdateManyWithoutStudentsNestedInput = {
+    create?: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput> | GroupCreateWithoutStudentsInput[] | GroupUncheckedCreateWithoutStudentsInput[]
+    connectOrCreate?: GroupCreateOrConnectWithoutStudentsInput | GroupCreateOrConnectWithoutStudentsInput[]
+    upsert?: GroupUpsertWithWhereUniqueWithoutStudentsInput | GroupUpsertWithWhereUniqueWithoutStudentsInput[]
+    set?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    disconnect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    delete?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
+    update?: GroupUpdateWithWhereUniqueWithoutStudentsInput | GroupUpdateWithWhereUniqueWithoutStudentsInput[]
+    updateMany?: GroupUpdateManyWithWhereWithoutStudentsInput | GroupUpdateManyWithWhereWithoutStudentsInput[]
+    deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
   }
 
   export type ProjectUncheckedUpdateManyWithoutPublisherNestedInput = {
@@ -21491,10 +24375,9 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type StudentCreateNestedManyWithoutGroupInput = {
-    create?: XOR<StudentCreateWithoutGroupInput, StudentUncheckedCreateWithoutGroupInput> | StudentCreateWithoutGroupInput[] | StudentUncheckedCreateWithoutGroupInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutGroupInput | StudentCreateOrConnectWithoutGroupInput[]
-    createMany?: StudentCreateManyGroupInputEnvelope
+  export type StudentCreateNestedManyWithoutGroupsInput = {
+    create?: XOR<StudentCreateWithoutGroupsInput, StudentUncheckedCreateWithoutGroupsInput> | StudentCreateWithoutGroupsInput[] | StudentUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutGroupsInput | StudentCreateOrConnectWithoutGroupsInput[]
     connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
   }
 
@@ -21505,10 +24388,9 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
-  export type StudentUncheckedCreateNestedManyWithoutGroupInput = {
-    create?: XOR<StudentCreateWithoutGroupInput, StudentUncheckedCreateWithoutGroupInput> | StudentCreateWithoutGroupInput[] | StudentUncheckedCreateWithoutGroupInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutGroupInput | StudentCreateOrConnectWithoutGroupInput[]
-    createMany?: StudentCreateManyGroupInputEnvelope
+  export type StudentUncheckedCreateNestedManyWithoutGroupsInput = {
+    create?: XOR<StudentCreateWithoutGroupsInput, StudentUncheckedCreateWithoutGroupsInput> | StudentCreateWithoutGroupsInput[] | StudentUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutGroupsInput | StudentCreateOrConnectWithoutGroupsInput[]
     connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
   }
 
@@ -21536,17 +24418,16 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
-  export type StudentUpdateManyWithoutGroupNestedInput = {
-    create?: XOR<StudentCreateWithoutGroupInput, StudentUncheckedCreateWithoutGroupInput> | StudentCreateWithoutGroupInput[] | StudentUncheckedCreateWithoutGroupInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutGroupInput | StudentCreateOrConnectWithoutGroupInput[]
-    upsert?: StudentUpsertWithWhereUniqueWithoutGroupInput | StudentUpsertWithWhereUniqueWithoutGroupInput[]
-    createMany?: StudentCreateManyGroupInputEnvelope
+  export type StudentUpdateManyWithoutGroupsNestedInput = {
+    create?: XOR<StudentCreateWithoutGroupsInput, StudentUncheckedCreateWithoutGroupsInput> | StudentCreateWithoutGroupsInput[] | StudentUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutGroupsInput | StudentCreateOrConnectWithoutGroupsInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutGroupsInput | StudentUpsertWithWhereUniqueWithoutGroupsInput[]
     set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
     disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
     delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
     connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    update?: StudentUpdateWithWhereUniqueWithoutGroupInput | StudentUpdateWithWhereUniqueWithoutGroupInput[]
-    updateMany?: StudentUpdateManyWithWhereWithoutGroupInput | StudentUpdateManyWithWhereWithoutGroupInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutGroupsInput | StudentUpdateWithWhereUniqueWithoutGroupsInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutGroupsInput | StudentUpdateManyWithWhereWithoutGroupsInput[]
     deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
   }
 
@@ -21564,17 +24445,16 @@ export namespace Prisma {
     deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
-  export type StudentUncheckedUpdateManyWithoutGroupNestedInput = {
-    create?: XOR<StudentCreateWithoutGroupInput, StudentUncheckedCreateWithoutGroupInput> | StudentCreateWithoutGroupInput[] | StudentUncheckedCreateWithoutGroupInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutGroupInput | StudentCreateOrConnectWithoutGroupInput[]
-    upsert?: StudentUpsertWithWhereUniqueWithoutGroupInput | StudentUpsertWithWhereUniqueWithoutGroupInput[]
-    createMany?: StudentCreateManyGroupInputEnvelope
+  export type StudentUncheckedUpdateManyWithoutGroupsNestedInput = {
+    create?: XOR<StudentCreateWithoutGroupsInput, StudentUncheckedCreateWithoutGroupsInput> | StudentCreateWithoutGroupsInput[] | StudentUncheckedCreateWithoutGroupsInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutGroupsInput | StudentCreateOrConnectWithoutGroupsInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutGroupsInput | StudentUpsertWithWhereUniqueWithoutGroupsInput[]
     set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
     disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
     delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
     connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    update?: StudentUpdateWithWhereUniqueWithoutGroupInput | StudentUpdateWithWhereUniqueWithoutGroupInput[]
-    updateMany?: StudentUpdateManyWithWhereWithoutGroupInput | StudentUpdateManyWithWhereWithoutGroupInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutGroupsInput | StudentUpdateWithWhereUniqueWithoutGroupsInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutGroupsInput | StudentUpdateManyWithWhereWithoutGroupsInput[]
     deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
   }
 
@@ -21585,19 +24465,23 @@ export namespace Prisma {
     connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
   }
 
+  export type AcademicYearCreateNestedOneWithoutProjectIdeasInput = {
+    create?: XOR<AcademicYearCreateWithoutProjectIdeasInput, AcademicYearUncheckedCreateWithoutProjectIdeasInput>
+    connectOrCreate?: AcademicYearCreateOrConnectWithoutProjectIdeasInput
+    connect?: AcademicYearWhereUniqueInput
+  }
+
+  export type SubjectCreateNestedOneWithoutProjectIdeasInput = {
+    create?: XOR<SubjectCreateWithoutProjectIdeasInput, SubjectUncheckedCreateWithoutProjectIdeasInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutProjectIdeasInput
+    connect?: SubjectWhereUniqueInput
+  }
+
   export type GroupUncheckedCreateNestedManyWithoutProjectIdeaInput = {
     create?: XOR<GroupCreateWithoutProjectIdeaInput, GroupUncheckedCreateWithoutProjectIdeaInput> | GroupCreateWithoutProjectIdeaInput[] | GroupUncheckedCreateWithoutProjectIdeaInput[]
     connectOrCreate?: GroupCreateOrConnectWithoutProjectIdeaInput | GroupCreateOrConnectWithoutProjectIdeaInput[]
     createMany?: GroupCreateManyProjectIdeaInputEnvelope
     connect?: GroupWhereUniqueInput | GroupWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type GroupUpdateManyWithoutProjectIdeaNestedInput = {
@@ -21612,6 +24496,22 @@ export namespace Prisma {
     update?: GroupUpdateWithWhereUniqueWithoutProjectIdeaInput | GroupUpdateWithWhereUniqueWithoutProjectIdeaInput[]
     updateMany?: GroupUpdateManyWithWhereWithoutProjectIdeaInput | GroupUpdateManyWithWhereWithoutProjectIdeaInput[]
     deleteMany?: GroupScalarWhereInput | GroupScalarWhereInput[]
+  }
+
+  export type AcademicYearUpdateOneRequiredWithoutProjectIdeasNestedInput = {
+    create?: XOR<AcademicYearCreateWithoutProjectIdeasInput, AcademicYearUncheckedCreateWithoutProjectIdeasInput>
+    connectOrCreate?: AcademicYearCreateOrConnectWithoutProjectIdeasInput
+    upsert?: AcademicYearUpsertWithoutProjectIdeasInput
+    connect?: AcademicYearWhereUniqueInput
+    update?: XOR<XOR<AcademicYearUpdateToOneWithWhereWithoutProjectIdeasInput, AcademicYearUpdateWithoutProjectIdeasInput>, AcademicYearUncheckedUpdateWithoutProjectIdeasInput>
+  }
+
+  export type SubjectUpdateOneRequiredWithoutProjectIdeasNestedInput = {
+    create?: XOR<SubjectCreateWithoutProjectIdeasInput, SubjectUncheckedCreateWithoutProjectIdeasInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutProjectIdeasInput
+    upsert?: SubjectUpsertWithoutProjectIdeasInput
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutProjectIdeasInput, SubjectUpdateWithoutProjectIdeasInput>, SubjectUncheckedUpdateWithoutProjectIdeasInput>
   }
 
   export type GroupUncheckedUpdateManyWithoutProjectIdeaNestedInput = {
@@ -22223,23 +25123,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedEnumVerificationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.VerificationStatus | EnumVerificationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumVerificationStatusFilter<$PrismaModel> | $Enums.VerificationStatus
-  }
-
-  export type NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.VerificationStatus | EnumVerificationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.VerificationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumVerificationStatusFilter<$PrismaModel>
-    _max?: NestedEnumVerificationStatusFilter<$PrismaModel>
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -22265,6 +25148,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumVerificationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerificationStatus | EnumVerificationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerificationStatusFilter<$PrismaModel> | $Enums.VerificationStatus
+  }
+
+  export type NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.VerificationStatus | EnumVerificationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.VerificationStatus[] | ListEnumVerificationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumVerificationStatusWithAggregatesFilter<$PrismaModel> | $Enums.VerificationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumVerificationStatusFilter<$PrismaModel>
+    _max?: NestedEnumVerificationStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumProjectRepoTypeFilter<$PrismaModel = never> = {
@@ -22349,7 +25249,7 @@ export namespace Prisma {
     arabicName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    group: GroupCreateNestedOneWithoutStudentsInput
+    groups?: GroupCreateNestedManyWithoutStudentsInput
     publishedProjects?: ProjectCreateNestedManyWithoutPublisherInput
     repos?: ProjectRepoCreateNestedManyWithoutContributorsInput
   }
@@ -22357,9 +25257,9 @@ export namespace Prisma {
   export type StudentUncheckedCreateWithoutUserInput = {
     id?: string
     arabicName: string
-    groupId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    groups?: GroupUncheckedCreateNestedManyWithoutStudentsInput
     publishedProjects?: ProjectUncheckedCreateNestedManyWithoutPublisherInput
     repos?: ProjectRepoUncheckedCreateNestedManyWithoutContributorsInput
   }
@@ -22527,7 +25427,7 @@ export namespace Prisma {
     arabicName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    group?: GroupUpdateOneRequiredWithoutStudentsNestedInput
+    groups?: GroupUpdateManyWithoutStudentsNestedInput
     publishedProjects?: ProjectUpdateManyWithoutPublisherNestedInput
     repos?: ProjectRepoUpdateManyWithoutContributorsNestedInput
   }
@@ -22535,9 +25435,9 @@ export namespace Prisma {
   export type StudentUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUncheckedUpdateManyWithoutStudentsNestedInput
     publishedProjects?: ProjectUncheckedUpdateManyWithoutPublisherNestedInput
     repos?: ProjectRepoUncheckedUpdateManyWithoutContributorsNestedInput
   }
@@ -22798,6 +25698,111 @@ export namespace Prisma {
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type ProjectIdeaCreateWithoutAcademicYearInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groups?: GroupCreateNestedManyWithoutProjectIdeaInput
+    subject: SubjectCreateNestedOneWithoutProjectIdeasInput
+  }
+
+  export type ProjectIdeaUncheckedCreateWithoutAcademicYearInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subjectId: string
+    groups?: GroupUncheckedCreateNestedManyWithoutProjectIdeaInput
+  }
+
+  export type ProjectIdeaCreateOrConnectWithoutAcademicYearInput = {
+    where: ProjectIdeaWhereUniqueInput
+    create: XOR<ProjectIdeaCreateWithoutAcademicYearInput, ProjectIdeaUncheckedCreateWithoutAcademicYearInput>
+  }
+
+  export type ProjectIdeaCreateManyAcademicYearInputEnvelope = {
+    data: ProjectIdeaCreateManyAcademicYearInput | ProjectIdeaCreateManyAcademicYearInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProjectIdeaUpsertWithWhereUniqueWithoutAcademicYearInput = {
+    where: ProjectIdeaWhereUniqueInput
+    update: XOR<ProjectIdeaUpdateWithoutAcademicYearInput, ProjectIdeaUncheckedUpdateWithoutAcademicYearInput>
+    create: XOR<ProjectIdeaCreateWithoutAcademicYearInput, ProjectIdeaUncheckedCreateWithoutAcademicYearInput>
+  }
+
+  export type ProjectIdeaUpdateWithWhereUniqueWithoutAcademicYearInput = {
+    where: ProjectIdeaWhereUniqueInput
+    data: XOR<ProjectIdeaUpdateWithoutAcademicYearInput, ProjectIdeaUncheckedUpdateWithoutAcademicYearInput>
+  }
+
+  export type ProjectIdeaUpdateManyWithWhereWithoutAcademicYearInput = {
+    where: ProjectIdeaScalarWhereInput
+    data: XOR<ProjectIdeaUpdateManyMutationInput, ProjectIdeaUncheckedUpdateManyWithoutAcademicYearInput>
+  }
+
+  export type ProjectIdeaScalarWhereInput = {
+    AND?: ProjectIdeaScalarWhereInput | ProjectIdeaScalarWhereInput[]
+    OR?: ProjectIdeaScalarWhereInput[]
+    NOT?: ProjectIdeaScalarWhereInput | ProjectIdeaScalarWhereInput[]
+    id?: StringFilter<"ProjectIdea"> | string
+    name?: StringFilter<"ProjectIdea"> | string
+    slug?: StringFilter<"ProjectIdea"> | string
+    createdAt?: DateTimeFilter<"ProjectIdea"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectIdea"> | Date | string
+    academicYearId?: StringFilter<"ProjectIdea"> | string
+    subjectId?: StringFilter<"ProjectIdea"> | string
+  }
+
+  export type ProjectIdeaCreateWithoutSubjectInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    groups?: GroupCreateNestedManyWithoutProjectIdeaInput
+    academicYear: AcademicYearCreateNestedOneWithoutProjectIdeasInput
+  }
+
+  export type ProjectIdeaUncheckedCreateWithoutSubjectInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicYearId: string
+    groups?: GroupUncheckedCreateNestedManyWithoutProjectIdeaInput
+  }
+
+  export type ProjectIdeaCreateOrConnectWithoutSubjectInput = {
+    where: ProjectIdeaWhereUniqueInput
+    create: XOR<ProjectIdeaCreateWithoutSubjectInput, ProjectIdeaUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ProjectIdeaCreateManySubjectInputEnvelope = {
+    data: ProjectIdeaCreateManySubjectInput | ProjectIdeaCreateManySubjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProjectIdeaUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: ProjectIdeaWhereUniqueInput
+    update: XOR<ProjectIdeaUpdateWithoutSubjectInput, ProjectIdeaUncheckedUpdateWithoutSubjectInput>
+    create: XOR<ProjectIdeaCreateWithoutSubjectInput, ProjectIdeaUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type ProjectIdeaUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: ProjectIdeaWhereUniqueInput
+    data: XOR<ProjectIdeaUpdateWithoutSubjectInput, ProjectIdeaUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type ProjectIdeaUpdateManyWithWhereWithoutSubjectInput = {
+    where: ProjectIdeaScalarWhereInput
+    data: XOR<ProjectIdeaUpdateManyMutationInput, ProjectIdeaUncheckedUpdateManyWithoutSubjectInput>
+  }
+
   export type GroupCreateWithoutStudentsInput = {
     id?: string
     createdAt?: Date | string
@@ -22925,31 +25930,30 @@ export namespace Prisma {
     create: XOR<ProjectRepoCreateWithoutContributorsInput, ProjectRepoUncheckedCreateWithoutContributorsInput>
   }
 
-  export type GroupUpsertWithoutStudentsInput = {
+  export type GroupUpsertWithWhereUniqueWithoutStudentsInput = {
+    where: GroupWhereUniqueInput
     update: XOR<GroupUpdateWithoutStudentsInput, GroupUncheckedUpdateWithoutStudentsInput>
     create: XOR<GroupCreateWithoutStudentsInput, GroupUncheckedCreateWithoutStudentsInput>
-    where?: GroupWhereInput
   }
 
-  export type GroupUpdateToOneWithWhereWithoutStudentsInput = {
-    where?: GroupWhereInput
+  export type GroupUpdateWithWhereUniqueWithoutStudentsInput = {
+    where: GroupWhereUniqueInput
     data: XOR<GroupUpdateWithoutStudentsInput, GroupUncheckedUpdateWithoutStudentsInput>
   }
 
-  export type GroupUpdateWithoutStudentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projectIdea?: ProjectIdeaUpdateOneWithoutGroupsNestedInput
-    projects?: ProjectUpdateManyWithoutGroupNestedInput
+  export type GroupUpdateManyWithWhereWithoutStudentsInput = {
+    where: GroupScalarWhereInput
+    data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyWithoutStudentsInput>
   }
 
-  export type GroupUncheckedUpdateWithoutStudentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    projectIdeaId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects?: ProjectUncheckedUpdateManyWithoutGroupNestedInput
+  export type GroupScalarWhereInput = {
+    AND?: GroupScalarWhereInput | GroupScalarWhereInput[]
+    OR?: GroupScalarWhereInput[]
+    NOT?: GroupScalarWhereInput | GroupScalarWhereInput[]
+    id?: StringFilter<"Group"> | string
+    projectIdeaId?: StringNullableFilter<"Group"> | string | null
+    createdAt?: DateTimeFilter<"Group"> | Date | string
+    updatedAt?: DateTimeFilter<"Group"> | Date | string
   }
 
   export type UserUpsertWithoutStudentInput = {
@@ -23246,19 +26250,21 @@ export namespace Prisma {
   export type ProjectIdeaCreateWithoutGroupsInput = {
     id?: string
     name: string
-    year: number
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    academicYear: AcademicYearCreateNestedOneWithoutProjectIdeasInput
+    subject: SubjectCreateNestedOneWithoutProjectIdeasInput
   }
 
   export type ProjectIdeaUncheckedCreateWithoutGroupsInput = {
     id?: string
     name: string
-    year: number
     slug: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    academicYearId: string
+    subjectId: string
   }
 
   export type ProjectIdeaCreateOrConnectWithoutGroupsInput = {
@@ -23306,7 +26312,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type StudentCreateWithoutGroupInput = {
+  export type StudentCreateWithoutGroupsInput = {
     id?: string
     arabicName: string
     createdAt?: Date | string
@@ -23316,7 +26322,7 @@ export namespace Prisma {
     repos?: ProjectRepoCreateNestedManyWithoutContributorsInput
   }
 
-  export type StudentUncheckedCreateWithoutGroupInput = {
+  export type StudentUncheckedCreateWithoutGroupsInput = {
     id?: string
     arabicName: string
     userId?: string | null
@@ -23326,14 +26332,9 @@ export namespace Prisma {
     repos?: ProjectRepoUncheckedCreateNestedManyWithoutContributorsInput
   }
 
-  export type StudentCreateOrConnectWithoutGroupInput = {
+  export type StudentCreateOrConnectWithoutGroupsInput = {
     where: StudentWhereUniqueInput
-    create: XOR<StudentCreateWithoutGroupInput, StudentUncheckedCreateWithoutGroupInput>
-  }
-
-  export type StudentCreateManyGroupInputEnvelope = {
-    data: StudentCreateManyGroupInput | StudentCreateManyGroupInput[]
-    skipDuplicates?: boolean
+    create: XOR<StudentCreateWithoutGroupsInput, StudentUncheckedCreateWithoutGroupsInput>
   }
 
   export type ProjectIdeaUpsertWithoutGroupsInput = {
@@ -23350,19 +26351,21 @@ export namespace Prisma {
   export type ProjectIdeaUpdateWithoutGroupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicYear?: AcademicYearUpdateOneRequiredWithoutProjectIdeasNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutProjectIdeasNestedInput
   }
 
   export type ProjectIdeaUncheckedUpdateWithoutGroupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    year?: IntFieldUpdateOperationsInput | number
     slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+    subjectId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProjectUpsertWithWhereUniqueWithoutGroupInput = {
@@ -23381,20 +26384,20 @@ export namespace Prisma {
     data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutGroupInput>
   }
 
-  export type StudentUpsertWithWhereUniqueWithoutGroupInput = {
+  export type StudentUpsertWithWhereUniqueWithoutGroupsInput = {
     where: StudentWhereUniqueInput
-    update: XOR<StudentUpdateWithoutGroupInput, StudentUncheckedUpdateWithoutGroupInput>
-    create: XOR<StudentCreateWithoutGroupInput, StudentUncheckedCreateWithoutGroupInput>
+    update: XOR<StudentUpdateWithoutGroupsInput, StudentUncheckedUpdateWithoutGroupsInput>
+    create: XOR<StudentCreateWithoutGroupsInput, StudentUncheckedCreateWithoutGroupsInput>
   }
 
-  export type StudentUpdateWithWhereUniqueWithoutGroupInput = {
+  export type StudentUpdateWithWhereUniqueWithoutGroupsInput = {
     where: StudentWhereUniqueInput
-    data: XOR<StudentUpdateWithoutGroupInput, StudentUncheckedUpdateWithoutGroupInput>
+    data: XOR<StudentUpdateWithoutGroupsInput, StudentUncheckedUpdateWithoutGroupsInput>
   }
 
-  export type StudentUpdateManyWithWhereWithoutGroupInput = {
+  export type StudentUpdateManyWithWhereWithoutGroupsInput = {
     where: StudentScalarWhereInput
-    data: XOR<StudentUpdateManyMutationInput, StudentUncheckedUpdateManyWithoutGroupInput>
+    data: XOR<StudentUpdateManyMutationInput, StudentUncheckedUpdateManyWithoutGroupsInput>
   }
 
   export type StudentScalarWhereInput = {
@@ -23403,7 +26406,6 @@ export namespace Prisma {
     NOT?: StudentScalarWhereInput | StudentScalarWhereInput[]
     id?: StringFilter<"Student"> | string
     arabicName?: StringFilter<"Student"> | string
-    groupId?: StringFilter<"Student"> | string
     userId?: StringNullableFilter<"Student"> | string | null
     createdAt?: DateTimeFilter<"Student"> | Date | string
     updatedAt?: DateTimeFilter<"Student"> | Date | string
@@ -23414,7 +26416,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectCreateNestedManyWithoutGroupInput
-    students?: StudentCreateNestedManyWithoutGroupInput
+    students?: StudentCreateNestedManyWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateWithoutProjectIdeaInput = {
@@ -23422,7 +26424,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     projects?: ProjectUncheckedCreateNestedManyWithoutGroupInput
-    students?: StudentUncheckedCreateNestedManyWithoutGroupInput
+    students?: StudentUncheckedCreateNestedManyWithoutGroupsInput
   }
 
   export type GroupCreateOrConnectWithoutProjectIdeaInput = {
@@ -23433,6 +26435,48 @@ export namespace Prisma {
   export type GroupCreateManyProjectIdeaInputEnvelope = {
     data: GroupCreateManyProjectIdeaInput | GroupCreateManyProjectIdeaInput[]
     skipDuplicates?: boolean
+  }
+
+  export type AcademicYearCreateWithoutProjectIdeasInput = {
+    id?: string
+    label: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicYearUncheckedCreateWithoutProjectIdeasInput = {
+    id?: string
+    label: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AcademicYearCreateOrConnectWithoutProjectIdeasInput = {
+    where: AcademicYearWhereUniqueInput
+    create: XOR<AcademicYearCreateWithoutProjectIdeasInput, AcademicYearUncheckedCreateWithoutProjectIdeasInput>
+  }
+
+  export type SubjectCreateWithoutProjectIdeasInput = {
+    id?: string
+    name: string
+    slug: string
+    yearLevel: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubjectUncheckedCreateWithoutProjectIdeasInput = {
+    id?: string
+    name: string
+    slug: string
+    yearLevel: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SubjectCreateOrConnectWithoutProjectIdeasInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutProjectIdeasInput, SubjectUncheckedCreateWithoutProjectIdeasInput>
   }
 
   export type GroupUpsertWithWhereUniqueWithoutProjectIdeaInput = {
@@ -23451,14 +26495,58 @@ export namespace Prisma {
     data: XOR<GroupUpdateManyMutationInput, GroupUncheckedUpdateManyWithoutProjectIdeaInput>
   }
 
-  export type GroupScalarWhereInput = {
-    AND?: GroupScalarWhereInput | GroupScalarWhereInput[]
-    OR?: GroupScalarWhereInput[]
-    NOT?: GroupScalarWhereInput | GroupScalarWhereInput[]
-    id?: StringFilter<"Group"> | string
-    projectIdeaId?: StringNullableFilter<"Group"> | string | null
-    createdAt?: DateTimeFilter<"Group"> | Date | string
-    updatedAt?: DateTimeFilter<"Group"> | Date | string
+  export type AcademicYearUpsertWithoutProjectIdeasInput = {
+    update: XOR<AcademicYearUpdateWithoutProjectIdeasInput, AcademicYearUncheckedUpdateWithoutProjectIdeasInput>
+    create: XOR<AcademicYearCreateWithoutProjectIdeasInput, AcademicYearUncheckedCreateWithoutProjectIdeasInput>
+    where?: AcademicYearWhereInput
+  }
+
+  export type AcademicYearUpdateToOneWithWhereWithoutProjectIdeasInput = {
+    where?: AcademicYearWhereInput
+    data: XOR<AcademicYearUpdateWithoutProjectIdeasInput, AcademicYearUncheckedUpdateWithoutProjectIdeasInput>
+  }
+
+  export type AcademicYearUpdateWithoutProjectIdeasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AcademicYearUncheckedUpdateWithoutProjectIdeasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectUpsertWithoutProjectIdeasInput = {
+    update: XOR<SubjectUpdateWithoutProjectIdeasInput, SubjectUncheckedUpdateWithoutProjectIdeasInput>
+    create: XOR<SubjectCreateWithoutProjectIdeasInput, SubjectUncheckedCreateWithoutProjectIdeasInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutProjectIdeasInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutProjectIdeasInput, SubjectUncheckedUpdateWithoutProjectIdeasInput>
+  }
+
+  export type SubjectUpdateWithoutProjectIdeasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    yearLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubjectUncheckedUpdateWithoutProjectIdeasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    yearLevel?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GroupCreateWithoutProjectsInput = {
@@ -23466,7 +26554,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     projectIdea?: ProjectIdeaCreateNestedOneWithoutGroupsInput
-    students?: StudentCreateNestedManyWithoutGroupInput
+    students?: StudentCreateNestedManyWithoutGroupsInput
   }
 
   export type GroupUncheckedCreateWithoutProjectsInput = {
@@ -23474,7 +26562,7 @@ export namespace Prisma {
     projectIdeaId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    students?: StudentUncheckedCreateNestedManyWithoutGroupInput
+    students?: StudentUncheckedCreateNestedManyWithoutGroupsInput
   }
 
   export type GroupCreateOrConnectWithoutProjectsInput = {
@@ -23487,7 +26575,7 @@ export namespace Prisma {
     arabicName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    group: GroupCreateNestedOneWithoutStudentsInput
+    groups?: GroupCreateNestedManyWithoutStudentsInput
     user?: UserCreateNestedOneWithoutStudentInput
     repos?: ProjectRepoCreateNestedManyWithoutContributorsInput
   }
@@ -23495,10 +26583,10 @@ export namespace Prisma {
   export type StudentUncheckedCreateWithoutPublishedProjectsInput = {
     id?: string
     arabicName: string
-    groupId: string
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    groups?: GroupUncheckedCreateNestedManyWithoutStudentsInput
     repos?: ProjectRepoUncheckedCreateNestedManyWithoutContributorsInput
   }
 
@@ -23639,7 +26727,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectIdea?: ProjectIdeaUpdateOneWithoutGroupsNestedInput
-    students?: StudentUpdateManyWithoutGroupNestedInput
+    students?: StudentUpdateManyWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutProjectsInput = {
@@ -23647,7 +26735,7 @@ export namespace Prisma {
     projectIdeaId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    students?: StudentUncheckedUpdateManyWithoutGroupNestedInput
+    students?: StudentUncheckedUpdateManyWithoutGroupsNestedInput
   }
 
   export type StudentUpsertWithoutPublishedProjectsInput = {
@@ -23666,7 +26754,7 @@ export namespace Prisma {
     arabicName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    group?: GroupUpdateOneRequiredWithoutStudentsNestedInput
+    groups?: GroupUpdateManyWithoutStudentsNestedInput
     user?: UserUpdateOneWithoutStudentNestedInput
     repos?: ProjectRepoUpdateManyWithoutContributorsNestedInput
   }
@@ -23674,10 +26762,10 @@ export namespace Prisma {
   export type StudentUncheckedUpdateWithoutPublishedProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUncheckedUpdateManyWithoutStudentsNestedInput
     repos?: ProjectRepoUncheckedUpdateManyWithoutContributorsNestedInput
   }
 
@@ -23834,7 +26922,7 @@ export namespace Prisma {
     arabicName: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    group: GroupCreateNestedOneWithoutStudentsInput
+    groups?: GroupCreateNestedManyWithoutStudentsInput
     user?: UserCreateNestedOneWithoutStudentInput
     publishedProjects?: ProjectCreateNestedManyWithoutPublisherInput
   }
@@ -23842,10 +26930,10 @@ export namespace Prisma {
   export type StudentUncheckedCreateWithoutReposInput = {
     id?: string
     arabicName: string
-    groupId: string
     userId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    groups?: GroupUncheckedCreateNestedManyWithoutStudentsInput
     publishedProjects?: ProjectUncheckedCreateNestedManyWithoutPublisherInput
   }
 
@@ -24441,6 +27529,82 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProjectIdeaCreateManyAcademicYearInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    subjectId: string
+  }
+
+  export type ProjectIdeaUpdateWithoutAcademicYearInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUpdateManyWithoutProjectIdeaNestedInput
+    subject?: SubjectUpdateOneRequiredWithoutProjectIdeasNestedInput
+  }
+
+  export type ProjectIdeaUncheckedUpdateWithoutAcademicYearInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+    groups?: GroupUncheckedUpdateManyWithoutProjectIdeaNestedInput
+  }
+
+  export type ProjectIdeaUncheckedUpdateManyWithoutAcademicYearInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subjectId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProjectIdeaCreateManySubjectInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    academicYearId: string
+  }
+
+  export type ProjectIdeaUpdateWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUpdateManyWithoutProjectIdeaNestedInput
+    academicYear?: AcademicYearUpdateOneRequiredWithoutProjectIdeasNestedInput
+  }
+
+  export type ProjectIdeaUncheckedUpdateWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+    groups?: GroupUncheckedUpdateManyWithoutProjectIdeaNestedInput
+  }
+
+  export type ProjectIdeaUncheckedUpdateManyWithoutSubjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    academicYearId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ProjectCreateManyPublisherInput = {
     id?: string
     name: string
@@ -24449,6 +27613,29 @@ export namespace Prisma {
     thumbnail?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type GroupUpdateWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectIdea?: ProjectIdeaUpdateOneWithoutGroupsNestedInput
+    projects?: ProjectUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectIdeaId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupUncheckedUpdateManyWithoutStudentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectIdeaId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProjectUpdateWithoutPublisherInput = {
@@ -24528,14 +27715,6 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type StudentCreateManyGroupInput = {
-    id?: string
-    arabicName: string
-    userId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type ProjectUpdateWithoutGroupInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -24576,7 +27755,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StudentUpdateWithoutGroupInput = {
+  export type StudentUpdateWithoutGroupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -24586,7 +27765,7 @@ export namespace Prisma {
     repos?: ProjectRepoUpdateManyWithoutContributorsNestedInput
   }
 
-  export type StudentUncheckedUpdateWithoutGroupInput = {
+  export type StudentUncheckedUpdateWithoutGroupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24596,7 +27775,7 @@ export namespace Prisma {
     repos?: ProjectRepoUncheckedUpdateManyWithoutContributorsNestedInput
   }
 
-  export type StudentUncheckedUpdateManyWithoutGroupInput = {
+  export type StudentUncheckedUpdateManyWithoutGroupsInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -24615,7 +27794,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUpdateManyWithoutGroupNestedInput
-    students?: StudentUpdateManyWithoutGroupNestedInput
+    students?: StudentUpdateManyWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateWithoutProjectIdeaInput = {
@@ -24623,7 +27802,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projects?: ProjectUncheckedUpdateManyWithoutGroupNestedInput
-    students?: StudentUncheckedUpdateManyWithoutGroupNestedInput
+    students?: StudentUncheckedUpdateManyWithoutGroupsNestedInput
   }
 
   export type GroupUncheckedUpdateManyWithoutProjectIdeaInput = {
@@ -24771,7 +27950,7 @@ export namespace Prisma {
     arabicName?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    group?: GroupUpdateOneRequiredWithoutStudentsNestedInput
+    groups?: GroupUpdateManyWithoutStudentsNestedInput
     user?: UserUpdateOneWithoutStudentNestedInput
     publishedProjects?: ProjectUpdateManyWithoutPublisherNestedInput
   }
@@ -24779,17 +27958,16 @@ export namespace Prisma {
   export type StudentUncheckedUpdateWithoutReposInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupUncheckedUpdateManyWithoutStudentsNestedInput
     publishedProjects?: ProjectUncheckedUpdateManyWithoutPublisherNestedInput
   }
 
   export type StudentUncheckedUpdateManyWithoutReposInput = {
     id?: StringFieldUpdateOperationsInput | string
     arabicName?: StringFieldUpdateOperationsInput | string
-    groupId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
