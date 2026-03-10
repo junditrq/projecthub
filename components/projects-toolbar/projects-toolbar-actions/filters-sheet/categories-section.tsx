@@ -1,4 +1,4 @@
-import { getCategoriesAction } from "@/app/actions";
+import { getCategoriesAction } from "@/app/(app)/actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { CategoryDTO } from "@/core/application/dtos/category.dto";

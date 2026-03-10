@@ -1,4 +1,4 @@
-import { getTagsAction } from "@/app/actions";
+import { getTagsAction } from "@/app/(app)/actions";
 import TagsFilter from "@/components/common/tags-filter";
 
 export const TagsSection = async () => {

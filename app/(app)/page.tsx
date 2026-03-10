@@ -1,9 +1,8 @@
-import { auth } from "@/auth";
-import NavBar from "@/components/navbar";
+import Container from "@/components/common/container";
 import PageHeading from "@/components/page-heading";
 import ProjectCard from "@/components/project-card";
 import ProjectsToolbar from "@/components/projects-toolbar";
-import InitialUserDialog from "./components/initial-user-dialog";
+import InitialUserDialog from "../components/initial-user-dialog";
 
 const project = {
   id: "0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6",
@@ -53,25 +52,19 @@ const project = {
 };
 
 const Page = async () => {
-  const session = await auth();
-  console.log("User session:", session);
-
   return (
     <>
-      <NavBar />
-      <main>
-        <PageHeading title="Projects" />
+      <PageHeading title="Projects" />
 
-        <div className="container mx-auto md:px-10 lg:px-24">
-          <ProjectsToolbar />
+      <Container>
+        <ProjectsToolbar />
 
-          <div className="grid grid-cols-[repeat(auto-fill,_minmax(min(380px,100%),1fr))] place-content-center justify-center gap-4 px-4 pb-4">
-            <ProjectCard project={project} />
-            <ProjectCard project={project} />
-            <ProjectCard project={project} />
-          </div>
+        <div className="grid grid-cols-[repeat(auto-fill,_minmax(min(380px,100%),1fr))] place-content-center justify-center gap-4 px-4 pb-4">
+          <ProjectCard project={project} />
+          <ProjectCard project={project} />
+          <ProjectCard project={project} />
         </div>
-      </main>
+      </Container>
       <InitialUserDialog />
     </>
   );

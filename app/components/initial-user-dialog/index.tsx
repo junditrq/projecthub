@@ -1,6 +1,6 @@
 "use client";
 
-import { markUserAsPromptedAction } from "@/app/actions";
+import { markUserAsPromptedAction } from "@/app/(app)/actions";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
