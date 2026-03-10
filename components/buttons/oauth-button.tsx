@@ -7,7 +7,7 @@ const OAuthButton = ({ children, className, ...props }: ShadcnButtonProps) => {
     <Button
       variant={"secondary"}
       className={cn(
-        "cursor-pointer rounded-full !px-6 !py-5 font-bold tracking-wide uppercase italic",
+        "cursor-pointer rounded-full font-bold tracking-wide uppercase italic",
         className,
       )}
       {...props}

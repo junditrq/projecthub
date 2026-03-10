@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import Link from "next/link";
 import SignInButtonServer from "../buttons/sign-in-button-server";
-import SignOutButton from "../buttons/sign-out-button";
 import { ThemeToggle } from "../common/theme-toggle";
+import AvatarDropdown from "./avatar-dropdown";
 const NavBar = async () => {
   const session = await auth();
   return (
@@ -17,7 +17,7 @@ const NavBar = async () => {
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          {!session?.user ? <SignInButtonServer /> : <SignOutButton />}
+          {!session?.user ? <SignInButtonServer /> : <AvatarDropdown />}
           <ThemeToggle variants={"ghost"} className="size-8 rounded-xl" />
         </div>
       </div>
