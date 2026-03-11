@@ -1,6 +1,5 @@
-
 const Page = () => {
-  return <p>test</p>;
+  return <p>Profile Settings</p>;
 };
 
 export default Page;

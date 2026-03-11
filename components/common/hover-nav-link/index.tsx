@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-interface HoverNavLinkProps {
+export interface HoverNavLinkProps {
   children?: React.ReactNode;
   href: string;
   isActive?: boolean;
@@ -21,7 +21,7 @@ const HoverNavLink = ({
   return (
     <Link
       className={cn(
-        "group focus-within:ring-ring/50 focus-within:border-ring relative inline-block overflow-hidden rounded-md transition-all focus-within:ring-1 focus-within:ring-offset-2 focus-within:ring-offset-transparent",
+        "group relative inline-block overflow-hidden rounded-md transition-all",
         classNames?.link,
       )}
       {...props}
@@ -37,7 +37,7 @@ const HoverNavLink = ({
       <span
         className={cn(
           "bg-primary absolute bottom-0 left-0 z-0 w-full rounded-md transition-all group-hover:h-full",
-          { "h-0.5": isActive },
+          isActive ? "h-0.5" : "h-0",
           classNames?.overlay,
         )}
       ></span>
