@@ -1,19 +1,10 @@
 "use client";
 
 import { markUserAsPromptedAction } from "@/app/(app)/actions";
-import ActionButton from "@/components/buttons/oauth-button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
-import { ArrowRight } from "lucide-react";
+import { Dialog } from "@/components/ui/dialog";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import VerificationDialogContent from "./dialog-content";
 
 const InitialUserDialog = () => {
   const [open, setOpen] = useState(false);
@@ -46,23 +37,7 @@ const InitialUserDialog = () => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Verify your account as a student?</DialogTitle>
-          <DialogDescription className="mt-2">
-            In order for you to be able to publish your own projects you need to
-            be verified as a student first
-          </DialogDescription>
-          <DialogFooter className="mt-4">
-            <ActionButton asChild>
-              <Link href={"/settings/student-verification"}>
-                Verfiy as Student
-                <ArrowRight />
-              </Link>
-            </ActionButton>
-          </DialogFooter>
-        </DialogHeader>
-      </DialogContent>
+      <VerificationDialogContent />
     </Dialog>
   );
 };

@@ -8,6 +8,7 @@ export const authConfig = {
       if (user) {
         token.hasBeenPrompted = !!user.hasBeenPrompted;
         token.userId = user.id;
+        token.role = user.role;
       }
 
       if (trigger === "update" && session?.hasBeenPrompted !== undefined) {
@@ -19,6 +20,7 @@ export const authConfig = {
 
     session: async ({ session, token }) => {
       if (session.user) {
+        session.user.role = token.role;
         session.user.hasBeenPrompted = !!token.hasBeenPrompted;
       }
       if (token.userId) {

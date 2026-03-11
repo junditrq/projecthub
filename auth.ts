@@ -2,12 +2,14 @@ import { authConfig } from "@/auth.config";
 import prisma from "@/lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { type DefaultSession } from "next-auth";
+import { UserProps } from "./core/domain/entities/user.entity";
 
 declare module "next-auth" {
   interface Session {
     user: {
       id: string;
       hasBeenPrompted: boolean;
+      role: UserProps["role"];
       name: string;
       email: string;
     } & DefaultSession["user"];
@@ -16,6 +18,7 @@ declare module "next-auth" {
   interface User {
     id: string;
     hasBeenPrompted: boolean;
+    role: UserProps["role"];
   }
 }
 
@@ -29,6 +32,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     /** OpenID ID Token */
     hasBeenPrompted: boolean;
+    role: UserProps["role"];
     userId: string | undefined;
   }
 }
