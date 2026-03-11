@@ -51,7 +51,7 @@ const project = {
   },
 };
 
-const Page = async () => {
+const Page = () => {
   return (
     <>
       <PageHeading title="Projects" />

@@ -1,9 +1,9 @@
 "use client";
 import { signOut } from "next-auth/react";
-import OAuthButton from "./oauth-button";
+import ActionButton from "./oauth-button";
 
 const SignOutButton = () => {
-  return <OAuthButton onClick={() => signOut()}>Sign Out</OAuthButton>;
+  return <ActionButton onClick={() => signOut()}>Sign Out</ActionButton>;
 };
 
 export default SignOutButton;

@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { Button, ShadcnButtonProps } from "../ui/button";
 
-const OAuthButton = ({ children, className, ...props }: ShadcnButtonProps) => {
+const ActionButton = ({ children, className, ...props }: ShadcnButtonProps) => {
   return (
     <Button
       variant={"secondary"}
@@ -16,4 +16,4 @@ const OAuthButton = ({ children, className, ...props }: ShadcnButtonProps) => {
     </Button>
   );
 };
-export default OAuthButton;
+export default ActionButton;

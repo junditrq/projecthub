@@ -5,7 +5,7 @@ const Container = ({
   children,
 }: {
   className?: React.HTMLAttributes<HTMLDivElement>["className"];
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   return (
     <div className={cn("container mx-auto md:px-10 lg:px-24", className)}>

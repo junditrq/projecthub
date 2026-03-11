@@ -25,7 +25,6 @@ export default function ProjectCard({
         <Image
           className="!relative aspect-video"
           objectFit="cover"
-          objectPosition="center"
           src={project.thumbnailUrl}
           alt="Project thumbnail"
           fill={true}
