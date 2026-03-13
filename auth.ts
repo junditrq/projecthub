@@ -1,5 +1,5 @@
 import { authConfig } from "@/auth.config";
-import prisma from "@/lib/prisma";
+import prisma from "@/core/infra/orm/prisma.client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { type DefaultSession } from "next-auth";
 import { UserProps } from "./core/domain/entities/user.entity";
