@@ -2,10 +2,10 @@ import NavBar from "@/components/navbar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
+    <div className="flex min-h-dvh flex-col">
       <NavBar />
-      <main>{children}</main>
-    </>
+      <main className="flex grow flex-col">{children}</main>
+    </div>
   );
 };
 
