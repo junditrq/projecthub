@@ -1,12 +1,15 @@
 "use server";
 
 import { GetCategoriesUseCase } from "@/core/application/usecases/categories/get-categories.usecase";
+import { GetUploadURLUseCase } from "@/core/application/usecases/storage/get-upload-url.usecase";
 import { GetTagsUseCase } from "@/core/application/usecases/tags/get-tags.usecase";
 import { MarkUserAsPromptedUseCase } from "@/core/application/usecases/user/mark-user-as-prompted.usecase";
+import { MinioStorageRepo } from "@/core/infra/repos/minio/minio-storage.repo";
 import { PrismaCategoryRepo } from "@/core/infra/repos/prisma/category.repo";
 import { PrismaTagRepo } from "@/core/infra/repos/prisma/tag.repo";
 import { PrismaUserRepo } from "@/core/infra/repos/prisma/user.repo";
 import { actionClient, authActionClient } from "@/lib/safe-action";
+import z from "zod";
 
 export const markUserAsPromptedAction = authActionClient.action(
   async ({ ctx: { user } }) => {
@@ -28,3 +31,17 @@ export const getTagsAction = actionClient.action(async () => {
   const getTagsUseCase = new GetTagsUseCase(tagRepo);
   return await getTagsUseCase.execute();
 });
+
+export const getUploadURLAction = authActionClient
+  .inputSchema(
+    z.object({
+      fileKey: z.string(),
+      expiresIn: z.number().optional(),
+    }),
+  )
+  .action(async ({ parsedInput: { fileKey, expiresIn } }) => {
+    const storageRepo = new MinioStorageRepo();
+    const getUploadURLUseCase = new GetUploadURLUseCase(storageRepo);
+
+    return await getUploadURLUseCase.execute(fileKey, expiresIn);
+  });
