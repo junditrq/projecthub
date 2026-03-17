@@ -5,7 +5,7 @@ export interface UploadItem {
   file: File;
   previewURL: string;
   progress?: number;
-  status: "uploading" | "success" | "error" | "canceled";
+  status: "uploading" | "success" | "error";
   errorMessage?: string;
   abortController?: AbortController;
 }
