@@ -48,84 +48,137 @@ const FileUploader = ({
     .map((type: string) => type.split("/")[1].toUpperCase())
     .join(", ");
 
-  const { executeAsync: getUploadURL } = useAction(getUploadURLAction, {
-    onError: ({ error, input }) => {
-      markError(
-        input.fileKey,
-        error.serverError ||
-          error.thrownError?.message ||
-          "Failed to get upload URL",
-      );
-    },
-  });
+  const { executeAsync: getUploadURL } = useAction(getUploadURLAction);
 
   const onChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
 
-    const fileList = e.target.files;
-    if (!fileList) return;
+    const fl = e.target.files;
+    if (!fl) return;
 
-    const file = fileList[0];
-    if (!file) return;
+    const fileList = Array.from(fl); // File []
 
-    if (fileList.length > maxNumberOfFiles) {
+    const errors = {
+      too_large: false,
+      invalid_format: false,
+      file_already_exists: false,
+    };
+
+    const newFiles = fileList
+      .filter((file) => {
+        const existingUploadItem = uploadItems.find(
+          (uploadItem) => uploadItem.file.name === file.name,
+        );
+
+        if (existingUploadItem) {
+          if (existingUploadItem.status === "error") {
+            cancelUpload(existingUploadItem.fileKey);
+            return true;
+          }
+
+          errors["file_already_exists"] = true;
+          return false;
+        }
+
+        return true;
+      })
+      .filter((file) => {
+        if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
+          errors["invalid_format"] = true;
+          return false;
+        }
+
+        if (file.size > maxFileSize) {
+          console.log(file.name);
+          errors["too_large"] = true;
+          return false;
+        }
+
+        return true;
+      });
+
+    console.log(errors);
+
+    if (
+      uploadItems.length < maxNumberOfFiles &&
+      newFiles.length < fileList.length
+    ) {
+      if (fileList.length === 1) {
+        setError(
+          errors["invalid_format"]
+            ? `Please select a valid format: ${allowedFormats}`
+            : errors["too_large"]
+              ? `File is too large. Maximum size is ${formatBytes(maxFileSize)}.`
+              : errors["file_already_exists"]
+                ? "File already uploaded"
+                : "Some files were ignored because they're too big or not supported.",
+        );
+      } else {
+        setError(
+          errors["file_already_exists"]
+            ? "File already uploaded"
+            : "Some files were ignored because they're too big or not supported.",
+        );
+      }
+    }
+
+    if (
+      maxNumberOfFiles > 1 &&
+      newFiles.length + uploadItems.length > maxNumberOfFiles
+    ) {
       setError(
         `Too many files. Maximum number of files is ${maxNumberOfFiles}`,
       );
       return;
     }
 
-    if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
-      setError(`Please select a valid format: ${allowedFormats}`);
-      return;
-    }
+    console.log(newFiles);
+    console.log(uploadItems);
 
-    if (file.size > maxFileSize) {
-      setError(
-        `File is too large. Maximum size is ${formatBytes(maxFileSize)}.`,
-      );
-      return;
-    }
+    newFiles.forEach(async (file) => {
+      if (maxNumberOfFiles === 1) {
+        if (uploadItems.length > 0) {
+          cancelUpload(uploadItems[0].fileKey);
+        }
+      }
 
-    // Maybe keep all of those in the reducer as one part of the cancelUpload
-    if (maxNumberOfFiles === 1 && uploadItems[0]) {
-      cancelUpload(uploadItems[0].fileKey);
-    }
+      const abortController = new AbortController();
 
-    const abortController = new AbortController();
+      const fileKey = `/tmp/${Date.now()}-${file.name}`;
 
-    console.log(file);
+      addUploadItem({
+        file,
+        fileKey,
+        previewURL: URL.createObjectURL(file),
+        abortController,
+        status: "uploading",
+      });
 
-    const fileKey = `/tmp/${Date.now()}-${file.name}`;
+      try {
+        const result = await getUploadURL({ fileKey });
+        if (!result?.data) {
+          markError(fileKey, "Failed to upload File");
+          return;
+        }
 
-    addUploadItem({
-      file,
-      fileKey,
-      previewURL: URL.createObjectURL(file),
-      abortController,
-      status: "uploading",
-    });
+        uploadFilesWithXHR({
+          file: file,
+          abortController: abortController,
+          uploadURL: result.data,
 
-    const result = await getUploadURL({ fileKey });
+          onSuccess: () => {
+            markSuccess(fileKey);
+            onUploadFinished(fileKey);
+          },
 
-    if (!result?.data) {
-      markError(fileKey, "Failed to get upload URL");
-      return;
-    }
+          onError: (message) => markError(fileKey, message),
 
-    uploadFilesWithXHR({
-      file: file,
-      abortController: abortController,
-      uploadURL: result.data,
-
-      onSuccess: () => {
-        markSuccess(fileKey);
-        onUploadFinished(fileKey);
-      },
-
-      onError: (message) => markError(fileKey, message),
-
-      onProgress: (progress) => updateProgress(fileKey, progress),
+          onProgress: (progress) => updateProgress(fileKey, progress),
+        });
+      } catch (e) {
+        console.error(e);
+        markError(fileKey, "Failed to upload file.");
+      }
     });
   };
 
