@@ -13,7 +13,8 @@ const VerificationForm = () => {
           <FileUploader
             restrictions={{
               allowedTypes: ["image/jpeg", "image/png"],
-              maxFileSize: 5 * 1024 * 1024, // 5MB
+              maxFileSize: 2 * 1024 * 1024, // 5MB
+              maxNumberOfFiles: 3,
             }}
           />
           <Button>Submit</Button>
