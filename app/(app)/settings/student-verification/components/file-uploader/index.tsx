@@ -54,8 +54,6 @@ const FileUploader = ({
     cancelUpload,
   } = useFileUploader();
 
-  console.log("rrr");
-
   const onDrop = useCallback(
     async (fileList: File[]) => {
       setError(null);
@@ -101,10 +99,7 @@ const FileUploader = ({
 
       console.log(errors);
 
-      if (
-        uploadItems.length < maxNumberOfFiles &&
-        newFiles.length < fileList.length
-      ) {
+      if (newFiles.length < fileList.length) {
         if (fileList.length === 1) {
           setError(
             errors["invalid_format"]
@@ -116,16 +111,15 @@ const FileUploader = ({
                   : "Some files were ignored because they're too big or not supported.",
           );
         } else {
+          // TODO: Make better error messages and error handlinge
           setError(
-            errors["file_already_exists"]
-              ? "File already uploaded"
-              : "Some files were ignored because they're too big or not supported.",
+            "Some files were ignored because they're too big, not supported, or are already selected.",
           );
         }
       }
 
       if (
-        maxNumberOfFiles > 1 &&
+        !(maxNumberOfFiles === 1 && newFiles.length === 1) &&
         newFiles.length + uploadItems.length > maxNumberOfFiles
       ) {
         setError(
