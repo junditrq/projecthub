@@ -122,6 +122,10 @@ const FileUploader = ({
         try {
           const result = await getUploadURL({ fileKey });
 
+          if (abortController.signal.aborted) {
+            return;
+          }
+
           if (!result?.data) {
             markError(fileKey, "Failed to upload File");
             return;
