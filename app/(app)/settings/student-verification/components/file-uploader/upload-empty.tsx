@@ -17,6 +17,9 @@ const UploaderEmpty = ({
   return (
     <>
       <div className="animate-fade-in flex flex-col items-center justify-center gap-2">
+        <span className="bg-input text-input-foreground rounded-full p-2">
+          <UploadCloud className="size-8 text-center" />
+        </span>
         <p className="text-sm">
           Drop files here or{" "}
           <Button
@@ -28,8 +31,6 @@ const UploaderEmpty = ({
             browse files
           </Button>
         </p>
-
-        <UploadCloud className="text-center" />
       </div>
 
       <FieldDescription className="absolute bottom-0 w-full text-xs">
