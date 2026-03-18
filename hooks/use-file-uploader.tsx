@@ -3,7 +3,7 @@ import { useEffect, useReducer, useRef } from "react";
 export interface UploadItem {
   fileKey: string;
   file: File;
-  previewURL: string;
+  previewURL?: string;
   progress?: number;
   status: "uploading" | "success" | "error";
   errorMessage?: string;
@@ -83,7 +83,9 @@ export const useFileUploader = () => {
   useEffect(() => {
     return () => {
       itemsRef.current.forEach((uploadItem) => {
-        URL.revokeObjectURL(uploadItem.previewURL);
+        if (uploadItem.previewURL) {
+          URL.revokeObjectURL(uploadItem.previewURL);
+        }
         uploadItem.abortController?.abort();
       });
     };
@@ -120,7 +122,9 @@ export const useFileUploader = () => {
       // call teh action
     }
 
-    URL.revokeObjectURL(uploadItem.previewURL);
+    if (uploadItem.previewURL) {
+      URL.revokeObjectURL(uploadItem.previewURL);
+    }
 
     dispatch({ type: "CANCEL_UPLOAD", payload: { fileKey } });
   };
