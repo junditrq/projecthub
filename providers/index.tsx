@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/providers/theme-provider";
 import AuthProvider from "./auth-provider";
 
@@ -11,6 +12,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         disableTransitionOnChange
       >
         {children}
+        <Toaster />
       </ThemeProvider>
     </AuthProvider>
   );
