@@ -1,7 +1,7 @@
 "use client";
 import { getUploadURLAction } from "@/app/(app)/actions";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
     Field,
     FieldDescription,
@@ -12,11 +12,12 @@ import { Input } from "@/components/ui/input";
 import { useFileUploader } from "@/hooks/use-file-uploader";
 import { uploadFilesWithXHR } from "@/lib/upload-helper";
 import { cn, formatBytes } from "@/lib/utils";
-import { UploadCloud, X } from "lucide-react";
+import { Plus, UploadCloud } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import Image from "next/image";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import UploadItem from "./upload-item";
+import UploadItemsGrid from "./upload-items-grid";
 
 interface FileUploaderProps {
   onUploadFinished?: (fileKey: string) => void;
@@ -249,68 +250,48 @@ const FileUploader = ({
               </FieldDescription>
             </>
           ) : uploadItems.length === 1 ? (
-            <div
-              key={uploadItems[0].fileKey}
-              className="animate-in fade-in zoom-in-95 relative flex w-full max-w-sm flex-col gap-3 duration-300"
-            >
-              <div className="bg-muted relative aspect-video w-full overflow-hidden rounded-lg border shadow-sm">
-                <Image
-                  src={uploadItems[0].previewURL}
-                  alt={uploadItems[0].file.name}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 384px"
-                />
-
-                <div
-                  className={cn(
-                    "bg-background/60 text-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all",
-                    uploadItems[0].status === "uploading"
-                      ? "opacity-100"
-                      : "pointer-events-none opacity-0",
-                  )}
-                >
-                  <span className="text-muted-foreground text-sm">
-                    {((uploadItems[0].progress || 0) * 100).toFixed(0)}%
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex w-full flex-col text-left">
-                <p className="truncate text-sm font-medium">
-                  {uploadItems[0].file.name}
-                </p>
-                <p className="text-muted-foreground text-xs">
-                  {formatBytes(uploadItems[0].file.size)}
-                </p>
-              </div>
-
-              <Button
-                size="icon"
-                variant="destructive"
-                className="absolute -top-3 -right-3 z-10 size-6 rounded-full shadow-md transition-transform hover:scale-110"
-                type="button"
-                onClick={() => {
-                  cancelUpload(uploadItems[0].fileKey);
-                }}
-              >
-                <X strokeWidth={3} className="size-3" />
-              </Button>
-            </div>
+            <UploadItem
+              cancelUpload={cancelUpload}
+              uploadItem={uploadItems[0]}
+            />
           ) : (
-            <p>mutliple</p>
+            <UploadItemsGrid
+              uploadItems={uploadItems}
+              cancelUpload={cancelUpload}
+            />
           )}
         </CardContent>
+
+        {uploadItems.length > 0 && maxNumberOfFiles > 1 && (
+          <CardFooter className="flex justify-between text-sm">
+            <Button
+              type="button"
+              variant={"link"}
+              className="cursor-pointer"
+              onClick={open}
+              disabled={uploadItems.length === maxNumberOfFiles}
+            >
+              Add more <Plus />
+            </Button>
+
+            <span>
+              {uploadItems.length} {uploadItems.length > 1 ? "files" : "file"}{" "}
+              selected
+            </span>
+            <Button
+              type="button"
+              variant={"link"}
+              className="cursor-pointer"
+              onClick={() =>
+                uploadItems.forEach((item) => cancelUpload(item.fileKey))
+              }
+            >
+              Cancel
+            </Button>
+          </CardFooter>
+        )}
       </Card>
 
-      <div className="mt-2">
-        {uploadItems.map((uploadItem) => (
-          <div
-            key={uploadItem.fileKey}
-            className="relative h-full w-full"
-          ></div>
-        ))}
-      </div>
       {error && <FieldError className="text-center">{error}</FieldError>}
     </Field>
   );
