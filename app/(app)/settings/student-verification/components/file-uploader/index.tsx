@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { useFileUploader } from "@/hooks/use-file-uploader";
 import { uploadFilesWithXHR } from "@/lib/upload-helper";
 import { cn, formatBytes } from "@/lib/utils";
-import { TrashIcon } from "lucide-react";
+import { UploadCloud, X } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { useCallback, useState } from "react";
@@ -107,7 +107,7 @@ const FileUploader = ({
               : errors["too_large"]
                 ? `File is too large. Maximum size is ${formatBytes(maxFileSize)}.`
                 : errors["file_already_exists"]
-                  ? "File already uploaded"
+                  ? "File already selected"
                   : "Some files were ignored because they're too big or not supported.",
           );
         } else {
@@ -211,7 +211,7 @@ const FileUploader = ({
           },
         )}
       >
-        <CardContent className="relative grid grow place-content-center text-center">
+        <CardContent className="relative flex grow flex-col items-center justify-center text-center transition-all">
           <Input
             {...getInputProps({
               id: "picture",
@@ -224,54 +224,94 @@ const FileUploader = ({
             })}
           />
 
-          <p className="text-sm">
-            Drop files here or{" "}
-            <Button
-              variant={"link"}
-              className="cursor-pointer px-0 text-base"
-              onClick={open}
-              type="button"
+          {uploadItems.length === 0 ? (
+            <>
+              <div className="animate-fade-in flex flex-col items-center justify-center gap-2">
+                <p className="text-sm">
+                  Drop files here or{" "}
+                  <Button
+                    variant={"link"}
+                    className="cursor-pointer px-0 text-base"
+                    onClick={open}
+                    type="button"
+                  >
+                    browse files
+                  </Button>
+                </p>
+
+                <UploadCloud className="text-center" />
+              </div>
+
+              <FieldDescription className="absolute bottom-0 w-full text-xs">
+                {allowedFormats},
+                {maxNumberOfFiles > 1 && ` ${maxNumberOfFiles} files only`}, up
+                to {formatBytes(maxFileSize)}
+              </FieldDescription>
+            </>
+          ) : uploadItems.length === 1 ? (
+            <div
+              key={uploadItems[0].fileKey}
+              className="animate-in fade-in zoom-in-95 relative flex w-full max-w-sm flex-col gap-3 duration-300"
             >
-              browse files
-            </Button>
-          </p>
-          <FieldDescription className="absolute bottom-0 w-full text-xs">
-            {allowedFormats},
-            {maxNumberOfFiles > 1 && ` ${maxNumberOfFiles} files only`}, up to{" "}
-            {formatBytes(maxFileSize)}
-          </FieldDescription>
+              <div className="bg-muted relative aspect-video w-full overflow-hidden rounded-lg border shadow-sm">
+                <Image
+                  src={uploadItems[0].previewURL}
+                  alt={uploadItems[0].file.name}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 384px"
+                />
+
+                <div
+                  className={cn(
+                    "bg-background/60 text-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all",
+                    uploadItems[0].status === "uploading"
+                      ? "opacity-100"
+                      : "pointer-events-none opacity-0",
+                  )}
+                >
+                  <span className="text-muted-foreground text-sm">
+                    {((uploadItems[0].progress || 0) * 100).toFixed(0)}%
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex w-full flex-col text-left">
+                <p className="truncate text-sm font-medium">
+                  {uploadItems[0].file.name}
+                </p>
+                <p className="text-muted-foreground text-xs">
+                  {formatBytes(uploadItems[0].file.size)}
+                </p>
+              </div>
+
+              <Button
+                size="icon"
+                variant="destructive"
+                className="absolute -top-3 -right-3 z-10 size-6 rounded-full shadow-md transition-transform hover:scale-110"
+                type="button"
+                onClick={() => {
+                  cancelUpload(uploadItems[0].fileKey);
+                }}
+              >
+                <X strokeWidth={3} className="size-3" />
+              </Button>
+            </div>
+          ) : (
+            <p>mutliple</p>
+          )}
         </CardContent>
       </Card>
-      {}
 
       <div className="mt-2">
         {uploadItems.map((uploadItem) => (
-          <div key={uploadItem.fileKey}>
-            <p>{uploadItem.file.name}</p>
-            <p>
-              {uploadItem.status === "uploading" &&
-                `Uploading... ${Math.round((uploadItem.progress || 0) * 100)}%`}
-              {uploadItem.status === "success" && "Upload successful!"}
-              {uploadItem.status === "error" &&
-                `Error: ${uploadItem.errorMessage}`}
-            </p>
-            <Image
-              width={200}
-              height={200}
-              className="aspect-square rounded-md object-cover"
-              src={uploadItem.previewURL}
-              alt={uploadItem.file.name}
-            />
-            <Button
-              type="button"
-              onClick={() => cancelUpload(uploadItem.fileKey)}
-            >
-              <TrashIcon />
-            </Button>
-          </div>
+          <div
+            key={uploadItem.fileKey}
+            className="relative h-full w-full"
+          ></div>
         ))}
       </div>
-      {error && <FieldError>{error}</FieldError>}
+      {error && <FieldError className="text-center">{error}</FieldError>}
     </Field>
   );
 };
