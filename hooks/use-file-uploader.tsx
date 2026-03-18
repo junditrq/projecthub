@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 
 export interface UploadItem {
   fileKey: string;
@@ -74,6 +74,20 @@ const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
 
 export const useFileUploader = () => {
   const [uploadItems, dispatch] = useReducer(reducer, []);
+  const itemsRef = useRef(uploadItems);
+
+  useEffect(() => {
+    itemsRef.current = uploadItems;
+  }, [uploadItems]);
+
+  useEffect(() => {
+    return () => {
+      itemsRef.current.forEach((uploadItem) => {
+        URL.revokeObjectURL(uploadItem.previewURL);
+        uploadItem.abortController?.abort();
+      });
+    };
+  }, []);
 
   const addUploadItem = (item: UploadItem) => {
     dispatch({ type: "ADD_ITEM", payload: item });
