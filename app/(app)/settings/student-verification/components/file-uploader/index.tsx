@@ -46,6 +46,7 @@ const FileUploader = ({
     markSuccess,
     markError,
     cancelUpload,
+    cancelUploads,
   } = useFileUploader();
 
   const onDrop = useCallback(
@@ -188,6 +189,7 @@ const FileUploader = ({
       open={open}
       uploadItems={uploadItems as UploadItemType[]}
       cancelUpload={cancelUpload}
+      cancelUploads={cancelUploads}
     />
   );
 };

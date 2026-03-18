@@ -1,4 +1,9 @@
-import { useEffect, useReducer, useRef } from "react";
+import {
+    deleteStorageFileAction,
+    deleteStorageFilesAction,
+} from "@/app/(app)/actions";
+import { useAction } from "next-safe-action/hooks";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 
 export interface UploadItem {
   fileKey: string;
@@ -17,7 +22,8 @@ type ActionType =
   | { type: "UPDATE_PROGRESS"; payload: { fileKey: string; progress: number } }
   | { type: "MARK_SUCCESS"; payload: { fileKey: string } }
   | { type: "MARK_ERROR"; payload: { fileKey: string; errorMessage: string } }
-  | { type: "CANCEL_UPLOAD"; payload: { fileKey: string } };
+  | { type: "CANCEL_UPLOAD"; payload: { fileKey: string } }
+  | { type: "CLEAN_UP" };
 
 const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
   switch (action.type) {
@@ -67,6 +73,9 @@ const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
         (uploadItem) => uploadItem.fileKey !== action.payload.fileKey,
       );
     }
+    case "CLEAN_UP": {
+      return [];
+    }
     default:
       return uploadItems;
   }
@@ -75,6 +84,39 @@ const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
 export const useFileUploader = () => {
   const [uploadItems, dispatch] = useReducer(reducer, []);
   const itemsRef = useRef(uploadItems);
+  const { execute: deleteFile } = useAction(deleteStorageFileAction);
+  const { execute: deleteFiles } = useAction(deleteStorageFilesAction);
+
+  const cleanUpUploadItem = useCallback(
+    (uploadItem: UploadItem) => {
+      if (uploadItem.previewURL) {
+        URL.revokeObjectURL(uploadItem.previewURL);
+      }
+      if (uploadItem.status === "success") {
+        deleteFile({ fileKey: uploadItem.fileKey });
+      }
+      uploadItem.abortController?.abort();
+    },
+    [deleteFile],
+  );
+
+  const cleanUpUploadItems = useCallback(
+    (uploadItems: UploadItems) => {
+      const fileKeys = uploadItems
+        .filter((item) => item.status === "success")
+        .map((item) => item.fileKey);
+
+      deleteFiles({ fileKeys });
+
+      uploadItems.forEach((uploadItem) => {
+        if (uploadItem.previewURL) {
+          URL.revokeObjectURL(uploadItem.previewURL);
+        }
+        uploadItem.abortController?.abort();
+      });
+    },
+    [deleteFiles],
+  );
 
   useEffect(() => {
     itemsRef.current = uploadItems;
@@ -82,11 +124,11 @@ export const useFileUploader = () => {
 
   useEffect(() => {
     return () => {
-      itemsRef.current.forEach((uploadItem) => {
-        if (uploadItem.previewURL) {
-          URL.revokeObjectURL(uploadItem.previewURL);
+      itemsRef.current.forEach((item) => {
+        if (item.previewURL) {
+          URL.revokeObjectURL(item.previewURL);
         }
-        uploadItem.abortController?.abort();
+        item.abortController?.abort();
       });
     };
   }, []);
@@ -114,19 +156,14 @@ export const useFileUploader = () => {
 
     if (!uploadItem) return;
 
-    if (uploadItem.status === "uploading") {
-      uploadItem.abortController?.abort();
-    }
-
-    if (uploadItem.status === "success") {
-      // call teh action
-    }
-
-    if (uploadItem.previewURL) {
-      URL.revokeObjectURL(uploadItem.previewURL);
-    }
+    cleanUpUploadItem(uploadItem);
 
     dispatch({ type: "CANCEL_UPLOAD", payload: { fileKey } });
+  };
+
+  const cancelUploads = (uploadItems: UploadItems) => {
+    cleanUpUploadItems(uploadItems);
+    dispatch({ type: "CLEAN_UP" });
   };
 
   return {
@@ -136,5 +173,6 @@ export const useFileUploader = () => {
     markSuccess,
     markError,
     cancelUpload,
+    cancelUploads,
   };
 };

@@ -17,6 +17,7 @@ interface UploadDropzoneProps {
   open: () => void;
   uploadItems: UploadItem[];
   cancelUpload: (fileKey: string) => void;
+  cancelUploads: (uploadItems: UploadItem[]) => void;
 }
 
 const UploadDropzone = ({
@@ -29,6 +30,7 @@ const UploadDropzone = ({
   open,
   uploadItems,
   cancelUpload,
+  cancelUploads,
 }: UploadDropzoneProps) => {
   return (
     <Card
@@ -66,7 +68,7 @@ const UploadDropzone = ({
 
       {uploadItems.length > 0 && maxNumberOfFiles > 1 && (
         <UploaderFooter
-          cancelUpload={cancelUpload}
+          cancelUploads={cancelUploads}
           open={open}
           maxNumberOfFiles={maxNumberOfFiles}
           uploadItems={uploadItems}

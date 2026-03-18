@@ -7,12 +7,12 @@ const UploaderFooter = ({
   open,
   uploadItems,
   maxNumberOfFiles,
-  cancelUpload,
+  cancelUploads,
 }: {
   open: () => void;
   uploadItems: UploadItem[];
   maxNumberOfFiles: number;
-  cancelUpload: (fileKey: string) => void;
+  cancelUploads: (uploadItems: UploadItem[]) => void;
 }) => {
   return (
     <CardFooter className="flex justify-between text-sm">
@@ -34,9 +34,7 @@ const UploaderFooter = ({
         type="button"
         variant={"link"}
         className="cursor-pointer"
-        onClick={() =>
-          uploadItems.forEach((item) => cancelUpload(item.fileKey))
-        }
+        onClick={() => cancelUploads(uploadItems)}
       >
         Cancel
       </Button>
