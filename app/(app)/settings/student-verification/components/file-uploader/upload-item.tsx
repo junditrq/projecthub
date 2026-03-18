@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { UploadItem as UploadItemType } from "@/hooks/use-file-uploader";
 
 import { cn, formatBytes } from "@/lib/utils";
-import { X } from "lucide-react";
+import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
 
 const UploadItem = ({
@@ -17,14 +17,18 @@ const UploadItem = ({
       key={uploadItem.fileKey}
       className="animate-in fade-in zoom-in-95 relative flex w-full max-w-sm flex-col gap-3 duration-300"
     >
-      <div className="bg-muted relative aspect-video w-full overflow-hidden rounded-lg border shadow-sm">
-        <Image
-          src={uploadItem.previewURL}
-          alt={uploadItem.file.name}
-          fill
-          className="object-contain"
-          sizes="(max-width: 768px) 100vw, 384px"
-        />
+      <div className="bg-muted relative grid aspect-video w-full place-content-center overflow-hidden rounded-lg border shadow-sm">
+        {uploadItem.file.type.startsWith("image/") && uploadItem.previewURL ? (
+          <Image
+            src={uploadItem.previewURL}
+            alt={uploadItem.file.name}
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, 384px"
+          />
+        ) : (
+          <FileIcon className="text-muted-foreground size-12" />
+        )}
 
         <div
           className={cn(

@@ -111,7 +111,9 @@ const FileUploader = ({
         addUploadItem({
           file,
           fileKey,
-          previewURL: URL.createObjectURL(file),
+          previewURL: file.type.startsWith("image")
+            ? URL.createObjectURL(file)
+            : undefined,
           abortController,
           status: "uploading",
         });
