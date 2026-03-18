@@ -1,8 +1,8 @@
 "use client";
 import { getUploadURLAction } from "@/app/(app)/actions";
 import {
-  UploadItem as UploadItemType,
-  useFileUploader,
+    UploadItem as UploadItemType,
+    useFileUploader,
 } from "@/hooks/use-file-uploader";
 import { uploadFilesWithXHR } from "@/lib/upload-helper";
 import { formatBytes } from "@/lib/utils";
@@ -97,7 +97,7 @@ const FileUploader = ({
         return;
       }
 
-      newFiles.forEach(async (file) => {
+      newFiles.forEach(async (file, index) => {
         if (maxNumberOfFiles === 1) {
           if (uploadItems.length > 0) {
             cancelUpload(uploadItems[0].fileKey);
@@ -106,7 +106,7 @@ const FileUploader = ({
 
         const abortController = new AbortController();
 
-        const fileKey = `/tmp/${Date.now()}-${file.name}`;
+        const fileKey = `/tmp/${Date.now()}-${index}-${file.name}`;
 
         addUploadItem({
           file,
