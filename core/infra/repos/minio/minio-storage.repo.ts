@@ -17,4 +17,12 @@ export class MinioStorageRepo implements IStorageRepo {
       expiresIn,
     );
   }
+
+  async deleteFile(fileKey: string): Promise<void> {
+    await this.minioClient.removeObject(this.bucketName, fileKey);
+  }
+
+  async deleteFiles(fileKeys: string[]): Promise<void> {
+    await this.minioClient.removeObjects(this.bucketName, fileKeys);
+  }
 }
