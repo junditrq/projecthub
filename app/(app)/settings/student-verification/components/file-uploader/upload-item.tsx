@@ -38,6 +38,17 @@ const UploadItem = ({
             {((uploadItem.progress || 0) * 100).toFixed(0)}%
           </span>
         </div>
+
+        <div
+          className={cn(
+            "bg-destructive/60 text-destructive-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all",
+            uploadItem.status === "error"
+              ? "opacity-100"
+              : "pointer-events-none opacity-0",
+          )}
+        >
+          <span className="text-sm">{"Upload failed"}</span>
+        </div>
       </div>
 
       <div className="flex w-full flex-col text-left">
