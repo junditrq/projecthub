@@ -2,7 +2,10 @@ import { authConfig } from "@/auth.config";
 import prisma from "@/core/infra/orm/prisma.client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { type DefaultSession } from "next-auth";
+import { VerificationRequestStatusDTO } from "./core/application/dtos/verification-request.dto";
+import { GetStudentVerificationStatusUseCase } from "./core/application/usecases/user/get-student-verificaiton-status.usecase";
 import { UserProps } from "./core/domain/entities/user.entity";
+import { PrismaVerificationRequestRepo } from "./core/infra/repos/prisma/verification-request.repo";
 
 declare module "next-auth" {
   interface Session {
@@ -12,6 +15,7 @@ declare module "next-auth" {
       role: UserProps["role"];
       name: string;
       email: string;
+      verificationStatus: VerificationRequestStatusDTO;
     } & DefaultSession["user"];
   }
 
@@ -19,6 +23,7 @@ declare module "next-auth" {
     id: string;
     hasBeenPrompted: boolean;
     role: UserProps["role"];
+    verificationStatus: VerificationRequestStatusDTO;
   }
 }
 
@@ -34,6 +39,7 @@ declare module "next-auth/jwt" {
     hasBeenPrompted: boolean;
     role: UserProps["role"];
     userId: string | undefined;
+    verificationStatus: VerificationRequestStatusDTO;
   }
 }
 
@@ -41,4 +47,26 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
+  callbacks: {
+    ...authConfig.callbacks,
+    jwt: async ({ user, token, trigger, session }) => {
+      if (user) {
+        const verificationRequestRepo = new PrismaVerificationRequestRepo();
+        const getStudentVerificationStatusUseCase =
+          new GetStudentVerificationStatusUseCase(verificationRequestRepo);
+        token.verificationStatus =
+          await getStudentVerificationStatusUseCase.execute(user.id);
+
+        token.hasBeenPrompted = !!user.hasBeenPrompted;
+        token.userId = user.id;
+        token.role = user.role;
+      }
+
+      if (trigger === "update" && session?.hasBeenPrompted !== undefined) {
+        token.hasBeenPrompted = session.hasBeenPrompted;
+      }
+
+      return token;
+    },
+  },
 });
