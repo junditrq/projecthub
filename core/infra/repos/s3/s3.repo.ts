@@ -1,15 +1,16 @@
+import { env } from "@/env";
 import { IStorageRepo } from "@/core/domain/repos/storage.repo";
 import { s3Client } from "@/core/infra/config/s3.client";
 import {
-    DeleteObjectCommand,
-    DeleteObjectsCommand,
-    PutObjectCommand,
-    S3Client,
+  DeleteObjectCommand,
+  DeleteObjectsCommand,
+  PutObjectCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export class S3StorageRepo implements IStorageRepo {
-  private bucketName = process.env.STORAGE_BUCKET_NAME;
+  private bucketName = env.STORAGE_BUCKET_NAME;
   private s3Client: S3Client;
 
   constructor() {
