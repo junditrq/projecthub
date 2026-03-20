@@ -6,10 +6,10 @@ import { DeleteFilesUseCase } from "@/core/application/usecases/storage/delete-f
 import { GetUploadURLUseCase } from "@/core/application/usecases/storage/get-upload-url.usecase";
 import { GetTagsUseCase } from "@/core/application/usecases/tags/get-tags.usecase";
 import { MarkUserAsPromptedUseCase } from "@/core/application/usecases/user/mark-user-as-prompted.usecase";
-import { MinioStorageRepo } from "@/core/infra/repos/minio/minio-storage.repo";
 import { PrismaCategoryRepo } from "@/core/infra/repos/prisma/category.repo";
 import { PrismaTagRepo } from "@/core/infra/repos/prisma/tag.repo";
 import { PrismaUserRepo } from "@/core/infra/repos/prisma/user.repo";
+import { S3StorageRepo } from "@/core/infra/repos/s3/s3.repo";
 import { actionClient, authActionClient } from "@/lib/safe-action";
 import z from "zod";
 
@@ -38,14 +38,15 @@ export const getUploadURLAction = authActionClient
   .inputSchema(
     z.object({
       fileKey: z.string(),
+      fileType: z.string(),
       expiresIn: z.number().optional(),
     }),
   )
-  .action(async ({ parsedInput: { fileKey, expiresIn } }) => {
-    const storageRepo = new MinioStorageRepo();
+  .action(async ({ parsedInput: { fileKey, fileType, expiresIn } }) => {
+    const storageRepo = new S3StorageRepo();
     const getUploadURLUseCase = new GetUploadURLUseCase(storageRepo);
 
-    return await getUploadURLUseCase.execute(fileKey, expiresIn);
+    return await getUploadURLUseCase.execute(fileKey, fileType, expiresIn);
   });
 
 export const deleteStorageFileAction = authActionClient
@@ -55,7 +56,7 @@ export const deleteStorageFileAction = authActionClient
     }),
   )
   .action(async ({ parsedInput: { fileKey } }) => {
-    const storageRepo = new MinioStorageRepo();
+    const storageRepo = new S3StorageRepo();
     const deleteFileUseCase = new DeleteFileUseCase(storageRepo);
     await deleteFileUseCase.execute(fileKey);
   });
@@ -67,7 +68,7 @@ export const deleteStorageFilesAction = authActionClient
     }),
   )
   .action(async ({ parsedInput: { fileKeys } }) => {
-    const storageRepo = new MinioStorageRepo();
+    const storageRepo = new S3StorageRepo();
     const deleteFilesUseCase = new DeleteFilesUseCase(storageRepo);
     await deleteFilesUseCase.execute(fileKeys);
   });

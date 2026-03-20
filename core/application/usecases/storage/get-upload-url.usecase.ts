@@ -7,7 +7,11 @@ export class GetUploadURLUseCase {
     this.storageRepo = storageRepo;
   }
 
-  async execute(fileKey: string, expiresIn?: number): Promise<string> {
-    return await this.storageRepo.getUploadURL(fileKey, expiresIn);
+  async execute(
+    fileKey: string,
+    fileType: string,
+    expiresIn?: number,
+  ): Promise<string> {
+    return await this.storageRepo.getUploadURL(fileKey, fileType, expiresIn);
   }
 }

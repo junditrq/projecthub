@@ -107,7 +107,7 @@ const FileUploader = ({
 
         const abortController = new AbortController();
 
-        const fileKey = `/tmp/${Date.now()}-${index}-${file.name}`;
+        const fileKey = `tmp/${Date.now()}-${index}-${file.name}`;
 
         addUploadItem({
           file,
@@ -120,7 +120,7 @@ const FileUploader = ({
         });
 
         try {
-          const result = await getUploadURL({ fileKey });
+          const result = await getUploadURL({ fileKey, fileType: file.type });
 
           if (abortController.signal.aborted) {
             return;
