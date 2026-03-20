@@ -37,7 +37,7 @@ const UploadDropzone = ({
       {...rootProps}
       className={cn(
         "bg-background min-h-64 transition-all",
-        "border-muted-foreground/25 border-2 border-dashed",
+        "border-muted-foreground/25 border-2 border-dashed ring-0",
         {
           "bg-muted/50 border-primary border-dashed": isDragActive,
         },
