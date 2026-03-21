@@ -3,9 +3,8 @@ import prisma from "@/core/infra/orm/prisma.client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { type DefaultSession } from "next-auth";
 import { VerificationRequestStatusDTO } from "./core/application/dtos/verification-request.dto";
-import { GetStudentVerificationStatusUseCase } from "./core/application/usecases/user/get-student-verificaiton-status.usecase";
 import { UserProps } from "./core/domain/entities/user.entity";
-import { PrismaVerificationRequestRepo } from "./core/infra/repos/prisma/verification-request.repo";
+import container from "./core/infra/di/container";
 
 declare module "next-auth" {
   interface Session {
@@ -51,11 +50,16 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig.callbacks,
     jwt: async ({ user, token, trigger, session }) => {
       if (user) {
-        const verificationRequestRepo = new PrismaVerificationRequestRepo();
-        const getStudentVerificationStatusUseCase =
-          new GetStudentVerificationStatusUseCase(verificationRequestRepo);
-        token.verificationStatus =
-          await getStudentVerificationStatusUseCase.execute(user.id);
+        try {
+          const getStudentVerificationStatusUseCase = container.get(
+            "GetUserVerificationStatusUseCase",
+          );
+          token.verificationStatus =
+            await getStudentVerificationStatusUseCase.execute(user.id);
+        } catch (error) {
+          console.error("Error fetching verification status:", error);
+          token.verificationStatus = "not_submitted";
+        }
 
         token.hasBeenPrompted = !!user.hasBeenPrompted;
         token.userId = user.id;

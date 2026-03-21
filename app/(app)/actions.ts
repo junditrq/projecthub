@@ -1,36 +1,25 @@
 "use server";
 
-import { GetCategoriesUseCase } from "@/core/application/usecases/categories/get-categories.usecase";
-import { DeleteFileUseCase } from "@/core/application/usecases/storage/delete-file.usecase";
-import { DeleteFilesUseCase } from "@/core/application/usecases/storage/delete-files.usecase";
-import { GetUploadURLUseCase } from "@/core/application/usecases/storage/get-upload-url.usecase";
-import { GetTagsUseCase } from "@/core/application/usecases/tags/get-tags.usecase";
-import { MarkUserAsPromptedUseCase } from "@/core/application/usecases/user/mark-user-as-prompted.usecase";
-import { PrismaCategoryRepo } from "@/core/infra/repos/prisma/category.repo";
-import { PrismaTagRepo } from "@/core/infra/repos/prisma/tag.repo";
-import { PrismaUserRepo } from "@/core/infra/repos/prisma/user.repo";
-import { S3StorageRepo } from "@/core/infra/repos/s3/s3.repo";
+import container from "@/core/infra/di/container";
 import { actionClient, authActionClient } from "@/lib/safe-action";
 import z from "zod";
 
 export const markUserAsPromptedAction = authActionClient.action(
   async ({ ctx: { user } }) => {
-    //     // Dependency injection: create repository and use case
-    const userRepo = new PrismaUserRepo();
-    const markUserAsPromptedUseCase = new MarkUserAsPromptedUseCase(userRepo);
+    const markUserAsPromptedUseCase = container.get(
+      "MarkUserAsPromptedUseCase",
+    );
     return await markUserAsPromptedUseCase.execute(user.id);
   },
 );
 
 export const getCategoriesAction = actionClient.action(async () => {
-  const categoryRepo = new PrismaCategoryRepo();
-  const getCategoriesUseCase = new GetCategoriesUseCase(categoryRepo);
+  const getCategoriesUseCase = container.get("GetCategoriesUseCase");
   return await getCategoriesUseCase.execute();
 });
 
 export const getTagsAction = actionClient.action(async () => {
-  const tagRepo = new PrismaTagRepo();
-  const getTagsUseCase = new GetTagsUseCase(tagRepo);
+  const getTagsUseCase = container.get("GetTagsUseCase");
   return await getTagsUseCase.execute();
 });
 
@@ -43,9 +32,7 @@ export const getUploadURLAction = authActionClient
     }),
   )
   .action(async ({ parsedInput: { fileKey, fileType, expiresIn } }) => {
-    const storageRepo = new S3StorageRepo();
-    const getUploadURLUseCase = new GetUploadURLUseCase(storageRepo);
-
+    const getUploadURLUseCase = container.get("GetUploadURLUseCase");
     return await getUploadURLUseCase.execute(fileKey, fileType, expiresIn);
   });
 
@@ -56,8 +43,7 @@ export const deleteStorageFileAction = authActionClient
     }),
   )
   .action(async ({ parsedInput: { fileKey } }) => {
-    const storageRepo = new S3StorageRepo();
-    const deleteFileUseCase = new DeleteFileUseCase(storageRepo);
+    const deleteFileUseCase = container.get("DeleteFileUseCase");
     await deleteFileUseCase.execute(fileKey);
   });
 
@@ -68,7 +54,6 @@ export const deleteStorageFilesAction = authActionClient
     }),
   )
   .action(async ({ parsedInput: { fileKeys } }) => {
-    const storageRepo = new S3StorageRepo();
-    const deleteFilesUseCase = new DeleteFilesUseCase(storageRepo);
+    const deleteFilesUseCase = container.get("DeleteFilesUseCase");
     await deleteFilesUseCase.execute(fileKeys);
   });

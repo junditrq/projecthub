@@ -1,7 +1,7 @@
 import { VerificationRequestStatusDTO } from "@/core/application/dtos/verification-request.dto";
 import { IVerificationRequestRepo } from "@/core/domain/repos/verification-request.repo";
 
-export class GetStudentVerificationStatusUseCase {
+export class GetUserVerificationStatusUseCase {
   private verificationRequestRepo: IVerificationRequestRepo;
   constructor(verificationRequestRepo: IVerificationRequestRepo) {
     this.verificationRequestRepo = verificationRequestRepo;
