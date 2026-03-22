@@ -3,8 +3,8 @@ import { BusinessRuleError } from "../errors/domain-errors";
 // TODO: refactor into rich domain model instead of this anemic model
 export interface UserProps {
   id: string;
-  name: string | null;
-  email: string | null;
+  name: string;
+  email: string;
   image: string | null;
   githubUsername: string | null;
   linkedinUrl: string | null;
@@ -22,10 +22,10 @@ export class User {
   get id(): string {
     return this._props.id;
   }
-  get name(): string | null {
+  get name(): string {
     return this._props.name;
   }
-  get email(): string | null {
+  get email(): string {
     return this._props.email;
   }
   get image(): string | null {
