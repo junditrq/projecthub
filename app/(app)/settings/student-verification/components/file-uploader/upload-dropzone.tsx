@@ -29,12 +29,13 @@ const UploadDropzone = ({
       {...rootProps}
       className={cn(
         "bg-background min-h-64 transition-all",
-        "border-muted-foreground/25 border-2 border-dashed ring-0",
+        "border-input border-2 border-dashed ring-0 outline-0",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
         {
           "bg-muted/50 border-primary border-dashed": isDragActive,
-          "border-destructive": error,
+          "ring-destructive/20 dark:ring-destructive/40 !border-destructive":
+            error,
         },
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-0",
       )}
     >
       <CardContent className="relative flex grow flex-col items-center justify-center text-center transition-all">
