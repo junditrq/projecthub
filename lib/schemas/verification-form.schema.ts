@@ -12,5 +12,5 @@ export const CreateVerificationRequestSchema = z.object({
     .min(1, "userId is required")
     .trim(),
   arabicName: z.string().min(1, "Name is required").trim(),
-  collegeIdFileKey: z.string().min(1, "College ID file is required"),
+  collegeIdFileKey: z.string().min(1, "College ID is required"),
 }) satisfies z.ZodType<CreateVerificationRequestDTO>;
