@@ -12,7 +12,11 @@ const UploadYourProjectButton = () => {
         asChild
       >
         <Link href={"/create-project"}>
-          Upload your <span className="hidden sm:inline">own</span> Project
+          Upload{" "}
+          <span className="hidden min-[28rem]:inline">
+            your <span className="hidden sm:inline">own</span> Project
+          </span>
+          <span className="inline min-[28rem]:hidden">Yours</span>
           <ArrowRight />
         </Link>
       </NeedsAuthButton>

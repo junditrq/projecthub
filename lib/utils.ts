@@ -5,10 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const avatarFallback = (name?: string) => {
+export const avatarFallback = (name?: string, numOfLetters: 1 | 2 = 1) => {
   if (!name || name.trim().length === 0) return "";
   const words = name.trim().split(" ");
-  return words
+  const wordsToUse = numOfLetters === 1 ? [words[0]] : words;
+  return wordsToUse
     .filter((_, i) => i === 0 || i === words.length - 1)
     .map((w) => w[0].toUpperCase())
     .join("");

@@ -6,26 +6,29 @@ import {
 } from "@/hooks/use-file-uploader";
 import { uploadFilesWithXHR } from "@/lib/upload-helper";
 import { formatBytes } from "@/lib/utils";
+import { FileUploaderProvider } from "@/providers/file-uploader-provider";
 import { useAction } from "next-safe-action/hooks";
-import { useCallback } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import UploadDropzone from "./upload-dropzone";
 
-interface FileUploaderProps {
+export interface FileUploaderProps {
   inputId: string;
-  onUploadFinished?: (fileKey: string) => void;
   restrictions?: {
     maxNumberOfFiles?: number;
     maxFileSize?: number;
     allowedTypes?: string[];
   };
+  onChange?: (value: UploadItemType[]) => void;
+  error?: boolean;
 }
 
 const FileUploader = ({
-  onUploadFinished = () => {},
   restrictions = {},
   inputId,
+  error = false,
+  onChange,
 }: FileUploaderProps) => {
   const {
     maxFileSize = Infinity,
@@ -48,6 +51,18 @@ const FileUploader = ({
     cancelUpload,
     cancelUploads,
   } = useFileUploader();
+
+  const onChangeRef = useRef(onChange);
+
+  useLayoutEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
+  useEffect(() => {
+    if (onChangeRef.current) {
+      onChangeRef.current(uploadItems);
+    }
+  }, [uploadItems]);
 
   const onDrop = useCallback(
     async (fileList: File[]) => {
@@ -138,7 +153,6 @@ const FileUploader = ({
 
             onSuccess: () => {
               markSuccess(fileKey);
-              onUploadFinished(fileKey);
             },
 
             onError: (message) => markError(fileKey, message),
@@ -161,7 +175,6 @@ const FileUploader = ({
       markSuccess,
       maxFileSize,
       maxNumberOfFiles,
-      onUploadFinished,
       updateProgress,
       uploadItems,
     ],
@@ -183,18 +196,27 @@ const FileUploader = ({
   });
 
   return (
-    <UploadDropzone
-      rootProps={rootProps}
-      inputProps={inputProps}
-      isDragActive={isDragActive}
-      allowedFormats={allowedFormats}
-      maxFileSize={maxFileSize}
-      maxNumberOfFiles={maxNumberOfFiles}
-      open={open}
-      uploadItems={uploadItems as UploadItemType[]}
-      cancelUpload={cancelUpload}
-      cancelUploads={cancelUploads}
-    />
+    <FileUploaderProvider
+      value={{
+        open,
+        error,
+        restrictions: {
+          allowedTypes,
+          maxFileSize,
+          maxNumberOfFiles,
+        },
+        cancelUpload,
+        cancelUploads,
+        uploadItems,
+        allowedFormats,
+      }}
+    >
+      <UploadDropzone
+        rootProps={rootProps}
+        inputProps={inputProps}
+        isDragActive={isDragActive}
+      />
+    </FileUploaderProvider>
   );
 };
 export default FileUploader;

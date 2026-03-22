@@ -3,7 +3,7 @@ import {
     deleteStorageFilesAction,
 } from "@/app/(app)/actions";
 import { useAction } from "next-safe-action/hooks";
-import { useCallback, useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 
 export interface UploadItem {
   fileKey: string;
@@ -87,37 +87,6 @@ export const useFileUploader = () => {
   const { execute: deleteFile } = useAction(deleteStorageFileAction);
   const { execute: deleteFiles } = useAction(deleteStorageFilesAction);
 
-  const cleanUpUploadItem = useCallback(
-    (uploadItem: UploadItem) => {
-      if (uploadItem.previewURL) {
-        URL.revokeObjectURL(uploadItem.previewURL);
-      }
-      if (uploadItem.status === "success") {
-        deleteFile({ fileKey: uploadItem.fileKey });
-      }
-      uploadItem.abortController?.abort();
-    },
-    [deleteFile],
-  );
-
-  const cleanUpUploadItems = useCallback(
-    (uploadItems: UploadItems) => {
-      const fileKeys = uploadItems
-        .filter((item) => item.status === "success")
-        .map((item) => item.fileKey);
-
-      deleteFiles({ fileKeys });
-
-      uploadItems.forEach((uploadItem) => {
-        if (uploadItem.previewURL) {
-          URL.revokeObjectURL(uploadItem.previewURL);
-        }
-        uploadItem.abortController?.abort();
-      });
-    },
-    [deleteFiles],
-  );
-
   useEffect(() => {
     itemsRef.current = uploadItems;
   }, [uploadItems]);
@@ -156,13 +125,30 @@ export const useFileUploader = () => {
 
     if (!uploadItem) return;
 
-    cleanUpUploadItem(uploadItem);
+    if (uploadItem.previewURL) {
+      URL.revokeObjectURL(uploadItem.previewURL);
+    }
+    if (uploadItem.status === "success") {
+      deleteFile({ fileKey: uploadItem.fileKey });
+    }
+    uploadItem.abortController?.abort();
 
     dispatch({ type: "CANCEL_UPLOAD", payload: { fileKey } });
   };
 
-  const cancelUploads = (uploadItems: UploadItems) => {
-    cleanUpUploadItems(uploadItems);
+  const cancelUploads = () => {
+    const fileKeys = uploadItems
+      .filter((item) => item.status === "success")
+      .map((item) => item.fileKey);
+
+    deleteFiles({ fileKeys });
+
+    uploadItems.forEach((uploadItem) => {
+      if (uploadItem.previewURL) {
+        URL.revokeObjectURL(uploadItem.previewURL);
+      }
+      uploadItem.abortController?.abort();
+    });
     dispatch({ type: "CLEAN_UP" });
   };
 

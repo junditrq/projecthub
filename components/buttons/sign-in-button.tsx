@@ -3,7 +3,7 @@ import ActionButton from "./oauth-button";
 
 const SignInButton = ({ ...props }: ShadcnButtonProps) => {
   return (
-    <ActionButton className="!px-6 !py-5" {...props}>
+    <ActionButton className="!px-6 !py-4" {...props}>
       <span>
         log in <span className="hidden sm:inline">with google</span>
       </span>

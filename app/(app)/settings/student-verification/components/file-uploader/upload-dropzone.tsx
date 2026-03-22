@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { UploadItem } from "@/hooks/use-file-uploader";
 import { cn } from "@/lib/utils";
+import { useFileUploaderContext } from "@/providers/file-uploader-provider";
 import UploaderEmpty from "./upload-empty";
 import UploadItemCard from "./upload-item";
 import UploadItemsGrid from "./upload-items-grid";
@@ -11,27 +11,19 @@ interface UploadDropzoneProps {
   rootProps: React.HTMLAttributes<HTMLDivElement>;
   inputProps: React.InputHTMLAttributes<HTMLInputElement>;
   isDragActive: boolean;
-  allowedFormats: string;
-  maxFileSize: number;
-  maxNumberOfFiles: number;
-  open: () => void;
-  uploadItems: UploadItem[];
-  cancelUpload: (fileKey: string) => void;
-  cancelUploads: (uploadItems: UploadItem[]) => void;
 }
 
 const UploadDropzone = ({
   rootProps,
   inputProps,
   isDragActive,
-  allowedFormats,
-  maxFileSize,
-  maxNumberOfFiles,
-  open,
-  uploadItems,
-  cancelUpload,
-  cancelUploads,
 }: UploadDropzoneProps) => {
+  const {
+    error,
+    uploadItems,
+    restrictions: { maxNumberOfFiles },
+  } = useFileUploaderContext();
+
   return (
     <Card
       {...rootProps}
@@ -40,40 +32,24 @@ const UploadDropzone = ({
         "border-muted-foreground/25 border-2 border-dashed ring-0",
         {
           "bg-muted/50 border-primary border-dashed": isDragActive,
+          "border-destructive": error,
         },
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] focus-visible:outline-0",
       )}
     >
       <CardContent className="relative flex grow flex-col items-center justify-center text-center transition-all">
-        <Input {...inputProps} />
+        <Input data-invalid={error} {...inputProps} />
 
         {uploadItems.length === 0 ? (
-          <UploaderEmpty
-            allowedFormats={allowedFormats}
-            maxFileSize={maxFileSize}
-            maxNumberOfFiles={maxNumberOfFiles}
-            open={open}
-          />
+          <UploaderEmpty />
         ) : uploadItems.length === 1 ? (
-          <UploadItemCard
-            cancelUpload={cancelUpload}
-            uploadItem={uploadItems[0]}
-          />
+          <UploadItemCard uploadItem={uploadItems[0]} />
         ) : (
-          <UploadItemsGrid
-            uploadItems={uploadItems}
-            cancelUpload={cancelUpload}
-          />
+          <UploadItemsGrid />
         )}
       </CardContent>
 
-      {uploadItems.length > 0 && maxNumberOfFiles > 1 && (
-        <UploaderFooter
-          cancelUploads={cancelUploads}
-          open={open}
-          maxNumberOfFiles={maxNumberOfFiles}
-          uploadItems={uploadItems}
-        />
-      )}
+      {uploadItems.length > 0 && maxNumberOfFiles > 1 && <UploaderFooter />}
     </Card>
   );
 };

@@ -1,14 +1,9 @@
-import { UploadItem as UploadItemType } from "@/hooks/use-file-uploader";
 import { cn } from "@/lib/utils";
+import { useFileUploaderContext } from "@/providers/file-uploader-provider";
 import UploadItem from "./upload-item";
 
-const UploadItemsGrid = ({
-  uploadItems,
-  cancelUpload,
-}: {
-  uploadItems: UploadItemType[];
-  cancelUpload: (fileKey: string) => void;
-}) => {
+const UploadItemsGrid = () => {
+  const { uploadItems } = useFileUploaderContext();
   return (
     <div
       className={cn(
@@ -18,11 +13,7 @@ const UploadItemsGrid = ({
       )}
     >
       {uploadItems.map((uploadItem) => (
-        <UploadItem
-          key={uploadItem.fileKey}
-          cancelUpload={cancelUpload}
-          uploadItem={uploadItem}
-        />
+        <UploadItem key={uploadItem.fileKey} uploadItem={uploadItem} />
       ))}
     </div>
   );

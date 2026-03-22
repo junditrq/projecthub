@@ -12,7 +12,7 @@ const NavTabBar = ({
     <div
       {...props}
       className={cn(
-        "ms-auto flex h-full flex-nowrap gap-6 overflow-x-auto p-2 *:shrink-0",
+        "ms-auto flex h-full flex-nowrap gap-2 overflow-x-auto p-2 *:shrink-0 sm:gap-4 md:gap-6",
         className,
       )}
     >

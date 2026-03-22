@@ -1,51 +1,45 @@
-import Link from "next/link";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import Image from "next/image";
 import {
-	Tooltip,
-	TooltipTrigger,
-	TooltipContent,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { avatarFallback } from "@/lib/utils";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
 
 const ContributorAvatar = ({
-	avatarUrl,
-	name,
-	id,
+  avatarUrl,
+  name,
 }: {
-	avatarUrl: string;
-	name: string;
-	id: string;
+  avatarUrl: string | undefined;
+  name: string;
 }) => {
-	return (
-		<Tooltip>
-			<TooltipTrigger asChild>
-				<Link
-					href={"#"}
-					className="relative z-10 focus:outline-none focus:ring-ring/50 focus:ring-1 focus:ring-offset-2 focus:border-ring focus:ring-offset-transparent transition-all rounded-full   group"
-				>
-					<div className="group-hover:ring-offset-2  group-hover:ring-offset-ring group-hover:ring-ring group-hover:ring-1 w-full h-full group-hover:ring-inset absolute inset-0 z-10 transition-all  group-hover:border-ring rounded-full "></div>
-					<Avatar className="w-12 h-12 ">
-						<AvatarImage
-							asChild={true}
-							src={avatarUrl}
-							className="group-hover:scale-90 transition-all"
-							alt={name}
-							width={48}
-							height={48}
-						>
-							<Image
-								src={avatarUrl}
-								className="group-hover:scale-90 transition-all"
-								alt={name}
-								width={48}
-								height={48}
-							/>
-						</AvatarImage>
-					</Avatar>
-				</Link>
-			</TooltipTrigger>
-			<TooltipContent side="bottom">{name}</TooltipContent>
-		</Tooltip>
-	);
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          asChild
+          variant={"ghost"}
+          className="group relative z-10 size-13 rounded-full border p-0 transition-all"
+        >
+          <Link href={"#"}>
+            <div className="group-hover:ring-offset-ring group-hover:ring-ring group-hover:border-ring absolute inset-0 z-10 h-full w-full rounded-full transition-all group-hover:ring-1 group-hover:ring-offset-2 group-hover:ring-inset"></div>
+            <Avatar className="size-full rounded-full">
+              <AvatarImage
+                src={avatarUrl}
+                className="rounded-full transition-all group-hover:scale-90"
+                alt={name}
+                width={48}
+                height={48}
+              />
+              <AvatarFallback>{avatarFallback(name)}</AvatarFallback>
+            </Avatar>
+          </Link>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="bottom">{name}</TooltipContent>
+    </Tooltip>
+  );
 };
 export default ContributorAvatar;

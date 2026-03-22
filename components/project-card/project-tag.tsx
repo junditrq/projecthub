@@ -1,22 +1,26 @@
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 
 // we can use the id later on to generate the link which we'll navigate to
 // once we think about it
 const ProjectTag = ({ name }: { name: string }) => {
   return (
-
-    <Link
-      href=""
-      className="focus:ring-ring/50 focus:border-ring rounded-full leading-[1.25rem] transition-all focus:ring-1 focus:ring-offset-2 focus:ring-offset-transparent focus:outline-none"
+    <Button
+      asChild
+      className="h-min rounded-full border-0 p-0"
+      variant={"secondary"}
+      size={"lg"}
     >
-      <Badge
-        variant="secondary"
-        className="text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-2.5 py-0 leading-[1.25rem] lowercase transition-colors"
-      >
-        # {name}
-      </Badge>
-    </Link>
+      <Link href={"#"}>
+        <Badge
+          variant="secondary"
+          className="text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-2.5 py-0 leading-[1.25rem] font-medium lowercase transition-colors"
+        >
+          # {name}
+        </Badge>
+      </Link>
+    </Button>
   );
 };
 export default ProjectTag;

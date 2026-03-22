@@ -2,16 +2,12 @@ import { Button } from "@/components/ui/button";
 import { UploadItem as UploadItemType } from "@/hooks/use-file-uploader";
 
 import { cn, formatBytes } from "@/lib/utils";
+import { useFileUploaderContext } from "@/providers/file-uploader-provider";
 import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
 
-const UploadItem = ({
-  uploadItem,
-  cancelUpload,
-}: {
-  uploadItem: UploadItemType;
-  cancelUpload: (fileKey: string) => void;
-}) => {
+const UploadItem = ({ uploadItem }: { uploadItem: UploadItemType }) => {
+  const { cancelUpload } = useFileUploaderContext();
   return (
     <div
       key={uploadItem.fileKey}

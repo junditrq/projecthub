@@ -9,7 +9,7 @@ const project = {
   name: "Smart Greenhouse Automation",
   description:
     "An IoT-based greenhouse system that monitors and adjusts environmental conditions automatically.",
-  thumbnailUrl: "/punish-pad-thumbnail.png",
+  thumbnailUrl: "/images/site.jpg",
   categories: [
     { name: "Web", id: "1" },
     { name: "Mobile", id: "2" },
@@ -58,8 +58,7 @@ const Page = () => {
 
       <Container>
         <ProjectsToolbar />
-
-        <div className="grid grid-cols-[repeat(auto-fill,_minmax(min(380px,100%),1fr))] place-content-center justify-center gap-4 px-4 pb-4">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(22rem,1fr))] place-content-center justify-center gap-4 pb-4">
           <ProjectCard project={project} />
           <ProjectCard project={project} />
           <ProjectCard project={project} />

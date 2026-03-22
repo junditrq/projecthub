@@ -1,19 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { FieldDescription } from "@/components/ui/field";
 import { formatBytes } from "@/lib/utils";
+import { useFileUploaderContext } from "@/providers/file-uploader-provider";
 import { UploadCloud } from "lucide-react";
 
-const UploaderEmpty = ({
-  allowedFormats,
-  maxNumberOfFiles,
-  maxFileSize,
-  open,
-}: {
-  allowedFormats: string;
-  maxNumberOfFiles: number;
-  open: () => void;
-  maxFileSize: number;
-}) => {
+const UploaderEmpty = () => {
+  const {
+    open,
+    restrictions: { maxFileSize = Infinity, maxNumberOfFiles = 1 },
+    allowedFormats,
+  } = useFileUploaderContext();
   return (
     <>
       <div className="animate-fade-in flex flex-col items-center justify-center gap-2">
@@ -34,9 +30,9 @@ const UploaderEmpty = ({
       </div>
 
       <FieldDescription className="absolute bottom-0 w-full text-xs">
-        {allowedFormats},
-        {maxNumberOfFiles > 1 && ` ${maxNumberOfFiles} files only`}, up to{" "}
-        {formatBytes(maxFileSize)}
+        {allowedFormats.length > 0 && allowedFormats}
+        {maxNumberOfFiles > 1 && `, ${maxNumberOfFiles} files only`}
+        {Number.isInteger(maxFileSize) && `, up to ${formatBytes(maxFileSize)}`}
       </FieldDescription>
     </>
   );

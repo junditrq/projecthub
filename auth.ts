@@ -14,6 +14,7 @@ declare module "next-auth" {
       role: UserProps["role"];
       name: string;
       email: string;
+      image?: string;
       verificationStatus: VerificationRequestStatusDTO;
     } & DefaultSession["user"];
   }
