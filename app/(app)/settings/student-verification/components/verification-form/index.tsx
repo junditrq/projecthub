@@ -30,9 +30,7 @@ const VerificationForm = () => {
     formState: { isSubmitting },
     clearErrors,
   } = useForm<Omit<CreateVerificationRequestDTO, "userId">>({
-    resolver: zodResolver(
-      CreateVerificationRequestSchema.omit({ userId: true }),
-    ),
+    resolver: zodResolver(CreateVerificationRequestSchema),
     defaultValues: {
       arabicName: "",
       collegeIdFileKey: "",
