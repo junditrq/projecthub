@@ -1,9 +1,9 @@
-import { IStorageRepo } from "@/core/domain/repos/storage.repo";
+import { IStorageService } from "@/core/application/services/storage.service";
 
 export class DeleteFileUseCase {
   private storageRepo;
 
-  constructor(storageRepo: IStorageRepo) {
+  constructor(storageRepo: IStorageService) {
     this.storageRepo = storageRepo;
   }
 

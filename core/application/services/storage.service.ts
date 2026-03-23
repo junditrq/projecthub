@@ -1,4 +1,4 @@
-export interface IStorageRepo {
+export interface IStorageService {
   getUploadURL: (
     fileKey: string,
     fileType: string,

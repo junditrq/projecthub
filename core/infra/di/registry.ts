@@ -1,3 +1,4 @@
+import { IStorageService } from "@/core/application/services/storage.service";
 import { GetCategoriesUseCase } from "@/core/application/usecases/categories/get-categories.usecase";
 import { DeleteFileUseCase } from "@/core/application/usecases/storage/delete-file.usecase";
 import { DeleteFilesUseCase } from "@/core/application/usecases/storage/delete-files.usecase";
@@ -6,7 +7,6 @@ import { GetTagsUseCase } from "@/core/application/usecases/tags/get-tags.usecas
 import { GetUserVerificationStatusUseCase } from "@/core/application/usecases/user/get-student-verificaiton-status.usecase";
 import { MarkUserAsPromptedUseCase } from "@/core/application/usecases/user/mark-user-as-prompted.usecase";
 import { ICategoryRepo } from "@/core/domain/repos/category.repo";
-import { IStorageRepo } from "@/core/domain/repos/storage.repo";
 import { ITagRepo } from "@/core/domain/repos/tag.repo";
 import { IUserRepo } from "@/core/domain/repos/user.repo";
 import { IVerificationRequestRepo } from "@/core/domain/repos/verification-request.repo";
@@ -18,7 +18,7 @@ export type DI_REGISTRY = {
   ITagRepo: ITagRepo;
   IVerificationRequestRepo: IVerificationRequestRepo;
   IUserRepo: IUserRepo;
-  IStorageRepo: IStorageRepo;
+  IStorageService: IStorageService;
 
   // use cases
   GetCategoriesUseCase: GetCategoriesUseCase;
