@@ -1,22 +1,34 @@
+import { DOMAIN_ERROR_CODES, DomainErrorCode } from "./domain-error-codes";
+
 /**
  * Base class for all custom domain errors.
  */
 export class DomainError extends Error {
-  constructor(message: string) {
+  code: DomainErrorCode;
+  constructor(code: DomainErrorCode, message: string) {
     super(message);
     this.name = this.constructor.name;
+    this.code = code;
   }
 }
 
 /**
  * Thrown when an entity cannot be found.
  */
-export class NotFoundError extends DomainError {}
+export class NotFoundError extends DomainError {
+  constructor(message: string = "The requested resource was not found.") {
+    super(DOMAIN_ERROR_CODES.NOT_FOUND, message);
+  }
+}
 
 /**
  * Thrown when an action violates a business rule.
  */
-export class BusinessRuleError extends DomainError {}
+export class BusinessRuleError extends DomainError {
+  constructor(message: string) {
+    super(DOMAIN_ERROR_CODES.BUSINESS_RULE_VIOLATION, message);
+  }
+}
 
 /**
  * Thrown when user is not authenticated.
@@ -29,7 +41,7 @@ export class AuthError extends DomainError {}
  */
 export class AuthenticationError extends AuthError {
   constructor(message: string = "You must be logged in.") {
-    super(message);
+    super(DOMAIN_ERROR_CODES.UNAUTHENTICATED, message);
   }
 }
 
@@ -39,6 +51,6 @@ export class AuthenticationError extends AuthError {
  */
 export class AuthorizationError extends AuthError {
   constructor(message: string = "You do not have permission to do this.") {
-    super(message);
+    super(DOMAIN_ERROR_CODES.UNAUTHORIZED, message);
   }
 }
