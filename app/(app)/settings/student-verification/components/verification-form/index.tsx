@@ -28,6 +28,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FileUploader from "../file-uploader";
+import SubmittedSuccessfully from "./submitted-successfully";
 
 const VerificationForm = () => {
   const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
@@ -66,7 +67,9 @@ const VerificationForm = () => {
     execute(data);
   };
 
-  return (
+  return submittedSuccessfully ? (
+    <SubmittedSuccessfully />
+  ) : (
     <Card className="mx-auto my-10 w-full max-w-xl">
       <CardHeader>
         <CardTitle>Verify Your Account </CardTitle>
