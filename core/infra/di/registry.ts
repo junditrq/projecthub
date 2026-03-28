@@ -7,6 +7,7 @@ import { GetTagsUseCase } from "@/core/application/usecases/tags/get-tags.usecas
 import { GetUserVerificationStatusUseCase } from "@/core/application/usecases/user/get-student-verificaiton-status.usecase";
 import { MarkUserAsPromptedUseCase } from "@/core/application/usecases/user/mark-user-as-prompted.usecase";
 import { ICategoryRepo } from "@/core/domain/repos/category.repo";
+import { IStudentRepo } from "@/core/domain/repos/student.repo";
 import { ITagRepo } from "@/core/domain/repos/tag.repo";
 import { IUserRepo } from "@/core/domain/repos/user.repo";
 import { IVerificationRequestRepo } from "@/core/domain/repos/verification-request.repo";
@@ -19,6 +20,7 @@ export type DI_REGISTRY = {
   IVerificationRequestRepo: IVerificationRequestRepo;
   IUserRepo: IUserRepo;
   IStorageService: IStorageService;
+  IStudentRepo: IStudentRepo;
 
   // use cases
   GetCategoriesUseCase: GetCategoriesUseCase;
