@@ -8,11 +8,11 @@ import { createVerificationRequestModule } from "./modules/verification-request.
 
 const container = createAppContainer();
 
+container.load("StorageModule", createStorageModule());
 container.load("CategoryModule", createCategoryModule());
 container.load("TagModule", createTagModule());
 container.load("StudentModule", createStudentModule());
 container.load("VerificationRequestModule", createVerificationRequestModule());
 container.load("UserModule", createUserModule());
-container.load("StorageModule", createStorageModule());
 
 export default container;
