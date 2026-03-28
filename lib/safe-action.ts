@@ -1,11 +1,12 @@
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import {
-  AuthenticationError,
-  DomainError,
+    AuthenticationError,
+    BusinessRuleError,
+    DomainError,
 } from "@/core/domain/errors/domain-errors";
 import {
-  createSafeActionClient,
-  DEFAULT_SERVER_ERROR_MESSAGE,
+    createSafeActionClient,
+    DEFAULT_SERVER_ERROR_MESSAGE,
 } from "next-safe-action";
 
 export const actionClient = createSafeActionClient({
@@ -13,10 +14,10 @@ export const actionClient = createSafeActionClient({
     console.error("Action Error:", error);
 
     if (error instanceof DomainError) {
-      if (error instanceof AuthenticationError) {
-        await signOut();
+      if (error instanceof BusinessRuleError) {
+        return error.message;
       }
-      return error.message;
+      return error.code;
     }
     return DEFAULT_SERVER_ERROR_MESSAGE;
   },
