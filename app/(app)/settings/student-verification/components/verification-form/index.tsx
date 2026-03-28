@@ -16,20 +16,28 @@ import {
     FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { CreateVerificationRequestDTO } from "@/core/application/dtos/verification-request.dto";
-import { CreateVerificationRequestSchema } from "@/lib/schemas/verification-form.schema";
+import { useFormActionResultHandlers } from "@/hooks/use-form-action-result-handlers";
+import { createVerificationRequestAction } from "@/lib/actions/verification-requests.actions";
+import {
+    CreateVerificationRequestFormData,
+    CreateVerificationRequestSchema,
+} from "@/lib/schemas/verification-form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import FileUploader from "../file-uploader";
 
 const VerificationForm = () => {
+  const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
     clearErrors,
-  } = useForm<Omit<CreateVerificationRequestDTO, "userId">>({
+    setError,
+  } = useForm<CreateVerificationRequestFormData>({
     resolver: zodResolver(CreateVerificationRequestSchema),
     defaultValues: {
       arabicName: "",
@@ -39,8 +47,23 @@ const VerificationForm = () => {
 
   const [uploading, setUploading] = useState(false);
 
-  const onSubmit = (data: Omit<CreateVerificationRequestDTO, "userId">) => {
+  const { handleError, handleSuccess } = useFormActionResultHandlers({
+    setError,
+    onSuccess: () => {
+      setSubmittedSuccessfully(true);
+      toast.success("Verification request submitted successfully!");
+    },
+  });
+
+  const { execute, isExecuting } = useAction(createVerificationRequestAction, {
+    onSuccess: async ({ data }) => handleSuccess(data),
+    onError: async ({ error }) =>
+      handleError(error.serverError, error.thrownError),
+  });
+
+  const onSubmit = (data: CreateVerificationRequestFormData) => {
     console.log(data);
+    execute(data);
   };
 
   return (
@@ -55,6 +78,9 @@ const VerificationForm = () => {
       <CardContent>
         <form id="verification-form" onSubmit={handleSubmit(onSubmit)}>
           <FieldGroup>
+            {errors.root?.message && (
+              <FieldError>{errors.root.message}</FieldError>
+            )}
             <Controller
               name="arabicName"
               control={control}
@@ -122,7 +148,7 @@ const VerificationForm = () => {
 
       <CardFooter className="border-0">
         <Button
-          disabled={uploading || isSubmitting}
+          disabled={uploading || isSubmitting || isExecuting}
           form="verification-form"
           type="submit"
           className="w-full"
