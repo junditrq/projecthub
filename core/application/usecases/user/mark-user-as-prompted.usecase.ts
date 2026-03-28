@@ -16,7 +16,7 @@ export class MarkUserAsPromptedUseCase {
       throw new NotFoundError("User has not been found");
     }
     user.markAsPrompted();
-    const updatedUser = await this.userRepo.update(user);
+    const updatedUser = await this.userRepo.save(user);
     return UserDTOMapper.toResponseDTO(updatedUser);
   }
 }

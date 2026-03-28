@@ -20,7 +20,7 @@ export class PrismaUserRepo implements IUserRepo {
     return PrismaUserMapper.toDomain(user);
   }
 
-  async update(user: User): Promise<User> {
+  async save(user: User): Promise<User> {
     const data = PrismaUserMapper.toPersistence(user);
 
     const updatedUser = await this.prisma.user.update({
