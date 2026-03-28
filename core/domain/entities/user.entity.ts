@@ -51,6 +51,10 @@ export class User {
     this._props.hasBeenPrompted = true;
   }
 
+  public canRequestStudnetVerification(): boolean {
+    return this._props.role === "visitor";
+  }
+
   public static reconstitute(props: UserProps) {
     return new User(props);
   }
