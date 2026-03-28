@@ -2,4 +2,6 @@ import { VerificationRequest } from "@/core/domain/entities/verification-request
 
 export interface IVerificationRequestRepo {
   getLatestByUserId(userId: string): Promise<VerificationRequest | null>;
+  hasPendingRequest(userId: string): Promise<boolean>;
+  save(request: VerificationRequest): Promise<VerificationRequest>;
 }
