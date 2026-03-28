@@ -1,7 +1,7 @@
 import {
     deleteStorageFileAction,
     deleteStorageFilesAction,
-} from "@/app/(app)/actions";
+} from "@/lib/actions/storage.actions";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect, useReducer, useRef } from "react";
 

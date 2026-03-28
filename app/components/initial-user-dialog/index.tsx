@@ -1,7 +1,7 @@
 "use client";
 
-import { markUserAsPromptedAction } from "@/app/(app)/actions";
 import { Dialog } from "@/components/ui/dialog";
+import { markUserAsPromptedAction } from "@/lib/actions/user.actions";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import VerificationDialogContent from "./dialog-content";

@@ -1,27 +1,8 @@
 "use server";
 
 import container from "@/core/infra/di/container";
-import { actionClient, authActionClient } from "@/lib/safe-action";
+import { authActionClient } from "@/lib/safe-action";
 import z from "zod";
-
-export const markUserAsPromptedAction = authActionClient.action(
-  async ({ ctx: { user } }) => {
-    const markUserAsPromptedUseCase = container.get(
-      "MarkUserAsPromptedUseCase",
-    );
-    return await markUserAsPromptedUseCase.execute(user.id);
-  },
-);
-
-export const getCategoriesAction = actionClient.action(async () => {
-  const getCategoriesUseCase = container.get("GetCategoriesUseCase");
-  return await getCategoriesUseCase.execute();
-});
-
-export const getTagsAction = actionClient.action(async () => {
-  const getTagsUseCase = container.get("GetTagsUseCase");
-  return await getTagsUseCase.execute();
-});
 
 export const getUploadURLAction = authActionClient
   .inputSchema(

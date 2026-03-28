@@ -1,9 +1,9 @@
 "use client";
-import { getUploadURLAction } from "@/app/(app)/actions";
 import {
     UploadItem as UploadItemType,
     useFileUploader,
 } from "@/hooks/use-file-uploader";
+import { getUploadURLAction } from "@/lib/actions/storage.actions";
 import { uploadFilesWithXHR } from "@/lib/upload-helper";
 import { formatBytes } from "@/lib/utils";
 import { FileUploaderProvider } from "@/providers/file-uploader-provider";
