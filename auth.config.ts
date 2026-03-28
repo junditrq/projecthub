@@ -2,7 +2,9 @@ import type { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 
 export const authConfig = {
-  pages: {},
+  pages: {
+    signIn: "/",
+  },
   callbacks: {
     session: async ({ session, token }) => {
       if (session.user) {
@@ -14,6 +16,37 @@ export const authConfig = {
         }
       }
       return session;
+    },
+
+    authorized: async ({ auth, request: { nextUrl } }) => {
+      console.log("middleware runnign");
+      const { pathname } = nextUrl;
+      const user = auth?.user;
+      const authenticated = !!user;
+      const studentPaths = ["/create-project"];
+      const protectedPaths = ["/settings", ...studentPaths];
+      const onProtectedPath = protectedPaths.some((path) =>
+        pathname.startsWith(path),
+      );
+      const onStudentPath = studentPaths.some((path) =>
+        pathname.startsWith(path),
+      );
+
+      if (!authenticated) {
+        if (onProtectedPath) {
+          return Response.redirect(new URL("/", nextUrl));
+        } else {
+          return true;
+        }
+      }
+
+      if (onStudentPath && user.role !== "student") {
+        return Response.redirect(
+          new URL("/settings/student-verification", nextUrl),
+        );
+      }
+
+      return true;
     },
   },
   providers: [Google],
