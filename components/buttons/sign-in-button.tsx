@@ -5,7 +5,7 @@ const SignInButton = ({ ...props }: ShadcnButtonProps) => {
   return (
     <ActionButton className="!px-6 !py-4" {...props}>
       <span>
-        log in <span className="hidden sm:inline">with google</span>
+        log in <span className="hidden sm:!inline">with google</span>
       </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
