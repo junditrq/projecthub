@@ -13,19 +13,19 @@ const VerificationDialogContent = () => {
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Verify your account as a student?</DialogTitle>
-        <DialogDescription className="mt-2">
+        <DialogDescription>
           In order for you to be able to publish your own projects you need to
           be verified as a student first
         </DialogDescription>
-        <DialogFooter className="mt-4">
-          <ActionButton asChild>
-            <Link href={"/settings/student-verification"}>
-              Verfiy as Student
-              <ArrowRight />
-            </Link>
-          </ActionButton>
-        </DialogFooter>
       </DialogHeader>
+      <DialogFooter className="mt-4">
+        <ActionButton asChild>
+          <Link href={"/settings/student-verification"}>
+            Verfiy as Student
+            <ArrowRight />
+          </Link>
+        </ActionButton>
+      </DialogFooter>
     </DialogContent>
   );
 };

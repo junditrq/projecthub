@@ -1,9 +1,16 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Button, ShadcnButtonProps } from "../ui/button";
-import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "../ui/dialog";
 import SignInButtonClient from "./sign-in-button-client";
 
 const NeedsAuthButton = ({
@@ -47,14 +54,16 @@ const NeedsAuthButton = ({
       >
         {children}
       </Button>
-      <DialogContent className="w-[90%] justify-items-center text-center md:min-w-2xl">
-        <DialogTitle className="text-xl font-bold">
-          Not logged in ❗{" "}
-        </DialogTitle>
-        <p className="mt-4 mb-6 max-w-[40ch]">
-          You need to be logged in before you can perform this action
-        </p>
-        <SignInButtonClient className="!px-8 !py-6" />
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Not logged in ❗ </DialogTitle>
+          <DialogDescription>
+            You need to be logged in before you can perform this action
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <SignInButtonClient />
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
