@@ -72,7 +72,7 @@ const VerificationForm = () => {
   ) : (
     <Card className="mx-auto my-10 w-full max-w-xl">
       <CardHeader>
-        <CardTitle>Verify Your Account </CardTitle>
+        <CardTitle>Become a Student</CardTitle>
         <CardDescription>
           Become a student to be able to publish your own projects.
         </CardDescription>
