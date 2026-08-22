@@ -40,9 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-groups-*.js
 *.xlsx
-TODO.md
+
+core/infra/data/groups-*.ts
+!core/infra/data/groups-sample.ts
 
 /minio-data
-/resources
