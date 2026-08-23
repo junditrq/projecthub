@@ -1,6 +1,6 @@
-import { PrismaClient } from "@/app/generated/prisma";
-import { groups } from "@/resources/groups-2025";
-import slugify from "slugify";
+import { PrismaClient } from '@/app/generated/prisma';
+import { groups } from '@/resources/groups-2025';
+import slugify from 'slugify';
 
 const prisma = new PrismaClient();
 
@@ -10,62 +10,62 @@ const mySlugify = (string: string) =>
   });
 
 const tags = new Set([
-  "Spring Boot",
-  "React.js",
-  "Flutter Mobile",
-  "Laravel",
-  "Node.js",
-  "Django",
-  "PHP",
-  "JavaScript",
-  "Vue.js",
-  "Next.js",
-  "Nuxt",
-  "NestJS",
-  "Express",
-  "React Native",
-  "ASP.NET",
-  "Unity",
-  "OpenCV",
-  "Tauri",
-  "Angular",
-  "Livewire",
-  "Swift",
-  "Java (Android)",
-  "Tailwind CSS",
-  "Blade",
-  "Flutter Web",
+  'Spring Boot',
+  'React.js',
+  'Flutter Mobile',
+  'Laravel',
+  'Node.js',
+  'Django',
+  'PHP',
+  'JavaScript',
+  'Vue.js',
+  'Next.js',
+  'Nuxt',
+  'NestJS',
+  'Express',
+  'React Native',
+  'ASP.NET',
+  'Unity',
+  'OpenCV',
+  'Tauri',
+  'Angular',
+  'Livewire',
+  'Swift',
+  'Java (Android)',
+  'Tailwind CSS',
+  'Blade',
+  'Flutter Web',
   // Frontend
-  "Svelte",
-  "Redux",
-  "GraphQL",
-  "Vite",
-  "Bootstrap",
-  "Material-UI",
-  "Sass",
-  "Less",
-  "Styled Components",
+  'Svelte',
+  'Redux',
+  'GraphQL',
+  'Vite',
+  'Bootstrap',
+  'Material-UI',
+  'Sass',
+  'Less',
+  'Styled Components',
   // Backend
-  "Ruby on Rails",
-  "Flask",
-  "FastAPI",
-  "Go",
-  "Rust",
-  "Kotlin",
-  ".NET Core",
+  'Ruby on Rails',
+  'Flask',
+  'FastAPI',
+  'Go',
+  'Rust',
+  'Kotlin',
+  '.NET Core',
   // Mobile
-  "SwiftUI",
-  "Jetpack Compose",
+  'SwiftUI',
+  'Jetpack Compose',
   // Database
-  "PostgreSQL",
-  "MySQL",
-  "MongoDB",
-  "Redis",
-  "Firebase",
-  "Prisma",
+  'PostgreSQL',
+  'MySQL',
+  'MongoDB',
+  'Redis',
+  'Firebase',
+  'Prisma',
 ]);
 
-const categories = ["Web", "Mobile"];
+const categories = ['Web', 'Mobile'];
 
 async function main() {
   await seedTags();
@@ -101,14 +101,14 @@ async function seedGroups() {
 
   const academicYear = await prisma.academicYear.create({
     data: {
-      label: "2024-2025",
+      label: '2024-2025',
     },
   });
 
   const subject = await prisma.subject.create({
     data: {
-      name: "Project 1",
-      slug: "project-1",
+      name: 'Project 1',
+      slug: 'project-1',
       yearLevel: 3,
     },
   });
@@ -142,7 +142,7 @@ async function seedGroups() {
     });
   }
 
-  console.log("seeding completed");
+  console.log('seeding completed');
 }
 
 main();

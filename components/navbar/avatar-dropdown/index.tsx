@@ -1,31 +1,27 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { avatarFallback } from "@/lib/utils";
-import { LogOut, UserRound } from "lucide-react";
-import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { avatarFallback } from '@/lib/utils';
+import { LogOut, UserRound } from 'lucide-react';
+import { Session } from 'next-auth';
+import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
-const AvatarDropdown = ({ user }: { user: Session["user"] }) => {
+const AvatarDropdown = ({ user }: { user: Session['user'] }) => {
   const { image, name } = user;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          className="aspect-square size-9 rounded-full"
-          size={"icon"}
-          variant={"outline"}
-        >
+        <Button className="aspect-square size-9 rounded-full" size={'icon'} variant={'outline'}>
           <Avatar className="size-full">
             <AvatarImage src={image} alt={name} />
             <AvatarFallback>{avatarFallback(name)}</AvatarFallback>
@@ -34,7 +30,7 @@ const AvatarDropdown = ({ user }: { user: Session["user"] }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-        side={"bottom"}
+        side={'bottom'}
         align="end"
         sideOffset={4}
       >
@@ -56,7 +52,7 @@ const AvatarDropdown = ({ user }: { user: Session["user"] }) => {
 
           <DropdownMenuGroup>
             <DropdownMenuItem asChild>
-              <Link href={"/settings"}>
+              <Link href={'/settings'}>
                 <UserRound />
                 Profile Settings
               </Link>
@@ -67,7 +63,7 @@ const AvatarDropdown = ({ user }: { user: Session["user"] }) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => signOut({ redirectTo: "/" })}>
+          <DropdownMenuItem onClick={() => signOut({ redirectTo: '/' })}>
             <LogOut />
             Sign out
           </DropdownMenuItem>

@@ -1,10 +1,4 @@
-const PageHeading = ({
-  title,
-  children,
-}: {
-  title: string;
-  children?: React.ReactNode;
-}) => {
+const PageHeading = ({ title, children }: { title: string; children?: React.ReactNode }) => {
   return (
     <div className="mb-4 border-b">
       <div className="mx-auto flex max-w-[90rem] items-center justify-between gap-4 px-4">

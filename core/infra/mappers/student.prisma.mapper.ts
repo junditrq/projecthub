@@ -1,5 +1,5 @@
-import { Student as PrismaStudent } from "@/app/generated/prisma";
-import { Student } from "@/core/domain/entities/student.entity";
+import { Student as PrismaStudent } from '@/app/generated/prisma';
+import { Student } from '@/core/domain/entities/student.entity';
 
 export class PrismaStudentMapper {
   static toDomain(student: PrismaStudent): Student {

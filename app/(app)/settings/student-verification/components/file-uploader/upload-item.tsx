@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { UploadItem as UploadItemType } from "@/hooks/use-file-uploader";
+import { Button } from '@/components/ui/button';
+import { UploadItem as UploadItemType } from '@/hooks/use-file-uploader';
 
-import { cn, formatBytes } from "@/lib/utils";
-import { useFileUploaderContext } from "@/providers/file-uploader-provider";
-import { FileIcon, X } from "lucide-react";
-import Image from "next/image";
+import { cn, formatBytes } from '@/lib/utils';
+import { useFileUploaderContext } from '@/providers/file-uploader-provider';
+import { FileIcon, X } from 'lucide-react';
+import Image from 'next/image';
 
 const UploadItem = ({ uploadItem }: { uploadItem: UploadItemType }) => {
   const { cancelUpload } = useFileUploaderContext();
@@ -14,7 +14,7 @@ const UploadItem = ({ uploadItem }: { uploadItem: UploadItemType }) => {
       className="animate-in fade-in zoom-in-95 relative flex w-full max-w-sm flex-col gap-3 duration-300"
     >
       <div className="bg-muted relative grid aspect-video w-full place-content-center overflow-hidden rounded-lg border shadow-sm">
-        {uploadItem.file.type.startsWith("image/") && uploadItem.previewURL ? (
+        {uploadItem.file.type.startsWith('image/') && uploadItem.previewURL ? (
           <Image
             src={uploadItem.previewURL}
             alt={uploadItem.file.name}
@@ -28,10 +28,8 @@ const UploadItem = ({ uploadItem }: { uploadItem: UploadItemType }) => {
 
         <div
           className={cn(
-            "bg-background/60 text-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all",
-            uploadItem.status === "uploading"
-              ? "opacity-100"
-              : "pointer-events-none opacity-0",
+            'bg-background/60 text-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all',
+            uploadItem.status === 'uploading' ? 'opacity-100' : 'pointer-events-none opacity-0'
           )}
         >
           <span className="text-muted-foreground text-sm">
@@ -41,21 +39,17 @@ const UploadItem = ({ uploadItem }: { uploadItem: UploadItemType }) => {
 
         <div
           className={cn(
-            "bg-destructive/60 text-destructive-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all",
-            uploadItem.status === "error"
-              ? "opacity-100"
-              : "pointer-events-none opacity-0",
+            'bg-destructive/60 text-destructive-foreground absolute inset-0 grid place-content-center backdrop-blur-xs transition-all',
+            uploadItem.status === 'error' ? 'opacity-100' : 'pointer-events-none opacity-0'
           )}
         >
-          <span className="text-sm">{"Upload failed"}</span>
+          <span className="text-sm">{'Upload failed'}</span>
         </div>
       </div>
 
       <div className="flex w-full flex-col text-left">
         <p className="truncate text-sm font-medium">{uploadItem.file.name}</p>
-        <p className="text-muted-foreground text-xs">
-          {formatBytes(uploadItem.file.size)}
-        </p>
+        <p className="text-muted-foreground text-xs">{formatBytes(uploadItem.file.size)}</p>
       </div>
 
       <Button

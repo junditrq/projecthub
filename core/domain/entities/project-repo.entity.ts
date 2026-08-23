@@ -1,5 +1,5 @@
-import { Project } from "./project.entity";
-import { Student } from "./student.entity";
+import { Project } from './project.entity';
+import { Student } from './student.entity';
 
 export interface ProjectRepo {
   id: string;
@@ -10,8 +10,8 @@ export interface ProjectRepo {
 }
 
 export enum ProjectRepoType {
-  frontend = "frontend",
-  backend = "backend",
-  mobile = "mobile",
-  monorepo = "monorepo",
+  frontend = 'frontend',
+  backend = 'backend',
+  mobile = 'mobile',
+  monorepo = 'monorepo',
 }

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { signOut } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { signOut } from 'next-auth/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 const ClientSessionSentry = ({ cb = () => {} }: { cb?: () => void }) => {
   const searchParams = useSearchParams();
@@ -14,9 +14,9 @@ const ClientSessionSentry = ({ cb = () => {} }: { cb?: () => void }) => {
   }, [cb]);
 
   useEffect(() => {
-    if (searchParams.get("session") === "expired") {
+    if (searchParams.get('session') === 'expired') {
       signOut({ redirect: false }).then(() => {
-        router.replace("/");
+        router.replace('/');
         cbRef.current();
       });
     }

@@ -1,4 +1,4 @@
-import HoverNavLink from "../common/hover-nav-link";
+import HoverNavLink from '../common/hover-nav-link';
 
 const ProjectCategory = ({ name, id }: { name: string; id: string }) => {
   return (

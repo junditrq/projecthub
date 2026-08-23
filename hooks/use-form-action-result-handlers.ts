@@ -1,9 +1,9 @@
-import { DOMAIN_ERROR_CODES } from "@/core/domain/errors/domain-error-codes";
-import { FormActionResult } from "@/lib/presentation/types/form-action-result.type";
-import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { FieldValues, UseFormSetError } from "react-hook-form";
-import { toast } from "sonner";
+import { DOMAIN_ERROR_CODES } from '@/core/domain/errors/domain-error-codes';
+import { FormActionResult } from '@/lib/presentation/types/form-action-result.type';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { FieldValues, UseFormSetError } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface params<FormDataType extends FieldValues> {
   setError: UseFormSetError<FormDataType>;
@@ -19,7 +19,7 @@ export const useFormActionResultHandlers = <FormDataType extends FieldValues>({
   const router = useRouter();
 
   const handleUnauthenticated = async () => {
-    toast.error("Your session has expired.");
+    toast.error('Your session has expired.');
     await signOut({ redirect: false });
     router.replace(`/`);
   };
@@ -37,7 +37,7 @@ export const useFormActionResultHandlers = <FormDataType extends FieldValues>({
         if (onError) {
           onError(result.serverError);
         }
-        setError("root", {
+        setError('root', {
           message: result.serverError,
         });
       }
@@ -46,35 +46,28 @@ export const useFormActionResultHandlers = <FormDataType extends FieldValues>({
     if (result.fieldErrors) {
       for (const [key, message] of Object.entries(result.fieldErrors)) {
         setError(
-          key as keyof Extract<
-            FormActionResult<FormDataType>,
-            { success: false }
-          >["fieldErrors"],
+          key as keyof Extract<FormActionResult<FormDataType>, { success: false }>['fieldErrors'],
           {
             message,
-          },
+          }
         );
       }
     }
   };
 
-  const handleError = (
-    serverError: string | undefined,
-    thrownError: Error | undefined,
-  ) => {
+  const handleError = (serverError: string | undefined, thrownError: Error | undefined) => {
     if (serverError === DOMAIN_ERROR_CODES.UNAUTHENTICATED) {
       handleUnauthenticated();
       return;
     }
 
-    const errorMessage =
-      serverError || thrownError?.message || "An unexpected error occurred.";
+    const errorMessage = serverError || thrownError?.message || 'An unexpected error occurred.';
 
     if (onError) {
       onError(serverError || thrownError || errorMessage);
     }
 
-    setError("root", {
+    setError('root', {
       message: errorMessage,
     });
   };

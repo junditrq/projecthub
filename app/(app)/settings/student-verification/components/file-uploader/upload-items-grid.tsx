@@ -1,15 +1,15 @@
-import { cn } from "@/lib/utils";
-import { useFileUploaderContext } from "@/providers/file-uploader-provider";
-import UploadItem from "./upload-item";
+import { cn } from '@/lib/utils';
+import { useFileUploaderContext } from '@/providers/file-uploader-provider';
+import UploadItem from './upload-item';
 
 const UploadItemsGrid = () => {
   const { uploadItems } = useFileUploaderContext();
   return (
     <div
       className={cn(
-        "w-full",
-        "grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-3 pb-4",
-        "max-h-[27rem] overflow-y-auto p-4",
+        'w-full',
+        'grid grid-cols-[repeat(auto-fill,minmax(12rem,1fr))] gap-3 pb-4',
+        'max-h-[27rem] overflow-y-auto p-4'
       )}
     >
       {uploadItems.map((uploadItem) => (

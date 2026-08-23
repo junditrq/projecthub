@@ -1,6 +1,4 @@
-export type UseCaseResult<T = void, ECode extends string = never> = [
-  ECode,
-] extends [never]
+export type UseCaseResult<T = void, ECode extends string = never> = [ECode] extends [never]
   ? UseCaseSuccess<T>
   : UseCaseSuccess<T> | { success: false; error: UseCaseError<ECode> };
 

@@ -1,5 +1,5 @@
-import { Category } from "@/core/domain/entities/category.entity";
-import { CategoryDTO } from "../dtos/category.dto";
+import { Category } from '@/core/domain/entities/category.entity';
+import { CategoryDTO } from '../dtos/category.dto';
 
 export class CategoryDTOMapper {
   static toDTO(category: Category): CategoryDTO {

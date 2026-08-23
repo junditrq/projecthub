@@ -1,21 +1,17 @@
-"use client";
-import { Category, Tag } from "@/app/generated/prisma";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { ArrowBigUp } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
-import NeedsAuthButton from "../buttons/needs-auth-button";
-import ContributorAvatar from "./contributor-avatar";
-import ProjectCategory from "./project-category";
-import ProjectTag from "./project-tag";
-import { ProjectCardProps } from "./types";
+'use client';
+import { Category, Tag } from '@/app/generated/prisma';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { ArrowBigUp } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import NeedsAuthButton from '../buttons/needs-auth-button';
+import ContributorAvatar from './contributor-avatar';
+import ProjectCategory from './project-category';
+import ProjectTag from './project-tag';
+import { ProjectCardProps } from './types';
 
-export default function ProjectCard({
-  project,
-}: {
-  project: ProjectCardProps;
-}) {
+export default function ProjectCard({ project }: { project: ProjectCardProps }) {
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(project._count.Likes);
 
@@ -41,11 +37,7 @@ export default function ProjectCard({
 
         <div className="bg-background flex items-center gap-2 border-t p-4">
           {project.contributors.map((c: ProjectCardProps) => (
-            <ContributorAvatar
-              key={c.id}
-              avatarUrl={c.avatarUrl}
-              name={c.name}
-            />
+            <ContributorAvatar key={c.id} avatarUrl={c.avatarUrl} name={c.name} />
           ))}
         </div>
       </CardContent>
@@ -57,9 +49,9 @@ export default function ProjectCard({
         </div>
 
         <NeedsAuthButton
-          variant={isLiked ? "default" : "outline"}
+          variant={isLiked ? 'default' : 'outline'}
           className={cn(
-            "flex !h-8 w-18 cursor-pointer items-center gap-1 rounded-full !px-2 !py-0",
+            'flex !h-8 w-18 cursor-pointer items-center gap-1 rounded-full !px-2 !py-0'
           )}
           onClick={() => {
             setIsLiked(!isLiked);
@@ -68,12 +60,9 @@ export default function ProjectCard({
         >
           <ArrowBigUp
             strokeWidth={1}
-            className={cn(
-              "text-muted-foreground !h-6 !w-6 flex-none shrink-0",
-              {
-                "fill-accent stroke-accent": isLiked,
-              },
-            )}
+            className={cn('text-muted-foreground !h-6 !w-6 flex-none shrink-0', {
+              'fill-accent stroke-accent': isLiked,
+            })}
           />
           <span className="text-sm font-normal">
             {/* <span>{isLiked ? "Liked" : "Like"}</span>{" "} */}

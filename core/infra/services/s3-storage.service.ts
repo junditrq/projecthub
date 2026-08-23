@@ -1,17 +1,17 @@
-import { IStorageService } from "@/core/application/services/storage.service";
-import { NotFoundError } from "@/core/domain/errors/domain-errors";
-import { s3Client } from "@/core/infra/config/s3.client";
-import { env } from "@/env";
+import { IStorageService } from '@/core/application/services/storage.service';
+import { NotFoundError } from '@/core/domain/errors/domain-errors';
+import { s3Client } from '@/core/infra/config/s3.client';
+import { env } from '@/env';
 import {
-    CopyObjectCommand,
-    DeleteObjectCommand,
-    DeleteObjectsCommand,
-    HeadObjectCommand,
-    PutObjectCommand,
-    S3Client,
-    S3ServiceException,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+  CopyObjectCommand,
+  DeleteObjectCommand,
+  DeleteObjectsCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+  S3ServiceException,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export class S3StorageService implements IStorageService {
   private bucketName = env.STORAGE_BUCKET_NAME;
@@ -22,12 +22,12 @@ export class S3StorageService implements IStorageService {
   }
 
   private static mapFileKeyError(error: unknown) {
-    console.error("S3StorageService error:", error);
+    console.error('S3StorageService error:', error);
 
     if (error instanceof S3ServiceException) {
       const errorName = error.name;
 
-      if (errorName === "NotFound" || errorName === "NoSuchKey") {
+      if (errorName === 'NotFound' || errorName === 'NoSuchKey') {
         return new NotFoundError(error.message);
       }
     }
@@ -35,9 +35,7 @@ export class S3StorageService implements IStorageService {
     return error;
   }
 
-  private static async withFileKeyErrorHandling<T>(
-    action: () => Promise<T>,
-  ): Promise<T> {
+  private static async withFileKeyErrorHandling<T>(action: () => Promise<T>): Promise<T> {
     try {
       return await action();
     } catch (error) {
@@ -45,11 +43,7 @@ export class S3StorageService implements IStorageService {
     }
   }
 
-  async getUploadURL(
-    fileKey: string,
-    fileType: string,
-    expiresIn?: number,
-  ): Promise<string> {
+  async getUploadURL(fileKey: string, fileType: string, expiresIn?: number): Promise<string> {
     const command = new PutObjectCommand({
       Bucket: this.bucketName,
       Key: fileKey,
@@ -94,7 +88,7 @@ export class S3StorageService implements IStorageService {
       return true;
     } catch (error) {
       if (error instanceof S3ServiceException) {
-        if (error.name === "NotFound" || error.name === "NoSuchKey") {
+        if (error.name === 'NotFound' || error.name === 'NoSuchKey') {
           return false;
         }
       }

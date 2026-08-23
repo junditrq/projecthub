@@ -1,16 +1,14 @@
 import {
-    VerificationRequest as PrismaVerificaitonRequest,
-    VerificationStatus as PrismaVerificationStatus,
-} from "@/app/generated/prisma";
+  VerificationRequest as PrismaVerificaitonRequest,
+  VerificationStatus as PrismaVerificationStatus,
+} from '@/app/generated/prisma';
 import {
-    VerificationRequest,
-    VerificationStatus,
-} from "@/core/domain/entities/verification-request.entity";
+  VerificationRequest,
+  VerificationStatus,
+} from '@/core/domain/entities/verification-request.entity';
 
 export class PrismaVerificationRequestMapper {
-  static toDomain(
-    prismaVerificationRequest: PrismaVerificaitonRequest,
-  ): VerificationRequest {
+  static toDomain(prismaVerificationRequest: PrismaVerificaitonRequest): VerificationRequest {
     return VerificationRequest.reconstitute({
       id: prismaVerificationRequest.id,
       userId: prismaVerificationRequest.userId,
@@ -23,9 +21,7 @@ export class PrismaVerificationRequestMapper {
     });
   }
 
-  static toPersistence(
-    request: VerificationRequest,
-  ): PrismaVerificaitonRequest {
+  static toPersistence(request: VerificationRequest): PrismaVerificaitonRequest {
     return {
       id: request.id,
       userId: request.userId,
@@ -38,15 +34,13 @@ export class PrismaVerificationRequestMapper {
     };
   }
 
-  private static toDomainStatus(
-    status: PrismaVerificationStatus,
-  ): VerificationStatus {
+  private static toDomainStatus(status: PrismaVerificationStatus): VerificationStatus {
     switch (status) {
-      case "pending":
+      case 'pending':
         return VerificationStatus.pending;
-      case "approved":
+      case 'approved':
         return VerificationStatus.approved;
-      case "rejected":
+      case 'rejected':
         return VerificationStatus.rejected;
       default:
         throw new Error(`Unknown status: ${status}`);

@@ -1,16 +1,13 @@
-import {
-    deleteStorageFileAction,
-    deleteStorageFilesAction,
-} from "@/lib/actions/storage.actions";
-import { useAction } from "next-safe-action/hooks";
-import { useEffect, useReducer, useRef } from "react";
+import { deleteStorageFileAction, deleteStorageFilesAction } from '@/lib/actions/storage.actions';
+import { useAction } from 'next-safe-action/hooks';
+import { useEffect, useReducer, useRef } from 'react';
 
 export interface UploadItem {
   fileKey: string;
   file: File;
   previewURL?: string;
   progress?: number;
-  status: "uploading" | "success" | "error";
+  status: 'uploading' | 'success' | 'error';
   errorMessage?: string;
   abortController?: AbortController;
 }
@@ -18,19 +15,19 @@ export interface UploadItem {
 type UploadItems = UploadItem[];
 
 type ActionType =
-  | { type: "ADD_ITEM"; payload: UploadItem }
-  | { type: "UPDATE_PROGRESS"; payload: { fileKey: string; progress: number } }
-  | { type: "MARK_SUCCESS"; payload: { fileKey: string } }
-  | { type: "MARK_ERROR"; payload: { fileKey: string; errorMessage: string } }
-  | { type: "CANCEL_UPLOAD"; payload: { fileKey: string } }
-  | { type: "CLEAN_UP" };
+  | { type: 'ADD_ITEM'; payload: UploadItem }
+  | { type: 'UPDATE_PROGRESS'; payload: { fileKey: string; progress: number } }
+  | { type: 'MARK_SUCCESS'; payload: { fileKey: string } }
+  | { type: 'MARK_ERROR'; payload: { fileKey: string; errorMessage: string } }
+  | { type: 'CANCEL_UPLOAD'; payload: { fileKey: string } }
+  | { type: 'CLEAN_UP' };
 
 const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
   switch (action.type) {
-    case "ADD_ITEM": {
+    case 'ADD_ITEM': {
       return [...uploadItems, action.payload];
     }
-    case "UPDATE_PROGRESS": {
+    case 'UPDATE_PROGRESS': {
       return uploadItems.map((uploadItem) => {
         if (uploadItem.fileKey === action.payload.fileKey) {
           return {
@@ -42,24 +39,24 @@ const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
       });
     }
 
-    case "MARK_SUCCESS": {
+    case 'MARK_SUCCESS': {
       return uploadItems.map((uploadItem) => {
         if (uploadItem.fileKey === action.payload.fileKey) {
           return {
             ...uploadItem,
-            status: "success",
+            status: 'success',
             progress: 1,
           };
         }
         return uploadItem;
       });
     }
-    case "MARK_ERROR": {
+    case 'MARK_ERROR': {
       return uploadItems.map((uploadItem) => {
         if (uploadItem.fileKey === action.payload.fileKey) {
           return {
             ...uploadItem,
-            status: "error",
+            status: 'error',
             errorMessage: action.payload.errorMessage,
             progress: 0,
           };
@@ -68,12 +65,10 @@ const reducer = (uploadItems: UploadItems, action: ActionType): UploadItems => {
         return uploadItem;
       });
     }
-    case "CANCEL_UPLOAD": {
-      return uploadItems.filter(
-        (uploadItem) => uploadItem.fileKey !== action.payload.fileKey,
-      );
+    case 'CANCEL_UPLOAD': {
+      return uploadItems.filter((uploadItem) => uploadItem.fileKey !== action.payload.fileKey);
     }
-    case "CLEAN_UP": {
+    case 'CLEAN_UP': {
       return [];
     }
     default:
@@ -103,42 +98,40 @@ export const useFileUploader = () => {
   }, []);
 
   const addUploadItem = (item: UploadItem) => {
-    dispatch({ type: "ADD_ITEM", payload: item });
+    dispatch({ type: 'ADD_ITEM', payload: item });
   };
 
   const updateProgress = (fileKey: string, progress: number) => {
-    dispatch({ type: "UPDATE_PROGRESS", payload: { fileKey, progress } });
+    dispatch({ type: 'UPDATE_PROGRESS', payload: { fileKey, progress } });
   };
 
   const markSuccess = (fileKey: string) => {
-    dispatch({ type: "MARK_SUCCESS", payload: { fileKey } });
+    dispatch({ type: 'MARK_SUCCESS', payload: { fileKey } });
   };
 
   const markError = (fileKey: string, errorMessage: string) => {
-    dispatch({ type: "MARK_ERROR", payload: { fileKey, errorMessage } });
+    dispatch({ type: 'MARK_ERROR', payload: { fileKey, errorMessage } });
   };
 
   const cancelUpload = (fileKey: string) => {
-    const uploadItem = uploadItems.find(
-      (uploadItem) => uploadItem.fileKey === fileKey,
-    );
+    const uploadItem = uploadItems.find((uploadItem) => uploadItem.fileKey === fileKey);
 
     if (!uploadItem) return;
 
     if (uploadItem.previewURL) {
       URL.revokeObjectURL(uploadItem.previewURL);
     }
-    if (uploadItem.status === "success") {
+    if (uploadItem.status === 'success') {
       deleteFile({ fileKey: uploadItem.fileKey });
     }
     uploadItem.abortController?.abort();
 
-    dispatch({ type: "CANCEL_UPLOAD", payload: { fileKey } });
+    dispatch({ type: 'CANCEL_UPLOAD', payload: { fileKey } });
   };
 
   const cancelUploads = () => {
     const fileKeys = uploadItems
-      .filter((item) => item.status === "success")
+      .filter((item) => item.status === 'success')
       .map((item) => item.fileKey);
 
     deleteFiles({ fileKeys });
@@ -149,7 +142,7 @@ export const useFileUploader = () => {
       }
       uploadItem.abortController?.abort();
     });
-    dispatch({ type: "CLEAN_UP" });
+    dispatch({ type: 'CLEAN_UP' });
   };
 
   return {

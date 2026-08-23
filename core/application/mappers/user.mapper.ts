@@ -1,5 +1,5 @@
-import { User } from "@/core/domain/entities/user.entity";
-import { UserResponseDTO } from "../dtos/user.dto";
+import { User } from '@/core/domain/entities/user.entity';
+import { UserResponseDTO } from '../dtos/user.dto';
 
 export class UserDTOMapper {
   public static toResponseDTO(user: User): UserResponseDTO {

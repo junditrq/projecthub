@@ -1,7 +1,7 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { CategoryDTO } from "@/core/application/dtos/category.dto";
-import { getCategories } from "@/lib/dal/categories.dal";
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { CategoryDTO } from '@/core/application/dtos/category.dto';
+import { getCategories } from '@/lib/dal/categories.dal';
 
 export const CategoriesSection = async () => {
   const data = await getCategories();
@@ -14,10 +14,7 @@ export const CategoriesSection = async () => {
         {data.map((category: CategoryDTO) => (
           <div className="flex items-center gap-3" key={category.id}>
             <Checkbox id={category.slug} className="h-5 w-5 border-2" />
-            <Label
-              htmlFor={category.slug}
-              className="text-md w-full cursor-pointer font-normal"
-            >
+            <Label htmlFor={category.slug} className="text-md w-full cursor-pointer font-normal">
               {category.name}
             </Label>
           </div>

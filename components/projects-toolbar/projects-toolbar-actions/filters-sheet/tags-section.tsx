@@ -1,5 +1,5 @@
-import TagsFilter from "@/components/common/tags-filter";
-import { getTags } from "@/lib/dal/tags.dal";
+import TagsFilter from '@/components/common/tags-filter';
+import { getTags } from '@/lib/dal/tags.dal';
 
 export const TagsSection = async () => {
   const data = await getTags();

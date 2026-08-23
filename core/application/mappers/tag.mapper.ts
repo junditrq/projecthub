@@ -1,5 +1,5 @@
-import { TagDTO } from "@/core/application/dtos/tag.dto";
-import { Tag } from "@/core/domain/entities/tag.entity";
+import { TagDTO } from '@/core/application/dtos/tag.dto';
+import { Tag } from '@/core/domain/entities/tag.entity';
 
 export class TagDTOMapper {
   static toDTO(tag: Tag): TagDTO {
