@@ -1,28 +1,28 @@
-import { authConfig } from "@/auth.config";
-import prisma from "@/core/infra/orm/prisma.client";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth, { type DefaultSession } from "next-auth";
-import { VerificationRequestStatusDTO } from "./core/application/dtos/verification-request.dto";
-import { UserProps } from "./core/domain/entities/user.entity";
-import container from "./core/infra/di/container";
+import { authConfig } from '@/auth.config';
+import prisma from '@/core/infra/orm/prisma.client';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import NextAuth, { type DefaultSession } from 'next-auth';
+import { VerificationRequestStatusDTO } from './core/application/dtos/verification-request.dto';
+import { UserProps } from './core/domain/entities/user.entity';
+import container from './core/infra/di/container';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
       hasBeenPrompted: boolean;
-      role: UserProps["role"];
+      role: UserProps['role'];
       name: string;
       email: string;
       image?: string;
       verificationStatus: VerificationRequestStatusDTO;
-    } & DefaultSession["user"];
+    } & DefaultSession['user'];
   }
 
   interface User {
     id: string;
     hasBeenPrompted: boolean;
-    role: UserProps["role"];
+    role: UserProps['role'];
     verificationStatus: VerificationRequestStatusDTO;
   }
 }
@@ -30,14 +30,14 @@ declare module "next-auth" {
 // The `JWT` interface can be found in the `next-auth/jwt` submodule
 // ignore the eslint for this
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { JWT } from "next-auth/jwt";
+import { JWT } from 'next-auth/jwt';
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
   interface JWT {
     /** OpenID ID Token */
     hasBeenPrompted: boolean;
-    role: UserProps["role"];
+    role: UserProps['role'];
     userId: string | undefined;
     verificationStatus: VerificationRequestStatusDTO;
   }
@@ -46,20 +46,19 @@ declare module "next-auth/jwt" {
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  session: { strategy: 'jwt' },
   callbacks: {
     ...authConfig.callbacks,
     jwt: async ({ user, token, trigger, session }) => {
       if (user) {
         try {
           const getStudentVerificationStatusUseCase = container.get(
-            "GetUserVerificationStatusUseCase",
+            'GetUserVerificationStatusUseCase'
           );
-          token.verificationStatus =
-            await getStudentVerificationStatusUseCase.execute(user.id);
+          token.verificationStatus = await getStudentVerificationStatusUseCase.execute(user.id);
         } catch (error) {
-          console.error("Error fetching verification status:", error);
-          token.verificationStatus = "not_submitted";
+          console.error('Error fetching verification status:', error);
+          token.verificationStatus = 'not_submitted';
         }
 
         token.hasBeenPrompted = !!user.hasBeenPrompted;
@@ -67,7 +66,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         token.role = user.role;
       }
 
-      if (trigger === "update" && session?.hasBeenPrompted !== undefined) {
+      if (trigger === 'update' && session?.hasBeenPrompted !== undefined) {
         token.hasBeenPrompted = session.hasBeenPrompted;
       }
 

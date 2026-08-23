@@ -1,13 +1,13 @@
-import { Prisma, User as PrismaUser } from "@/app/generated/prisma";
-import { User } from "@/core/domain/entities/user.entity";
+import { Prisma, User as PrismaUser } from '@/app/generated/prisma';
+import { User } from '@/core/domain/entities/user.entity';
 
 export class PrismaUserMapper {
   static toDomain(prismaUser: PrismaUser): User {
     if (!prismaUser.email) {
-      throw new Error("Email is required to create a User domain entity.");
+      throw new Error('Email is required to create a User domain entity.');
     }
     if (!prismaUser.name) {
-      throw new Error("Name is required to create a User domain entity.");
+      throw new Error('Name is required to create a User domain entity.');
     }
     return User.reconstitute({
       email: prismaUser.email,

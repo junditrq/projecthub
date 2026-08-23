@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { ThemeToggle } from "../common/theme-toggle";
-import { Button } from "../ui/button";
-import NavbarAuthUI from "./navbar-auth-ui";
+import Link from 'next/link';
+import { ThemeToggle } from '../common/theme-toggle';
+import { Button } from '../ui/button';
+import NavbarAuthUI from './navbar-auth-ui';
 
 const NavBar = () => {
   return (
@@ -10,7 +10,7 @@ const NavBar = () => {
         <div className="flex items-center gap-2">
           <Button
             className="font-geist-mono text-foreground text-xl font-medium tracking-wide underline transition-all"
-            variant={"link"}
+            variant={'link'}
             asChild
           >
             <Link href="/" className="">
@@ -20,7 +20,7 @@ const NavBar = () => {
         </div>
         <div className="flex items-center gap-2">
           <NavbarAuthUI />
-          <ThemeToggle variants={"ghost"} className="size-8 rounded-xl" />
+          <ThemeToggle variants={'ghost'} className="size-8 rounded-xl" />
         </div>
       </div>
     </nav>

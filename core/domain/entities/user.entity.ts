@@ -1,4 +1,4 @@
-import { BusinessRuleError } from "../errors/domain-errors";
+import { BusinessRuleError } from '../errors/domain-errors';
 
 // TODO: refactor into rich domain model instead of this anemic model
 export interface UserProps {
@@ -9,7 +9,7 @@ export interface UserProps {
   githubUsername: string | null;
   linkedinUrl: string | null;
   hasBeenPrompted: boolean;
-  role: "admin" | "student" | "visitor";
+  role: 'admin' | 'student' | 'visitor';
 }
 
 export class User {
@@ -40,19 +40,19 @@ export class User {
   get hasBeenPrompted(): boolean {
     return this._props.hasBeenPrompted;
   }
-  get role(): "admin" | "student" | "visitor" {
+  get role(): 'admin' | 'student' | 'visitor' {
     return this._props.role;
   }
 
   public markAsPrompted() {
     if (this._props.hasBeenPrompted) {
-      throw new BusinessRuleError("User has already been prompted");
+      throw new BusinessRuleError('User has already been prompted');
     }
     this._props.hasBeenPrompted = true;
   }
 
   public canRequestStudnetVerification(): boolean {
-    return this._props.role === "visitor";
+    return this._props.role === 'visitor';
   }
 
   public static reconstitute(props: UserProps) {

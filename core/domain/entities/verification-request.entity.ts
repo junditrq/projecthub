@@ -40,8 +40,8 @@ export class VerificationRequest {
   public static create(
     props: Omit<
       VerificationRequestProps,
-      "id" | "createdAt" | "updatedAt" | "reviewedById" | "status"
-    >,
+      'id' | 'createdAt' | 'updatedAt' | 'reviewedById' | 'status'
+    >
   ) {
     const now = new Date();
     return new VerificationRequest({
@@ -60,7 +60,7 @@ export class VerificationRequest {
 }
 
 export enum VerificationStatus {
-  pending = "pending",
-  approved = "approved",
-  rejected = "rejected",
+  pending = 'pending',
+  approved = 'approved',
+  rejected = 'rejected',
 }

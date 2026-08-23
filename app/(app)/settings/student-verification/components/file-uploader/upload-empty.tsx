@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { FieldDescription } from "@/components/ui/field";
-import { formatBytes } from "@/lib/utils";
-import { useFileUploaderContext } from "@/providers/file-uploader-provider";
-import { UploadCloud } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { FieldDescription } from '@/components/ui/field';
+import { formatBytes } from '@/lib/utils';
+import { useFileUploaderContext } from '@/providers/file-uploader-provider';
+import { UploadCloud } from 'lucide-react';
 
 const UploaderEmpty = () => {
   const {
@@ -17,9 +17,9 @@ const UploaderEmpty = () => {
           <UploadCloud className="size-8 text-center" />
         </span>
         <p className="text-sm">
-          Drop files here or{" "}
+          Drop files here or{' '}
           <Button
-            variant={"link"}
+            variant={'link'}
             className="cursor-pointer px-0 text-base"
             onClick={open}
             type="button"

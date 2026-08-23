@@ -1,7 +1,7 @@
-import { ITagRepo } from "@/core/domain/repos/tag.repo";
-import { TagDTO } from "../../dtos/tag.dto";
-import { TagDTOMapper } from "../../mappers/tag.mapper";
-import { UseCaseResult } from "../../types/usecase-result.type";
+import { ITagRepo } from '@/core/domain/repos/tag.repo';
+import { TagDTO } from '../../dtos/tag.dto';
+import { TagDTOMapper } from '../../mappers/tag.mapper';
+import { UseCaseResult } from '../../types/usecase-result.type';
 
 export class GetTagsUseCase {
   private tagRepo: ITagRepo;

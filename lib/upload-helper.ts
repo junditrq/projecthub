@@ -17,18 +17,18 @@ export const uploadFilesWithXHR = ({
 }: UploadArgs) => {
   const xhrRequest = new XMLHttpRequest();
 
-  xhrRequest.addEventListener("error", () => {
-    onError("Upload failed");
+  xhrRequest.addEventListener('error', () => {
+    onError('Upload failed');
   });
 
-  xhrRequest.upload.addEventListener("progress", (e) => {
+  xhrRequest.upload.addEventListener('progress', (e) => {
     if (e.lengthComputable) {
       const progress = e.loaded / e.total;
       onProgress(progress);
     }
   });
 
-  xhrRequest.addEventListener("loadend", () => {
+  xhrRequest.addEventListener('loadend', () => {
     if (xhrRequest.status >= 200 && xhrRequest.status < 300) {
       onSuccess();
     } else {
@@ -36,11 +36,11 @@ export const uploadFilesWithXHR = ({
     }
   });
 
-  abortController?.signal.addEventListener("abort", () => {
-    console.log("Upload aborted");
+  abortController?.signal.addEventListener('abort', () => {
+    console.log('Upload aborted');
     xhrRequest.abort();
   });
 
-  xhrRequest.open("PUT", uploadURL, true);
+  xhrRequest.open('PUT', uploadURL, true);
   xhrRequest.send(file);
 };

@@ -1,10 +1,10 @@
-import { Group } from "./group.entity";
-import { Student } from "./student.entity";
-import { Like } from "./like.entity";
-import { Preview } from "./preview.entity";
-import { ProjectRepo } from "./project-repo.entity";
-import { Category } from "./category.entity";
-import { Tag } from "./tag.entity";
+import { Group } from './group.entity';
+import { Student } from './student.entity';
+import { Like } from './like.entity';
+import { Preview } from './preview.entity';
+import { ProjectRepo } from './project-repo.entity';
+import { Category } from './category.entity';
+import { Tag } from './tag.entity';
 
 export interface Project {
   id: string;

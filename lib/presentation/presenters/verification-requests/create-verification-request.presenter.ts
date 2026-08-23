@@ -1,6 +1,6 @@
-import { CreateVerificationRequestUseCaseResult } from "@/core/application/usecases/verification-requests/create-verification-request.usecase";
-import { CreateVerificationRequestFormData } from "@/lib/schemas/verification-form.schema";
-import { FormActionResult } from "../../types/form-action-result.type";
+import { CreateVerificationRequestUseCaseResult } from '@/core/application/usecases/verification-requests/create-verification-request.usecase';
+import { CreateVerificationRequestFormData } from '@/lib/schemas/verification-form.schema';
+import { FormActionResult } from '../../types/form-action-result.type';
 
 export type CreateVerificationRequestActionResult =
   FormActionResult<CreateVerificationRequestFormData>;
@@ -8,11 +8,11 @@ export type CreateVerificationRequestActionResult =
 export type CreateVerificationRequestFieldErrors = Extract<
   CreateVerificationRequestActionResult,
   { success: false }
->["fieldErrors"];
+>['fieldErrors'];
 
 export class CreateVerificationRequestPresenter {
   static present(
-    result: CreateVerificationRequestUseCaseResult,
+    result: CreateVerificationRequestUseCaseResult
   ): CreateVerificationRequestActionResult {
     if (result.success) {
       return {
@@ -20,23 +20,23 @@ export class CreateVerificationRequestPresenter {
       };
     }
 
-    console.error("CreateVerificationRequestUseCase failed:", result.error);
+    console.error('CreateVerificationRequestUseCase failed:', result.error);
 
     const fieldErrors: CreateVerificationRequestFieldErrors = {};
 
     let serverError: string | undefined = undefined;
 
     switch (result.error.code) {
-      case "STUDENT_NOT_FOUND":
-        fieldErrors["arabicName"] = result.error.message;
+      case 'STUDENT_NOT_FOUND':
+        fieldErrors['arabicName'] = result.error.message;
         break;
-      case "INVALID_COLLEGE_ID_FILE":
-        fieldErrors["collegeIdFileKey"] = result.error.message;
+      case 'INVALID_COLLEGE_ID_FILE':
+        fieldErrors['collegeIdFileKey'] = result.error.message;
         break;
-      case "PENDING_VERIFICATION_REQUEST_EXISTS":
+      case 'PENDING_VERIFICATION_REQUEST_EXISTS':
         serverError = result.error.message;
         break;
-      case "ALREADY_VERIFIED":
+      case 'ALREADY_VERIFIED':
         serverError = result.error.message;
         break;
       default:
@@ -45,8 +45,7 @@ export class CreateVerificationRequestPresenter {
 
     return {
       success: false,
-      fieldErrors:
-        Object.keys(fieldErrors).length > 0 ? fieldErrors : undefined,
+      fieldErrors: Object.keys(fieldErrors).length > 0 ? fieldErrors : undefined,
       serverError,
     };
   }

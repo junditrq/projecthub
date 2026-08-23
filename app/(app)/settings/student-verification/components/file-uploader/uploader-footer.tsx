@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { CardFooter } from "@/components/ui/card";
-import { useFileUploaderContext } from "@/providers/file-uploader-provider";
-import { Plus } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { CardFooter } from '@/components/ui/card';
+import { useFileUploaderContext } from '@/providers/file-uploader-provider';
+import { Plus } from 'lucide-react';
 
 const UploaderFooter = () => {
   const {
@@ -14,7 +14,7 @@ const UploaderFooter = () => {
     <CardFooter className="flex justify-between text-sm">
       <Button
         type="button"
-        variant={"link"}
+        variant={'link'}
         className="cursor-pointer"
         onClick={open}
         disabled={uploadItems.length === maxNumberOfFiles}
@@ -23,12 +23,11 @@ const UploaderFooter = () => {
       </Button>
 
       <span>
-        {uploadItems.length} {uploadItems.length > 1 ? "files" : "file"}{" "}
-        selected
+        {uploadItems.length} {uploadItems.length > 1 ? 'files' : 'file'} selected
       </span>
       <Button
         type="button"
-        variant={"link"}
+        variant={'link'}
         className="cursor-pointer"
         onClick={() => cancelUploads()}
       >

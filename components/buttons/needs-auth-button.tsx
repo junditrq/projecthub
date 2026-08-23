@@ -1,17 +1,11 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { DialogDescription } from "@radix-ui/react-dialog";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { Button, ShadcnButtonProps } from "../ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "../ui/dialog";
-import SignInButtonClient from "./sign-in-button-client";
+'use client';
+import { cn } from '@/lib/utils';
+import { DialogDescription } from '@radix-ui/react-dialog';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { Button, ShadcnButtonProps } from '../ui/button';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
+import SignInButtonClient from './sign-in-button-client';
 
 const NeedsAuthButton = ({
   onClick,
@@ -25,17 +19,17 @@ const NeedsAuthButton = ({
 }) => {
   const { status } = useSession();
   const [open, setOpen] = useState(false);
-  if (status === "loading" && skeleton) return skeleton;
+  if (status === 'loading' && skeleton) return skeleton;
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Button
         onClick={(e) => {
-          if (disabled || status === "loading") {
+          if (disabled || status === 'loading') {
             e.preventDefault();
             return;
           }
 
-          if (status !== "authenticated") {
+          if (status !== 'authenticated') {
             e.preventDefault();
             setOpen(true);
             return;
@@ -45,11 +39,11 @@ const NeedsAuthButton = ({
         }}
         className={cn(
           {
-            "pointer-events-none opacity-50": disabled || status === "loading",
+            'pointer-events-none opacity-50': disabled || status === 'loading',
           },
-          className,
+          className
         )}
-        disabled={disabled || status === "loading"}
+        disabled={disabled || status === 'loading'}
         {...props}
       >
         {children}

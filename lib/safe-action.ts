@@ -1,17 +1,14 @@
-import { auth } from "@/auth";
+import { auth } from '@/auth';
 import {
-    AuthenticationError,
-    BusinessRuleError,
-    DomainError,
-} from "@/core/domain/errors/domain-errors";
-import {
-    createSafeActionClient,
-    DEFAULT_SERVER_ERROR_MESSAGE,
-} from "next-safe-action";
+  AuthenticationError,
+  BusinessRuleError,
+  DomainError,
+} from '@/core/domain/errors/domain-errors';
+import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action';
 
 export const actionClient = createSafeActionClient({
   handleServerError: async (error) => {
-    console.error("Action Error:", error);
+    console.error('Action Error:', error);
 
     if (error instanceof DomainError) {
       if (error instanceof BusinessRuleError) {

@@ -1,49 +1,49 @@
-import Container from "@/components/common/container";
-import PageHeading from "@/components/page-heading";
-import ProjectCard from "@/components/project-card";
-import ProjectsToolbar from "@/components/projects-toolbar";
-import InitialUserDialog from "../components/initial-user-dialog";
+import Container from '@/components/common/container';
+import PageHeading from '@/components/page-heading';
+import ProjectCard from '@/components/project-card';
+import ProjectsToolbar from '@/components/projects-toolbar';
+import InitialUserDialog from '../components/initial-user-dialog';
 
 const project = {
-  id: "0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6",
-  name: "Smart Greenhouse Automation",
+  id: '0fa7c5e8-a832-6c35-9251-6bcf3a3dcaf6',
+  name: 'Smart Greenhouse Automation',
   description:
-    "An IoT-based greenhouse system that monitors and adjusts environmental conditions automatically.",
-  thumbnailUrl: "/images/site.jpg",
+    'An IoT-based greenhouse system that monitors and adjusts environmental conditions automatically.',
+  thumbnailUrl: '/images/site.jpg',
   categories: [
-    { name: "Web", id: "1" },
-    { name: "Mobile", id: "2" },
+    { name: 'Web', id: '1' },
+    { name: 'Mobile', id: '2' },
   ],
   tags: [
-    { name: "sensors", id: "1" },
-    { name: "automation", id: "2" },
-    { name: "raspberry-pi", id: "3" },
+    { name: 'sensors', id: '1' },
+    { name: 'automation', id: '2' },
+    { name: 'raspberry-pi', id: '3' },
   ],
   contributors: [
     {
-      name: "Aisha Patel",
-      avatarUrl: "https://randomuser.me/api/portraits/women/68.jpg",
-      id: "1",
+      name: 'Aisha Patel',
+      avatarUrl: 'https://randomuser.me/api/portraits/women/68.jpg',
+      id: '1',
     },
     {
-      name: "David Lin",
-      avatarUrl: "https://randomuser.me/api/portraits/men/35.jpg",
-      id: "2",
+      name: 'David Lin',
+      avatarUrl: 'https://randomuser.me/api/portraits/men/35.jpg',
+      id: '2',
     },
     {
-      name: "Fatima Khan",
-      avatarUrl: "https://randomuser.me/api/portraits/women/22.jpg",
-      id: "3",
+      name: 'Fatima Khan',
+      avatarUrl: 'https://randomuser.me/api/portraits/women/22.jpg',
+      id: '3',
     },
     {
-      name: "Leo Costa",
-      avatarUrl: "https://randomuser.me/api/portraits/men/68.jpg",
-      id: "4",
+      name: 'Leo Costa',
+      avatarUrl: 'https://randomuser.me/api/portraits/men/68.jpg',
+      id: '4',
     },
     {
-      name: "Emily Zhang",
-      avatarUrl: "https://randomuser.me/api/portraits/women/15.jpg",
-      id: "5",
+      name: 'Emily Zhang',
+      avatarUrl: 'https://randomuser.me/api/portraits/women/15.jpg',
+      id: '5',
     },
   ],
   _count: {

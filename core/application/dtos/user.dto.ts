@@ -6,5 +6,5 @@ export interface UserResponseDTO {
   githubUsername: string | null;
   linkedinUrl: string | null;
   hasBeenPrompted: boolean;
-  role: "admin" | "student" | "visitor";
+  role: 'admin' | 'student' | 'visitor';
 }

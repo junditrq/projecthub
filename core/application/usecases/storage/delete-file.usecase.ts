@@ -1,4 +1,4 @@
-import { IStorageService } from "@/core/application/services/storage.service";
+import { IStorageService } from '@/core/application/services/storage.service';
 
 export class DeleteFileUseCase {
   private storageRepo;

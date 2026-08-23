@@ -1,10 +1,10 @@
-import { env } from "@/env";
-import { S3Client } from "@aws-sdk/client-s3";
+import { env } from '@/env';
+import { S3Client } from '@aws-sdk/client-s3';
 
 const endpoint = env.STORAGE_ENDPOINT;
 
 export const s3Client = new S3Client({
-  region: env.STORAGE_REGION || "us-east-1",
+  region: env.STORAGE_REGION || 'us-east-1',
 
   ...(endpoint && { endpoint }),
 

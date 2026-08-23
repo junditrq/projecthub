@@ -1,7 +1,7 @@
-import { VerificationRequest } from "@/core/domain/entities/verification-request.entity";
-import { IVerificationRequestRepo } from "@/core/domain/repos/verification-request.repo";
-import prisma from "@/core/infra/orm/prisma.client";
-import { PrismaVerificationRequestMapper } from "../../mappers/verification-request.prisma.mapper";
+import { VerificationRequest } from '@/core/domain/entities/verification-request.entity';
+import { IVerificationRequestRepo } from '@/core/domain/repos/verification-request.repo';
+import prisma from '@/core/infra/orm/prisma.client';
+import { PrismaVerificationRequestMapper } from '../../mappers/verification-request.prisma.mapper';
 
 export class PrismaVerificationRequestRepo implements IVerificationRequestRepo {
   private prisma;
@@ -13,7 +13,7 @@ export class PrismaVerificationRequestRepo implements IVerificationRequestRepo {
   async getLatestByUserId(userId: string): Promise<VerificationRequest | null> {
     const latest = await this.prisma.verificationRequest.findFirst({
       where: { userId },
-      orderBy: { createdAt: "desc" },
+      orderBy: { createdAt: 'desc' },
     });
 
     return latest ? PrismaVerificationRequestMapper.toDomain(latest) : null;
@@ -23,15 +23,14 @@ export class PrismaVerificationRequestRepo implements IVerificationRequestRepo {
     const count = await this.prisma.verificationRequest.count({
       where: {
         userId,
-        status: "pending",
+        status: 'pending',
       },
     });
     return count > 0;
   }
 
   async save(request: VerificationRequest): Promise<VerificationRequest> {
-    const prismaRequest =
-      PrismaVerificationRequestMapper.toPersistence(request);
+    const prismaRequest = PrismaVerificationRequestMapper.toPersistence(request);
 
     const updated = await this.prisma.verificationRequest.upsert({
       where: { id: request.id },

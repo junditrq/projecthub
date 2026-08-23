@@ -1,9 +1,9 @@
-"use client";
-import { TagDTO } from "@/core/application/dtos/tag.dto";
-import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
-import { useMemo, useRef } from "react";
-import Select from "react-select";
+'use client';
+import { TagDTO } from '@/core/application/dtos/tag.dto';
+import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
+import { useMemo, useRef } from 'react';
+import Select from 'react-select';
 
 type TagsFilterProps = {
   tags: TagDTO[];
@@ -13,10 +13,7 @@ const TagsFilter = ({ tags }: TagsFilterProps) => {
   const portalRef = useRef(null);
   const { theme } = useTheme();
 
-  const options = useMemo(
-    () => tags.map((t) => ({ label: t.slug, value: t.id })),
-    [tags],
-  );
+  const options = useMemo(() => tags.map((t) => ({ label: t.slug, value: t.id })), [tags]);
 
   return (
     <div>
@@ -37,22 +34,21 @@ const TagsFilter = ({ tags }: TagsFilterProps) => {
         classNames={{
           control: ({ isFocused, hasValue }) =>
             cn(
-              theme === "dark" ? "!bg-input/30" : "!bg-transparent",
-              "!min-h-9 !border-input !rounded-md !cursor-pointer",
-              isFocused &&
-                "!border-ring !ring-ring/50 !ring-[3px] outline-none",
-              hasValue && "!py-2",
+              theme === 'dark' ? '!bg-input/30' : '!bg-transparent',
+              '!min-h-9 !border-input !rounded-md !cursor-pointer',
+              isFocused && '!border-ring !ring-ring/50 !ring-[3px] outline-none',
+              hasValue && '!py-2'
             ),
-          placeholder: () => "text-muted-foreground text-sm ",
-          indicatorSeparator: () => "bg-input h-5 !self-center !hidden",
-          dropdownIndicator: () => "!hidden",
+          placeholder: () => 'text-muted-foreground text-sm ',
+          indicatorSeparator: () => 'bg-input h-5 !self-center !hidden',
+          dropdownIndicator: () => '!hidden',
           menuList: () =>
-            "bg-popover text-popover-foreground !border-none !outline-none !shadow-none !py-2",
+            'bg-popover text-popover-foreground !border-none !outline-none !shadow-none !py-2',
           option: ({ isFocused }) =>
-            cn(isFocused && "!bg-accent !text-accent-foreground", "!text-md"),
-          multiValue: () => "!rounded-lg !bg-secondary !text-primary",
-          multiValueLabel: () => "!text-primary",
-          valueContainer: () => "gap-1",
+            cn(isFocused && '!bg-accent !text-accent-foreground', '!text-md'),
+          multiValue: () => '!rounded-lg !bg-secondary !text-primary',
+          multiValueLabel: () => '!text-primary',
+          valueContainer: () => 'gap-1',
         }}
         // 		"absolute top-2.5 right-2 w-4 h-4 [&>svg]:w-4 [&>svg]:h-4",
         // 	clearIndicator: () =>

@@ -1,17 +1,14 @@
-"use client";
-import {
-    UploadItem as UploadItemType,
-    useFileUploader,
-} from "@/hooks/use-file-uploader";
-import { getUploadURLAction } from "@/lib/actions/storage.actions";
-import { uploadFilesWithXHR } from "@/lib/upload-helper";
-import { formatBytes } from "@/lib/utils";
-import { FileUploaderProvider } from "@/providers/file-uploader-provider";
-import { useAction } from "next-safe-action/hooks";
-import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
-import { useDropzone } from "react-dropzone";
-import { toast } from "sonner";
-import UploadDropzone from "./upload-dropzone";
+'use client';
+import { UploadItem as UploadItemType, useFileUploader } from '@/hooks/use-file-uploader';
+import { getUploadURLAction } from '@/lib/actions/storage.actions';
+import { uploadFilesWithXHR } from '@/lib/upload-helper';
+import { formatBytes } from '@/lib/utils';
+import { FileUploaderProvider } from '@/providers/file-uploader-provider';
+import { useAction } from 'next-safe-action/hooks';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { toast } from 'sonner';
+import UploadDropzone from './upload-dropzone';
 
 export interface FileUploaderProps {
   inputId: string;
@@ -30,15 +27,11 @@ const FileUploader = ({
   error = false,
   onChange,
 }: FileUploaderProps) => {
-  const {
-    maxFileSize = Infinity,
-    allowedTypes = [],
-    maxNumberOfFiles = 1,
-  } = restrictions;
+  const { maxFileSize = Infinity, allowedTypes = [], maxNumberOfFiles = 1 } = restrictions;
 
   const allowedFormats = allowedTypes
-    .map((type: string) => type.split("/")[1].toUpperCase())
-    .join(", ");
+    .map((type: string) => type.split('/')[1].toUpperCase())
+    .join(', ');
 
   const { executeAsync: getUploadURL } = useAction(getUploadURLAction);
 
@@ -69,11 +62,11 @@ const FileUploader = ({
       const newFiles = fileList
         .filter((file) => {
           const existingUploadItem = uploadItems.find(
-            (uploadItem) => uploadItem.file.name === file.name,
+            (uploadItem) => uploadItem.file.name === file.name
           );
 
           if (existingUploadItem) {
-            if (existingUploadItem.status === "error") {
+            if (existingUploadItem.status === 'error') {
               cancelUpload(existingUploadItem.fileKey);
               return true;
             }
@@ -87,7 +80,7 @@ const FileUploader = ({
         .filter((file) => {
           if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
             toast.error(
-              `File "${file.name}" has an invalid format. Valid formats are: ${allowedFormats}.`,
+              `File "${file.name}" has an invalid format. Valid formats are: ${allowedFormats}.`
             );
             return false;
           }
@@ -95,7 +88,7 @@ const FileUploader = ({
           if (file.size > maxFileSize) {
             console.log(file.name);
             toast.error(
-              `File "${file.name}" is too large. Maximum size is ${formatBytes(maxFileSize)}.`,
+              `File "${file.name}" is too large. Maximum size is ${formatBytes(maxFileSize)}.`
             );
             return false;
           }
@@ -107,9 +100,7 @@ const FileUploader = ({
         !(maxNumberOfFiles === 1 && newFiles.length === 1) &&
         newFiles.length + uploadItems.length > maxNumberOfFiles
       ) {
-        toast.error(
-          `Too many files. Maximum number of files is ${maxNumberOfFiles}`,
-        );
+        toast.error(`Too many files. Maximum number of files is ${maxNumberOfFiles}`);
         return;
       }
 
@@ -127,11 +118,9 @@ const FileUploader = ({
         addUploadItem({
           file,
           fileKey,
-          previewURL: file.type.startsWith("image")
-            ? URL.createObjectURL(file)
-            : undefined,
+          previewURL: file.type.startsWith('image') ? URL.createObjectURL(file) : undefined,
           abortController,
-          status: "uploading",
+          status: 'uploading',
         });
 
         try {
@@ -142,7 +131,7 @@ const FileUploader = ({
           }
 
           if (!result?.data) {
-            markError(fileKey, "Failed to upload File");
+            markError(fileKey, 'Failed to upload File');
             return;
           }
 
@@ -161,7 +150,7 @@ const FileUploader = ({
           });
         } catch (e) {
           console.error(e);
-          markError(fileKey, "Failed to upload file.");
+          markError(fileKey, 'Failed to upload file.');
         }
       });
     },
@@ -177,7 +166,7 @@ const FileUploader = ({
       maxNumberOfFiles,
       updateProgress,
       uploadItems,
-    ],
+    ]
   );
 
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
@@ -188,9 +177,9 @@ const FileUploader = ({
   const rootProps = getRootProps();
   const inputProps = getInputProps({
     id: inputId,
-    type: "file",
-    placeholder: "Select",
-    accept: allowedTypes.length > 0 ? allowedTypes?.join(",") : undefined,
+    type: 'file',
+    placeholder: 'Select',
+    accept: allowedTypes.length > 0 ? allowedTypes?.join(',') : undefined,
     multiple: maxNumberOfFiles > 1,
     disabled: uploadItems.length === maxNumberOfFiles,
   });
@@ -211,11 +200,7 @@ const FileUploader = ({
         allowedFormats,
       }}
     >
-      <UploadDropzone
-        rootProps={rootProps}
-        inputProps={inputProps}
-        isDragActive={isDragActive}
-      />
+      <UploadDropzone rootProps={rootProps} inputProps={inputProps} isDragActive={isDragActive} />
     </FileUploaderProvider>
   );
 };

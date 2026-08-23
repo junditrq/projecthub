@@ -1,8 +1,6 @@
-"use client";
-import HoverNavLink, {
-    HoverNavLinkProps,
-} from "@/components/common/hover-nav-link";
-import { usePathname } from "next/navigation";
+'use client';
+import HoverNavLink, { HoverNavLinkProps } from '@/components/common/hover-nav-link';
+import { usePathname } from 'next/navigation';
 
 const NavTabItem = ({ href, ...props }: HoverNavLinkProps) => {
   const pathname = usePathname();

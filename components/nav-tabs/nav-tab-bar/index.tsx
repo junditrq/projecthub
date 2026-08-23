@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 const NavTabBar = ({
   children,
@@ -6,14 +6,14 @@ const NavTabBar = ({
   ...props
 }: {
   children?: React.ReactNode;
-  className?: React.HTMLAttributes<HTMLDivElement>["className"];
+  className?: React.HTMLAttributes<HTMLDivElement>['className'];
 }) => {
   return (
     <div
       {...props}
       className={cn(
-        "ms-auto flex h-full flex-nowrap gap-2 overflow-x-auto p-2 *:shrink-0 sm:gap-4 md:gap-6",
-        className,
+        'ms-auto flex h-full flex-nowrap gap-2 overflow-x-auto p-2 *:shrink-0 sm:gap-4 md:gap-6',
+        className
       )}
     >
       {children}

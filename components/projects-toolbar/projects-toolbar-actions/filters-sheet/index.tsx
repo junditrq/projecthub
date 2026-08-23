@@ -1,21 +1,15 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
-import { Filter } from "lucide-react";
+'use client';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Filter } from 'lucide-react';
 
 const FiltersSheet = ({ children }: { children?: React.ReactNode }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant={"outline"} className="flex cursor-pointer gap-2">
+        <Button variant={'outline'} className="flex cursor-pointer gap-2">
           <Filter />
           <span>Filter</span>
         </Button>

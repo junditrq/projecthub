@@ -1,4 +1,4 @@
-import { Project } from "./project.entity";
+import { Project } from './project.entity';
 
 export interface Preview {
   id: string;
