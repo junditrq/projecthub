@@ -128,6 +128,43 @@ No test framework configured yet.
    - Current entities are interfaces only - refactor to classes with private state + methods when needed
 4. **Missing Project Domain**: No `IProjectRepo` or project use cases exist in core. Project logic is in `lib/actions/` or UI components - consider migrating to core.
 
+## Architecture & DDD Rules
+
+### 1. Persistence Layer & Prisma Schema Strictness
+
+- **Rule:** NEVER make Prisma schema fields optional (`?`) just to satisfy third-party boilerplate (e.g., default Auth.js schemas) if our core domain requires that field.
+- **Rule:** If the business domain dictates that a user must have an email, the database schema MUST reflect this (`email String @unique`). Do not compromise persistence integrity for third-party quirks.
+
+### 2. Mapper Layer (Anti-Corruption Layer)
+
+- **Rule:** Mappers MUST act as pure shape and type translators between Persistence models (Prisma) and Domain Entities.
+- **Rule:** NEVER put business validation logic inside a Mapper (e.g., checking if a required field exists and throwing a domain error).
+- **Rule:** NEVER use TypeScript non-null assertions (`!`) or type casting (`as string`) in Mappers to force types to align. If types mismatch, you must fix the Prisma schema or the Domain Entity interfaces to reflect reality.
+
+### 3. Domain Entities & Validation Invariants
+
+- **Rule:** Domain Entities are the absolute authority on business rules and state transitions.
+- **Rule:** ALWAYS separate the entity lifecycle into two distinct static factory methods:
+  1. `Entity.create(props)`: Used for generating _new_ entities. This method MUST enforce strict business validation (e.g., formatting, completeness, initial state).
+  2. `Entity.reconstitute(props)`: Used ONLY by Mappers when hydrating data from the database. It bypasses initial creation logic because the data is assumed to have been validated prior to persistence.
+
+### 4. Repository Layer
+
+- **Rule:** Repositories are strictly an abstraction for data access mechanics.
+- **Rule:** NEVER place business validation, impedance mismatch checks, or null-field throwing logic inside a Repository. The Repository simply queries the database and passes the raw result directly to the Mapper.
+
+### 5. Infrastructure Gatekeeping (Auth.js & OAuth Integrations)
+
+- **Rule:** Deal with third-party data imperfections (e.g., missing GitHub emails) at the infrastructure edge, NEVER by weakening the Domain Entity or Database Schema.
+- **Rule:** For Auth.js, use the `profile()` callback to normalize data before it hits the adapter.
+- **Rule:** Use the `signIn()` callback as an absolute gatekeeper to reject sign-ins that lack required data (e.g., missing emails).
+- **Rule:** If a user is missing data required by the Domain, store their session temporarily (Redis/Cookie), route them to an onboarding/completion flow, and ONLY insert them into the database once their profile strictly satisfies the Domain constraints.
+
+### 6. Transport Validation vs. Domain Validation
+
+- **Rule:** ALWAYS use Zod for transport-level input validation (Next.js Server Actions, API routes) to guarantee data shape and format from the client.
+- **Rule:** Keep behavior-based and state-transition invariants (e.g., `canRequestVerification()`) inside the Domain Entity.
+
 ## Gotchas
 
 - Turbopack enabled in dev (`--turbopack`)
