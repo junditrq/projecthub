@@ -46,3 +46,6 @@ core/infra/data/groups-*.ts
 !core/infra/data/groups-sample.ts
 
 /minio-data
+
+# Prisma generated client
+/app/generated/
