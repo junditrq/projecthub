@@ -149,7 +149,8 @@ model Subject {
 
 model Student {
   id         String  @id @default(uuid())
-  arabicName String  @map("arabic_name")
+  arabicName String  @map("arabic_name") 
+  normalizedArabicName String  @map("normalized_arabic_name")
   userId     String? @unique @map("user_id")
 
   createdAt DateTime @default(now())
