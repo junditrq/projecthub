@@ -50,7 +50,7 @@ export class VerificationRequest {
       createdAt: now,
       updatedAt: now,
       reviewedById: null,
-      status: VerificationStatus.pending,
+      status: VerificationStatus.PENDING,
     });
   }
 
@@ -60,7 +60,7 @@ export class VerificationRequest {
 }
 
 export enum VerificationStatus {
-  pending = 'pending',
-  approved = 'approved',
-  rejected = 'rejected',
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
 }

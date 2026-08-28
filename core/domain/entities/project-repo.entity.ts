@@ -10,8 +10,9 @@ export interface ProjectRepo {
 }
 
 export enum ProjectRepoType {
-  frontend = 'frontend',
-  backend = 'backend',
-  mobile = 'mobile',
-  monorepo = 'monorepo',
+  FRONTEND = 'FRONTEND',
+  BACKEND = 'BACKEND',
+  MOBILE = 'MOBILE',
+  MONOREPO = 'MONOREPO',
+  AI = 'AI',
 }

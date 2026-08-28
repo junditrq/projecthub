@@ -9,7 +9,13 @@ export interface UserProps {
   githubUsername: string | null;
   linkedinUrl: string | null;
   hasBeenPrompted: boolean;
-  role: 'admin' | 'student' | 'visitor';
+  role: UserRole;
+}
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  STUDENT = 'STUDENT',
+  VISITOR = 'VISITOR',
 }
 
 export class User {
@@ -40,7 +46,7 @@ export class User {
   get hasBeenPrompted(): boolean {
     return this._props.hasBeenPrompted;
   }
-  get role(): 'admin' | 'student' | 'visitor' {
+  get role(): UserRole {
     return this._props.role;
   }
 
@@ -51,8 +57,8 @@ export class User {
     this._props.hasBeenPrompted = true;
   }
 
-  public canRequestStudnetVerification(): boolean {
-    return this._props.role === 'visitor';
+  public canRequestStudentVerification(): boolean {
+    return this._props.role === UserRole.VISITOR;
   }
 
   public static reconstitute(props: UserProps) {

@@ -1,5 +1,6 @@
 import type { NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
+import { UserRoleDTO } from './core/application/dtos/user.dto';
 
 export const authConfig = {
   pages: {
@@ -36,7 +37,7 @@ export const authConfig = {
         }
       }
 
-      if (onStudentPath && user.role !== 'student') {
+      if (onStudentPath && user.role !== UserRoleDTO.STUDENT) {
         return Response.redirect(new URL('/settings/student-verification', nextUrl));
       }
 

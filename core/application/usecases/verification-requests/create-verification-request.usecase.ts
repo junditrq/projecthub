@@ -46,7 +46,7 @@ export class CreateVerificationRequestUseCase {
       };
     }
 
-    if (!user.canRequestStudnetVerification()) {
+    if (!user.canRequestStudentVerification()) {
       return {
         success: false,
         error: {

@@ -9,28 +9,48 @@ generator client {
 }
 
 enum UserRole {
-  admin
-  visitor
-  student
+  ADMIN
+  VISITOR
+  STUDENT
 
   @@map("user_role")
 }
 
 enum VerificationStatus {
-  pending
-  approved
-  rejected
+  PENDING
+  APPROVED
+  REJECTED
 
   @@map("verification_status")
 }
 
+
+enum Specialization {
+  SWE
+  AI
+  NET
+  GENERAL
+
+  @@map("specialization")
+}
+
 enum ProjectRepoType {
-  frontend
-  backend
-  mobile
-  monorepo
+  FRONTEND
+  BACKEND
+  MOBILE
+  MONOREPO
+  AI
 
   @@map("project_repo_type")
+}
+
+
+enum YearLevel {
+  THIRD
+  FOURTH
+  FIFTH
+
+  @@map("year_level")
 }
 
 model User {
@@ -45,7 +65,7 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  role UserRole @default(visitor)
+  role UserRole @default(VISITOR)
 
   githubUsername String? @map("github_username")
   linkedinUrl    String? @map("linkedin_url")
@@ -153,7 +173,7 @@ model VerificationRequest {
   submittedArabicName String @map("submitted_arabic_name")
   collegeIdPicUrl     String @map("college_id_pic_url")
 
-  status VerificationStatus @default(pending)
+  status VerificationStatus @default(PENDING)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

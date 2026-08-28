@@ -29,21 +29,34 @@ export class PrismaVerificationRequestMapper {
       createdAt: request.createdAt,
       updatedAt: request.updatedAt,
       collegeIdPicUrl: request.collegeIdPicUrl,
-      status: request.status,
+      status: this.toPersistenceStatus(request.status),
       submittedArabicName: request.submittedArabicName,
     };
   }
 
   private static toDomainStatus(status: PrismaVerificationStatus): VerificationStatus {
     switch (status) {
-      case 'pending':
-        return VerificationStatus.pending;
-      case 'approved':
-        return VerificationStatus.approved;
-      case 'rejected':
-        return VerificationStatus.rejected;
+      case PrismaVerificationStatus.PENDING:
+        return VerificationStatus.PENDING;
+      case PrismaVerificationStatus.APPROVED:
+        return VerificationStatus.APPROVED;
+      case PrismaVerificationStatus.REJECTED:
+        return VerificationStatus.REJECTED;
       default:
         throw new Error(`Unknown status: ${status}`);
+    }
+  }
+
+  private static toPersistenceStatus(status: VerificationStatus): PrismaVerificationStatus {
+    switch (status) {
+      case VerificationStatus.PENDING:
+        return PrismaVerificationStatus.PENDING;
+      case VerificationStatus.APPROVED:
+        return PrismaVerificationStatus.APPROVED;
+      case VerificationStatus.REJECTED:
+        return PrismaVerificationStatus.REJECTED;
+      default:
+        throw new Error(`Unknown domain status: ${status}`);
     }
   }
 }

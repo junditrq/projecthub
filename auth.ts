@@ -3,15 +3,15 @@ import prisma from '@/core/infra/orm/prisma.client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth, { type DefaultSession } from 'next-auth';
 import { VerificationRequestStatusDTO } from './core/application/dtos/verification-request.dto';
-import { UserProps } from './core/domain/entities/user.entity';
 import container from './core/infra/di/container';
+import { UserRoleDTO } from './core/application/dtos/user.dto';
 
 declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
       hasBeenPrompted: boolean;
-      role: UserProps['role'];
+      role: UserRoleDTO;
       name: string;
       email: string;
       image?: string;
@@ -22,7 +22,7 @@ declare module 'next-auth' {
   interface User {
     id: string;
     hasBeenPrompted: boolean;
-    role: UserProps['role'];
+    role: UserRoleDTO;
     verificationStatus: VerificationRequestStatusDTO;
   }
 }
@@ -37,7 +37,7 @@ declare module 'next-auth/jwt' {
   interface JWT {
     /** OpenID ID Token */
     hasBeenPrompted: boolean;
-    role: UserProps['role'];
+    role: UserRoleDTO;
     userId: string | undefined;
     verificationStatus: VerificationRequestStatusDTO;
   }
@@ -58,7 +58,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           token.verificationStatus = await getStudentVerificationStatusUseCase.execute(user.id);
         } catch (error) {
           console.error('Error fetching verification status:', error);
-          token.verificationStatus = 'not_submitted';
+          token.verificationStatus = VerificationRequestStatusDTO.NOT_SUBMITTED;
         }
 
         token.hasBeenPrompted = !!user.hasBeenPrompted;
