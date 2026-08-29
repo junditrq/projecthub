@@ -15,9 +15,10 @@ export class PrismaVerificationRequestMapper {
       reviewedById: prismaVerificationRequest.reviewedById,
       createdAt: prismaVerificationRequest.createdAt,
       updatedAt: prismaVerificationRequest.updatedAt,
-      collegeIdPicUrl: prismaVerificationRequest.collegeIdPicUrl,
+      collegeIdPicURL: prismaVerificationRequest.collegeIdPicURL,
       status: this.toDomainStatus(prismaVerificationRequest.status),
       submittedArabicName: prismaVerificationRequest.submittedArabicName,
+      rejectedReason: prismaVerificationRequest.rejectedReason,
     });
   }
 
@@ -28,9 +29,10 @@ export class PrismaVerificationRequestMapper {
       reviewedById: request.reviewedById,
       createdAt: request.createdAt,
       updatedAt: request.updatedAt,
-      collegeIdPicUrl: request.collegeIdPicUrl,
+      collegeIdPicURL: request.collegeIdPicURL,
       status: this.toPersistenceStatus(request.status),
       submittedArabicName: request.submittedArabicName,
+      rejectedReason: request.rejectedReason,
     };
   }
 

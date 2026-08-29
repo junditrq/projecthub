@@ -1,16 +1,26 @@
-export interface VerificationRequestProps {
-  id: string;
+export enum VerificationStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+}
+
+export interface CreateVerificationRequestProps {
   submittedArabicName: string;
-  collegeIdPicUrl: string;
-  status: VerificationStatus;
+  collegeIdPicURL: string;
   userId: string;
-  reviewedById: string | null;
+}
+
+export interface VerificationRequestProps extends CreateVerificationRequestProps {
+  id: string;
+  status: VerificationStatus;
   createdAt: Date;
   updatedAt: Date;
+  reviewedById: string | null;
+  rejectedReason: string | null;
 }
 
 export class VerificationRequest {
-  constructor(private _props: VerificationRequestProps) {}
+  constructor(private readonly _props: VerificationRequestProps) {}
 
   get id(): string {
     return this._props.id;
@@ -18,8 +28,8 @@ export class VerificationRequest {
   get submittedArabicName(): string {
     return this._props.submittedArabicName;
   }
-  get collegeIdPicUrl(): string {
-    return this._props.collegeIdPicUrl;
+  get collegeIdPicURL(): string {
+    return this._props.collegeIdPicURL;
   }
   get status(): VerificationStatus {
     return this._props.status;
@@ -36,13 +46,11 @@ export class VerificationRequest {
   get updatedAt(): Date {
     return this._props.updatedAt;
   }
+  get rejectedReason(): string | null {
+    return this._props.rejectedReason;
+  }
 
-  public static create(
-    props: Omit<
-      VerificationRequestProps,
-      'id' | 'createdAt' | 'updatedAt' | 'reviewedById' | 'status'
-    >
-  ) {
+  public static create(props: CreateVerificationRequestProps) {
     const now = new Date();
     return new VerificationRequest({
       ...props,
@@ -50,6 +58,7 @@ export class VerificationRequest {
       createdAt: now,
       updatedAt: now,
       reviewedById: null,
+      rejectedReason: null,
       status: VerificationStatus.PENDING,
     });
   }
@@ -57,10 +66,4 @@ export class VerificationRequest {
   public static reconstitute(props: VerificationRequestProps) {
     return new VerificationRequest(props);
   }
-}
-
-export enum VerificationStatus {
-  PENDING = 'PENDING',
-  APPROVED = 'APPROVED',
-  REJECTED = 'REJECTED',
 }

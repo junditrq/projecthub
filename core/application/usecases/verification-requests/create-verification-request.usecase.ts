@@ -97,7 +97,7 @@ export class CreateVerificationRequestUseCase {
     }
 
     const verificationRequest = VerificationRequest.create({
-      collegeIdPicUrl: destinationKey,
+      collegeIdPicURL: destinationKey,
       submittedArabicName: arabicName.trim(),
       userId,
     });
