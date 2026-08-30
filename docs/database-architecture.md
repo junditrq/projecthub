@@ -209,7 +209,7 @@ subjects {
   id string pk
   name string // parallel programming
   slug string // prallel-programming
-  yearLevel year_level // third year
+  yearLevel year_level // fourth-year
   allowed_specializations specialization[]
 }
 
@@ -580,7 +580,9 @@ Currently modeled as an implicit many-to-many relation for the same reason as ca
 - `yearLevel: YearLevel` — the academic year level at which the subject is taught. The schema types this as the `YearLevel` enum (`THIRD`, `FOURTH`, `FIFTH`) rather than a raw `Int`, so a `Group` cannot be persisted against an invalid year level.
 - `allowedSpecializations: Specialization[]` — the set of `Specialization` values (`SWE`, `AI`, `NET`, `GENERAL`) that the subject accepts. When a `Group` is created or updated, the application layer must verify that `Group.specialization` is contained in the referenced `Subject.allowedSpecializations`. The database does not enforce this constraint today; it is treated as a domain validation rule with a meaningful error path, mirroring the layered approach described in §8.
 
-These properties exist so the academic catalogue can express, for example, that "Parallel Programming" is taught in the third year and only to the `SWE` and `AI` specializations. A `Group` whose subject is "Parallel Programming" with `specialization = NET` should be rejected by the domain before it reaches the database.
+These properties exist so the academic catalogue can express, for example, that "project 1" is taught in the third year and only to the `GENERAL` specialization. A `Group` whose subject is "Parallel Programming" with `specialization = NET` should be rejected by the domain before it reaches the database.
+
+The `(subject, specialization)` check is intentionally not duplicated at the database level because `allowedSpecializations` is catalog metadata stored on `Subject`, and PostgreSQL `CHECK` constraints cannot safely enforce predicates against another table; enforcing it through a trigger would add database-specific complexity without meaningful benefit for the current seeded/immutable Group lifecycle.
 
 ---
 
