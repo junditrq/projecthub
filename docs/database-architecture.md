@@ -441,13 +441,19 @@ In practice, the application should not expose arbitrary group membership mutati
 
 ### 5.8 Group ↔ Project
 
-**Cardinality:** `Group 1 ── 0..N Project`
+**Cardinality:** `Group 1 ── 0..1 Project`
 
-A group can have zero or more published projects. A project belongs to exactly one group.
+A group can have **at most one** published project, while each project belongs to exactly one group.
 
-`Group` is the project's academic SSOT.
+The relationship is therefore **one-to-one from the project's perspective and optional from the group's perspective**: a group may not yet have a published project, but a project cannot exist without a group.
 
-**Recommended referential action:** `Restrict` / `NoAction` on deletion of a Group, because groups are historical/archival records and a project depends on its context. If historical groups must never be physically deleted, this is naturally enforced operationally as well.
+`Group` is the project's **academic source of truth (SSOT)**. The project inherits its academic context through its group, including the project idea, academic year, subject, specialization, and year level.
+
+The one-to-one constraint is enforced at the database level by making `Project.groupId` unique:
+
+```prisma
+groupId String @unique
+```
 
 ---
 
