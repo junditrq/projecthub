@@ -40,7 +40,7 @@ A core or central entity represents an important real-world concept around which
 
 A contextual or historical entity records the context in which another domain concept occurred.
 
-`Group` represents a concrete academic occurrence of a project idea for a specific academic year, subject, specialization, and fixed student cohort. Multiple groups may share the same academic context because multiple cohorts can work on the same idea/subject/year/specialization combination.
+`Group` represents a concrete academic occurrence of a project idea for a specific academic year, subject, specialization, and fixed student cohort. The cohort's year level is reached transitively through the Group's `Subject` (which carries the `YearLevel`); it is not stored on the Group itself. Multiple groups may share the same academic context because multiple cohorts can work on the same idea/subject/year/specialization combination.
 
 ### 2.5 Reference / master data entity
 
@@ -449,7 +449,7 @@ A group can have **at most one** published project, while each project belongs t
 
 The relationship is therefore **one-to-one from the project's perspective and optional from the group's perspective**: a group may not yet have a published project, but a project cannot exist without a group.
 
-`Group` is the project's **academic source of truth (SSOT)**. The project inherits its academic context through its group, including the project idea, academic year, subject, specialization, and year level.
+`Group` is the project's **academic source of truth (SSOT)**. The project inherits its academic context through its group, including the project idea, academic year, subject, and specialization. The cohort's year level is reached transitively through the Group's `Subject` (which carries the `YearLevel`); it is not a first-class property of the Group itself.
 
 The one-to-one constraint is enforced at the database level by making `Project.groupId` unique:
 
