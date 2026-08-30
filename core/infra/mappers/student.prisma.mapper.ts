@@ -3,10 +3,11 @@ import { Student } from '@/core/domain/entities/student.entity';
 
 export class PrismaStudentMapper {
   static toDomain(student: PrismaStudent): Student {
-    return {
-      arabicName: student.arabicName,
+    return Student.reconstitute({
       id: student.id,
+      arabicName: student.arabicName,
+      normalizedArabicName: student.normalizedArabicName,
       userId: student.userId,
-    };
+    });
   }
 }

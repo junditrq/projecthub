@@ -18,6 +18,7 @@ pnpm lint         # ESLint (next/core-web-vitals, next/typescript, prettier)
 pnpm format       # Prettier --write
 pnpm format:check # Prettier --check
 pnpm prepare      # Husky install (runs on install)
+pnpm typecheck    # TypeScript type check
 ```
 
 ## Code Quality Order

@@ -1,17 +1,15 @@
-import { Project } from './project.entity';
-import { Student } from './student.entity';
+export enum ProjectRepoType {
+  FRONTEND = 'FRONTEND',
+  BACKEND = 'BACKEND',
+  MOBILE = 'MOBILE',
+  MONOREPO = 'MONOREPO',
+  AI = 'AI',
+}
 
 export interface ProjectRepo {
   id: string;
   type: ProjectRepoType;
+  projectId: string;
   url: string;
-  project: Project;
-  contributors: Student[];
-}
-
-export enum ProjectRepoType {
-  frontend = 'frontend',
-  backend = 'backend',
-  mobile = 'mobile',
-  monorepo = 'monorepo',
+  contributorStudentIds: string[];
 }

@@ -9,34 +9,52 @@ generator client {
 }
 
 enum UserRole {
-  admin
-  visitor
-  student
+  ADMIN
+  VISITOR
+  STUDENT
 
   @@map("user_role")
 }
 
 enum VerificationStatus {
-  pending
-  approved
-  rejected
+  PENDING
+  APPROVED
+  REJECTED
 
   @@map("verification_status")
 }
 
+enum Specialization {
+  SWE
+  AI
+  NET
+  GENERAL
+
+  @@map("specialization")
+}
+
 enum ProjectRepoType {
-  frontend
-  backend
-  mobile
-  monorepo
+  FRONTEND
+  BACKEND
+  MOBILE
+  MONOREPO
+  AI
 
   @@map("project_repo_type")
+}
+
+enum YearLevel {
+  THIRD
+  FOURTH
+  FIFTH
+
+  @@map("year_level")
 }
 
 model User {
   id            String    @id @default(cuid())
   name          String
-  email         String   @unique
+  email         String    @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
   accounts      Account[]
@@ -45,7 +63,7 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  role UserRole @default(visitor)
+  role UserRole @default(VISITOR)
 
   githubUsername String? @map("github_username")
   linkedinUrl    String? @map("linkedin_url")
@@ -108,35 +126,37 @@ model AcademicYear {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  projectIdeas ProjectIdea[]
+  group Group[]
 
   @@map("academic_years")
 }
 
 model Subject {
-  id        String @id @default(uuid())
-  name      String @unique
-  slug      String @unique
-  yearLevel Int
+  id                     String           @id @default(uuid())
+  name                   String           @unique
+  slug                   String           @unique
+  yearLevel              YearLevel        @map("year_level")
+  allowedSpecializations Specialization[] @map("allowed_specializations")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  projectIdeas ProjectIdea[]
+  group Group[]
 
   @@map("subjects")
 }
 
 model Student {
-  id         String  @id @default(uuid())
-  arabicName String  @map("arabic_name")
-  userId     String? @unique @map("user_id")
+  id                   String  @id @default(uuid())
+  arabicName           String  @map("arabic_name")
+  normalizedArabicName String  @map("normalized_arabic_name")
+  userId               String? @unique @map("user_id")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  groups            Group[] // can be in multiple groups across different academic years and subjects
+  groups            GroupMember[] // can be in multiple groups across different academic years and subjects
   user              User?         @relation(fields: [userId], references: [id])
   publishedProjects Project[]
   repos             ProjectRepo[]
@@ -150,10 +170,11 @@ model VerificationRequest {
   userId       String  @map("user_id")
   reviewedById String? @map("reviewed_by_id")
 
-  submittedArabicName String @map("submitted_arabic_name")
-  collegeIdPicUrl     String @map("college_id_pic_url")
+  submittedArabicName String  @map("submitted_arabic_name")
+  collegeIdPicURL     String  @map("college_id_pic_url")
+  rejectedReason      String? @map("rejected_reason")
 
-  status VerificationStatus @default(pending)
+  status VerificationStatus @default(PENDING)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -166,18 +187,39 @@ model VerificationRequest {
 }
 
 model Group {
-  id            String  @id @default(uuid())
-  projectIdeaId String? @map("project_idea_id")
+  id             String         @id @default(uuid())
+  projectIdeaId  String         @map("project_idea_id")
+  academicYearId String         @map("academic_year_id")
+  specialization Specialization
+  subjectId      String         @map("subject_id")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  projectIdea ProjectIdea? @relation(fields: [projectIdeaId], references: [id])
-  projects    Project[]
-  students    Student[]
+  projectIdea  ProjectIdea  @relation(fields: [projectIdeaId], references: [id])
+  academicYear AcademicYear @relation(fields: [academicYearId], references: [id])
+  subject      Subject      @relation(fields: [subjectId], references: [id])
+
+  groupMembers GroupMember[]
+
+  project Project?
 
   @@map("groups")
+}
+
+model GroupMember {
+  groupId   String @map("group_id")
+  studentId String @map("student_id")
+
+  // Relations
+  group   Group   @relation(fields: [groupId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+
+  publishedProjects Project[]
+
+  @@id([groupId, studentId])
+  @@map("group_members")
 }
 
 model ProjectIdea {
@@ -189,12 +231,6 @@ model ProjectIdea {
 
   groups Group[]
 
-  academicYearId String       @map("academic_year_id")
-  academicYear   AcademicYear @relation(fields: [academicYearId], references: [id])
-
-  subjectId String  @map("subject_id")
-  subject   Subject @relation(fields: [subjectId], references: [id])
-
   @@map("project_ideas")
 }
 
@@ -202,9 +238,9 @@ model Project {
   id                 String   @id @default(uuid())
   name               String
   desc               String?
-  groupId            String   @map("group_id")
+  groupId            String   @unique @map("group_id")
   publisherStudentId String   @map("publisher_student_id")
-  thumbnail          String?
+  thumbnailURL       String   @map("thumbnail_url")
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -216,6 +252,8 @@ model Project {
   repos      ProjectRepo[]
   categories Category[]
   tags       Tag[]
+
+  publisherMembership GroupMember @relation(fields: [groupId, publisherStudentId], references: [groupId, studentId])
 
   @@map("projects")
 }
@@ -230,34 +268,35 @@ model ProjectRepo {
   updatedAt DateTime @updatedAt
 
   // Relations
-  project      Project   @relation(fields: [projectId], references: [id])
+  project      Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   contributors Student[]
 
+  @@unique([projectId, type])
   @@map("project_repos")
 }
 
 model Like {
-  id        String   @id @default(uuid())
   projectId String   @map("project_id")
   userId    String   @map("user_id")
   createdAt DateTime @default(now())
 
   // Relations
-  project Project @relation(fields: [projectId], references: [id])
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
   user    User    @relation(fields: [userId], references: [id])
 
+  @@id([projectId, userId])
   @@map("likes")
 }
 
 model Preview {
   id        String   @id @default(uuid())
   url       String
-  projectId String   @unique @map("project_id")
+  projectId String   @map("project_id")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  project Project @relation(fields: [projectId], references: [id])
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@map("previews")
 }

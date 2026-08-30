@@ -1,10 +1,9 @@
-import { Project } from './project.entity';
-import { ProjectIdea } from './projectIdea.entity';
-import { Student } from './student.entity';
+import { Specialization } from './specialization.enum';
 
 export interface Group {
   id: string;
-  projectIdea?: ProjectIdea;
-  projects: Project[];
-  students: Student[];
+  projectIdeaId: string;
+  academicYearId: string;
+  subjectId: string;
+  specialization: Specialization;
 }

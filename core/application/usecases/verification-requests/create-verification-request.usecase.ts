@@ -46,7 +46,7 @@ export class CreateVerificationRequestUseCase {
       };
     }
 
-    if (!user.canRequestStudnetVerification()) {
+    if (!user.canRequestStudentVerification()) {
       return {
         success: false,
         error: {
@@ -97,7 +97,7 @@ export class CreateVerificationRequestUseCase {
     }
 
     const verificationRequest = VerificationRequest.create({
-      collegeIdPicUrl: destinationKey,
+      collegeIdPicURL: destinationKey,
       submittedArabicName: arabicName.trim(),
       userId,
     });
