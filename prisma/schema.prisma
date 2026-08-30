@@ -240,7 +240,7 @@ model Project {
   desc               String?
   groupId            String   @unique @map("group_id")
   publisherStudentId String   @map("publisher_student_id")
-  thumbnail          String?
+  thumbnailURL       String   @map("thumbnail_url")
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
