@@ -394,9 +394,11 @@ This relation should be explicitly named in Prisma because `User` and `Verificat
 
 ### 5.4 ProjectIdea ↔ Group
 
-**Cardinality:** `ProjectIdea 1 ── 0..N Group`
+**Cardinality:** `ProjectIdea 1 ── 1..N Group`
 
-A canonical project idea can be instantiated in multiple academic group records, including different years or multiple groups within the same academic context.
+A canonical project idea is instantiated as one or more academic group records, including different years or multiple groups within the same academic context. Every group is seeded together with exactly one project idea, so `Group.projectIdeaId` is non-nullable in the schema.
+
+This supersedes an earlier draft that described the relation as `1 ── 0..N`. That description was incorrect for the current seeding model: a group without a project idea is not a valid historical record.
 
 **Referential action:** `Group.projectIdea -> ProjectIdea` should normally use `onDelete: Restrict` or `NoAction` because deleting a canonical idea that is referenced by historical groups would destroy historical context.
 
@@ -570,6 +572,15 @@ If category assignment later gains metadata, convert to an explicit model.
 **Cardinality:** `Project N ── M Tag`
 
 Currently modeled as an implicit many-to-many relation for the same reason as categories.
+
+### 5.17 Subject constraints
+
+`Subject` carries two properties that constrain how `Group` rows can be formed against it:
+
+- `yearLevel: YearLevel` — the academic year level at which the subject is taught. The schema types this as the `YearLevel` enum (`THIRD`, `FOURTH`, `FIFTH`) rather than a raw `Int`, so a `Group` cannot be persisted against an invalid year level.
+- `allowedSpecializations: Specialization[]` — the set of `Specialization` values (`SWE`, `AI`, `NET`, `GENERAL`) that the subject accepts. When a `Group` is created or updated, the application layer must verify that `Group.specialization` is contained in the referenced `Subject.allowedSpecializations`. The database does not enforce this constraint today; it is treated as a domain validation rule with a meaningful error path, mirroring the layered approach described in §8.
+
+These properties exist so the academic catalogue can express, for example, that "Parallel Programming" is taught in the third year and only to the `SWE` and `AI` specializations. A `Group` whose subject is "Parallel Programming" with `specialization = NET` should be rejected by the domain before it reaches the database.
 
 ---
 
