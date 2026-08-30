@@ -274,7 +274,7 @@ projects {
   // The pair (group_id, publisher_student_id)
   // must exist in group_members.
 
-  thumbnail string
+  thumbnailURL string
   createdAt timestamp
 }
 
@@ -366,7 +366,7 @@ A User may be associated with at most one seeded Student. A Student may be unver
 
 **Database constraint:** `students.user_id` is nullable and unique.
 
-**Recommended delete behavior:** `Student.user -> User` should use `onDelete: SetNull` because deleting an application account should not delete the authoritative seeded student record.
+**Delete behavior (status: implemented by default):** `Student.userId` is nullable, so Prisma's default referential action on a nullable FK effectively nulls the column when the referenced `User` is deleted. This satisfies the domain invariant: deleting an application account must not delete the authoritative seeded student record. No explicit `onDelete` directive is required in the schema.
 
 ---
 
@@ -386,7 +386,7 @@ A User can submit multiple verification requests over time.
 
 `reviewedBy` is nullable because a request may be pending and therefore have no reviewer yet.
 
-**Recommended delete behavior:** `onDelete: SetNull` so deleting or deactivating a reviewer does not erase the verification request itself.
+**Delete behavior (status: deferred):** The intended policy is `onDelete: SetNull` so deleting or deactivating a reviewer does not erase the verification request itself. The explicit directive is not yet written into the schema; the current Prisma default is retained until account-deletion and reviewer-lifecycle policies are defined.
 
 This relation should be explicitly named in Prisma because `User` and `VerificationRequest` are related twice.
 
@@ -432,10 +432,12 @@ This represents the immutable historical membership supplied by the college data
 
 **Primary key:** `(group_id, student_id)`
 
-**Recommended referential actions:**
+**Referential actions (status: deferred):**
 
 - `GroupMember.group -> Group`: `Cascade` is reasonable if a group is ever deleted because its membership rows have no meaning independently.
 - `GroupMember.student -> Student`: `Restrict` is safer because the Student record is seeded academic data and may be referenced by historical projects.
+
+Neither directive is written into the schema today; both remain at Prisma defaults until group/student lifecycle policies are defined.
 
 In practice, the application should not expose arbitrary group membership mutation after seeding.
 
@@ -456,6 +458,8 @@ The one-to-one constraint is enforced at the database level by making `Project.g
 ```prisma
 groupId String @unique
 ```
+
+`Project` carries its own preview image as a non-nullable URL: `thumbnailURL String`. The field is required because every published project must have a thumbnail.
 
 ---
 
@@ -535,13 +539,13 @@ This enforces at most one like per user per project.
 
 **Project deletion:** `onDelete: Cascade` is recommended: deleting the project removes its likes.
 
-**User deletion:** this is a product policy decision:
+**User deletion (status: deferred):** this is a product policy decision:
 
 - `Cascade`: remove the user's likes with the deleted account.
 - `SetNull`: preserve aggregate like counts but anonymize the user, which requires `userId` to become nullable and changes the uniqueness semantics.
 - Soft-delete/archive the User: preserve historical relationships without exposing the account as active.
 
-The schema should make an intentional choice rather than relying on an accidental default.
+The schema currently uses Prisma's default action on `Like.userId`. The decision is deferred until account-deletion and historical-engagement policies are defined.
 
 ---
 
@@ -594,23 +598,23 @@ At this stage, deletion semantics for `User`, `Student`, `Group`, and the academ
 
 The only referential actions intentionally specified at this stage are cascades for project-owned child entities.
 
-| Parent         | Child / FK                       | `onDelete`         | Current rationale                                                                                                                            |
-| -------------- | -------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `User`         | `Student.userId`                 | **Prisma default** | Account/student deletion policy has not yet been decided.                                                                                    |
-| `User`         | `VerificationRequest.userId`     | **Prisma default** | Verification-record retention and account-deletion semantics are intentionally deferred.                                                     |
-| `User`         | `VerificationRequest.reviewedBy` | **Prisma default** | Reviewer deletion semantics are intentionally deferred.                                                                                      |
-| `ProjectIdea`  | `Group.projectIdeaId`            | **Prisma default** | Academic-data deletion policy has not yet been established.                                                                                  |
-| `AcademicYear` | `Group.academicYearId`           | **Prisma default** | Academic reference-data deletion policy has not yet been established.                                                                        |
-| `Subject`      | `Group.subjectId`                | **Prisma default** | Academic reference-data deletion policy has not yet been established.                                                                        |
-| `Group`        | `GroupMember.groupId`            | **Prisma default** | Group lifecycle and deletion semantics are intentionally deferred.                                                                           |
-| `Student`      | `GroupMember.studentId`          | **Prisma default** | Student lifecycle and historical-data retention are intentionally deferred.                                                                  |
-| `Group`        | `Project.groupId`                | **Prisma default** | Group deletion semantics are not yet a business decision.                                                                                    |
-| `Student`      | `Project.publisherStudentId`     | **Prisma default** | Student/account deletion and project attribution policy are intentionally deferred.                                                          |
-| `Project`      | `ProjectRepo.projectId`          | **Cascade**        | A repository is a project-owned child and has no independent meaning without its project.                                                    |
-| `Project`      | `Preview.projectId`              | **Cascade**        | A preview is a project-owned child and has no independent meaning without its project.                                                       |
-| `Project`      | `Like.projectId`                 | **Cascade**        | A like has no meaning without the project it belongs to.                                                                                     |
-| `User`         | `Like.userId`                    | **Prisma default** | Account-deletion and historical engagement policy will be decided later.                                                                     |
-| Implicit m:n   | Relation table                   | **Prisma-managed** | Implicit many-to-many relations use Prisma-managed relation tables; explicit referential-action control requires an explicit relation model. |
+| Parent         | Child / FK                       | `onDelete`                       | Current rationale                                                                                                                            |
+| -------------- | -------------------------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `User`         | `Student.userId`                 | **Prisma default (nullable FK)** | Resolved: nullability alone yields the required `SetNull`-equivalent behavior, so no explicit directive is needed.                           |
+| `User`         | `VerificationRequest.userId`     | **Prisma default**               | Verification-record retention and account-deletion semantics are intentionally deferred.                                                     |
+| `User`         | `VerificationRequest.reviewedBy` | **Prisma default**               | Reviewer deletion semantics are intentionally deferred.                                                                                      |
+| `ProjectIdea`  | `Group.projectIdeaId`            | **Prisma default**               | Academic-data deletion policy has not yet been established.                                                                                  |
+| `AcademicYear` | `Group.academicYearId`           | **Prisma default**               | Academic reference-data deletion policy has not yet been established.                                                                        |
+| `Subject`      | `Group.subjectId`                | **Prisma default**               | Academic reference-data deletion policy has not yet been established.                                                                        |
+| `Group`        | `GroupMember.groupId`            | **Prisma default**               | Group lifecycle and deletion semantics are intentionally deferred.                                                                           |
+| `Student`      | `GroupMember.studentId`          | **Prisma default**               | Student lifecycle and historical-data retention are intentionally deferred.                                                                  |
+| `Group`        | `Project.groupId`                | **Prisma default**               | Group deletion semantics are not yet a business decision.                                                                                    |
+| `Student`      | `Project.publisherStudentId`     | **Prisma default**               | Student/account deletion and project attribution policy are intentionally deferred.                                                          |
+| `Project`      | `ProjectRepo.projectId`          | **Cascade**                      | A repository is a project-owned child and has no independent meaning without its project.                                                    |
+| `Project`      | `Preview.projectId`              | **Cascade**                      | A preview is a project-owned child and has no independent meaning without its project.                                                       |
+| `Project`      | `Like.projectId`                 | **Cascade**                      | A like has no meaning without the project it belongs to.                                                                                     |
+| `User`         | `Like.userId`                    | **Prisma default**               | Account-deletion and historical engagement policy will be decided later.                                                                     |
+| Implicit m:n   | Relation table                   | **Prisma-managed**               | Implicit many-to-many relations use Prisma-managed relation tables; explicit referential-action control requires an explicit relation model. |
 
 ### Prisma defaults
 
