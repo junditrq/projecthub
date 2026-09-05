@@ -1,5 +1,5 @@
 import { ICategoryRepo } from '@/core/domain/repos/category.repo';
-import prisma from '@/core/infra/orm/prisma.client';
+import prisma from '@/core/infra/orm/prisma/prisma.client';
 import { PrismaCategoryMapper } from '../../mappers/category.prisma.mapper';
 
 export class PrismaCategoryRepo implements ICategoryRepo {

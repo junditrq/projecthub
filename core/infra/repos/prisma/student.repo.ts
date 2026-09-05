@@ -1,7 +1,7 @@
 import { Student } from '@/core/domain/entities/student.entity';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { PrismaStudentMapper } from '../../mappers/student.prisma.mapper';
-import prisma from '../../orm/prisma.client';
+import prisma from '../../orm/prisma/prisma.client';
 
 export class PrismaStudentRepo implements IStudentRepo {
   private prisma;

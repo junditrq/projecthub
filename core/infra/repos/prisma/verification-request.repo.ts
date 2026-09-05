@@ -1,6 +1,6 @@
 import { VerificationRequest } from '@/core/domain/entities/verification-request.entity';
 import { IVerificationRequestRepo } from '@/core/domain/repos/verification-request.repo';
-import prisma from '@/core/infra/orm/prisma.client';
+import prisma from '@/core/infra/orm/prisma/prisma.client';
 import { PrismaVerificationRequestMapper } from '../../mappers/verification-request.prisma.mapper';
 import { VerificationStatus as PrismaVerificationStatus } from '@/app/generated/prisma';
 
