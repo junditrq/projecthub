@@ -51,4 +51,4 @@ core/infra/data/groups-*.ts
 /minio-data
 
 # Prisma generated client
-/app/generated/
+/core/infra/orm/prisma/generated/
