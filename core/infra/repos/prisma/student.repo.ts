@@ -9,10 +9,10 @@ export class PrismaStudentRepo implements IStudentRepo {
     this.prisma = prisma;
   }
 
-  async findByArabicName(arabicName: string): Promise<Student | null> {
+  async findByName(name: string): Promise<Student | null> {
     const student = await this.prisma.student.findFirst({
       where: {
-        arabicName,
+        name,
       },
     });
 

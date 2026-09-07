@@ -68,7 +68,7 @@ export class CreateVerificationRequestUseCase {
       };
     }
 
-    const student = await this.studentRepo.findByArabicName(arabicName.trim());
+    const student = await this.studentRepo.findByName(arabicName.trim());
     if (!student) {
       return {
         success: false,

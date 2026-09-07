@@ -1,13 +1,15 @@
-import { normalizeArabicName } from '../utils/normalize-arabic-name.util';
+import { getCanonicalFullName } from '../utils/get-canonical-full-name.util';
 
 export interface CreateStudentProps {
-  arabicName: string;
+  name: string;
+  fatherName: string;
+  collegeId: number;
   userId: string | null;
 }
 
 export interface StudentProps extends CreateStudentProps {
   id: string;
-  normalizedArabicName: string;
+  canonicalFullName: string;
 }
 
 export class Student {
@@ -17,12 +19,20 @@ export class Student {
     return this._props.id;
   }
 
-  get arabicName(): StudentProps['arabicName'] {
-    return this._props.arabicName;
+  get name(): StudentProps['name'] {
+    return this._props.name;
   }
 
-  get normalizedArabicName(): StudentProps['normalizedArabicName'] {
-    return this._props.normalizedArabicName;
+  get fatherName(): StudentProps['fatherName'] {
+    return this._props.fatherName;
+  }
+
+  get collegeId(): StudentProps['collegeId'] {
+    return this._props.collegeId;
+  }
+
+  get canonicalFullName(): StudentProps['canonicalFullName'] {
+    return this._props.canonicalFullName;
   }
 
   get userId(): StudentProps['userId'] {
@@ -33,7 +43,7 @@ export class Student {
     return new Student({
       ...props,
       id: crypto.randomUUID(),
-      normalizedArabicName: normalizeArabicName(props.arabicName),
+      canonicalFullName: getCanonicalFullName(props.name, props.fatherName),
     });
   }
 
