@@ -1,7 +1,7 @@
 import {
   VerificationRequest as PrismaVerificaitonRequest,
   VerificationStatus as PrismaVerificationStatus,
-} from '@/app/generated/prisma';
+} from '@/core/infra/orm/prisma/generated';
 import {
   VerificationRequest,
   VerificationStatus,

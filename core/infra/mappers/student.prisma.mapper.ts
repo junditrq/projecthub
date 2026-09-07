@@ -1,4 +1,4 @@
-import { Student as PrismaStudent } from '@/app/generated/prisma';
+import { Student as PrismaStudent } from '@/core/infra/orm/prisma/generated';
 import { Student } from '@/core/domain/entities/student.entity';
 
 export class PrismaStudentMapper {

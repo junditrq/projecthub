@@ -1,5 +1,5 @@
 'use client';
-import { Category, Tag } from '@/app/generated/prisma';
+import { Category, Tag } from '@/core/infra/orm/prisma/generated';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { ArrowBigUp } from 'lucide-react';

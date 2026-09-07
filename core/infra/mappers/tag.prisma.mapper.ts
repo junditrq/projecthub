@@ -1,4 +1,4 @@
-import { Tag as PrismaTag } from '@/app/generated/prisma';
+import { Tag as PrismaTag } from '@/core/infra/orm/prisma/generated';
 import { Tag } from '@/core/domain/entities/tag.entity';
 
 export class PrismaTagMapper {

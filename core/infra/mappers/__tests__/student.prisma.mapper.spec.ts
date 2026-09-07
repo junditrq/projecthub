@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Student as PrismaStudent } from '@/app/generated/prisma';
+import { Student as PrismaStudent } from '@/core/infra/orm/prisma/generated';
 import { PrismaStudentMapper } from '../student.prisma.mapper';
 
 describe('PrismaStudentMapper', () => {
