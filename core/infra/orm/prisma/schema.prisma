@@ -147,16 +147,19 @@ model Subject {
 }
 
 model Student {
-  id                   String  @id @default(uuid())
-  arabicName           String  @map("arabic_name")
-  normalizedArabicName String  @map("normalized_arabic_name")
-  userId               String? @unique @map("user_id")
+  id                String  @id @default(uuid())
+  collegeId         String  @unique
+  name              String  @map("name")
+  fatherName        String  @map("father_name")
+  canonicalFullName String  @map("canonical_full_name")
+  userId            String? @unique @map("user_id")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
   groups            GroupMember[] // can be in multiple groups across different academic years and subjects
+  unresolvedGroups  UnresolvedGroupMember[]
   user              User?         @relation(fields: [userId], references: [id])
   publishedProjects Project[]
   repos             ProjectRepo[]
@@ -202,6 +205,7 @@ model Group {
   subject      Subject      @relation(fields: [subjectId], references: [id])
 
   groupMembers GroupMember[]
+  unresolvedGroupMembers UnresolvedGroupMember[]
 
   project Project?
 
@@ -220,6 +224,19 @@ model GroupMember {
 
   @@id([groupId, studentId])
   @@map("group_members")
+}
+
+model UnresolvedGroupMember {
+  groupId   String @map("group_id")
+  studentId String @map("student_id")
+
+  // Relations
+  group   Group   @relation(fields: [groupId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+
+  @@id([groupId, studentId])
+
+  @@map("unresolved_group_members")
 }
 
 model ProjectIdea {
