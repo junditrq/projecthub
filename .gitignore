@@ -45,8 +45,8 @@ next-env.d.ts
 
 *.xlsx
 
-core/infra/data/groups-*.ts
-!core/infra/data/groups-sample.ts
+core/infra/seeding/academic/data/
+core/infra/seeding/academic/resources/
 
 /minio-data
 
