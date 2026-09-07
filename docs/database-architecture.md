@@ -219,8 +219,10 @@ subjects {
 // calculate canPublish dynamically
 students {
   id string pk
-  arabic_name string
-  normalized_arabic_name string
+  student_id unique
+  name string
+  father_name string
+  canonical_fullname string // name + father name sorted by word & normalized
   user_id string fk nullable unique // Links to a verified user account
 }
 
@@ -251,6 +253,12 @@ groups {
 group_members {
   group_id string pk, fk
   student_id string pk, fk
+}
+
+unresolved_group_members {
+  group_id string pk, fk
+  student_id string pk, fk
+  conflict_name string
 }
 
 
@@ -344,7 +352,8 @@ projects < project_repos.project_id
 groups < group_members.group_id
 students < group_members.student_id
 
-
+groups < unresolved_group_members.group_id
+students < unresolved_group_members.student_id
 ```
 
 ### Markup notes
