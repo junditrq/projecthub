@@ -6,14 +6,14 @@ describe('Student Domain Entity', () => {
     const student = Student.create({
       name: 'أَحْمَد',
       fatherName: 'بِلَال',
-      collegeId: 12345,
+      collegeId: '12345',
       userId: 'user-123',
     });
 
     expect(student.id).toBeDefined();
     expect(student.name).toBe('أَحْمَد');
     expect(student.fatherName).toBe('بِلَال');
-    expect(student.collegeId).toBe(12345);
+    expect(student.collegeId).toBe('12345');
     expect(student.canonicalFullName).toBe('احمد بلال');
     expect(student.userId).toBe('user-123');
   });
@@ -22,7 +22,7 @@ describe('Student Domain Entity', () => {
     const student = Student.create({
       name: 'محمد',
       fatherName: 'علي',
-      collegeId: 67890,
+      collegeId: '67890',
       userId: null,
     });
 
@@ -35,7 +35,8 @@ describe('Student Domain Entity', () => {
       id: 'existing-id',
       name: 'طارق',
       fatherName: 'الجندي',
-      collegeId: 11111,
+      normalizedName: 'طارق',
+      collegeId: '11111',
       userId: 'user-456',
       canonicalFullName: 'الجندي طارق',
     };
@@ -45,7 +46,7 @@ describe('Student Domain Entity', () => {
     expect(student.id).toBe('existing-id');
     expect(student.name).toBe('طارق');
     expect(student.fatherName).toBe('الجندي');
-    expect(student.collegeId).toBe(11111);
+    expect(student.collegeId).toBe('11111');
     expect(student.userId).toBe('user-456');
     expect(student.canonicalFullName).toBe('الجندي طارق');
   });
@@ -54,7 +55,7 @@ describe('Student Domain Entity', () => {
     const student = Student.create({
       name: 'مُحَمَّد',
       fatherName: 'فَاطِمَة',
-      collegeId: 99999,
+      collegeId: '99999',
       userId: null,
     });
 

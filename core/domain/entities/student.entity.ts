@@ -1,15 +1,18 @@
+import { BusinessRuleError } from '../errors/domain-errors';
 import { getCanonicalFullName } from '../utils/get-canonical-full-name.util';
+import { normalizeArabicName } from '../utils/normalize-arabic-name.util';
 
-export interface CreateStudentProps {
+export interface StudentCreateProps {
   name: string;
   fatherName: string;
-  collegeId: number;
+  collegeId: string;
   userId: string | null;
 }
 
-export interface StudentProps extends CreateStudentProps {
+export interface StudentProps extends StudentCreateProps {
   id: string;
   canonicalFullName: string;
+  normalizedName: string;
 }
 
 export class Student {
@@ -39,11 +42,19 @@ export class Student {
     return this._props.userId;
   }
 
-  public static create(props: CreateStudentProps): Student {
+  get normalizedName(): StudentProps['normalizedName'] {
+    return this._props.normalizedName;
+  }
+
+  public static create(props: StudentCreateProps): Student {
+    if (props.name.trim() === '') {
+      throw new BusinessRuleError('Student name cannot be empty');
+    }
     return new Student({
       ...props,
       id: crypto.randomUUID(),
       canonicalFullName: getCanonicalFullName(props.name, props.fatherName),
+      normalizedName: normalizeArabicName(props.name),
     });
   }
 

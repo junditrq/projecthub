@@ -8,6 +8,7 @@ describe('PrismaStudentMapper', () => {
       id: 'db-id-123',
       collegeId: '1',
       name: 'طارق',
+      normalizedName: 'طارق',
       fatherName: 'الجندي',
       canonicalFullName: 'الجندي طارق',
       userId: 'user-456',
@@ -20,7 +21,7 @@ describe('PrismaStudentMapper', () => {
     expect(domainStudent.id).toBe(mockPrismaStudent.id);
     expect(domainStudent.name).toBe(mockPrismaStudent.name);
     expect(domainStudent.fatherName).toBe(mockPrismaStudent.fatherName);
-    expect(domainStudent.collegeId).toBe(1);
+    expect(domainStudent.collegeId).toBe('1');
     expect(domainStudent.canonicalFullName).toBe(mockPrismaStudent.canonicalFullName);
     expect(domainStudent.userId).toBe(mockPrismaStudent.userId);
   });
