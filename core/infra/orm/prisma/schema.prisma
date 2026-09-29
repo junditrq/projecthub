@@ -51,6 +51,13 @@ enum YearLevel {
   @@map("year_level")
 }
 
+enum UnresolvedGroupMemberType {
+  NAME_CONFLICT
+  STUDENT_NOT_FOUND
+
+  @@map("unresolved_group_member_type")
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String
@@ -148,10 +155,11 @@ model Subject {
 
 model Student {
   id                String  @id @default(uuid())
-  collegeId         String  @unique
+  collegeId         String  @unique @map("college_id")
   name              String  @map("name")
   fatherName        String  @map("father_name")
   canonicalFullName String  @map("canonical_full_name")
+  normalizedName    String  @map("normalized_name")
   userId            String? @unique @map("user_id")
 
   createdAt DateTime @default(now())
@@ -160,7 +168,7 @@ model Student {
   // Relations
   groups            GroupMember[] // can be in multiple groups across different academic years and subjects
   unresolvedGroups  UnresolvedGroupMember[]
-  user              User?         @relation(fields: [userId], references: [id])
+  user              User?                   @relation(fields: [userId], references: [id])
   publishedProjects Project[]
   repos             ProjectRepo[]
 
@@ -191,6 +199,7 @@ model VerificationRequest {
 
 model Group {
   id             String         @id @default(uuid())
+  seedHash       String?         @unique @map("seed_hash")
   projectIdeaId  String         @map("project_idea_id")
   academicYearId String         @map("academic_year_id")
   specialization Specialization
@@ -204,7 +213,7 @@ model Group {
   academicYear AcademicYear @relation(fields: [academicYearId], references: [id])
   subject      Subject      @relation(fields: [subjectId], references: [id])
 
-  groupMembers GroupMember[]
+  groupMembers           GroupMember[]
   unresolvedGroupMembers UnresolvedGroupMember[]
 
   project Project?
@@ -217,8 +226,8 @@ model GroupMember {
   studentId String @map("student_id")
 
   // Relations
-  group   Group   @relation(fields: [groupId], references: [id])
-  student Student @relation(fields: [studentId], references: [id])
+  group   Group   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   publishedProjects Project[]
 
@@ -227,21 +236,23 @@ model GroupMember {
 }
 
 model UnresolvedGroupMember {
-  groupId   String @map("group_id")
-  studentId String @map("student_id")
+  id        String  @id @default(uuid())
+  groupId   String  @map("group_id")
+  studentId String? @map("student_id")
+
+  conflictName   String                    @map("conflict_name")
+  unresolvedType UnresolvedGroupMemberType @map("unresolved_type")
 
   // Relations
-  group   Group   @relation(fields: [groupId], references: [id])
-  student Student @relation(fields: [studentId], references: [id])
-
-  @@id([groupId, studentId])
+  group   Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  student Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
 
   @@map("unresolved_group_members")
 }
 
 model ProjectIdea {
   id        String   @id @default(uuid())
-  name      String
+  name      String   @unique
   slug      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
