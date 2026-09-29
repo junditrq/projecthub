@@ -1,5 +1,5 @@
 import z from 'zod';
-import { subjectNames, subjects, subjectSlugs } from '../data/subjects';
+import { subjectNames, subjects, subjectSlugs } from '../../data/subjects';
 
 export type SeedSubject = (typeof subjects)[number];
 export type SeedSubjetName = SeedSubject['name'];

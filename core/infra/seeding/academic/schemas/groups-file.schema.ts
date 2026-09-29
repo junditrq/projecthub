@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { SeedSpecializationSchema } from './specialization.type';
-import { SeedSubjectSlugSchema } from './subject.type';
-import { SeedAcademicYearSchema } from './academic-year.type';
+import { SeedSpecializationSchema } from './specialization.schema';
+import { SeedSubjectSlugSchema } from './subject.schema';
+import { SeedAcademicYearSchema } from './academic-year.schema';
 
 export const SeedGroupSchema = z.object({
   projectIdea: z.string(),

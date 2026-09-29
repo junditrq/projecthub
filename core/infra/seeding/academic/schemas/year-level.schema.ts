@@ -1,5 +1,5 @@
 import z from 'zod';
-import { YearLevel } from '../../orm/prisma/generated';
+import { YearLevel } from '../../../orm/prisma/generated';
 
 export const SeedYearLevelSchema = z.enum(YearLevel);
 
