@@ -15,5 +15,5 @@ export const seedSubjects = async (prisma: PrismaClient) => {
     });
   }
 
-  console.log('Subjects seeded successfully.');
+  console.log(`Seeded ${subjects.length} subjects successfully.`);
 };

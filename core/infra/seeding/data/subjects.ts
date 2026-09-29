@@ -52,3 +52,4 @@ export const subjects = [
 ] as const;
 
 export const subjectNames = subjects.map((s) => s.name);
+export const subjectSlugs = subjects.map((s) => s.slug);

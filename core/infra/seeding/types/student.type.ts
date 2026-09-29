@@ -1,14 +1,20 @@
 import { z } from 'zod';
+import { SeedSpecializationSchema } from './specialization.type';
+import { SeedAcademicYearSchema } from './academic-year.type';
+import { SeedYearLevelSchema } from './year-level.type';
 
-export const seedStudentSchema = z.object({
+export const SeedStudentSchema = z.object({
   name: z.string(),
   fatherName: z.string(),
-  collegeId: z.number().int().positive(),
+  collegeId: z.coerce.string(),
 });
 
-export const seedStudentsSchema = z.object({
-  students: z.array(seedStudentSchema),
+export const SeedStudentsFileSchema = z.object({
+  academicYear: SeedAcademicYearSchema,
+  specialization: SeedSpecializationSchema,
+  yearLevel: SeedYearLevelSchema,
+  students: z.array(SeedStudentSchema),
 });
 
-export type SeedStudent = z.infer<typeof seedStudentSchema>;
-export type SeedStudentsFile = z.infer<typeof seedStudentsSchema>;
+export type SeedStudent = z.infer<typeof SeedStudentSchema>;
+export type SeedStudentsFile = z.infer<typeof SeedStudentsFileSchema>;

@@ -1,7 +1,7 @@
-import prisma from '../../orm/prisma/prisma.client';
-import { seedCategories } from '../seeds/category.seed';
-import { seedSubjects } from '../seeds/subject.seed';
-import { seedTags } from '../seeds/tag.seed';
+import prisma from '../orm/prisma/prisma.client';
+import { seedCategories } from './seeders/category.seed';
+import { seedSubjects } from './seeders/subject.seed';
+import { seedTags } from './seeders/tag.seed';
 
 async function main() {
   await seedTags(prisma);
