@@ -35,7 +35,7 @@ export class PrismaStudentRepo implements IStudentRepo {
 
   async save(student: Student): Promise<Student> {
     const prismaStudent = await this._prisma.student.upsert({
-      where: { id: student.id },
+      where: { collegeId: student.collegeId },
       create: PrismaStudentMapper.toPersistenceCreate(student),
       update: PrismaStudentMapper.toPersistenceUpdate(student),
     });
