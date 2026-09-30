@@ -36,6 +36,10 @@ export class GroupMemberResolutionService {
   }
 
   public async getStudentCandidates(name: string): Promise<StudentCandidate[]> {
+    if (!name || name.trim().length === 0) {
+      throw new BusinessRuleError('Cannot resolve an empty student name');
+    }
+
     const normalizedName = normalizeArabicName(name);
     const canonicalName = getCanonicalFullName(name, '');
 
