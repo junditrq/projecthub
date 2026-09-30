@@ -42,7 +42,7 @@ describe('Group Domain Entity', () => {
   });
 
   it('allows a group made only of unresolved members', () => {
-    const group = Group.create({ ...baseProps(), unresolvedMembers: [notFound('احمد')] });
+    const group = Group.create({ ...baseProps(), unresolvedMembers: [notFound('احمد تللو')] });
 
     expect(group.memberIds).toEqual([]);
     expect(group.unresolvedMembers).toHaveLength(1);
@@ -59,7 +59,7 @@ describe('Group Domain Entity', () => {
       Group.create({
         ...baseProps(),
         memberIds: ['s-1'],
-        unresolvedMembers: [conflict('احمد', 's-1')],
+        unresolvedMembers: [conflict('احمد تللو', 's-1')],
       })
     ).toThrow('both a resolved and an unresolved member');
   });
@@ -68,7 +68,7 @@ describe('Group Domain Entity', () => {
     expect(() =>
       Group.create({
         ...baseProps(),
-        unresolvedMembers: [notFound('احمد'), notFound('احمد')],
+        unresolvedMembers: [notFound('احمد تللو'), notFound('احمد تللو')],
       })
     ).toThrow('Duplicate not-found');
   });
@@ -77,7 +77,7 @@ describe('Group Domain Entity', () => {
     expect(() =>
       Group.create({
         ...baseProps(),
-        unresolvedMembers: [notFound('احمد'), conflict('احمد', 's-9')],
+        unresolvedMembers: [notFound('احمد تللو'), conflict('احمد تللو', 's-9')],
       })
     ).toThrow('both not-found and conflicting');
   });
@@ -86,7 +86,7 @@ describe('Group Domain Entity', () => {
     expect(() =>
       Group.create({
         ...baseProps(),
-        unresolvedMembers: [conflict('احمد', 's-9'), notFound('احمد')],
+        unresolvedMembers: [conflict('احمد تللو', 's-9'), notFound('احمد تللو')],
       })
     ).toThrow('both not-found and conflicting');
   });
@@ -95,7 +95,7 @@ describe('Group Domain Entity', () => {
     expect(() =>
       Group.create({
         ...baseProps(),
-        unresolvedMembers: [conflict('احمد', 's-9'), conflict('احمد', 's-9')],
+        unresolvedMembers: [conflict('احمد تللو', 's-9'), conflict('احمد تللو', 's-9')],
       })
     ).toThrow('Duplicate unresolved group member');
   });
@@ -103,7 +103,7 @@ describe('Group Domain Entity', () => {
   it('allows the same student under two different conflict names', () => {
     const group = Group.create({
       ...baseProps(),
-      unresolvedMembers: [conflict('احمد', 's-9'), conflict('محمد', 's-9')],
+      unresolvedMembers: [conflict('احمد تللو', 's-9'), conflict('محمد العلي', 's-9')],
     });
 
     expect(group.unresolvedMembers).toHaveLength(2);
@@ -111,11 +111,11 @@ describe('Group Domain Entity', () => {
 
   it('isolates internal state from caller arrays after create', () => {
     const memberIds = ['s-1'];
-    const unresolvedMembers = [notFound('احمد')];
+    const unresolvedMembers = [notFound('احمد تللو')];
     const group = Group.create({ ...baseProps(), memberIds, unresolvedMembers });
 
     memberIds.push('s-2');
-    unresolvedMembers.push(notFound('محمد'));
+    unresolvedMembers.push(notFound('محمد العلي'));
 
     expect(group.memberIds).toEqual(['s-1']);
     expect(group.unresolvedMembers).toHaveLength(1);

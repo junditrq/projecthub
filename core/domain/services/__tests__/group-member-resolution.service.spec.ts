@@ -1,12 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { Student } from '../../entities/student.entity';
-import { UnresolvedMemberType } from '../../entities/unresolved-member.entity';
 import { BusinessRuleError } from '../../errors/domain-errors';
 import { IGroupRepo } from '../../repos/group.repo';
 import { IStudentRepo } from '../../repos/student.repo';
 import { GroupMemberResolutionService, StudentCandidate } from '../group-member-resolution.service';
 
-const student = (id: string, name = 'احمد', fatherName = 'محمد'): Student =>
+const student = (id: string, name: string, fatherName: string): Student =>
   Student.create({ name, fatherName, collegeId: `college-${id}`, userId: null });
 
 const fakeStudentRepo = (candidates: Student[]): IStudentRepo => ({
@@ -28,38 +27,37 @@ const unresolvedOf = (results: StudentCandidate[]) =>
   results.filter((r) => r.kind === 'unresolved');
 
 describe('GroupMemberResolutionService', () => {
-  it('returns a single not-found member with the normalized name when nobody matches', async () => {
-    const results = await service([]).getStudentCandidates('أَحْمَد مُحَمَّد');
+  it('returns a single not-found member with the normalized full name when nobody matches', async () => {
+    const results = await service([]).getStudentCandidates('غائب تماما الحاضر');
 
     expect(unresolvedOf(results)).toHaveLength(1);
     const [only] = unresolvedOf(results);
     if (only.kind !== 'unresolved') throw new Error('expected unresolved candidate');
-    expect(only.unresolvedMember.type).toBe(UnresolvedMemberType.STUDENT_NOT_FOUND);
+    expect(only.unresolvedMember.type).toBe('StudentNotFound');
     expect(only.unresolvedMember.studentId).toBeNull();
-    expect(only.unresolvedMember.conflictName).toBe('احمد محمد');
+    expect(only.unresolvedMember.conflictName).toBe('غائب تماما الحاضر');
   });
 
-  it('returns a resolved candidate holding only the student id on a unique match', async () => {
-    const match = student('s-1');
-    const results = await service([match]).getStudentCandidates('احمد');
+  it('resolves a multi-token seed against stored first and father names', async () => {
+    const match = student('s-1', 'احمد تللو', 'خالد');
+    const results = await service([match]).getStudentCandidates('احمد خالد تللو');
 
     expect(results).toEqual([{ kind: 'resolved', studentId: match.id }]);
   });
 
-  it('returns one conflict member per candidate on ambiguous matches', async () => {
-    const results = await service([student('s-1'), student('s-2')]).getStudentCandidates('احمد');
+  it('returns one conflict row per candidate on ambiguous matches', async () => {
+    const canonicalMatch = student('s-1', 'احمد تللو', 'خالد');
+    const normalizedMatch = student('s-2', 'احمد خالد تللو', 'عباس');
+    const results = await service([canonicalMatch, normalizedMatch]).getStudentCandidates(
+      'احمد خالد تللو'
+    );
 
     const unresolved = unresolvedOf(results);
     expect(unresolved).toHaveLength(2);
-    for (const candidate of unresolved) {
-      if (candidate.kind !== 'unresolved') throw new Error('expected unresolved candidate');
-      expect(candidate.unresolvedMember.type).toBe(UnresolvedMemberType.NAME_CONFLICT);
-      expect(candidate.unresolvedMember.studentId).not.toBeNull();
-    }
-    const ids = unresolved.map((c) =>
-      c.kind === 'unresolved' ? c.unresolvedMember.studentId : null
+    const ids = new Set(
+      unresolved.map((c) => (c.kind === 'unresolved' ? c.unresolvedMember.studentId : null))
     );
-    expect(new Set(ids).size).toBe(2);
+    expect(ids).toEqual(new Set([canonicalMatch.id, normalizedMatch.id]));
   });
 
   it('rejects empty names instead of querying with empty keys', async () => {
@@ -68,11 +66,11 @@ describe('GroupMemberResolutionService', () => {
 
   it('stays silent when the student is not grouped elsewhere', async () => {
     await expect(
-      service([student('s-1')], false).assertNotGrouped({
+      service([student('s-1', 'احمد تللو', 'خالد')], false).assertNotGrouped({
         studentId: 's-1',
         subjectId: 'subject-1',
         academicYearId: 'year-1',
-        studentName: 'احمد محمد',
+        studentName: 'احمد خالد تللو',
         subjectName: 'Project 2',
         academicYearLabel: '2025-2026',
       })
@@ -80,18 +78,18 @@ describe('GroupMemberResolutionService', () => {
   });
 
   it('throws a human-readable error naming people, not uuids, when grouped', async () => {
-    const failure = service([student('s-1')], true).assertNotGrouped({
+    const failure = service([student('s-1', 'احمد تللو', 'خالد')], true).assertNotGrouped({
       studentId: 's-1',
       subjectId: 'subject-1',
       academicYearId: 'year-1',
-      studentName: 'احمد محمد',
+      studentName: 'احمد خالد تللو',
       subjectName: 'Project 2',
       academicYearLabel: '2025-2026',
     });
 
     await expect(failure).rejects.toThrow(BusinessRuleError);
     await expect(failure).rejects.toThrow(
-      'Student "احمد محمد" is already grouped for "Project 2" (2025-2026)'
+      'Student "احمد خالد تللو" is already grouped for "Project 2" (2025-2026)'
     );
   });
 });

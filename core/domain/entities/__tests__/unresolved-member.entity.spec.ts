@@ -5,7 +5,7 @@ import { BusinessRuleError } from '../../errors/domain-errors';
 describe('UnresolvedMember Domain Entity', () => {
   it('creates a not-found member with null student id', () => {
     const member = UnresolvedMember.create({
-      conflictName: 'احمد محمد',
+      conflictName: 'احمد خالد تللو',
       studentId: null,
       type: UnresolvedMemberType.STUDENT_NOT_FOUND,
     });
@@ -17,7 +17,7 @@ describe('UnresolvedMember Domain Entity', () => {
 
   it('creates a conflict member keeping the candidate student id', () => {
     const member = UnresolvedMember.create({
-      conflictName: 'احمد محمد',
+      conflictName: 'احمد خالد تللو',
       studentId: 's-9',
       type: UnresolvedMemberType.NAME_CONFLICT,
     });
@@ -29,7 +29,7 @@ describe('UnresolvedMember Domain Entity', () => {
   it('rejects a not-found member carrying a student id', () => {
     expect(() =>
       UnresolvedMember.create({
-        conflictName: 'احمد',
+        conflictName: 'احمد تللو',
         studentId: 's-9',
         type: UnresolvedMemberType.STUDENT_NOT_FOUND,
       })
@@ -39,7 +39,7 @@ describe('UnresolvedMember Domain Entity', () => {
   it('rejects a conflict member without a student id', () => {
     expect(() =>
       UnresolvedMember.create({
-        conflictName: 'احمد',
+        conflictName: 'احمد تللو',
         studentId: null,
         type: UnresolvedMemberType.NAME_CONFLICT,
       })
@@ -60,12 +60,12 @@ describe('UnresolvedMember Domain Entity', () => {
 
   it('stores the normalized form of a raw diacritic name', () => {
     const member = UnresolvedMember.create({
-      conflictName: 'أَحْمَد مُحَمَّد',
+      conflictName: 'أَحْمَد خالد تللو',
       studentId: null,
       type: UnresolvedMemberType.STUDENT_NOT_FOUND,
     });
 
-    expect(member.conflictName).toBe('احمد محمد');
+    expect(member.conflictName).toBe('احمد خالد تللو');
   });
 
   it('reconstitutes persisted state without validation', () => {

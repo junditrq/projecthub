@@ -16,7 +16,7 @@ const idsFile = (overrides: Record<string, unknown> = {}): string =>
     academicYear: '2025-2026',
     specialization: 'AI',
     yearLevel: 'FOURTH',
-    students: [{ name: 'احمد', fatherName: 'محمد', collegeId: '101' }],
+    students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '101' }],
     ...overrides,
   });
 
@@ -48,8 +48,8 @@ describe('FileValidator ids content', () => {
     const result = validator().validateIdsContent(
       idsFile({
         students: [
-          { name: 'احمد', fatherName: 'محمد', collegeId: 101 },
-          { name: 'محمد', fatherName: 'علي', collegeId: '101' },
+          { name: 'احمد تللو', fatherName: 'خالد', collegeId: 101 },
+          { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '101' },
         ],
       })
     );
@@ -92,7 +92,7 @@ const groupsFile = (overrides: Record<string, unknown> = {}): string =>
     academicYear: '2025-2026',
     subjectSlug: 'project-2',
     specialization: 'AI',
-    groups: [{ projectIdea: 'Smart campus', students: ['احمد محمد', 'محمد علي'] }],
+    groups: [{ projectIdea: 'Smart campus', students: ['احمد خالد تللو', 'سارة خالد المحمود'] }],
     ...overrides,
   });
 
@@ -135,8 +135,8 @@ describe('FileValidator groups content', () => {
     const result = await validator([project2]).validateGroupsContent(
       groupsFile({
         groups: [
-          { projectIdea: 'A', students: ['احمد محمد', 'محمد علي'] },
-          { projectIdea: 'B', students: ['أَحْمَد مُحَمَّد', 'احمد محمد'] },
+          { projectIdea: 'A', students: ['احمد خالد تللو', 'سارة خالد المحمود'] },
+          { projectIdea: 'B', students: ['أَحْمَد خالد تللو', 'احمد خالد تللو'] },
         ],
       })
     );
@@ -144,7 +144,7 @@ describe('FileValidator groups content', () => {
     expect(result.valid).toBe(false);
     if (!result.valid) {
       expect(result.message).toContain('"groupIndex": 1');
-      expect(result.message).toContain('احمد محمد');
+      expect(result.message).toContain('احمد خالد تللو');
     }
   });
 

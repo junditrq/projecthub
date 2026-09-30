@@ -33,7 +33,7 @@ describe('StudentsImporter', () => {
       academicYear: '2025-2026',
       specialization: 'AI',
       yearLevel: 'FOURTH',
-      students: [{ name: 'احمد', fatherName: 'محمد', collegeId: '101' }],
+      students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '101' }],
     });
 
     expect(report).toEqual({ studentsCreated: 0, studentsExisting: 1 });
@@ -49,8 +49,8 @@ describe('StudentsImporter', () => {
       specialization: 'AI',
       yearLevel: 'FOURTH',
       students: [
-        { name: 'احمد', fatherName: 'محمد', collegeId: '101' },
-        { name: 'محمد', fatherName: 'علي', collegeId: '102' },
+        { name: 'احمد تللو', fatherName: 'خالد', collegeId: '101' },
+        { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '102' },
       ],
     });
 
