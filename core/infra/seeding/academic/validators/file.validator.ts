@@ -92,6 +92,10 @@ export class FileValidator implements IFileValidator {
     const fileName = fileNameExt.replace('.json', '');
     const isIds = fileName === 'ids';
 
+    const [, validYearLevel, validSpecialization] = pathPartsResult.data;
+    const specializationEnum = ParseSpecializationPath.parse(validSpecialization);
+    const yearLevelEnum = ParseYearLevelPath.parse(validYearLevel);
+
     if (!isIds) {
       const subjectSafe = SubjectPathPartSchema.safeParse(fileName);
       if (!subjectSafe.success) {
@@ -112,11 +116,6 @@ export class FileValidator implements IFileValidator {
         };
       }
 
-      const [, validYearLevel, validSpecialization] = pathPartsResult.data;
-
-      const specializationEnum = ParseSpecializationPath.parse(validSpecialization);
-      const yearLevelEnum = ParseYearLevelPath.parse(validYearLevel);
-
       // TODO: The mapper should be injected and not importer.
       // Requires adding a mapper interface.
       if (!subject.allowsSpecialization(PrismaSpecializationMapper.toDomain(specializationEnum))) {
@@ -131,6 +130,21 @@ export class FileValidator implements IFileValidator {
         return {
           valid: false,
           message: `Subject ${subject.name} is not allowed for year level ${yearLevel}`,
+          path: filePath,
+        };
+      }
+    }
+
+    if (isIds) {
+      if (
+        !CurriculumService.isSpecializationInYearLevel(
+          PrismaSpecializationMapper.toDomain(specializationEnum),
+          PrismaYearLevelMapper.toDomain(yearLevelEnum)
+        )
+      ) {
+        return {
+          valid: false,
+          message: `Specialization ${validSpecialization} is not allowed for year level ${validYearLevel}`,
           path: filePath,
         };
       }
