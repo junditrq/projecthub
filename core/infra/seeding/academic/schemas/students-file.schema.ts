@@ -5,6 +5,7 @@ import { SeedYearLevelSchema } from './year-level.schema';
 
 export const SeedCollegeIdSchema = z
   .string()
+  .trim()
   .regex(/^\d{10}$/, { message: 'collegeId must be exactly 10 digits' });
 
 export const SeedStudentSchema = z.object({
