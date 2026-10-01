@@ -16,6 +16,7 @@ export interface StudentProps extends StudentCreateProps {
 }
 
 export class Student {
+  private static readonly COLLEGE_ID_PATTERN = /^\d{10}$/;
   constructor(private readonly _props: StudentProps) {}
 
   get id(): StudentProps['id'] {
@@ -49,6 +50,9 @@ export class Student {
   public static create(props: StudentCreateProps): Student {
     if (props.name.trim() === '') {
       throw new BusinessRuleError('Student name cannot be empty');
+    }
+    if (!Student.COLLEGE_ID_PATTERN.test(props.collegeId)) {
+      throw new BusinessRuleError('Student collegeId must be exactly 10 digits');
     }
     return new Student({
       ...props,
