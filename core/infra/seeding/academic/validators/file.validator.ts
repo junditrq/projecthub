@@ -15,8 +15,6 @@ import { ParseSpecializationPath, ParseYearLevelPath } from '../schemas/utils/to
 import { SeedStudentsFileSchema } from '../schemas/students-file.schema';
 import { SeedGroupsFileSchema } from '../schemas/groups-file.schema';
 import { ISubjectRepo } from '@/core/domain/repos/subject.repo';
-import { PrismaSpecializationMapper } from '@/core/infra/mappers/specialization.prisma.mapper';
-import { PrismaYearLevelMapper } from '@/core/infra/mappers/year-level.prisma.mapper';
 import { CurriculumService } from '@/core/domain/services/curriculum.service';
 import { normalizeArabicName } from '@/core/domain/utils/normalize-arabic-name.util';
 
@@ -116,9 +114,7 @@ export class FileValidator implements IFileValidator {
         };
       }
 
-      // TODO: The mapper should be injected and not importer.
-      // Requires adding a mapper interface.
-      if (!subject.allowsSpecialization(PrismaSpecializationMapper.toDomain(specializationEnum))) {
+      if (!subject.allowsSpecialization(specializationEnum)) {
         return {
           valid: false,
           message: `Subject ${subject.name} is not allowed for specialization ${specialization}`,
@@ -126,7 +122,7 @@ export class FileValidator implements IFileValidator {
         };
       }
 
-      if (!subject.belongsToYearLevel(PrismaYearLevelMapper.toDomain(yearLevelEnum))) {
+      if (!subject.belongsToYearLevel(yearLevelEnum)) {
         return {
           valid: false,
           message: `Subject ${subject.name} is not allowed for year level ${yearLevel}`,
@@ -136,12 +132,7 @@ export class FileValidator implements IFileValidator {
     }
 
     if (isIds) {
-      if (
-        !CurriculumService.isSpecializationInYearLevel(
-          PrismaSpecializationMapper.toDomain(specializationEnum),
-          PrismaYearLevelMapper.toDomain(yearLevelEnum)
-        )
-      ) {
+      if (!CurriculumService.isSpecializationInYearLevel(specializationEnum, yearLevelEnum)) {
         return {
           valid: false,
           message: `Specialization ${validSpecialization} is not allowed for year level ${validYearLevel}`,
@@ -187,12 +178,7 @@ export class FileValidator implements IFileValidator {
 
     const { specialization, yearLevel } = result.data;
 
-    if (
-      !CurriculumService.isSpecializationInYearLevel(
-        PrismaSpecializationMapper.toDomain(specialization),
-        PrismaYearLevelMapper.toDomain(yearLevel)
-      )
-    ) {
+    if (!CurriculumService.isSpecializationInYearLevel(specialization, yearLevel)) {
       return {
         valid: false,
         message: `Specialization ${specialization} is not allowed for year level ${yearLevel}`,
@@ -250,7 +236,7 @@ export class FileValidator implements IFileValidator {
       };
     }
 
-    if (!subject.allowsSpecialization(PrismaSpecializationMapper.toDomain(specialization))) {
+    if (!subject.allowsSpecialization(specialization)) {
       return {
         valid: false,
         message: `Subject ${subject.name} is not allowed for specialization ${specialization}`,

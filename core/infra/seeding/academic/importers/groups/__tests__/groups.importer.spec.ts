@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import { Student } from '@/core/domain/entities/student.entity';
+import { Specialization } from '@/core/domain/entities/specialization.enum';
 import { BusinessRuleError } from '@/core/domain/errors/domain-errors';
 import { TestPostgres } from '@/core/infra/orm/prisma/__tests__/test-postgres';
 import { PrismaStudentRepo } from '@/core/infra/repos/prisma/student.repo';
@@ -15,7 +16,7 @@ const groupsFile = (
 ): SeedGroupsFile => ({
   academicYear: '2025-2026',
   subjectSlug: 'project-2',
-  specialization: 'AI',
+  specialization: Specialization.AI,
   groups,
   ...overrides,
 });
@@ -126,7 +127,7 @@ describe('GroupsImporter', () => {
     await expect(
       importer().importGroups(
         groupsFile([{ projectIdea: 'SWE idea', students: ['احمد خالد تللو'] }], {
-          specialization: 'SWE',
+          specialization: Specialization.SWE,
         })
       )
     ).rejects.toThrow(BusinessRuleError);
@@ -147,7 +148,7 @@ describe('GroupsImporter', () => {
       importer().importGroups(
         groupsFile([{ projectIdea: 'X', students: ['احمد خالد تللو'] }], {
           subjectSlug: 'project-1',
-          specialization: 'AI',
+          specialization: Specialization.AI,
         })
       )
     ).rejects.toThrow(/not allowed/);

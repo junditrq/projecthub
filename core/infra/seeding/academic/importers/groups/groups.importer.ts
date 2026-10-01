@@ -5,8 +5,6 @@ import {
 } from '@/core/domain/entities/unresolved-member.entity';
 import { ISubjectRepo } from '@/core/domain/repos/subject.repo';
 import { GroupMemberResolutionService } from '@/core/domain/services/group-member-resolution.service';
-import { PrismaSpecializationMapper } from '@/core/infra/mappers/specialization.prisma.mapper';
-import { PrismaYearLevelMapper } from '@/core/infra/mappers/year-level.prisma.mapper';
 import prisma from '@/core/infra/orm/prisma/prisma.client';
 import { PrismaClient } from '@/core/infra/orm/prisma/generated';
 import { PrismaGroupRepo } from '@/core/infra/repos/prisma/group.repo';
@@ -36,7 +34,7 @@ export class GroupsImporter {
       throw new Error(`Subject with slug ${seedFile.subjectSlug} doesn't exist in the database.`);
     }
 
-    const specialization = PrismaSpecializationMapper.toDomain(seedFile.specialization);
+    const specialization = seedFile.specialization;
     if (!subject.allowsSpecialization(specialization)) {
       throw new Error(
         `Specialization "${seedFile.specialization}" is not allowed for subject "${seedFile.subjectSlug}".`
@@ -55,7 +53,7 @@ export class GroupsImporter {
           { students: seedGroup.students },
           {
             academicYear: seedFile.academicYear,
-            yearLevel: PrismaYearLevelMapper.toPrisma(subject.yearLevel),
+            yearLevel: subject.yearLevel,
             specialization: seedFile.specialization,
             subjectSlug: seedFile.subjectSlug,
           }

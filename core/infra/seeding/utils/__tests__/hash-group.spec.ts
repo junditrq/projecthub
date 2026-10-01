@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { YearLevel } from '@/core/infra/orm/prisma/generated';
+import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/entities/specialization.enum';
 import { hashGroup } from '../hash-group';
 
 const scope = {
   academicYear: '2025-2026',
   yearLevel: YearLevel.FOURTH,
-  specialization: 'AI',
+  specialization: Specialization.AI,
   subjectSlug: 'project-2',
 } as const;
 
@@ -35,7 +36,9 @@ describe('hashGroup seed identity', () => {
   it('changes when specialization, year, level, or subject change', () => {
     const base = hashGroup({ students: ['احمد'] }, { ...scope });
 
-    expect(hashGroup({ students: ['احمد'] }, { ...scope, specialization: 'SWE' })).not.toBe(base);
+    expect(
+      hashGroup({ students: ['احمد'] }, { ...scope, specialization: Specialization.SWE })
+    ).not.toBe(base);
     expect(hashGroup({ students: ['احمد'] }, { ...scope, academicYear: '2024-2025' })).not.toBe(
       base
     );

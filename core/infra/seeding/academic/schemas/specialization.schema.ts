@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Specialization } from '../../../orm/prisma/generated';
+import { Specialization } from '@/core/domain/entities/specialization.enum';
 
 export const SeedSpecializationSchema = z.enum(Specialization);
 

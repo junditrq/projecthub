@@ -1,19 +1,18 @@
 import { createHash } from 'crypto';
-import { YearLevel } from '../../orm/prisma/generated';
+import { YearLevel } from '@/core/domain/entities/subject.entity';
 import { normalizeArabicName } from '@/core/domain/utils/normalize-arabic-name.util';
 import { SeedGroup } from '../academic/schemas/groups-file.schema';
-import { SeedAcademicYear } from '../academic/schemas/academic-year.schema';
-import { SeedSpecialization } from '../academic/schemas/specialization.schema';
 import { SeedSubjectSlug } from '../academic/schemas/subject.schema';
+import { Specialization } from '@/core/domain/entities/specialization.enum';
 
 // we don't care much about the project idea cause we can't have different project ideas
 // for the same group (group of students)
 export type GroupIdentityInput = Pick<SeedGroup, 'students'>;
 
 export type GroupIdentityScope = {
-  academicYear: SeedAcademicYear;
+  academicYear: string;
   yearLevel: YearLevel;
-  specialization: SeedSpecialization;
+  specialization: Specialization;
   subjectSlug: SeedSubjectSlug;
 };
 

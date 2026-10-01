@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { Student } from '@/core/domain/entities/student.entity';
+import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { YearLevel } from '@/core/domain/entities/subject.entity';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { StudentsImporter } from '../students.importer';
 
@@ -31,8 +33,8 @@ describe('StudentsImporter', () => {
 
     const report = await importer.importStudents({
       academicYear: '2025-2026',
-      specialization: 'AI',
-      yearLevel: 'FOURTH',
+      specialization: Specialization.AI,
+      yearLevel: YearLevel.FOURTH,
       students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '1723240193' }],
     });
 
@@ -46,8 +48,8 @@ describe('StudentsImporter', () => {
 
     const report = await importer.importStudents({
       academicYear: '2025-2026',
-      specialization: 'AI',
-      yearLevel: 'FOURTH',
+      specialization: Specialization.AI,
+      yearLevel: YearLevel.FOURTH,
       students: [
         { name: 'احمد تللو', fatherName: 'خالد', collegeId: '1723240193' },
         { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '1720074514' },
