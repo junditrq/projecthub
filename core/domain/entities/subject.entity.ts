@@ -19,7 +19,14 @@ export interface SubjectProps extends SubjectCreateProps {
 }
 
 export class Subject {
-  constructor(private readonly _props: SubjectProps) {}
+  private readonly _props: SubjectProps;
+
+  constructor(props: SubjectProps) {
+    this._props = {
+      ...props,
+      allowedSpecializations: [...props.allowedSpecializations],
+    };
+  }
 
   get id(): SubjectProps['id'] {
     return this._props.id;
@@ -37,8 +44,8 @@ export class Subject {
     return this._props.yearLevel;
   }
 
-  get allowedSpecializations(): SubjectProps['allowedSpecializations'] {
-    return this._props.allowedSpecializations;
+  get allowedSpecializations(): readonly Specialization[] {
+    return [...this._props.allowedSpecializations];
   }
 
   allowsSpecialization(specialization: Specialization): boolean {
