@@ -1,3 +1,4 @@
+import { BusinessRuleError } from '../errors/domain-errors';
 import { Specialization } from './specialization.enum';
 
 export enum YearLevel {
@@ -6,12 +7,15 @@ export enum YearLevel {
   FIFTH = 'FIFTH',
 }
 
-export interface SubjectProps {
-  id: string;
+export interface SubjectCreateProps {
   name: string;
   slug: string;
   yearLevel: YearLevel;
   allowedSpecializations: Specialization[];
+}
+
+export interface SubjectProps extends SubjectCreateProps {
+  id: string;
 }
 
 export class Subject {
@@ -42,6 +46,17 @@ export class Subject {
   }
   belongsToYearLevel(yearLevel: YearLevel): boolean {
     return this._props.yearLevel === yearLevel;
+  }
+
+  public static create(props: SubjectCreateProps): Subject {
+    if (props.name.trim() === '' || props.slug.trim() === '') {
+      throw new BusinessRuleError('Name and slug cannot be empty');
+    }
+    if (props.allowedSpecializations.length === 0) {
+      throw new BusinessRuleError('At least one specialization must be allowed');
+    }
+    const id = crypto.randomUUID();
+    return new Subject({ ...props, id });
   }
 
   public static reconstitute(props: SubjectProps): Subject {

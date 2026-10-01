@@ -1,5 +1,5 @@
 import { Subject } from '@/core/domain/entities/subject.entity';
-import { Subject as PrismaSubject } from '../orm/prisma/generated';
+import { Prisma, Subject as PrismaSubject } from '../orm/prisma/generated';
 import { PrismaSpecializationMapper } from './specialization.prisma.mapper';
 import { PrismaYearLevelMapper } from './year-level.prisma.mapper';
 
@@ -14,5 +14,16 @@ export class PrismaSubjectMapper {
       ),
       yearLevel: PrismaYearLevelMapper.toDomain(prismaSubject.yearLevel),
     });
+  }
+
+  static toPersistenceCreate(subject: Subject): Prisma.SubjectUncheckedCreateInput {
+    return {
+      name: subject.name,
+      slug: subject.slug,
+      allowedSpecializations: subject.allowedSpecializations.map(
+        PrismaSpecializationMapper.toPersistence
+      ),
+      yearLevel: PrismaYearLevelMapper.toPersistence(subject.yearLevel),
+    };
   }
 }

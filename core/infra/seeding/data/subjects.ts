@@ -1,4 +1,5 @@
-import { YearLevel, Specialization } from '@/core/infra/orm/prisma/generated';
+import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { YearLevel } from '@/core/domain/entities/subject.entity';
 
 export const subjects = [
   {
