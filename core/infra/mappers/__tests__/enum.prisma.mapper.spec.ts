@@ -39,12 +39,12 @@ describe('PrismaYearLevelMapper', () => {
 
     for (const [prisma, domain] of pairs) {
       expect(PrismaYearLevelMapper.toDomain(prisma)).toBe(domain);
-      expect(PrismaYearLevelMapper.toPrisma(domain)).toBe(prisma);
+      expect(PrismaYearLevelMapper.toPersistence(domain)).toBe(prisma);
     }
   });
 
   it('fails loudly on unknown enum values instead of misclassifying', () => {
     expect(() => PrismaYearLevelMapper.toDomain('SOMETHING_NEW' as never)).toThrow();
-    expect(() => PrismaYearLevelMapper.toPrisma('SOMETHING_NEW' as never)).toThrow();
+    expect(() => PrismaYearLevelMapper.toPersistence('SOMETHING_NEW' as never)).toThrow();
   });
 });

@@ -15,7 +15,7 @@ export class PrismaYearLevelMapper {
     }
   }
 
-  static toPrisma(yearLevel: YearLevel): PrismaYearLevel {
+  static toPersistence(yearLevel: YearLevel): PrismaYearLevel {
     switch (yearLevel) {
       case YearLevel.THIRD:
         return PrismaYearLevel.THIRD;
