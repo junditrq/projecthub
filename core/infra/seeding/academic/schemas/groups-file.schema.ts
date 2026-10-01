@@ -4,8 +4,8 @@ import { SeedSubjectSlugSchema } from './subject.schema';
 import { SeedAcademicYearSchema } from './academic-year.schema';
 
 export const SeedGroupSchema = z.object({
-  projectIdea: z.string(),
-  students: z.array(z.string()),
+  projectIdea: z.string().trim().min(1, { message: 'Project idea cannot be empty' }),
+  students: z.array(z.string().trim().min(1, { message: 'Student name cannot be empty' })),
 });
 
 export const SeedGroupsFileSchema = z.object({

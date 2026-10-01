@@ -5,7 +5,6 @@ export const ensureProjectIdea = async (
   name: string,
   prisma: PrismaClient | Prisma.TransactionClient
 ) => {
-  // TODO add validation for project idea name
   const validated = name.trim();
 
   return await prisma.projectIdea.upsert({
