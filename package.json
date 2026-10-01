@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
+    "extract:students": "python3 core/infra/seeding/utils/extraction-scripts/extract_students.py --output-dir core/infra/seeding/academic/data",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },

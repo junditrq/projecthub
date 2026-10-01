@@ -52,3 +52,12 @@ core/infra/seeding/academic/resources/
 
 # Prisma generated client
 /core/infra/orm/prisma/generated/
+
+
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.conda/
