@@ -84,7 +84,17 @@ describe('FileValidator paths', () => {
   it('accepts ids files without consulting subjects', async () => {
     const result = await withEmptyFile('2025-2026__fourth__ai__ids.json');
 
-    expect(result).toEqual({ valid: true, path: '2025-2026__fourth__ai__ids.json' });
+    expect(result).toMatchObject({
+      valid: true,
+      path: '2025-2026__fourth__ai__ids.json',
+      pathParts: {
+        academicYear: '2025-2026',
+        yearLevel: YearLevel.FOURTH,
+        specialization: Specialization.AI,
+        fileName: 'ids',
+        isIds: true,
+      },
+    });
   });
 
   it('rejects ids files with specializations outside the path year level', async () => {
@@ -136,7 +146,17 @@ describe('FileValidator paths', () => {
   it('accepts a fully valid group path backed by a real file', async () => {
     const result = await withEmptyFile('2025-2026__fourth__ai__project-2.json');
 
-    expect(result).toEqual({ valid: true, path: '2025-2026__fourth__ai__project-2.json' });
+    expect(result).toMatchObject({
+      valid: true,
+      path: '2025-2026__fourth__ai__project-2.json',
+      pathParts: {
+        academicYear: '2025-2026',
+        yearLevel: YearLevel.FOURTH,
+        specialization: Specialization.AI,
+        fileName: 'project-2',
+        isIds: false,
+      },
+    });
   });
 
   it('rejects valid paths with no file on disk', async () => {

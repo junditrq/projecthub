@@ -6,6 +6,7 @@ import { SeedGroupsFile } from './schemas/groups-file.schema';
 import { SeedStudentsFile } from './schemas/students-file.schema';
 import { FileRepo } from './repos/file.repo';
 import { FileValidator } from './validators/file.validator';
+import { ParsedPathParts } from './validators/file.validator.interface';
 import { StudentsImporter } from './importers/students/students.importer';
 import { GroupsImporter } from './importers/groups/groups.importer';
 import { printStudentsImportReport } from './importers/students/student-import.report';
@@ -13,8 +14,8 @@ import { printGroupsImportReport } from './importers/groups/groups-import.report
 
 // WIP fly-testing harness. Run with:
 //   tsx core/infra/seeding/academic/import.ts
-// Flow: discover -> validate paths -> validate content -> seed ids (oldest
-// first) -> seed groups (oldest first, stops run on first file error).
+// Flow: discover -> validate paths -> validate content + path/content consistency
+// -> seed ids (oldest first) -> seed groups (oldest first, stops run on first file error).
 // Staging only: clone prod locally, iterate here, import prod when satisfied.
 
 const DATA_PATH = path.resolve(__dirname, '../academic/data/');
@@ -46,15 +47,17 @@ async function main() {
   );
 
   // P1 — path + file-name validation.
+  const pathPartsByFile = new Map<string, ParsedPathParts>();
   for (const file of allFiles) {
     const validated = await fileValidator.validateFilePath(file);
     if (!validated.valid) {
       return fail(`[Path] ${validated.path} | ${validated.message}`);
     }
+    pathPartsByFile.set(file, validated.pathParts);
   }
   console.log('[Paths] all file paths and names are valid. Validating contents...');
 
-  // P2 — content validation.
+  // P2 — content validation + path/content consistency.
   const studentsFiles: SeedStudentsFile[] = [];
   for (const file of idsFiles) {
     const raw = await fileRepo.readFileContent(file);
@@ -64,6 +67,14 @@ async function main() {
     const validated = fileValidator.validateIdsContent(raw.data);
     if (!validated.valid) {
       return fail(`[Content] ${file} | ${validated.message}`);
+    }
+    const pathParts = pathPartsByFile.get(file);
+    if (!pathParts) {
+      return fail(`[Consistency] ${file} | missing validated path parts`);
+    }
+    const consistent = fileValidator.validateIdsConsistency(pathParts, validated.file);
+    if (!consistent.valid) {
+      return fail(`[Consistency] ${file} | ${consistent.message}`);
     }
     studentsFiles.push(validated.file);
   }
@@ -77,6 +88,14 @@ async function main() {
     const validated = await fileValidator.validateGroupsContent(raw.data);
     if (!validated.valid) {
       return fail(`[Content] ${file} | ${validated.message}`);
+    }
+    const pathParts = pathPartsByFile.get(file);
+    if (!pathParts) {
+      return fail(`[Consistency] ${file} | missing validated path parts`);
+    }
+    const consistent = fileValidator.validateGroupsConsistency(pathParts, validated.file);
+    if (!consistent.valid) {
+      return fail(`[Consistency] ${file} | ${consistent.message}`);
     }
     groupsFiles.push(validated.file);
   }
