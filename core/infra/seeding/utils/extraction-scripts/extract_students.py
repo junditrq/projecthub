@@ -40,8 +40,12 @@ import sys
 
 import fitz  # PyMuPDF
 
-ID_RE = re.compile(r"^\d{9,11}$")
-ID_ANY_RE = re.compile(r"\d{9,11}")
+# Token classifiers only (which token is the college-id candidate vs a
+# sequence/exam number vs a data block). ID_RE keeps the exactly-10 check
+# for identification, matching the downstream contract; validity is enforced
+# at import by SeedCollegeIdSchema + Student.create, which refuse bad records.
+ID_RE = re.compile(r"^\d{10}$")
+ID_ANY_RE = re.compile(r"\d{10}")
 SEQ_RE = re.compile(r"^\d{4,6}$")
 # Trailing status column (مستجد/قديم) present in newer exports -- never part
 # of a name. Header rows in any language contain no student number.
@@ -138,12 +142,7 @@ def clean(text: str) -> str:
     return fix_allah_ligature(text).strip()
 
 
-def extract(
-    pdf_path: str,
-    college_id_header: str = "STD_ID",
-    name_header: str = "STD_ALLNAME",
-    father_header: str = "STD_FATHER_NAME",
-):
+def extract(pdf_path: str):
     doc = fitz.open(pdf_path)
     records = []
     problems = []
@@ -163,16 +162,16 @@ def extract(
 
             flat = " ".join(" ".join(v) for v in line_texts.values())
             if (
-                college_id_header in flat
-                or name_header in flat
-                or father_header in flat
+                "STD_ID" in flat
+                or "STD_ALLNAME" in flat
+                or "STD_FATHER_NAME" in flat
                 or not ID_ANY_RE.search(flat)
             ):
                 continue  # header row (any language) or non-data block
 
-            # collegeId is ALWAYS the value under the --college-id-header
-            # column (the student/university number, e.g. STD_ID /
-            # رقم الطالب / الرقم الجامعي). Any sequence/exam-number column
+            # Field assignment is positional, not header-anchored: the first
+            # 10-digit token is the college id (STD_ID / رقم الطالب /
+            # الرقم الجامعي). Any sequence/exam-number column
             # (SEQUENCE_NUM_FORCOLL / الرقم الامتحاني) is stripped and ignored.
             std_id = None
             allname = None
@@ -208,10 +207,9 @@ def extract(
 
             records.append(
                 {
-                    "collegeId": std_id,  # from college-id-header (default STD_ID)
-                    "_studentId": std_id,  # same value, kept for reference/debugging only
-                    "name": clean(allname),  # from name-header (default STD_ALLNAME)
-                    "fatherName": clean(" ".join(father_parts)),  # from father-header
+                    "collegeId": std_id,
+                    "name": clean(allname),
+                    "fatherName": clean(" ".join(father_parts)),
                 }
             )
 
@@ -248,26 +246,6 @@ def main():
         help="value for the yearLevel field: one of THIRD, FOURTH, FIFTH "
         "(case-insensitive)",
     )
-    ap.add_argument(
-        "--keep-student-id",
-        action="store_true",
-        help="keep the raw STD_ID (_studentId) in the output for debugging",
-    )
-    ap.add_argument(
-        "--college-id-header",
-        default="STD_ID",
-        help="PDF header text for the college-id column (default: STD_ID)",
-    )
-    ap.add_argument(
-        "--name-header",
-        default="STD_ALLNAME",
-        help="PDF header text for the student-name column (default: STD_ALLNAME)",
-    )
-    ap.add_argument(
-        "--father-header",
-        default="STD_FATHER_NAME",
-        help="PDF header text for the father-name column (default: STD_FATHER_NAME)",
-    )
     args = ap.parse_args()
 
     try:
@@ -284,12 +262,7 @@ def main():
             f"for year level {year_level}"
         )
 
-    records, problems = extract(
-        args.pdf,
-        college_id_header=args.college_id_header,
-        name_header=args.name_header,
-        father_header=args.father_header,
-    )
+    records, problems = extract(args.pdf)
     print(
         f"Extracted {len(records)} records, {len(problems)} unparsed rows",
         file=sys.stderr,
@@ -304,8 +277,6 @@ def main():
             "fatherName": r["fatherName"],
             "collegeId": r["collegeId"],
         }
-        if args.keep_student_id:
-            student["_studentId"] = r["_studentId"]
         students.append(student)
 
     out = {
