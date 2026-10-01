@@ -1,40 +1,34 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
-CREATE TYPE "user_role" AS ENUM ('admin', 'visitor', 'student');
+CREATE TYPE "user_role" AS ENUM ('ADMIN', 'VISITOR', 'STUDENT');
 
 -- CreateEnum
-CREATE TYPE "verification_status" AS ENUM ('pending', 'approved', 'rejected');
+CREATE TYPE "verification_status" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
 
 -- CreateEnum
-CREATE TYPE "project_repo_type" AS ENUM ('frontend', 'backend', 'mobile', 'monorepo');
+CREATE TYPE "specialization" AS ENUM ('SWE', 'AI', 'NET', 'GENERAL');
 
--- DropForeignKey
-ALTER TABLE "Post" DROP CONSTRAINT "Post_authorId_fkey";
+-- CreateEnum
+CREATE TYPE "project_repo_type" AS ENUM ('FRONTEND', 'BACKEND', 'MOBILE', 'MONOREPO', 'AI');
 
--- DropTable
-DROP TABLE "Post";
+-- CreateEnum
+CREATE TYPE "year_level" AS ENUM ('THIRD', 'FOURTH', 'FIFTH');
 
--- DropTable
-DROP TABLE "User";
+-- CreateEnum
+CREATE TYPE "unresolved_group_member_type" AS ENUM ('NAME_CONFLICT', 'STUDENT_NOT_FOUND');
 
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "name" TEXT,
-    "email" TEXT,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "email_verified" TIMESTAMP(3),
     "image" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "role" "user_role" NOT NULL DEFAULT 'visitor',
+    "role" "user_role" NOT NULL DEFAULT 'VISITOR',
     "github_username" TEXT,
     "linkedin_url" TEXT,
+    "has_been_prompted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -75,10 +69,36 @@ CREATE TABLE "verification_tokens" (
 );
 
 -- CreateTable
+CREATE TABLE "academic_years" (
+    "id" TEXT NOT NULL,
+    "label" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "academic_years_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "subjects" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
+    "year_level" "year_level" NOT NULL,
+    "allowed_specializations" "specialization"[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "subjects_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "students" (
     "id" TEXT NOT NULL,
-    "arabic_name" TEXT NOT NULL,
-    "group_id" TEXT NOT NULL,
+    "college_id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "father_name" TEXT NOT NULL,
+    "canonical_full_name" TEXT NOT NULL,
+    "normalized_name" TEXT NOT NULL,
     "user_id" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -93,7 +113,8 @@ CREATE TABLE "verification_requests" (
     "reviewed_by_id" TEXT,
     "submitted_arabic_name" TEXT NOT NULL,
     "college_id_pic_url" TEXT NOT NULL,
-    "status" "verification_status" NOT NULL DEFAULT 'pending',
+    "rejected_reason" TEXT,
+    "status" "verification_status" NOT NULL DEFAULT 'PENDING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -103,7 +124,11 @@ CREATE TABLE "verification_requests" (
 -- CreateTable
 CREATE TABLE "groups" (
     "id" TEXT NOT NULL,
-    "project_idea_id" TEXT,
+    "seed_hash" TEXT,
+    "project_idea_id" TEXT NOT NULL,
+    "academic_year_id" TEXT NOT NULL,
+    "specialization" "specialization" NOT NULL,
+    "subject_id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -111,10 +136,28 @@ CREATE TABLE "groups" (
 );
 
 -- CreateTable
+CREATE TABLE "group_members" (
+    "group_id" TEXT NOT NULL,
+    "student_id" TEXT NOT NULL,
+
+    CONSTRAINT "group_members_pkey" PRIMARY KEY ("group_id","student_id")
+);
+
+-- CreateTable
+CREATE TABLE "unresolved_group_members" (
+    "id" TEXT NOT NULL,
+    "group_id" TEXT NOT NULL,
+    "student_id" TEXT,
+    "conflict_name" TEXT NOT NULL,
+    "unresolved_type" "unresolved_group_member_type" NOT NULL,
+
+    CONSTRAINT "unresolved_group_members_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "project_ideas" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "year" INTEGER NOT NULL,
     "slug" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -129,7 +172,7 @@ CREATE TABLE "projects" (
     "desc" TEXT,
     "group_id" TEXT NOT NULL,
     "publisher_student_id" TEXT NOT NULL,
-    "thumbnail" TEXT,
+    "thumbnail_url" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -150,12 +193,11 @@ CREATE TABLE "project_repos" (
 
 -- CreateTable
 CREATE TABLE "likes" (
-    "id" TEXT NOT NULL,
     "project_id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "likes_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "likes_pkey" PRIMARY KEY ("project_id","user_id")
 );
 
 -- CreateTable
@@ -228,13 +270,34 @@ CREATE UNIQUE INDEX "sessions_session_token_key" ON "sessions"("session_token");
 CREATE UNIQUE INDEX "verification_tokens_identifier_token_key" ON "verification_tokens"("identifier", "token");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "academic_years_label_key" ON "academic_years"("label");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "subjects_name_key" ON "subjects"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "subjects_slug_key" ON "subjects"("slug");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "students_college_id_key" ON "students"("college_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "students_user_id_key" ON "students"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "groups_seed_hash_key" ON "groups"("seed_hash");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "project_ideas_name_key" ON "project_ideas"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "project_ideas_slug_key" ON "project_ideas"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "previews_project_id_key" ON "previews"("project_id");
+CREATE UNIQUE INDEX "projects_group_id_key" ON "projects"("group_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "project_repos_project_id_type_key" ON "project_repos"("project_id", "type");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "categories_name_key" ON "categories"("name");
@@ -264,9 +327,6 @@ ALTER TABLE "accounts" ADD CONSTRAINT "accounts_user_id_fkey" FOREIGN KEY ("user
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "students" ADD CONSTRAINT "students_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "students" ADD CONSTRAINT "students_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -276,7 +336,25 @@ ALTER TABLE "verification_requests" ADD CONSTRAINT "verification_requests_user_i
 ALTER TABLE "verification_requests" ADD CONSTRAINT "verification_requests_reviewed_by_id_fkey" FOREIGN KEY ("reviewed_by_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "groups" ADD CONSTRAINT "groups_project_idea_id_fkey" FOREIGN KEY ("project_idea_id") REFERENCES "project_ideas"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "groups" ADD CONSTRAINT "groups_project_idea_id_fkey" FOREIGN KEY ("project_idea_id") REFERENCES "project_ideas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "groups" ADD CONSTRAINT "groups_academic_year_id_fkey" FOREIGN KEY ("academic_year_id") REFERENCES "academic_years"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "groups" ADD CONSTRAINT "groups_subject_id_fkey" FOREIGN KEY ("subject_id") REFERENCES "subjects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "group_members" ADD CONSTRAINT "group_members_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "group_members" ADD CONSTRAINT "group_members_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "students"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "unresolved_group_members" ADD CONSTRAINT "unresolved_group_members_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "unresolved_group_members" ADD CONSTRAINT "unresolved_group_members_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "students"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "projects" ADD CONSTRAINT "projects_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "groups"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -285,16 +363,19 @@ ALTER TABLE "projects" ADD CONSTRAINT "projects_group_id_fkey" FOREIGN KEY ("gro
 ALTER TABLE "projects" ADD CONSTRAINT "projects_publisher_student_id_fkey" FOREIGN KEY ("publisher_student_id") REFERENCES "students"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "project_repos" ADD CONSTRAINT "project_repos_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "projects" ADD CONSTRAINT "projects_group_id_publisher_student_id_fkey" FOREIGN KEY ("group_id", "publisher_student_id") REFERENCES "group_members"("group_id", "student_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "likes" ADD CONSTRAINT "likes_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "project_repos" ADD CONSTRAINT "project_repos_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "likes" ADD CONSTRAINT "likes_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "likes" ADD CONSTRAINT "likes_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "previews" ADD CONSTRAINT "previews_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "previews" ADD CONSTRAINT "previews_project_id_fkey" FOREIGN KEY ("project_id") REFERENCES "projects"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_ProjectToTag" ADD CONSTRAINT "_ProjectToTag_A_fkey" FOREIGN KEY ("A") REFERENCES "projects"("id") ON DELETE CASCADE ON UPDATE CASCADE;
