@@ -6,7 +6,7 @@ describe('PrismaStudentMapper', () => {
   it('should accurately map from Prisma to Domain', () => {
     const mockPrismaStudent: PrismaStudent = {
       id: 'db-id-123',
-      collegeId: '1',
+      collegeId: '1723240193',
       name: 'طارق',
       normalizedName: 'طارق',
       fatherName: 'الجندي',
@@ -21,7 +21,7 @@ describe('PrismaStudentMapper', () => {
     expect(domainStudent.id).toBe(mockPrismaStudent.id);
     expect(domainStudent.name).toBe(mockPrismaStudent.name);
     expect(domainStudent.fatherName).toBe(mockPrismaStudent.fatherName);
-    expect(domainStudent.collegeId).toBe('1');
+    expect(domainStudent.collegeId).toBe('1723240193');
     expect(domainStudent.canonicalFullName).toBe(mockPrismaStudent.canonicalFullName);
     expect(domainStudent.userId).toBe(mockPrismaStudent.userId);
   });

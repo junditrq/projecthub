@@ -5,8 +5,13 @@ import { IGroupRepo } from '../../repos/group.repo';
 import { IStudentRepo } from '../../repos/student.repo';
 import { GroupMemberResolutionService, StudentCandidate } from '../group-member-resolution.service';
 
+const collegeIds: Record<string, string> = {
+  's-1': '1723240193',
+  's-2': '1720074514',
+};
+
 const student = (id: string, name: string, fatherName: string): Student =>
-  Student.create({ name, fatherName, collegeId: `college-${id}`, userId: null });
+  Student.create({ name, fatherName, collegeId: collegeIds[id] ?? '1722168510', userId: null });
 
 const fakeStudentRepo = (candidates: Student[]): IStudentRepo => ({
   findByCollegeId: async () => null,

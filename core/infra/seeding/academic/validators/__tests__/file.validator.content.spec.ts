@@ -16,7 +16,7 @@ const idsFile = (overrides: Record<string, unknown> = {}): string =>
     academicYear: '2025-2026',
     specialization: 'AI',
     yearLevel: 'FOURTH',
-    students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '101' }],
+    students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '1723240193' }],
     ...overrides,
   });
 
@@ -44,19 +44,56 @@ describe('FileValidator ids content', () => {
     }
   });
 
-  it('rejects duplicate college ids, including coerced number/string pairs', () => {
+  it('rejects duplicate college ids', () => {
     const result = validator().validateIdsContent(
       idsFile({
         students: [
-          { name: 'احمد تللو', fatherName: 'خالد', collegeId: 101 },
-          { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '101' },
+          { name: 'احمد تللو', fatherName: 'خالد', collegeId: '1723240193' },
+          { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '1723240193' },
         ],
       })
     );
 
     expect(result.valid).toBe(false);
     if (!result.valid) {
-      expect(result.message).toContain('101');
+      expect(result.message).toContain('1723240193');
+    }
+  });
+
+  it.each([
+    ['short id', '12345'],
+    ['non-digit id', 'abcdefghij'],
+    ['coerced undefined', 'undefined'],
+    ['coerced null', 'null'],
+  ])('rejects invalid collegeId (%s)', (_label, collegeId) => {
+    const result = validator().validateIdsContent(
+      idsFile({
+        students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId }],
+      })
+    );
+
+    expect(result.valid).toBe(false);
+  });
+
+  it('rejects numeric collegeIds without coercion', () => {
+    const result = validator().validateIdsContent(
+      idsFile({
+        students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: 1723240193 }],
+      })
+    );
+
+    expect(result.valid).toBe(false);
+  });
+
+  it('rejects empty student names', () => {
+    for (const name of ['', '   ']) {
+      const result = validator().validateIdsContent(
+        idsFile({
+          students: [{ name, fatherName: 'خالد', collegeId: '1723240193' }],
+        })
+      );
+
+      expect(result.valid).toBe(false);
     }
   });
 
@@ -145,6 +182,19 @@ describe('FileValidator groups content', () => {
     if (!result.valid) {
       expect(result.message).toContain('"groupIndex": 1');
       expect(result.message).toContain('احمد خالد تللو');
+    }
+  });
+
+  it('rejects empty project ideas and empty student names', async () => {
+    for (const groups of [
+      [{ projectIdea: '', students: ['احمد خالد تللو'] }],
+      [{ projectIdea: '   ', students: ['احمد خالد تللو'] }],
+      [{ projectIdea: 'Smart campus', students: [''] }],
+      [{ projectIdea: 'Smart campus', students: ['   '] }],
+    ]) {
+      const result = await validator([project2]).validateGroupsContent(groupsFile({ groups }));
+
+      expect(result.valid).toBe(false);
     }
   });
 

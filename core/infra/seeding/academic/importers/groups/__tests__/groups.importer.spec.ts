@@ -48,8 +48,8 @@ describe('GroupsImporter', () => {
   const importer = () => new GroupsImporter(db.prisma, new PrismaSubjectRepo(db.prisma));
 
   it('persists an all-resolved group with member links and counts', async () => {
-    await seedStudent('احمد تللو', 'خالد', '101');
-    await seedStudent('سارة', 'خالد المحمود', '102');
+    await seedStudent('احمد تللو', 'خالد', '1723240193');
+    await seedStudent('سارة', 'خالد المحمود', '1720074514');
 
     const report = await importer().importGroups(
       groupsFile([
@@ -76,8 +76,8 @@ describe('GroupsImporter', () => {
   });
 
   it('persists one conflict row per candidate, each hitting a different match branch', async () => {
-    const studentA = await seedStudent('احمد تللو', 'خالد', '101');
-    const studentB = await seedStudent('احمد خالد تللو', 'عباس', '102');
+    const studentA = await seedStudent('احمد تللو', 'خالد', '1723240193');
+    const studentB = await seedStudent('احمد خالد تللو', 'عباس', '1720074514');
 
     const report = await importer().importGroups(
       groupsFile([{ projectIdea: 'Smart campus', students: ['احمد خالد تللو'] }])
@@ -90,7 +90,7 @@ describe('GroupsImporter', () => {
   });
 
   it('skips reruns by seed hash without writing', async () => {
-    await seedStudent('احمد تللو', 'خالد', '101');
+    await seedStudent('احمد تللو', 'خالد', '1723240193');
     const file = groupsFile([{ projectIdea: 'Smart campus', students: ['احمد خالد تللو'] }]);
     await importer().importGroups(file);
 
@@ -101,8 +101,8 @@ describe('GroupsImporter', () => {
   });
 
   it('rolls back the whole file when a student is already grouped', async () => {
-    await seedStudent('احمد تللو', 'خالد', '101');
-    await seedStudent('سارة', 'خالد المحمود', '102');
+    await seedStudent('احمد تللو', 'خالد', '1723240193');
+    await seedStudent('سارة', 'خالد المحمود', '1720074514');
     await importer().importGroups(
       groupsFile([{ projectIdea: 'First idea', students: ['احمد خالد تللو'] }])
     );
@@ -118,7 +118,7 @@ describe('GroupsImporter', () => {
   });
 
   it('rejects the same student grouped under another specialization', async () => {
-    await seedStudent('احمد تللو', 'خالد', '101');
+    await seedStudent('احمد تللو', 'خالد', '1723240193');
     await importer().importGroups(
       groupsFile([{ projectIdea: 'AI idea', students: ['احمد خالد تللو'] }])
     );

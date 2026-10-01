@@ -23,7 +23,7 @@ describe('StudentsImporter', () => {
     const existing = Student.create({
       name: 'احمد',
       fatherName: 'محمد',
-      collegeId: '101',
+      collegeId: '1723240193',
       userId: null,
     });
     const repo = fakeRepo([existing]);
@@ -33,7 +33,7 @@ describe('StudentsImporter', () => {
       academicYear: '2025-2026',
       specialization: 'AI',
       yearLevel: 'FOURTH',
-      students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '101' }],
+      students: [{ name: 'احمد تللو', fatherName: 'خالد', collegeId: '1723240193' }],
     });
 
     expect(report).toEqual({ studentsCreated: 0, studentsExisting: 1 });
@@ -49,13 +49,13 @@ describe('StudentsImporter', () => {
       specialization: 'AI',
       yearLevel: 'FOURTH',
       students: [
-        { name: 'احمد تللو', fatherName: 'خالد', collegeId: '101' },
-        { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '102' },
+        { name: 'احمد تللو', fatherName: 'خالد', collegeId: '1723240193' },
+        { name: 'سارة', fatherName: 'خالد المحمود', collegeId: '1720074514' },
       ],
     });
 
     expect(report).toEqual({ studentsCreated: 2, studentsExisting: 0 });
-    expect(repo.saved.map((s) => s.collegeId).sort()).toEqual(['101', '102']);
+    expect(repo.saved.map((s) => s.collegeId).sort()).toEqual(['1720074514', '1723240193']);
     expect(repo.saved[0].canonicalFullName).toBeDefined();
   });
 });
