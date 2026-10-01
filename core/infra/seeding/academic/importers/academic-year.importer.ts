@@ -1,5 +1,5 @@
 import { PrismaClient } from '@/core/infra/orm/prisma/generated';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '@/core/infra/orm/prisma/generated';
 
 export const ensureAcademicYear = async (
   client: PrismaClient | Prisma.TransactionClient,
