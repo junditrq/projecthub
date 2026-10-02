@@ -25,10 +25,6 @@ export class GroupsImporter {
   async importGroups(seedFile: SeedGroupsFile): Promise<GroupsImportReport> {
     const report = emptyReport();
 
-    console.log(
-      `[GroupImport] ${seedFile.academicYear} ${seedFile.subjectSlug} ${seedFile.specialization}`
-    );
-
     const subject = await this._subjectRepo.findBySlug(seedFile.subjectSlug);
     if (!subject) {
       throw new Error(`Subject with slug ${seedFile.subjectSlug} doesn't exist in the database.`);
@@ -60,8 +56,11 @@ export class GroupsImporter {
         );
 
         if (await groupRepo.existsBySeedHash(seedHash)) {
-          console.log(`[GroupAlreadyExists] ${seedGroup.students} `);
           report.groupsSkipped += 1;
+          report.skippedGroups.push({
+            students: seedGroup.students,
+            projectIdea: seedGroup.projectIdea,
+          });
           continue;
         }
 

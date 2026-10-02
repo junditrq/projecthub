@@ -98,6 +98,9 @@ describe('GroupsImporter', () => {
     const report = await importer().importGroups(file);
 
     expect(report).toMatchObject({ groupsSeeded: 0, groupsSkipped: 1 });
+    expect(report.skippedGroups).toEqual([
+      { students: ['احمد خالد تللو'], projectIdea: 'Smart campus' },
+    ]);
     await expect(groupCount()).resolves.toBe(1);
   });
 
