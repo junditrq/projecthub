@@ -68,7 +68,9 @@ export class CreateVerificationRequestUseCase {
       };
     }
 
-    const student = await this.studentRepo.findByName(arabicName.trim());
+    // TODO(verification-rewrite): temp shim, takes [0],
+    // full matching (using collegeId) + UI in future PR
+    const student = (await this.studentRepo.findCandidatesByName(arabicName.trim(), ''))[0];
     if (!student) {
       return {
         success: false,
