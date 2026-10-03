@@ -4,7 +4,7 @@ import {
   UnresolvedGroupMemberType as PrismaUnresolvedGroupMemberType,
 } from '@/core/infra/orm/prisma/generated';
 import { Group } from '@/core/domain/entities/group.entity';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 import {
   UnresolvedMember,
   UnresolvedMemberType,

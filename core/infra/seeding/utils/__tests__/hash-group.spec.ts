@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 import { hashGroup } from '../hash-group';
 
 const scope = {

@@ -1,11 +1,6 @@
 import { BusinessRuleError } from '../errors/domain-errors';
-import { Specialization } from './specialization.enum';
-
-export enum YearLevel {
-  THIRD = 'THIRD',
-  FOURTH = 'FOURTH',
-  FIFTH = 'FIFTH',
-}
+import { Specialization } from '../enums/specialization.enum';
+import { YearLevel } from '../enums/year-level.enum';
 
 export interface SubjectCreateProps {
   name: string;

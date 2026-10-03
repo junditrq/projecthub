@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import { Student } from '@/core/domain/entities/student.entity';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 import { BusinessRuleError } from '@/core/domain/errors/domain-errors';
 import { TestPostgres } from '@/core/infra/orm/prisma/__tests__/test-postgres';
 import { PrismaStudentRepo } from '@/core/infra/repos/prisma/student.repo';
@@ -9,7 +9,7 @@ import { GroupsImporter } from '../groups.importer';
 import { SeedGroupsFile } from '../../../schemas/groups-file.schema';
 import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';
 import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 
 const db = new TestPostgres();
 

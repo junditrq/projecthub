@@ -1,5 +1,5 @@
-import { Specialization } from '../entities/specialization.enum';
-import { YearLevel } from '../entities/subject.entity';
+import { Specialization } from '../enums/specialization.enum';
+import { YearLevel } from '../enums/year-level.enum';
 import { AcademicYear } from './academic-year.vo';
 
 export interface AcademicContextProps {

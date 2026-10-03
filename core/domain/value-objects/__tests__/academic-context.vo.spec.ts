@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { AcademicContext } from '../academic-context.vo';
 import { AcademicYear } from '../academic-year.vo';
-import { Specialization } from '../../entities/specialization.enum';
-import { YearLevel } from '../../entities/subject.entity';
+import { Specialization } from '../../enums/specialization.enum';
+import { YearLevel } from '../../enums/year-level.enum';
 
 describe('AcademicContext Value Object', () => {
   const validProps = () => ({

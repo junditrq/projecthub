@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { Student } from '@/core/domain/entities/student.entity';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { StudentsImporter } from '../students.importer';
 import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';

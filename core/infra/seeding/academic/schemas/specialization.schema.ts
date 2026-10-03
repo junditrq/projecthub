@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 
 export const SeedSpecializationSchema = z.enum(Specialization);
 

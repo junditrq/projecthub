@@ -2,8 +2,9 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { Subject, YearLevel } from '@/core/domain/entities/subject.entity';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Subject } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { ISubjectRepo } from '@/core/domain/repos/subject.repo';
 import { FileValidator } from '../file.validator';
 
