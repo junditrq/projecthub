@@ -1,6 +1,6 @@
 import { BusinessRuleError } from '../errors/domain-errors';
 import { AcademicYear } from '../value-objects/academic-year.vo';
-import { Specialization } from './specialization.enum';
+import { Specialization } from '../enums/specialization.enum';
 import { UnresolvedMember } from './unresolved-member.entity';
 
 export interface GroupCreateProps {

@@ -1,5 +1,5 @@
-import { Specialization } from '@/core/domain/entities/specialization.enum';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { SeedGroupsFile } from '../schemas/groups-file.schema';
 import { SeedStudentsFile } from '../schemas/students-file.schema';
 import { SeedSubjectSlug } from '../schemas/subject.schema';

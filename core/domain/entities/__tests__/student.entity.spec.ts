@@ -3,8 +3,8 @@ import { Student, StudentProps } from '../student.entity';
 import { BusinessRuleError } from '../../errors/domain-errors';
 import { AcademicContext } from '../../value-objects/academic-context.vo';
 import { AcademicYear } from '../../value-objects/academic-year.vo';
-import { Specialization } from '../specialization.enum';
-import { YearLevel } from '../subject.entity';
+import { Specialization } from '../../enums/specialization.enum';
+import { YearLevel } from '../../enums/year-level.enum';
 
 const sampleEnrollment = (): AcademicContext =>
   AcademicContext.create({

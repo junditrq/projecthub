@@ -3,8 +3,8 @@ import { TestPostgres } from '@/core/infra/orm/prisma/__tests__/test-postgres';
 import { PrismaStudentRepo } from '@/core/infra/repos/prisma/student.repo';
 import { StudentsImporter } from '../students.importer';
 import { SeedStudentsFile } from '../../../schemas/students-file.schema';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 
 const db = new TestPostgres();
 

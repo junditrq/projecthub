@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import { Group, GroupCreateProps } from '@/core/domain/entities/group.entity';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 import {
   UnresolvedMember,
   UnresolvedMemberType,
