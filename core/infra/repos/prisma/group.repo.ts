@@ -18,14 +18,14 @@ export class PrismaGroupRepo implements IGroupRepo {
   async isStudentGrouped(
     studentId: string,
     subjectId: string,
-    academicYearId: string
+    academicYear: string
   ): Promise<boolean> {
     const groupStudentIn = await this._prisma.groupMember.findFirst({
       where: {
         studentId,
         group: {
           subjectId,
-          academicYearId,
+          academicYear,
         },
       },
     });

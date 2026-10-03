@@ -127,17 +127,6 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-model AcademicYear {
-  id        String   @id @default(uuid())
-  label     String   @unique // 2025-2026 for example
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  group Group[]
-
-  @@map("academic_years")
-}
-
 model Subject {
   id                     String           @id @default(uuid())
   name                   String           @unique
@@ -199,19 +188,18 @@ model VerificationRequest {
 
 model Group {
   id             String         @id @default(uuid())
-  seedHash       String?         @unique @map("seed_hash")
+  seedHash       String?        @unique @map("seed_hash")
   projectIdeaId  String         @map("project_idea_id")
-  academicYearId String         @map("academic_year_id")
   specialization Specialization
   subjectId      String         @map("subject_id")
+  academicYear   String         @map("academic_year")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relations
-  projectIdea  ProjectIdea  @relation(fields: [projectIdeaId], references: [id])
-  academicYear AcademicYear @relation(fields: [academicYearId], references: [id])
-  subject      Subject      @relation(fields: [subjectId], references: [id])
+  projectIdea ProjectIdea @relation(fields: [projectIdeaId], references: [id])
+  subject     Subject     @relation(fields: [subjectId], references: [id])
 
   groupMembers           GroupMember[]
   unresolvedGroupMembers UnresolvedGroupMember[]

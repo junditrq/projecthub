@@ -6,6 +6,6 @@ export interface GroupSaveContext {
 
 export interface IGroupRepo {
   existsBySeedHash(seedHash: string): Promise<boolean>;
-  isStudentGrouped(studentId: string, subjectId: string, academicYearId: string): Promise<boolean>;
+  isStudentGrouped(studentId: string, subjectId: string, academicYear: string): Promise<boolean>;
   save(group: Group, context: GroupSaveContext): Promise<Group>;
 }

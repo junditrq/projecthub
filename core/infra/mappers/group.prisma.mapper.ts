@@ -3,6 +3,7 @@ import { Prisma } from '../orm/prisma/generated';
 import { PrismaSpecializationMapper } from './specialization.prisma.mapper';
 import { PrismaUnresolvedGroupMemberMapper } from './unresolved-group-member.prisma.mapper';
 import { GroupSaveContext } from '@/core/domain/repos/group.repo';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 export const prismaGroupWithMembers = {
   include: {
@@ -19,7 +20,7 @@ export class PrismaGroupMapper {
       id: prismaGroup.id,
       projectIdeaId: prismaGroup.projectIdeaId,
       subjectId: prismaGroup.subjectId,
-      academicYearId: prismaGroup.academicYearId,
+      academicYear: AcademicYear.reconstitute(prismaGroup.academicYear),
       specialization: PrismaSpecializationMapper.toDomain(prismaGroup.specialization),
       memberIds: prismaGroup.groupMembers.map((member) => member.studentId),
       unresolvedMembers: prismaGroup.unresolvedGroupMembers.map(
@@ -52,7 +53,7 @@ export class PrismaGroupMapper {
       id: group.id,
       projectIdeaId: group.projectIdeaId,
       subjectId: group.subjectId,
-      academicYearId: group.academicYearId,
+      academicYear: group.academicYear.toString(),
       specialization: PrismaSpecializationMapper.toPersistence(group.specialization),
       seedHash: seedHash,
       ...this.nestedMembers(group),

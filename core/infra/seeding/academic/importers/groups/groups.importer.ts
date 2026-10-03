@@ -12,7 +12,6 @@ import { PrismaStudentRepo } from '@/core/infra/repos/prisma/student.repo';
 import { PrismaSubjectRepo } from '@/core/infra/repos/prisma/subject.repo';
 import { SeedGroupsFile } from '../../schemas/groups-file.schema';
 import { hashGroup } from '../../../utils/hash-group';
-import { ensureAcademicYear } from '../academic-year.importer';
 import { emptyReport, GroupsImportReport } from './groups-import.report';
 import { ensureProjectIdea } from '../project-idea.importer';
 

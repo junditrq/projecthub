@@ -18,19 +18,17 @@ export class GroupMemberResolutionService {
   public async assertNotGrouped(opts: {
     studentId: string;
     subjectId: string;
-    academicYearId: string;
+    academicYear: string;
 
     studentName: string;
     subjectName: string;
-    academicYearLabel: string;
   }) {
-    const { studentId, subjectId, academicYearId, studentName, subjectName, academicYearLabel } =
-      opts;
-    const isGrouped = await this._groupRepo.isStudentGrouped(studentId, subjectId, academicYearId);
+    const { studentId, subjectId, academicYear, studentName, subjectName } = opts;
+    const isGrouped = await this._groupRepo.isStudentGrouped(studentId, subjectId, academicYear);
 
     if (isGrouped) {
       throw new BusinessRuleError(
-        `Student "${studentName}" is already grouped for "${subjectName}" (${academicYearLabel})`
+        `Student "${studentName}" is already grouped for "${subjectName}" (${academicYear})`
       );
     }
   }

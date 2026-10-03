@@ -1,10 +1,11 @@
 import { BusinessRuleError } from '../errors/domain-errors';
+import { AcademicYear } from '../value-objects/academic-year.vo';
 import { Specialization } from './specialization.enum';
 import { UnresolvedMember } from './unresolved-member.entity';
 
 export interface GroupCreateProps {
   projectIdeaId: string;
-  academicYearId: string;
+  academicYear: AcademicYear;
   subjectId: string;
   specialization: Specialization;
   memberIds: readonly string[];
@@ -34,8 +35,8 @@ export class Group {
     return this._props.projectIdeaId;
   }
 
-  get academicYearId(): GroupProps['academicYearId'] {
-    return this._props.academicYearId;
+  get academicYear(): GroupProps['academicYear'] {
+    return this._props.academicYear;
   }
 
   get subjectId(): GroupProps['subjectId'] {
