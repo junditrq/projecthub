@@ -46,7 +46,10 @@ export const runImport = async (deps: ImportDeps): Promise<ImportResult> => {
   }
 
   const studentsReports: { file: SeedStudentsFile; report: StudentsImportReport }[] = [];
-  for (const file of validateReport.studentsFiles) {
+  for (const file of validateReport.studentsFiles.sort()) {
+    console.log(
+      `Importing students from ${file.academicYear} ${file.yearLevel} ${file.specialization}...`
+    );
     const report = await studentImporter.importStudents(file);
     studentsReports.push({ file, report });
   }
