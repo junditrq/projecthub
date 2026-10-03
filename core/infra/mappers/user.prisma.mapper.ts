@@ -1,4 +1,8 @@
-import { Prisma, User as PrismaUser, UserRole as PrismaUserRole } from '@/app/generated/prisma';
+import {
+  Prisma,
+  User as PrismaUser,
+  UserRole as PrismaUserRole,
+} from '@/core/infra/orm/prisma/generated';
 import { User, UserRole } from '@/core/domain/entities/user.entity';
 
 export class PrismaUserMapper {

@@ -1,4 +1,4 @@
-import { Category as PrismaCategory } from '@/app/generated/prisma';
+import { Category as PrismaCategory } from '@/core/infra/orm/prisma/generated';
 import { Category } from '@/core/domain/entities/category.entity';
 
 export class PrismaCategoryMapper {

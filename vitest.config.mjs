@@ -4,4 +4,5 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true, // Enables native TSConfig path resolution
   },
+  cacheDir: './node_modules/.vitest',
 });

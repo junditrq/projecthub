@@ -1,6 +1,6 @@
 import { User } from '@/core/domain/entities/user.entity';
 import { IUserRepo } from '@/core/domain/repos/user.repo';
-import prisma from '@/core/infra/orm/prisma.client';
+import prisma from '@/core/infra/orm/prisma/prisma.client';
 import { PrismaUserMapper } from '../../mappers/user.prisma.mapper';
 
 export class PrismaUserRepo implements IUserRepo {

@@ -1,4 +1,4 @@
-import { Prisma } from '@/app/generated/prisma';
+import { Prisma } from '@/core/infra/orm/prisma/generated';
 
 const projectCardProps = Prisma.validator<Prisma.ProjectDefaultArgs>()({
   select: {

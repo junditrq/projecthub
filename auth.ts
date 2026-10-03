@@ -1,5 +1,5 @@
 import { authConfig } from '@/auth.config';
-import prisma from '@/core/infra/orm/prisma.client';
+import prisma from '@/core/infra/orm/prisma/prisma.client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth, { type DefaultSession } from 'next-auth';
 import { VerificationRequestStatusDTO } from './core/application/dtos/verification-request.dto';

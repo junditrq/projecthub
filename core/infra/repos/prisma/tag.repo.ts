@@ -1,7 +1,7 @@
 import { Tag } from '@/core/domain/entities/tag.entity';
 import { ITagRepo } from '@/core/domain/repos/tag.repo';
 import { PrismaTagMapper } from '@/core/infra/mappers/tag.prisma.mapper';
-import prisma from '@/core/infra/orm/prisma.client';
+import prisma from '@/core/infra/orm/prisma/prisma.client';
 
 export class PrismaTagRepo implements ITagRepo {
   private prisma;

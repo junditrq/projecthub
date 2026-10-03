@@ -1,0 +1,360 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated"
+}
+
+enum UserRole {
+  ADMIN
+  VISITOR
+  STUDENT
+
+  @@map("user_role")
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+
+  @@map("verification_status")
+}
+
+enum Specialization {
+  SWE
+  AI
+  NET
+  GENERAL
+
+  @@map("specialization")
+}
+
+enum ProjectRepoType {
+  FRONTEND
+  BACKEND
+  MOBILE
+  MONOREPO
+  AI
+
+  @@map("project_repo_type")
+}
+
+enum YearLevel {
+  THIRD
+  FOURTH
+  FIFTH
+
+  @@map("year_level")
+}
+
+enum UnresolvedGroupMemberType {
+  NAME_CONFLICT
+  STUDENT_NOT_FOUND
+
+  @@map("unresolved_group_member_type")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  role UserRole @default(VISITOR)
+
+  githubUsername String? @map("github_username")
+  linkedinUrl    String? @map("linkedin_url")
+
+  hasBeenPrompted Boolean @default(false) @map("has_been_prompted")
+
+  // relations
+  student Student?
+
+  reviewedVerificationRequests  VerificationRequest[] @relation("ReviewedVerificationRequests")
+  requestedVerificationRequests VerificationRequest[] @relation("RequestedVerificationRequests")
+
+  likes Like[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Subject {
+  id                     String           @id @default(uuid())
+  name                   String           @unique
+  slug                   String           @unique
+  yearLevel              YearLevel        @map("year_level")
+  allowedSpecializations Specialization[] @map("allowed_specializations")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  group Group[]
+
+  @@map("subjects")
+}
+
+model Student {
+  id                String  @id @default(uuid())
+  collegeId         String  @unique @map("college_id")
+  name              String  @map("name")
+  fatherName        String  @map("father_name")
+  canonicalFullName String  @map("canonical_full_name")
+  normalizedName    String  @map("normalized_name")
+  userId            String? @unique @map("user_id")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  groups            GroupMember[] // can be in multiple groups across different academic years and subjects
+  unresolvedGroups  UnresolvedGroupMember[]
+  user              User?                   @relation(fields: [userId], references: [id])
+  publishedProjects Project[]
+  repos             ProjectRepo[]
+  enrollments       StudentEnrollments[]
+
+  @@map("students")
+}
+
+model StudentEnrollments {
+  id             String         @id @default(uuid())
+  studentId      String         @map("student_id")
+  specialization Specialization @map("specialization")
+  yearLevel      YearLevel      @map("year_level")
+  academicYear   String         @map("academic_year")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, academicYear])
+  @@map("student_enrollments")
+}
+
+model VerificationRequest {
+  id String @id @default(uuid())
+
+  userId       String  @map("user_id")
+  reviewedById String? @map("reviewed_by_id")
+
+  submittedArabicName String  @map("submitted_arabic_name")
+  collegeIdPicURL     String  @map("college_id_pic_url")
+  rejectedReason      String? @map("rejected_reason")
+
+  status VerificationStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user       User  @relation("RequestedVerificationRequests", fields: [userId], references: [id])
+  reviewedBy User? @relation("ReviewedVerificationRequests", fields: [reviewedById], references: [id])
+
+  @@map("verification_requests")
+}
+
+model Group {
+  id             String         @id @default(uuid())
+  seedHash       String?        @unique @map("seed_hash")
+  projectIdeaId  String         @map("project_idea_id")
+  specialization Specialization
+  subjectId      String         @map("subject_id")
+  academicYear   String         @map("academic_year")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  projectIdea ProjectIdea @relation(fields: [projectIdeaId], references: [id])
+  subject     Subject     @relation(fields: [subjectId], references: [id])
+
+  groupMembers           GroupMember[]
+  unresolvedGroupMembers UnresolvedGroupMember[]
+
+  project Project?
+
+  @@map("groups")
+}
+
+model GroupMember {
+  groupId   String @map("group_id")
+  studentId String @map("student_id")
+
+  // Relations
+  group   Group   @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  publishedProjects Project[]
+
+  @@id([groupId, studentId])
+  @@map("group_members")
+}
+
+model UnresolvedGroupMember {
+  id        String  @id @default(uuid())
+  groupId   String  @map("group_id")
+  studentId String? @map("student_id")
+
+  conflictName   String                    @map("conflict_name")
+  unresolvedType UnresolvedGroupMemberType @map("unresolved_type")
+
+  // Relations
+  group   Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  student Student? @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("unresolved_group_members")
+}
+
+model ProjectIdea {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  groups Group[]
+
+  @@map("project_ideas")
+}
+
+model Project {
+  id                 String   @id @default(uuid())
+  name               String
+  desc               String?
+  groupId            String   @unique @map("group_id")
+  publisherStudentId String   @map("publisher_student_id")
+  thumbnailURL       String   @map("thumbnail_url")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Relations
+  group      Group         @relation(fields: [groupId], references: [id])
+  publisher  Student       @relation(fields: [publisherStudentId], references: [id])
+  likes      Like[]
+  previews   Preview[]
+  repos      ProjectRepo[]
+  categories Category[]
+  tags       Tag[]
+
+  publisherMembership GroupMember @relation(fields: [groupId, publisherStudentId], references: [groupId, studentId])
+
+  @@map("projects")
+}
+
+model ProjectRepo {
+  id        String          @id @default(uuid())
+  type      ProjectRepoType
+  projectId String          @map("project_id")
+  url       String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  project      Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  contributors Student[]
+
+  @@unique([projectId, type])
+  @@map("project_repos")
+}
+
+model Like {
+  projectId String   @map("project_id")
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now())
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@id([projectId, userId])
+  @@map("likes")
+}
+
+model Preview {
+  id        String   @id @default(uuid())
+  url       String
+  projectId String   @map("project_id")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("previews")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects Project[]
+
+  @@map("categories")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects Project[]
+
+  @@map("tags")
+}

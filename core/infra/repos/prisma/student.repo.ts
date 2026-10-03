@@ -1,18 +1,34 @@
 import { Student } from '@/core/domain/entities/student.entity';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { PrismaStudentMapper } from '../../mappers/student.prisma.mapper';
-import prisma from '../../orm/prisma.client';
+import prisma from '../../orm/prisma/prisma.client';
+import { Prisma, PrismaClient } from '../../orm/prisma/generated';
 
 export class PrismaStudentRepo implements IStudentRepo {
-  private prisma;
-  constructor() {
-    this.prisma = prisma;
+  constructor(private readonly _prisma: PrismaClient | Prisma.TransactionClient = prisma) {}
+  async findCandidatesByName(
+    normalizedName: string,
+    canonicalFullName: string
+  ): Promise<Student[]> {
+    const students = await this._prisma.student.findMany({
+      where: {
+        OR: [{ normalizedName }, { canonicalFullName }],
+      },
+      include: {
+        enrollments: true,
+      },
+    });
+
+    return students.map(PrismaStudentMapper.toDomain);
   }
 
-  async findByArabicName(arabicName: string): Promise<Student | null> {
-    const student = await this.prisma.student.findFirst({
+  async findByCollegeId(collegeId: string): Promise<Student | null> {
+    const student = await this._prisma.student.findUnique({
       where: {
-        arabicName,
+        collegeId,
+      },
+      include: {
+        enrollments: true,
       },
     });
 
@@ -21,5 +37,18 @@ export class PrismaStudentRepo implements IStudentRepo {
     }
 
     return PrismaStudentMapper.toDomain(student);
+  }
+
+  async save(student: Student): Promise<Student> {
+    const prismaStudent = await this._prisma.student.upsert({
+      where: { collegeId: student.collegeId },
+      create: PrismaStudentMapper.toPersistenceCreate(student),
+      update: PrismaStudentMapper.toPersistenceUpdate(student),
+      include: {
+        enrollments: true,
+      },
+    });
+
+    return PrismaStudentMapper.toDomain(prismaStudent);
   }
 }
