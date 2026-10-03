@@ -1,9 +1,9 @@
 import { createHash } from 'crypto';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { normalizeArabicName } from '@/core/domain/utils/normalize-arabic-name.util';
 import { SeedGroup } from '../academic/schemas/groups-file.schema';
 import { SeedSubjectSlug } from '../academic/schemas/subject.schema';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 
 // we don't care much about the project idea cause we can't have different project ideas
 // for the same group (group of students)

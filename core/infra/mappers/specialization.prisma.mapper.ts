@@ -1,4 +1,4 @@
-import { Specialization } from '@/core/domain/entities/specialization.enum';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
 import { Specialization as PrismaSpecalization } from '../orm/prisma/generated';
 
 export class PrismaSpecializationMapper {

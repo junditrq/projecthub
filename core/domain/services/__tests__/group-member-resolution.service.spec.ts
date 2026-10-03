@@ -6,8 +6,8 @@ import { IStudentRepo } from '../../repos/student.repo';
 import { GroupMemberResolutionService, StudentCandidate } from '../group-member-resolution.service';
 import { AcademicContext } from '../../value-objects/academic-context.vo';
 import { AcademicYear } from '../../value-objects/academic-year.vo';
-import { Specialization } from '../../entities/specialization.enum';
-import { YearLevel } from '../../entities/subject.entity';
+import { Specialization } from '../../enums/specialization.enum';
+import { YearLevel } from '../../enums/year-level.enum';
 
 const collegeIds: Record<string, string> = {
   's-1': '1723240193',

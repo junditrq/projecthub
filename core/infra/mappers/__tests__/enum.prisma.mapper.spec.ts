@@ -3,8 +3,8 @@ import {
   Specialization as PrismaSpecialization,
   YearLevel as PrismaYearLevel,
 } from '@/core/infra/orm/prisma/generated';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { PrismaSpecializationMapper } from '../specialization.prisma.mapper';
 import { PrismaYearLevelMapper } from '../year-level.prisma.mapper';
 

@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { Student as PrismaStudent } from '@/core/infra/orm/prisma/generated';
 import { PrismaStudentMapper } from '../student.prisma.mapper';
-import { Specialization } from '@/core/domain/entities/specialization.enum';
-import { YearLevel } from '@/core/domain/entities/subject.entity';
+import { Specialization } from '@/core/domain/enums/specialization.enum';
+import { YearLevel } from '@/core/domain/enums/year-level.enum';
 
 describe('PrismaStudentMapper', () => {
   it('should accurately map from Prisma to Domain', () => {
