@@ -4,6 +4,15 @@ import { Specialization } from '@/core/domain/entities/specialization.enum';
 import { YearLevel } from '@/core/domain/entities/subject.entity';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { StudentsImporter } from '../students.importer';
+import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
+
+const sampleEnrollment = (): AcademicContext =>
+  AcademicContext.create({
+    academicYear: AcademicYear.create('2025-2026'),
+    yearLevel: YearLevel.FOURTH,
+    specialization: Specialization.AI,
+  });
 
 const fakeRepo = (seed: Student[] = []): IStudentRepo & { saved: Student[] } => {
   const stored = new Map(seed.map((s) => [s.collegeId, s]));
@@ -27,6 +36,7 @@ describe('StudentsImporter', () => {
       fatherName: 'محمد',
       collegeId: '1723240193',
       userId: null,
+      enrollments: [sampleEnrollment()],
     });
     const repo = fakeRepo([existing]);
     const importer = new StudentsImporter(repo);

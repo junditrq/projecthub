@@ -35,7 +35,7 @@ export class TestPostgres {
   async reset(): Promise<void> {
     const prisma = this.prisma;
     await prisma.$executeRawUnsafe(
-      'TRUNCATE "groups", "group_members", "unresolved_group_members", "students", "academic_years", "project_ideas" CASCADE'
+      'TRUNCATE "groups", "group_members", "unresolved_group_members", "students", "student_enrollments", "project_ideas" CASCADE'
     );
   }
 

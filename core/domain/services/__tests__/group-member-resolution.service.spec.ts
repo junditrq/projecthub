@@ -4,14 +4,31 @@ import { BusinessRuleError } from '../../errors/domain-errors';
 import { IGroupRepo } from '../../repos/group.repo';
 import { IStudentRepo } from '../../repos/student.repo';
 import { GroupMemberResolutionService, StudentCandidate } from '../group-member-resolution.service';
+import { AcademicContext } from '../../value-objects/academic-context.vo';
+import { AcademicYear } from '../../value-objects/academic-year.vo';
+import { Specialization } from '../../entities/specialization.enum';
+import { YearLevel } from '../../entities/subject.entity';
 
 const collegeIds: Record<string, string> = {
   's-1': '1723240193',
   's-2': '1720074514',
 };
 
+const testAcademicContext = (): AcademicContext =>
+  AcademicContext.create({
+    academicYear: AcademicYear.create('2025-2026'),
+    yearLevel: YearLevel.FOURTH,
+    specialization: Specialization.AI,
+  });
+
 const student = (id: string, name: string, fatherName: string): Student =>
-  Student.create({ name, fatherName, collegeId: collegeIds[id] ?? '1722168510', userId: null });
+  Student.create({
+    name,
+    fatherName,
+    collegeId: collegeIds[id] ?? '1722168510',
+    userId: null,
+    enrollments: [testAcademicContext()],
+  });
 
 const fakeStudentRepo = (candidates: Student[]): IStudentRepo => ({
   findByCollegeId: async () => null,
@@ -33,7 +50,10 @@ const unresolvedOf = (results: StudentCandidate[]) =>
 
 describe('GroupMemberResolutionService', () => {
   it('returns a single not-found member with the normalized full name when nobody matches', async () => {
-    const results = await service([]).getStudentCandidates('غائب تماما الحاضر');
+    const results = await service([]).getStudentCandidates(
+      'غائب تماما الحاضر',
+      testAcademicContext()
+    );
 
     expect(unresolvedOf(results)).toHaveLength(1);
     const [only] = unresolvedOf(results);
@@ -45,7 +65,10 @@ describe('GroupMemberResolutionService', () => {
 
   it('resolves a multi-token seed against stored first and father names', async () => {
     const match = student('s-1', 'احمد تللو', 'خالد');
-    const results = await service([match]).getStudentCandidates('احمد خالد تللو');
+    const results = await service([match]).getStudentCandidates(
+      'احمد خالد تللو',
+      testAcademicContext()
+    );
 
     expect(results).toEqual([{ kind: 'resolved', studentId: match.id }]);
   });
@@ -54,7 +77,8 @@ describe('GroupMemberResolutionService', () => {
     const canonicalMatch = student('s-1', 'احمد تللو', 'خالد');
     const normalizedMatch = student('s-2', 'احمد خالد تللو', 'عباس');
     const results = await service([canonicalMatch, normalizedMatch]).getStudentCandidates(
-      'احمد خالد تللو'
+      'احمد خالد تللو',
+      testAcademicContext()
     );
 
     const unresolved = unresolvedOf(results);
@@ -66,7 +90,9 @@ describe('GroupMemberResolutionService', () => {
   });
 
   it('rejects empty names instead of querying with empty keys', async () => {
-    await expect(service([]).getStudentCandidates('   ')).rejects.toThrow(BusinessRuleError);
+    await expect(service([]).getStudentCandidates('   ', testAcademicContext())).rejects.toThrow(
+      BusinessRuleError
+    );
   });
 
   it('stays silent when the student is not grouped elsewhere', async () => {
@@ -74,10 +100,9 @@ describe('GroupMemberResolutionService', () => {
       service([student('s-1', 'احمد تللو', 'خالد')], false).assertNotGrouped({
         studentId: 's-1',
         subjectId: 'subject-1',
-        academicYearId: 'year-1',
+        academicYear: '2025-2026',
         studentName: 'احمد خالد تللو',
         subjectName: 'Project 2',
-        academicYearLabel: '2025-2026',
       })
     ).resolves.toBeUndefined();
   });
@@ -86,10 +111,9 @@ describe('GroupMemberResolutionService', () => {
     const failure = service([student('s-1', 'احمد تللو', 'خالد')], true).assertNotGrouped({
       studentId: 's-1',
       subjectId: 'subject-1',
-      academicYearId: 'year-1',
+      academicYear: '2025-2026',
       studentName: 'احمد خالد تللو',
       subjectName: 'Project 2',
-      academicYearLabel: '2025-2026',
     });
 
     await expect(failure).rejects.toThrow(BusinessRuleError);

@@ -10,12 +10,13 @@ import {
   UnresolvedMemberType,
 } from '@/core/domain/entities/unresolved-member.entity';
 import { PrismaGroupMapper, PrismaGroupWithMembers } from '../group.prisma.mapper';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 const persistedGroup = (): PrismaGroupWithMembers => ({
   id: 'g-1',
   seedHash: 'hash-1',
   projectIdeaId: 'idea-1',
-  academicYearId: 'year-1',
+  academicYear: '2025-2026',
   subjectId: 'subject-1',
   specialization: PrismaSpecialization.AI,
   createdAt: new Date(),
@@ -35,7 +36,7 @@ const persistedGroup = (): PrismaGroupWithMembers => ({
 const domainGroup = (): Group =>
   Group.create({
     projectIdeaId: 'idea-1',
-    academicYearId: 'year-1',
+    academicYear: AcademicYear.create('2025-2026'),
     subjectId: 'subject-1',
     specialization: Specialization.AI,
     memberIds: ['s-1'],

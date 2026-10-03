@@ -7,13 +7,14 @@ import {
 } from '@/core/domain/entities/unresolved-member.entity';
 import { PrismaGroupRepo } from '../group.repo';
 import { TestPostgres } from '@/core/infra/orm/prisma/__tests__/test-postgres';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 const db = new TestPostgres();
 
 const groupProps = (memberIds: string[] = ['s-seeded'], specialization = Specialization.AI) =>
   ({
     projectIdeaId: 'idea-1',
-    academicYearId: 'year-2025',
+    academicYear: AcademicYear.create('2025-2026'),
     subjectId: 'subject-project-2',
     specialization,
     memberIds,
@@ -31,11 +32,6 @@ describe('PrismaGroupRepo', () => {
 
   beforeEach(async () => {
     await db.reset();
-    await db.prisma.academicYear.upsert({
-      where: { label: '2025-2026' },
-      update: {},
-      create: { id: 'year-2025', label: '2025-2026' },
-    });
     await db.prisma.projectIdea.upsert({
       where: { name: 'Idea 1' },
       update: {},
@@ -88,7 +84,7 @@ describe('PrismaGroupRepo', () => {
     const repo = new PrismaGroupRepo(db.prisma);
     await repo.save(Group.create(groupProps(['s-1'])), { seedHash: 'hash-1' });
 
-    await expect(repo.isStudentGrouped('s-1', 'subject-project-2', 'year-2025')).resolves.toBe(
+    await expect(repo.isStudentGrouped('s-1', 'subject-project-2', '2025-2026')).resolves.toBe(
       true
     );
   });
@@ -99,7 +95,7 @@ describe('PrismaGroupRepo', () => {
       seedHash: 'hash-1',
     });
 
-    await expect(repo.isStudentGrouped('s-1', 'subject-project-2', 'year-2025')).resolves.toBe(
+    await expect(repo.isStudentGrouped('s-1', 'subject-project-2', '2025-2026')).resolves.toBe(
       true
     );
   });
@@ -108,10 +104,10 @@ describe('PrismaGroupRepo', () => {
     const repo = new PrismaGroupRepo(db.prisma);
     await repo.save(Group.create(groupProps(['s-1'])), { seedHash: 'hash-1' });
 
-    await expect(repo.isStudentGrouped('s-1', 'subject-project-1', 'year-2025')).resolves.toBe(
+    await expect(repo.isStudentGrouped('s-1', 'subject-project-1', '2025-2026')).resolves.toBe(
       false
     );
-    await expect(repo.isStudentGrouped('s-1', 'subject-project-2', 'year-2024')).resolves.toBe(
+    await expect(repo.isStudentGrouped('s-1', 'subject-project-2', '2024-2025')).resolves.toBe(
       false
     );
   });

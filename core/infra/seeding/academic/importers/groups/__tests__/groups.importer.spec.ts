@@ -7,6 +7,9 @@ import { PrismaStudentRepo } from '@/core/infra/repos/prisma/student.repo';
 import { PrismaSubjectRepo } from '@/core/infra/repos/prisma/subject.repo';
 import { GroupsImporter } from '../groups.importer';
 import { SeedGroupsFile } from '../../../schemas/groups-file.schema';
+import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
+import { YearLevel } from '@/core/domain/entities/subject.entity';
 
 const db = new TestPostgres();
 
@@ -27,7 +30,15 @@ const seedStudent = async (
   collegeId: string
 ): Promise<Student> => {
   const repo = new PrismaStudentRepo(db.prisma);
-  return repo.save(Student.create({ name, fatherName, collegeId, userId: null }));
+  const academicContext = AcademicContext.create({
+    academicYear: AcademicYear.create('2025-2026'),
+    yearLevel: YearLevel.FOURTH,
+    specialization: Specialization.AI,
+  });
+
+  return repo.save(
+    Student.create({ name, fatherName, collegeId, userId: null, enrollments: [academicContext] })
+  );
 };
 
 const groupCount = (): Promise<number> => db.prisma.group.count();

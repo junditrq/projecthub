@@ -3,10 +3,11 @@ import { Group, GroupCreateProps } from '../group.entity';
 import { Specialization } from '../specialization.enum';
 import { UnresolvedMember, UnresolvedMemberType } from '../unresolved-member.entity';
 import { BusinessRuleError } from '../../errors/domain-errors';
+import { AcademicYear } from '../../value-objects/academic-year.vo';
 
 const baseProps = (): GroupCreateProps => ({
   projectIdeaId: 'idea-1',
-  academicYearId: 'year-1',
+  academicYear: AcademicYear.create('2025-2026'),
   subjectId: 'subject-1',
   specialization: Specialization.AI,
   memberIds: [],
