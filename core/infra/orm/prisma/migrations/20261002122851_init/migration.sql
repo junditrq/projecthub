@@ -69,16 +69,6 @@ CREATE TABLE "verification_tokens" (
 );
 
 -- CreateTable
-CREATE TABLE "academic_years" (
-    "id" TEXT NOT NULL,
-    "label" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "academic_years_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "subjects" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -107,6 +97,19 @@ CREATE TABLE "students" (
 );
 
 -- CreateTable
+CREATE TABLE "student_enrollments" (
+    "id" TEXT NOT NULL,
+    "student_id" TEXT NOT NULL,
+    "specialization" "specialization" NOT NULL,
+    "year_level" "year_level" NOT NULL,
+    "academic_year" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "student_enrollments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "verification_requests" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
@@ -126,9 +129,9 @@ CREATE TABLE "groups" (
     "id" TEXT NOT NULL,
     "seed_hash" TEXT,
     "project_idea_id" TEXT NOT NULL,
-    "academic_year_id" TEXT NOT NULL,
     "specialization" "specialization" NOT NULL,
     "subject_id" TEXT NOT NULL,
+    "academic_year" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -270,9 +273,6 @@ CREATE UNIQUE INDEX "sessions_session_token_key" ON "sessions"("session_token");
 CREATE UNIQUE INDEX "verification_tokens_identifier_token_key" ON "verification_tokens"("identifier", "token");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "academic_years_label_key" ON "academic_years"("label");
-
--- CreateIndex
 CREATE UNIQUE INDEX "subjects_name_key" ON "subjects"("name");
 
 -- CreateIndex
@@ -283,6 +283,9 @@ CREATE UNIQUE INDEX "students_college_id_key" ON "students"("college_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "students_user_id_key" ON "students"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "student_enrollments_student_id_academic_year_key" ON "student_enrollments"("student_id", "academic_year");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "groups_seed_hash_key" ON "groups"("seed_hash");
@@ -330,6 +333,9 @@ ALTER TABLE "sessions" ADD CONSTRAINT "sessions_user_id_fkey" FOREIGN KEY ("user
 ALTER TABLE "students" ADD CONSTRAINT "students_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "student_enrollments" ADD CONSTRAINT "student_enrollments_student_id_fkey" FOREIGN KEY ("student_id") REFERENCES "students"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "verification_requests" ADD CONSTRAINT "verification_requests_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -337,9 +343,6 @@ ALTER TABLE "verification_requests" ADD CONSTRAINT "verification_requests_review
 
 -- AddForeignKey
 ALTER TABLE "groups" ADD CONSTRAINT "groups_project_idea_id_fkey" FOREIGN KEY ("project_idea_id") REFERENCES "project_ideas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "groups" ADD CONSTRAINT "groups_academic_year_id_fkey" FOREIGN KEY ("academic_year_id") REFERENCES "academic_years"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "groups" ADD CONSTRAINT "groups_subject_id_fkey" FOREIGN KEY ("subject_id") REFERENCES "subjects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

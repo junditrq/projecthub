@@ -160,8 +160,26 @@ model Student {
   user              User?                   @relation(fields: [userId], references: [id])
   publishedProjects Project[]
   repos             ProjectRepo[]
+  enrollments       StudentEnrollments[]
 
   @@map("students")
+}
+
+model StudentEnrollments {
+  id             String         @id @default(uuid())
+  studentId      String         @map("student_id")
+  specialization Specialization @map("specialization")
+  yearLevel      YearLevel      @map("year_level")
+  academicYear   String         @map("academic_year")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, academicYear])
+  @@map("student_enrollments")
 }
 
 model VerificationRequest {

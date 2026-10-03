@@ -2,6 +2,8 @@ import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { SeedStudent, SeedStudentsFile } from '../../schemas/students-file.schema';
 import { Student } from '@/core/domain/entities/student.entity';
 import { StudentsImportReport, emptyReport } from './student-import.report';
+import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 export type StudentImportResult = {
   student: Student;
@@ -16,24 +18,43 @@ export class StudentsImporter {
   }
 
   async importStudents(seedFile: SeedStudentsFile): Promise<StudentsImportReport> {
-    const { students } = seedFile;
+    const { students, yearLevel, specialization, academicYear } = seedFile;
+
+    const academicContext = AcademicContext.create({
+      academicYear: AcademicYear.create(academicYear),
+      specialization,
+      yearLevel,
+    });
     const report = emptyReport();
     for (const seedStudent of students) {
-      const { result } = await this._importStudent(seedStudent);
+      const { result } = await this._importStudent(seedStudent, academicContext);
       if (result === 'existing') report.studentsExisting++;
       if (result === 'created') report.studentsCreated++;
     }
     return report;
   }
 
-  private async _importStudent(student: SeedStudent): Promise<StudentImportResult> {
+  private async _importStudent(
+    student: SeedStudent,
+    academicContext: AcademicContext
+  ): Promise<StudentImportResult> {
     const dbStudent = await this.studentRepo.findByCollegeId(student.collegeId);
 
     if (dbStudent) {
-      return {
-        student: dbStudent,
-        result: 'existing',
-      };
+      const result = dbStudent.recordEnrollment(academicContext);
+
+      if (result === 'recored') {
+        const updated = await this.studentRepo.save(dbStudent);
+        return {
+          student: updated,
+          result: 'existing',
+        };
+      } else {
+        return {
+          student: dbStudent,
+          result: 'existing',
+        };
+      }
     }
 
     const domainStudent = Student.create({
@@ -41,6 +62,7 @@ export class StudentsImporter {
       fatherName: student.fatherName,
       name: student.name,
       userId: null,
+      enrollments: [academicContext],
     });
 
     const created = await this.studentRepo.save(domainStudent);

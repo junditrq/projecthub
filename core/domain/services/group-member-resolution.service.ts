@@ -4,6 +4,7 @@ import { IGroupRepo } from '../repos/group.repo';
 import { IStudentRepo } from '../repos/student.repo';
 import { getCanonicalFullName } from '../utils/get-canonical-full-name.util';
 import { normalizeArabicName } from '../utils/normalize-arabic-name.util';
+import { AcademicContext } from '../value-objects/academic-context.vo';
 
 export type StudentCandidate =
   | { kind: 'resolved'; studentId: string }
@@ -33,7 +34,10 @@ export class GroupMemberResolutionService {
     }
   }
 
-  public async getStudentCandidates(name: string): Promise<StudentCandidate[]> {
+  public async getStudentCandidates(
+    name: string,
+    context: AcademicContext
+  ): Promise<StudentCandidate[]> {
     if (!name || name.trim().length === 0) {
       throw new BusinessRuleError('Cannot resolve an empty student name');
     }
@@ -57,6 +61,17 @@ export class GroupMemberResolutionService {
     }
 
     if (students.length > 1) {
+      const filtered = students.filter((s) => s.getCurrentEnrollment().equals(context));
+
+      if (filtered.length === 1) {
+        return [
+          {
+            kind: 'resolved',
+            studentId: filtered[0].id,
+          },
+        ];
+      }
+
       return students.map((student) => ({
         kind: 'unresolved',
         unresolvedMember: UnresolvedMember.create({

@@ -14,6 +14,9 @@ export class PrismaStudentRepo implements IStudentRepo {
       where: {
         OR: [{ normalizedName }, { canonicalFullName }],
       },
+      include: {
+        enrollments: true,
+      },
     });
 
     return students.map(PrismaStudentMapper.toDomain);
@@ -23,6 +26,9 @@ export class PrismaStudentRepo implements IStudentRepo {
     const student = await this._prisma.student.findUnique({
       where: {
         collegeId,
+      },
+      include: {
+        enrollments: true,
       },
     });
 
@@ -38,6 +44,9 @@ export class PrismaStudentRepo implements IStudentRepo {
       where: { collegeId: student.collegeId },
       create: PrismaStudentMapper.toPersistenceCreate(student),
       update: PrismaStudentMapper.toPersistenceUpdate(student),
+      include: {
+        enrollments: true,
+      },
     });
 
     return PrismaStudentMapper.toDomain(prismaStudent);

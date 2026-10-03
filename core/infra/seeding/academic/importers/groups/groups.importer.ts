@@ -14,6 +14,8 @@ import { SeedGroupsFile } from '../../schemas/groups-file.schema';
 import { hashGroup } from '../../../utils/hash-group';
 import { emptyReport, GroupsImportReport } from './groups-import.report';
 import { ensureProjectIdea } from '../project-idea.importer';
+import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
+import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';
 
 export class GroupsImporter {
   constructor(
@@ -40,14 +42,17 @@ export class GroupsImporter {
       const groupRepo = new PrismaGroupRepo(tx);
       const studentRepo = new PrismaStudentRepo(tx);
       const resolution = new GroupMemberResolutionService(studentRepo, groupRepo);
-
-      const academicYear = await ensureAcademicYear(tx, seedFile.academicYear);
+      const context = AcademicContext.create({
+        academicYear: AcademicYear.create(seedFile.academicYear),
+        yearLevel: subject.yearLevel,
+        specialization,
+      });
 
       for (const seedGroup of seedFile.groups) {
         const seedHash = hashGroup(
           { students: seedGroup.students },
           {
-            academicYear: seedFile.academicYear,
+            academicYear: context.academicYear.toString(),
             yearLevel: subject.yearLevel,
             specialization: seedFile.specialization,
             subjectSlug: seedFile.subjectSlug,
@@ -67,17 +72,16 @@ export class GroupsImporter {
         const unresolvedMembers: UnresolvedMember[] = [];
 
         for (const studentName of seedGroup.students) {
-          const candidates = await resolution.getStudentCandidates(studentName);
+          const candidates = await resolution.getStudentCandidates(studentName, context);
 
           for (const candidate of candidates) {
             if (candidate.kind === 'resolved') {
               await resolution.assertNotGrouped({
                 studentId: candidate.studentId,
                 subjectId: subject.id,
-                academicYearId: academicYear.id,
+                academicYear: context.academicYear.toString(),
                 studentName,
                 subjectName: subject.name,
-                academicYearLabel: academicYear.label,
               });
               memberIds.push(candidate.studentId);
               report.membersResolved += 1;
@@ -96,7 +100,7 @@ export class GroupsImporter {
 
         const group = Group.create({
           projectIdeaId: projectIdea.id,
-          academicYearId: academicYear.id,
+          academicYear: context.academicYear,
           subjectId: subject.id,
           specialization,
           memberIds,
