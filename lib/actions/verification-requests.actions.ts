@@ -1,7 +1,7 @@
 'use server';
 
+import { serializeResult } from '@/core/domain/shared/result';
 import container from '@/core/infra/di/container';
-import { CreateVerificationRequestPresenter } from '@/lib/presentation/presenters/verification-requests/create-verification-request.presenter';
 import { authActionClient } from '@/lib/safe-action';
 import { CreateVerificationRequestSchema } from '@/lib/schemas/verification-form.schema';
 
@@ -16,5 +16,5 @@ export const createVerificationRequestAction = authActionClient
       userId: user.id,
     });
 
-    return CreateVerificationRequestPresenter.present(result);
+    return serializeResult(result);
   });
