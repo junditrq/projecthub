@@ -4,7 +4,7 @@ import { DeleteFileUseCase } from '@/core/application/usecases/storage/delete-fi
 import { DeleteFilesUseCase } from '@/core/application/usecases/storage/delete-files.usecase';
 import { GetUploadURLUseCase } from '@/core/application/usecases/storage/get-upload-url.usecase';
 import { GetTagsUseCase } from '@/core/application/usecases/tags/get-tags.usecase';
-import { GetUserVerificationStatusUseCase } from '@/core/application/usecases/user/get-student-verificaiton-status.usecase';
+import { GetUserVerificationStatusUseCase } from '@/core/application/usecases/verification-requests/get-user-verification-status.usecase';
 import { MarkUserAsPromptedUseCase } from '@/core/application/usecases/user/mark-user-as-prompted.usecase';
 import { CreateVerificationRequestUseCase } from '@/core/application/usecases/verification-requests/create-verification-request.usecase';
 import { ICategoryRepo } from '@/core/domain/repos/category.repo';
