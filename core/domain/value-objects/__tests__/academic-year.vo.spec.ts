@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { AcademicYear } from '../academic-year.vo';
-import { BusinessRuleError } from '../../errors/domain-errors';
+import { DomainValidationError } from '../../errors/domain.error';
 
 describe('AcademicYear Value Object', () => {
   describe('create', () => {
@@ -17,27 +17,27 @@ describe('AcademicYear Value Object', () => {
     });
 
     it('should throw for invalid format (missing dash)', () => {
-      expect(() => AcademicYear.create('20252026')).toThrow(BusinessRuleError);
+      expect(() => AcademicYear.create('20252026')).toThrow(DomainValidationError);
       expect(() => AcademicYear.create('2025-2026')).not.toThrow();
     });
 
     it('should throw for invalid format (non-numeric)', () => {
-      expect(() => AcademicYear.create('abcd-efgh')).toThrow(BusinessRuleError);
-      expect(() => AcademicYear.create('2025-abcd')).toThrow(BusinessRuleError);
+      expect(() => AcademicYear.create('abcd-efgh')).toThrow(DomainValidationError);
+      expect(() => AcademicYear.create('2025-abcd')).toThrow(DomainValidationError);
     });
 
     it('should throw when end year is not start + 1', () => {
-      expect(() => AcademicYear.create('2025-2027')).toThrow(BusinessRuleError);
-      expect(() => AcademicYear.create('2025-2024')).toThrow(BusinessRuleError);
-      expect(() => AcademicYear.create('2025-2025')).toThrow(BusinessRuleError);
+      expect(() => AcademicYear.create('2025-2027')).toThrow(DomainValidationError);
+      expect(() => AcademicYear.create('2025-2024')).toThrow(DomainValidationError);
+      expect(() => AcademicYear.create('2025-2025')).toThrow(DomainValidationError);
     });
 
     it('should throw for empty string', () => {
-      expect(() => AcademicYear.create('')).toThrow(BusinessRuleError);
+      expect(() => AcademicYear.create('')).toThrow(DomainValidationError);
     });
 
     it('should throw for whitespace only', () => {
-      expect(() => AcademicYear.create('   ')).toThrow(BusinessRuleError);
+      expect(() => AcademicYear.create('   ')).toThrow(DomainValidationError);
     });
   });
 
