@@ -25,13 +25,16 @@ describe('FileValidator ids content', () => {
   it('rejects unparseable json', () => {
     const result = validator().validateIdsContent('{"students":');
 
-    expect(result).toEqual({ valid: false, message: 'Bad json' });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toBe('Bad json');
+    }
   });
 
   it('rejects payloads failing the students file shape', () => {
     const result = validator().validateIdsContent(JSON.stringify({ academicYear: '2025-2026' }));
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects specializations outside the file year level', () => {
@@ -39,9 +42,9 @@ describe('FileValidator ids content', () => {
       idsFile({ specialization: 'AI', yearLevel: 'THIRD' })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('AI');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('AI');
     }
   });
 
@@ -55,9 +58,9 @@ describe('FileValidator ids content', () => {
       })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('1723240193');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('1723240193');
     }
   });
 
@@ -73,7 +76,7 @@ describe('FileValidator ids content', () => {
       })
     );
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects numeric collegeIds without coercion', () => {
@@ -83,7 +86,7 @@ describe('FileValidator ids content', () => {
       })
     );
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects empty student names', () => {
@@ -94,17 +97,17 @@ describe('FileValidator ids content', () => {
         })
       );
 
-      expect(result.valid).toBe(false);
+      expect(result.ok).toBe(false);
     }
   });
 
   it('passes a valid file through with its parsed content', () => {
     const result = validator().validateIdsContent(idsFile());
 
-    expect(result.valid).toBe(true);
-    if (result.valid) {
-      expect(result.file.academicYear).toBe('2025-2026');
-      expect(result.file.students).toHaveLength(1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.academicYear).toBe('2025-2026');
+      expect(result.value.students).toHaveLength(1);
     }
   });
 });
@@ -138,7 +141,10 @@ describe('FileValidator groups content', () => {
   it('rejects unparseable json', async () => {
     const result = await validator().validateGroupsContent('{"groups":');
 
-    expect(result).toEqual({ valid: false, message: 'Bad json' });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toBe('Bad json');
+    }
   });
 
   it('rejects payloads failing the groups file shape', async () => {
@@ -146,15 +152,15 @@ describe('FileValidator groups content', () => {
       JSON.stringify({ academicYear: '2025-2026' })
     );
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects canonical slugs missing from the database', async () => {
     const result = await validator([]).validateGroupsContent(groupsFile());
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('project-2');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('project-2');
     }
   });
 
@@ -163,9 +169,9 @@ describe('FileValidator groups content', () => {
       groupsFile({ subjectSlug: 'project-1' })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('Project 1');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('Project 1');
     }
   });
 
@@ -179,10 +185,10 @@ describe('FileValidator groups content', () => {
       })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('"groupIndex": 1');
-      expect(result.message).toContain('احمد خالد تللو');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('"groupIndex": 1');
+      expect(result.error.message).toContain('احمد خالد تللو');
     }
   });
 
@@ -195,17 +201,17 @@ describe('FileValidator groups content', () => {
     ]) {
       const result = await validator([project2]).validateGroupsContent(groupsFile({ groups }));
 
-      expect(result.valid).toBe(false);
+      expect(result.ok).toBe(false);
     }
   });
 
   it('passes a valid file through with its parsed content', async () => {
     const result = await validator([project2]).validateGroupsContent(groupsFile());
 
-    expect(result.valid).toBe(true);
-    if (result.valid) {
-      expect(result.file.subjectSlug).toBe('project-2');
-      expect(result.file.groups).toHaveLength(1);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value.subjectSlug).toBe('project-2');
+      expect(result.value.groups).toHaveLength(1);
     }
   });
 });

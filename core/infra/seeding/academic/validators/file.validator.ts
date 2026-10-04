@@ -2,15 +2,7 @@ import { z } from 'zod';
 import path from 'path';
 import fs from 'node:fs/promises';
 import { SeedAcademicYearSchema } from '../schemas/academic-year.schema';
-import {
-  FilePathValidatorResult,
-  GroupsConsistencyValidatorResult,
-  GroupsContentValidatorResult,
-  IdsConsistencyValidatorResult,
-  IdsContentValidatorResult,
-  IFileValidator,
-  ParsedPathParts,
-} from './file.validator.interface';
+import { IFileValidator, ParsedPathParts } from './file.validator.interface';
 import { SpecializationPathPartSchema } from '../schemas/specialization.path-part.schema';
 import { YearLevelPathPartSchema } from '../schemas/year-level.path-part.schema';
 import { SubjectPathPartSchema } from '../schemas/subject.path-part.schema';
@@ -21,6 +13,8 @@ import { SeedGroupsFile, SeedGroupsFileSchema } from '../schemas/groups-file.sch
 import { ISubjectRepo } from '@/core/domain/repos/subject.repo';
 import { CurriculumService } from '@/core/domain/services/curriculum.service';
 import { normalizeArabicName } from '@/core/domain/utils/normalize-arabic-name.util';
+import { fail, ok, Result } from '@/core/domain/shared/result';
+import { FileValidatorError } from './file.validator.error';
 
 export const PathPartsSchema = z.tuple([
   SeedAcademicYearSchema,
@@ -29,9 +23,6 @@ export const PathPartsSchema = z.tuple([
 ]);
 
 export class FileValidator implements IFileValidator {
-  private static readonly INVALID_PATH_STRUCTURE_ERROR =
-    'Invalid path structure. Expected format: <academic-year>__<year-level>__<specialization>__<file-name>.json';
-
   constructor(
     private readonly _dataPath: string,
     private readonly _subjectRepo: ISubjectRepo
@@ -60,15 +51,15 @@ export class FileValidator implements IFileValidator {
     return duplicates;
   }
 
-  async validateFilePath(filePath: string): Promise<FilePathValidatorResult> {
+  async validateFilePath(filePath: string): Promise<Result<ParsedPathParts, FileValidatorError>> {
     const parts = filePath.split('__');
 
     if (parts.length !== 4) {
-      return {
-        valid: false,
-        message: FileValidator.INVALID_PATH_STRUCTURE_ERROR,
-        path: filePath,
-      };
+      return fail(
+        new FileValidatorError(
+          'Invalid path structure. Expected format: <academic-year>__<year-level>__<specialization>__<file-name>.json'
+        )
+      );
     }
 
     const [academicYear, yearLevel, specialization, fileNameExt] = parts;
@@ -76,19 +67,15 @@ export class FileValidator implements IFileValidator {
     const pathPartsResult = PathPartsSchema.safeParse([academicYear, yearLevel, specialization]);
 
     if (!pathPartsResult.success) {
-      return {
-        valid: false,
-        message: pathPartsResult.error.issues.map((issue) => issue.message).join(', '),
-        path: filePath,
-      };
+      return fail(
+        new FileValidatorError(
+          pathPartsResult.error.issues.map((issue) => issue.message).join(', ')
+        )
+      );
     }
 
     if (!fileNameExt.endsWith('.json')) {
-      return {
-        valid: false,
-        message: 'File name must end with .json',
-        path: filePath,
-      };
+      return fail(new FileValidatorError('File name must end with .json'));
     }
 
     const fileName = fileNameExt.replace('.json', '');
@@ -102,48 +89,42 @@ export class FileValidator implements IFileValidator {
     if (!isIds) {
       const subjectSafe = SubjectPathPartSchema.safeParse(fileName);
       if (!subjectSafe.success) {
-        return {
-          valid: false,
-          message: subjectSafe.error.issues.map((issue) => issue.message).join(', '),
-          path: filePath,
-        };
+        return fail(
+          new FileValidatorError(subjectSafe.error.issues.map((issue) => issue.message).join(', '))
+        );
       }
       subjectSlug = subjectSafe.data;
 
       const subject = await this._subjectRepo.findBySlug(subjectSlug);
 
       if (!subject) {
-        return {
-          valid: false,
-          message: `Subject with slug ${fileName} not found`,
-          path: filePath,
-        };
+        return fail(new FileValidatorError(`Subject with slug ${fileName} not found`));
       }
 
       if (!subject.allowsSpecialization(specializationEnum)) {
-        return {
-          valid: false,
-          message: `Subject ${subject.name} is not allowed for specialization ${specialization}`,
-          path: filePath,
-        };
+        return fail(
+          new FileValidatorError(
+            `Subject ${subject.name} is not allowed for specialization ${specialization}`
+          )
+        );
       }
 
       if (!subject.belongsToYearLevel(yearLevelEnum)) {
-        return {
-          valid: false,
-          message: `Subject ${subject.name} is not allowed for year level ${yearLevel}`,
-          path: filePath,
-        };
+        return fail(
+          new FileValidatorError(
+            `Subject ${subject.name} is not allowed for year level ${yearLevel}`
+          )
+        );
       }
     }
 
     if (isIds) {
       if (!CurriculumService.isSpecializationInYearLevel(specializationEnum, yearLevelEnum)) {
-        return {
-          valid: false,
-          message: `Specialization ${validSpecialization} is not allowed for year level ${validYearLevel}`,
-          path: filePath,
-        };
+        return fail(
+          new FileValidatorError(
+            `Specialization ${validSpecialization} is not allowed for year level ${validYearLevel}`
+          )
+        );
       }
     }
 
@@ -152,59 +133,49 @@ export class FileValidator implements IFileValidator {
     try {
       await fs.access(resolvedPath);
     } catch {
-      return {
-        valid: false,
-        message: `File does not exist at path: ${filePath}`,
-        path: filePath,
-      };
+      return fail(new FileValidatorError(`File does not exist at path: ${filePath}`));
     }
 
-    return {
-      valid: true,
-      path: filePath,
-      pathParts:
-        subjectSlug === undefined
-          ? {
-              academicYear: validAcademicYear,
-              yearLevel: yearLevelEnum,
-              specialization: specializationEnum,
-              fileName: 'ids',
-              isIds: true,
-            }
-          : {
-              academicYear: validAcademicYear,
-              yearLevel: yearLevelEnum,
-              specialization: specializationEnum,
-              fileName: subjectSlug,
-              isIds: false,
-            },
-    };
+    if (subjectSlug === undefined) {
+      return ok({
+        academicYear: validAcademicYear,
+        yearLevel: yearLevelEnum,
+        specialization: specializationEnum,
+        fileName: 'ids',
+        isIds: true,
+      });
+    }
+
+    return ok({
+      academicYear: validAcademicYear,
+      yearLevel: yearLevelEnum,
+      specialization: specializationEnum,
+      fileName: subjectSlug,
+      isIds: false,
+    });
   }
 
-  validateIdsContent(fileContent: string): IdsContentValidatorResult {
+  validateIdsContent(fileContent: string): Result<SeedStudentsFile, FileValidatorError> {
     const parsed = this._parseJson(fileContent);
     if (!parsed.success) {
-      return {
-        valid: false,
-        message: 'Bad json',
-      };
+      return fail(new FileValidatorError('Bad json'));
     }
 
     const result = SeedStudentsFileSchema.safeParse(parsed.data);
     if (!result.success) {
-      return {
-        valid: false,
-        message: result.error.issues.map((issue) => issue.message).join(', '),
-      };
+      return fail(
+        new FileValidatorError(result.error.issues.map((issue) => issue.message).join(', '))
+      );
     }
 
     const { specialization, yearLevel } = result.data;
 
     if (!CurriculumService.isSpecializationInYearLevel(specialization, yearLevel)) {
-      return {
-        valid: false,
-        message: `Specialization ${specialization} is not allowed for year level ${yearLevel}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Specialization ${specialization} is not allowed for year level ${yearLevel}`
+        )
+      );
     }
 
     const seenIds = new Set<string>();
@@ -219,75 +190,72 @@ export class FileValidator implements IFileValidator {
     }
 
     if (duplicateIds.size > 0) {
-      return {
-        valid: false,
-        message: `Duplicate college IDs found: ${Array.from(duplicateIds).join(', ')}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Duplicate college IDs found: ${Array.from(duplicateIds).join(', ')}`
+        )
+      );
     }
 
-    return {
-      valid: true,
-      file: result.data,
-    };
+    return ok(result.data);
   }
 
   validateIdsConsistency(
     pathParts: ParsedPathParts,
     file: SeedStudentsFile
-  ): IdsConsistencyValidatorResult {
+  ): Result<void, FileValidatorError> {
     if (pathParts.academicYear !== file.academicYear) {
-      return {
-        valid: false,
-        message: `Academic year mismatch: path has ${pathParts.academicYear} but content has ${file.academicYear}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Academic year mismatch: path has ${pathParts.academicYear} but content has ${file.academicYear}`
+        )
+      );
     }
     if (pathParts.specialization !== file.specialization) {
-      return {
-        valid: false,
-        message: `Specialization mismatch: path has ${pathParts.specialization} but content has ${file.specialization}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Specialization mismatch: path has ${pathParts.specialization} but content has ${file.specialization}`
+        )
+      );
     }
     if (pathParts.yearLevel !== file.yearLevel) {
-      return {
-        valid: false,
-        message: `Year level mismatch: path has ${pathParts.yearLevel} but content has ${file.yearLevel}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Year level mismatch: path has ${pathParts.yearLevel} but content has ${file.yearLevel}`
+        )
+      );
     }
-    return { valid: true };
+    return ok(undefined);
   }
 
-  async validateGroupsContent(fileContent: string): Promise<GroupsContentValidatorResult> {
+  async validateGroupsContent(
+    fileContent: string
+  ): Promise<Result<SeedGroupsFile, FileValidatorError>> {
     const parsed = this._parseJson(fileContent);
     if (!parsed.success) {
-      return {
-        valid: false,
-        message: 'Bad json',
-      };
+      return fail(new FileValidatorError('Bad json'));
     }
 
     const result = SeedGroupsFileSchema.safeParse(parsed.data);
     if (!result.success) {
-      return {
-        valid: false,
-        message: result.error.issues.map((issue) => issue.message).join(', '),
-      };
+      return fail(
+        new FileValidatorError(result.error.issues.map((issue) => issue.message).join(', '))
+      );
     }
 
     const { subjectSlug, specialization, groups } = result.data;
 
     const subject = await this._subjectRepo.findBySlug(subjectSlug);
     if (!subject) {
-      return {
-        valid: false,
-        message: `Subject with slug ${subjectSlug} not found`,
-      };
+      return fail(new FileValidatorError(`Subject with slug ${subjectSlug} not found`));
     }
 
     if (!subject.allowsSpecialization(specialization)) {
-      return {
-        valid: false,
-        message: `Subject ${subject.name} is not allowed for specialization ${specialization}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Subject ${subject.name} is not allowed for specialization ${specialization}`
+        )
+      );
     }
 
     const groupsWithDuplicates = [];
@@ -302,40 +270,41 @@ export class FileValidator implements IFileValidator {
     }
 
     if (groupsWithDuplicates.length > 0) {
-      return {
-        valid: false,
-        message: `Duplicate student names found in groups: ${JSON.stringify(groupsWithDuplicates, null, 2)}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Duplicate student names found in groups: ${JSON.stringify(groupsWithDuplicates, null, 2)}`
+        )
+      );
     }
 
-    return {
-      valid: true,
-      file: result.data,
-    };
+    return ok(result.data);
   }
 
   validateGroupsConsistency(
     pathParts: ParsedPathParts,
     file: SeedGroupsFile
-  ): GroupsConsistencyValidatorResult {
+  ): Result<void, FileValidatorError> {
     if (pathParts.academicYear !== file.academicYear) {
-      return {
-        valid: false,
-        message: `Academic year mismatch: path has ${pathParts.academicYear} but content has ${file.academicYear}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Academic year mismatch: path has ${pathParts.academicYear} but content has ${file.academicYear}`
+        )
+      );
     }
     if (pathParts.specialization !== file.specialization) {
-      return {
-        valid: false,
-        message: `Specialization mismatch: path has ${pathParts.specialization} but content has ${file.specialization}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Specialization mismatch: path has ${pathParts.specialization} but content has ${file.specialization}`
+        )
+      );
     }
     if (pathParts.fileName !== file.subjectSlug) {
-      return {
-        valid: false,
-        message: `Subject mismatch: path has ${pathParts.fileName} but content has ${file.subjectSlug}`,
-      };
+      return fail(
+        new FileValidatorError(
+          `Subject mismatch: path has ${pathParts.fileName} but content has ${file.subjectSlug}`
+        )
+      );
     }
-    return { valid: true };
+    return ok(undefined);
   }
 }

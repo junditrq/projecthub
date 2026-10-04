@@ -3,6 +3,8 @@ import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { SeedGroupsFile } from '../schemas/groups-file.schema';
 import { SeedStudentsFile } from '../schemas/students-file.schema';
 import { SeedSubjectSlug } from '../schemas/subject.schema';
+import { Result } from '@/core/domain/shared/result';
+import { FileValidatorError } from './file.validator.error';
 
 export type ParsedPathParts =
   | {
@@ -20,66 +22,16 @@ export type ParsedPathParts =
       isIds: false;
     };
 
-export type FilePathValidatorResult =
-  | {
-      valid: false;
-      message: string;
-      path: string;
-    }
-  | {
-      valid: true;
-      path: string;
-      pathParts: ParsedPathParts;
-    };
-
-export type IdsContentValidatorResult =
-  | {
-      valid: false;
-      message: string;
-    }
-  | {
-      valid: true;
-      file: SeedStudentsFile;
-    };
-
-export type GroupsContentValidatorResult =
-  | {
-      valid: false;
-      message: string;
-    }
-  | {
-      valid: true;
-      file: SeedGroupsFile;
-    };
-
-export type IdsConsistencyValidatorResult =
-  | {
-      valid: false;
-      message: string;
-    }
-  | {
-      valid: true;
-    };
-
-export type GroupsConsistencyValidatorResult =
-  | {
-      valid: false;
-      message: string;
-    }
-  | {
-      valid: true;
-    };
-
 export interface IFileValidator {
-  validateFilePath(filePath: string): Promise<FilePathValidatorResult>;
-  validateIdsContent(fileContent: string): IdsContentValidatorResult;
-  validateGroupsContent(fileContent: string): Promise<GroupsContentValidatorResult>;
+  validateFilePath(filePath: string): Promise<Result<ParsedPathParts, FileValidatorError>>;
+  validateIdsContent(fileContent: string): Result<SeedStudentsFile, FileValidatorError>;
+  validateGroupsContent(fileContent: string): Promise<Result<SeedGroupsFile, FileValidatorError>>;
   validateIdsConsistency(
     pathParts: ParsedPathParts,
     file: SeedStudentsFile
-  ): IdsConsistencyValidatorResult;
+  ): Result<void, FileValidatorError>;
   validateGroupsConsistency(
     pathParts: ParsedPathParts,
     file: SeedGroupsFile
-  ): GroupsConsistencyValidatorResult;
+  ): Result<void, FileValidatorError>;
 }

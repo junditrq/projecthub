@@ -98,11 +98,12 @@ export const runValidate = async (
   const pathPartsByFile = new Map<string, ParsedPathParts>();
   for (const file of targets) {
     const validated = await fileValidator.validateFilePath(file);
-    if (!validated.valid) {
-      issues.push({ file, stage: 'path', message: validated.message, level: 'error' });
+    if (!validated.ok) {
+      issues.push({ file, stage: 'path', message: validated.error.message, level: 'error' });
+
       continue;
     }
-    pathPartsByFile.set(file, validated.pathParts);
+    pathPartsByFile.set(file, validated.value);
   }
 
   // P2 — content + path/content consistency, ids first then groups.
@@ -114,19 +115,24 @@ export const runValidate = async (
       continue;
     }
     const validated = fileValidator.validateIdsContent(raw.data);
-    if (!validated.valid) {
-      issues.push({ file, stage: 'content', message: validated.message, level: 'error' });
+    if (!validated.ok) {
+      issues.push({ file, stage: 'content', message: validated.error.message, level: 'error' });
       continue;
     }
     const consistent = fileValidator.validateIdsConsistency(
       pathPartsByFile.get(file)!,
-      validated.file
+      validated.value
     );
-    if (!consistent.valid) {
-      issues.push({ file, stage: 'consistency', message: consistent.message, level: 'error' });
+    if (!consistent.ok) {
+      issues.push({
+        file,
+        stage: 'consistency',
+        message: consistent.error.message,
+        level: 'error',
+      });
       continue;
     }
-    studentsFiles.push(validated.file);
+    studentsFiles.push(validated.value);
   }
 
   for (const file of groupTargets) {
@@ -137,19 +143,24 @@ export const runValidate = async (
       continue;
     }
     const validated = await fileValidator.validateGroupsContent(raw.data);
-    if (!validated.valid) {
-      issues.push({ file, stage: 'content', message: validated.message, level: 'error' });
+    if (!validated.ok) {
+      issues.push({ file, stage: 'content', message: validated.error.message, level: 'error' });
       continue;
     }
     const consistent = fileValidator.validateGroupsConsistency(
       pathPartsByFile.get(file)!,
-      validated.file
+      validated.value
     );
-    if (!consistent.valid) {
-      issues.push({ file, stage: 'consistency', message: consistent.message, level: 'error' });
+    if (!consistent.ok) {
+      issues.push({
+        file,
+        stage: 'consistency',
+        message: consistent.error.message,
+        level: 'error',
+      });
       continue;
     }
-    groupsFiles.push(validated.file);
+    groupsFiles.push(validated.value);
   }
 
   // Orphan-group warning: no matching ids file for this year/level/spec.
