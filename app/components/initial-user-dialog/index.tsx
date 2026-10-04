@@ -10,18 +10,22 @@ import VerificationDialogContent from './dialog-content';
 const InitialUserDialog = () => {
   const [open, setOpen] = useState(false);
   const { status, data, update } = useSession();
-  const { execute } = useAction(markUserAsPromptedAction);
 
-  useEffect(() => {
-    if (status === 'loading' || status === 'unauthenticated' || !data?.user) return;
-    if (!data.user.hasBeenPrompted) {
-      setOpen(true);
-      execute();
+  const { execute, hasSucceeded, isExecuting } = useAction(markUserAsPromptedAction, {
+    onSuccess: () => {
       update({
         hasBeenPrompted: true,
       });
+    },
+  });
+
+  useEffect(() => {
+    if (status !== 'authenticated' || !data.user) return;
+    if (!data.user.hasBeenPrompted && !isExecuting && !hasSucceeded) {
+      setOpen(true);
+      execute();
     }
-  }, [data?.user, status, execute, update]);
+  }, [status, data, execute, isExecuting, hasSucceeded]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
