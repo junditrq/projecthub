@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/card';
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { useFormActionResultHandlers } from '@/hooks/use-form-action-result-handlers';
 import { createVerificationRequestAction } from '@/lib/actions/verification-requests.actions';
 import {
   CreateVerificationRequestFormData,
@@ -23,6 +22,11 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import FileUploader from '../file-uploader';
 import SubmittedSuccessfully from './submitted-successfully';
+import {
+  VERIFICATION_ERROR_MAP,
+  VERIFICATION_SUBMIT_SUCCESS_MESSAGE,
+  VERIFICATION_UNEXPECTED_MESSAGE,
+} from './verification-form.errors';
 
 const VerificationForm = () => {
   const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
@@ -42,17 +46,21 @@ const VerificationForm = () => {
 
   const [uploading, setUploading] = useState(false);
 
-  const { handleError, handleSuccess } = useFormActionResultHandlers({
-    setError,
-    onSuccess: () => {
-      setSubmittedSuccessfully(true);
-      toast.success('Verification request submitted successfully!');
-    },
-  });
-
   const { execute, isExecuting } = useAction(createVerificationRequestAction, {
-    onSuccess: async ({ data }) => handleSuccess(data),
-    onError: async ({ error }) => handleError(error.serverError, error.thrownError),
+    onSuccess: ({ data }) => {
+      if (data.ok) {
+        setSubmittedSuccessfully(true);
+        toast.success(VERIFICATION_SUBMIT_SUCCESS_MESSAGE);
+        return;
+      }
+      const { field, message } = VERIFICATION_ERROR_MAP[data.error.code];
+      setError(field, { type: 'manual', message });
+    },
+
+    onError: (error) => {
+      console.error(error);
+      toast.error(VERIFICATION_UNEXPECTED_MESSAGE);
+    },
   });
 
   const onSubmit = (data: CreateVerificationRequestFormData) => {
