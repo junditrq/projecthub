@@ -3,13 +3,10 @@ import { IVerificationRequestRepo } from '@/core/domain/repos/verification-reque
 import { VerificationRequestDTOMapper } from '../../mappers/verification-request.mapper';
 
 export class GetUserVerificationStatusUseCase {
-  private verificationRequestRepo: IVerificationRequestRepo;
-  constructor(verificationRequestRepo: IVerificationRequestRepo) {
-    this.verificationRequestRepo = verificationRequestRepo;
-  }
+  constructor(private readonly _verificationRequestRepo: IVerificationRequestRepo) {}
 
   public async execute(userId: string): Promise<VerificationRequestStatusDTO> {
-    const latestRequest = await this.verificationRequestRepo.getLatestByUserId(userId);
+    const latestRequest = await this._verificationRequestRepo.getLatestByUserId(userId);
 
     if (!latestRequest) {
       return VerificationRequestStatusDTO.NOT_SUBMITTED;
