@@ -1,5 +1,5 @@
 import { UnresolvedMember, UnresolvedMemberType } from '../entities/unresolved-member.entity';
-import { BusinessRuleError } from '../errors/domain-errors';
+import { BusinessRuleError } from '../errors/domain.error';
 import { IGroupRepo } from '../repos/group.repo';
 import { IStudentRepo } from '../repos/student.repo';
 import { getCanonicalFullName } from '../utils/get-canonical-full-name.util';

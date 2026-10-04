@@ -1,6 +1,6 @@
-import { BusinessRuleError } from '../errors/domain-errors';
 import { Specialization } from '../enums/specialization.enum';
 import { YearLevel } from '../enums/year-level.enum';
+import { DomainValidationError } from '../errors/domain.error';
 
 export interface SubjectCreateProps {
   name: string;
@@ -52,10 +52,10 @@ export class Subject {
 
   public static create(props: SubjectCreateProps): Subject {
     if (props.name.trim() === '' || props.slug.trim() === '') {
-      throw new BusinessRuleError('Name and slug cannot be empty');
+      throw new DomainValidationError('Name and slug cannot be empty');
     }
     if (props.allowedSpecializations.length === 0) {
-      throw new BusinessRuleError('At least one specialization must be allowed');
+      throw new DomainValidationError('At least one specialization must be allowed');
     }
     const id = crypto.randomUUID();
     return new Subject({ ...props, id });
