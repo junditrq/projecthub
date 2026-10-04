@@ -1,5 +1,8 @@
-import { IStorageService } from '@/core/application/services/storage.service';
-import { NotFoundError } from '@/core/domain/errors/domain-errors';
+import {
+  IStorageService,
+  StorageFileNotFoundError,
+} from '@/core/application/services/storage.service';
+import { fail, ok, Result } from '@/core/domain/shared/result';
 import { s3Client } from '@/core/infra/config/s3.client';
 import { env } from '@/env';
 import {
@@ -15,32 +18,14 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export class S3StorageService implements IStorageService {
   private bucketName = env.STORAGE_BUCKET_NAME;
-  private s3Client: S3Client;
 
-  constructor() {
-    this.s3Client = s3Client;
-  }
+  constructor(private readonly _s3Client: S3Client = s3Client) {}
 
-  private static mapFileKeyError(error: unknown) {
-    console.error('S3StorageService error:', error);
-
-    if (error instanceof S3ServiceException) {
-      const errorName = error.name;
-
-      if (errorName === 'NotFound' || errorName === 'NoSuchKey') {
-        return new NotFoundError(error.message);
-      }
-    }
-
-    return error;
-  }
-
-  private static async withFileKeyErrorHandling<T>(action: () => Promise<T>): Promise<T> {
-    try {
-      return await action();
-    } catch (error) {
-      throw S3StorageService.mapFileKeyError(error);
-    }
+  private static isFileNotFoundError(error: unknown): boolean {
+    return (
+      error instanceof S3ServiceException &&
+      (error.name === 'NotFound' || error.name === 'NoSuchKey')
+    );
   }
 
   async getUploadURL(fileKey: string, fileType: string, expiresIn?: number): Promise<string> {
@@ -50,31 +35,27 @@ export class S3StorageService implements IStorageService {
       ContentType: fileType,
     });
 
-    return await getSignedUrl(this.s3Client, command, { expiresIn });
+    return await getSignedUrl(this._s3Client, command, { expiresIn });
   }
 
   async deleteFile(fileKey: string): Promise<void> {
-    await S3StorageService.withFileKeyErrorHandling(async () => {
-      const command = new DeleteObjectCommand({
-        Bucket: this.bucketName,
-        Key: fileKey,
-      });
-
-      await this.s3Client.send(command);
+    const command = new DeleteObjectCommand({
+      Bucket: this.bucketName,
+      Key: fileKey,
     });
+
+    await this._s3Client.send(command);
   }
 
   async deleteFiles(fileKeys: string[]): Promise<void> {
-    await S3StorageService.withFileKeyErrorHandling(async () => {
-      const command = new DeleteObjectsCommand({
-        Bucket: this.bucketName,
-        Delete: {
-          Objects: fileKeys.map((key) => ({ Key: key })),
-        },
-      });
-
-      await this.s3Client.send(command);
+    const command = new DeleteObjectsCommand({
+      Bucket: this.bucketName,
+      Delete: {
+        Objects: fileKeys.map((key) => ({ Key: key })),
+      },
     });
+
+    await this._s3Client.send(command);
   }
 
   async fileExists(fileKey: string): Promise<boolean> {
@@ -84,33 +65,49 @@ export class S3StorageService implements IStorageService {
     });
 
     try {
-      await this.s3Client.send(command);
+      await this._s3Client.send(command);
       return true;
     } catch (error) {
-      if (error instanceof S3ServiceException) {
-        if (error.name === 'NotFound' || error.name === 'NoSuchKey') {
-          return false;
-        }
+      if (S3StorageService.isFileNotFoundError(error)) {
+        return false;
       }
 
-      throw S3StorageService.mapFileKeyError(error);
+      throw error;
     }
   }
 
-  async copyFile(sourceKey: string, destinationKey: string): Promise<void> {
-    await S3StorageService.withFileKeyErrorHandling(async () => {
-      const command = new CopyObjectCommand({
-        Bucket: this.bucketName,
-        CopySource: encodeURI(`${this.bucketName}/${sourceKey}`),
-        Key: destinationKey,
-      });
-
-      await this.s3Client.send(command);
+  async copyFile(
+    sourceKey: string,
+    destinationKey: string
+  ): Promise<Result<void, StorageFileNotFoundError>> {
+    const command = new CopyObjectCommand({
+      Bucket: this.bucketName,
+      CopySource: encodeURI(`${this.bucketName}/${sourceKey}`),
+      Key: destinationKey,
     });
+
+    try {
+      await this._s3Client.send(command);
+      return ok(undefined);
+    } catch (error) {
+      if (S3StorageService.isFileNotFoundError(error)) {
+        return fail(new StorageFileNotFoundError(sourceKey));
+      }
+
+      throw error;
+    }
   }
 
-  async moveFile(sourceKey: string, destinationKey: string): Promise<void> {
-    await this.copyFile(sourceKey, destinationKey);
+  async moveFile(
+    sourceKey: string,
+    destinationKey: string
+  ): Promise<Result<void, StorageFileNotFoundError>> {
+    const copiedResult = await this.copyFile(sourceKey, destinationKey);
+    if (!copiedResult.ok) {
+      return copiedResult;
+    }
+
     await this.deleteFile(sourceKey);
+    return ok(undefined);
   }
 }
