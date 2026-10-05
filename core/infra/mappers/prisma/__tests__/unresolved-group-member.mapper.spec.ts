@@ -10,7 +10,7 @@ import {
 import {
   PrismaUnresolvedGroupMemberMapper,
   PrismaUnresolvedGroupMemberTypeMapper,
-} from '../unresolved-group-member.prisma.mapper';
+} from '../unresolved-group-member.mapper';
 
 describe('PrismaUnresolvedGroupMemberTypeMapper', () => {
   it('maps both unresolved types in both directions', () => {

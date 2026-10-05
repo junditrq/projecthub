@@ -1,7 +1,7 @@
 import { GroupSaveContext, IGroupRepo } from '@/core/domain/repos/group.repo';
 import { Prisma, PrismaClient } from '../../orm/prisma/generated';
 import { Group } from '@/core/domain/entities/group.entity';
-import { PrismaGroupMapper } from '../../mappers/group.prisma.mapper';
+import { PrismaGroupMapper, prismaGroupWithMembers } from '../../mappers/prisma/group.mapper';
 
 export class PrismaGroupRepo implements IGroupRepo {
   constructor(private readonly _prisma: PrismaClient | Prisma.TransactionClient) {}
@@ -37,10 +37,7 @@ export class PrismaGroupRepo implements IGroupRepo {
     const { seedHash } = context;
 
     const prismaGroup = await this._prisma.group.upsert({
-      include: {
-        groupMembers: true,
-        unresolvedGroupMembers: true,
-      },
+      include: prismaGroupWithMembers,
       where: {
         id: group.id,
       },

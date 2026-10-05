@@ -1,10 +1,18 @@
-import { Prisma, User as PrismaUser } from '@/core/infra/orm/prisma/generated';
 import { User } from '@/core/domain/entities/user.entity';
-import { PrismaUserRoleMapper } from './user-role.prisma.mapper';
+import { PrismaUserRoleMapper } from './user-role.enum.mapper';
+import { Prisma } from '../../orm/prisma/generated';
 
-export type PrismaUserWithStudent = PrismaUser & {
-  student?: { id: string } | null;
-};
+export const prismaUserWithStudentId = {
+  student: {
+    select: {
+      id: true,
+    },
+  },
+} satisfies Prisma.UserInclude;
+
+export type PrismaUserWithStudent = Prisma.UserGetPayload<{
+  include: typeof prismaUserWithStudentId;
+}>;
 
 export class PrismaUserMapper {
   static toDomain(prismaUser: PrismaUserWithStudent): User {

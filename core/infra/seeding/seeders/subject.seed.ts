@@ -1,6 +1,6 @@
 import { PrismaClient } from '@/core/infra/orm/prisma/generated';
 import { subjects } from '../data/subjects';
-import { PrismaSubjectMapper } from '../../mappers/subject.prisma.mapper';
+import { PrismaSubjectMapper } from '../../mappers/prisma/subject.mapper';
 import { Subject } from '@/core/domain/entities/subject.entity';
 
 export const seedSubjects = async (prisma: PrismaClient) => {

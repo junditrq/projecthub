@@ -1,18 +1,18 @@
 import { Group } from '@/core/domain/entities/group.entity';
-import { Prisma } from '../orm/prisma/generated';
-import { PrismaSpecializationMapper } from './specialization.prisma.mapper';
-import { PrismaUnresolvedGroupMemberMapper } from './unresolved-group-member.prisma.mapper';
+import { Prisma } from '../../orm/prisma/generated';
+import { PrismaSpecializationMapper } from './specialization.enum.mapper';
+import { PrismaUnresolvedGroupMemberMapper } from './unresolved-group-member.mapper';
 import { GroupSaveContext } from '@/core/domain/repos/group.repo';
 import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 export const prismaGroupWithMembers = {
-  include: {
-    groupMembers: true,
-    unresolvedGroupMembers: true,
-  },
-} satisfies Prisma.GroupDefaultArgs;
+  groupMembers: { select: { studentId: true } },
+  unresolvedGroupMembers: true,
+} satisfies Prisma.GroupInclude;
 
-export type PrismaGroupWithMembers = Prisma.GroupGetPayload<typeof prismaGroupWithMembers>;
+export type PrismaGroupWithMembers = Prisma.GroupGetPayload<{
+  include: typeof prismaGroupWithMembers;
+}>;
 
 export class PrismaGroupMapper {
   public static toDomain(prismaGroup: PrismaGroupWithMembers): Group {

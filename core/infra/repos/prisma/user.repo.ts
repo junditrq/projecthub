@@ -1,7 +1,7 @@
 import { User } from '@/core/domain/entities/user.entity';
 import { IUserRepo } from '@/core/domain/repos/user.repo';
 import prisma from '@/core/infra/orm/prisma/prisma.client';
-import { PrismaUserMapper } from '../../mappers/user.prisma.mapper';
+import { PrismaUserMapper, prismaUserWithStudentId } from '../../mappers/prisma/user.mapper';
 
 export class PrismaUserRepo implements IUserRepo {
   private prisma;
@@ -13,7 +13,7 @@ export class PrismaUserRepo implements IUserRepo {
   async findById(userId: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      include: { student: { select: { id: true } } },
+      include: prismaUserWithStudentId,
     });
 
     if (!user) return null;
@@ -27,7 +27,7 @@ export class PrismaUserRepo implements IUserRepo {
     const updatedUser = await this.prisma.user.update({
       where: { id: user.id },
       data,
-      include: { student: { select: { id: true } } },
+      include: prismaUserWithStudentId,
     });
 
     return PrismaUserMapper.toDomain(updatedUser);

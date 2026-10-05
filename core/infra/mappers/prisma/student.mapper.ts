@@ -1,19 +1,17 @@
 import { Prisma } from '@/core/infra/orm/prisma/generated';
 import { Student } from '@/core/domain/entities/student.entity';
 import { AcademicContext } from '@/core/domain/value-objects/academic-context.vo';
-import { PrismaSpecializationMapper } from './specialization.prisma.mapper';
+import { PrismaSpecializationMapper } from './specialization.enum.mapper';
 import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
-import { PrismaYearLevelMapper } from './year-level.prisma.mapper';
+import { PrismaYearLevelMapper } from './year-level.enum.mapper';
 
 export const prismaStudentWithEnrollments = {
-  include: {
-    enrollments: true,
-  },
-} satisfies Prisma.StudentDefaultArgs;
+  enrollments: true,
+} satisfies Prisma.StudentInclude;
 
-export type PrismaStudentWithEnrollments = Prisma.StudentGetPayload<
-  typeof prismaStudentWithEnrollments
->;
+export type PrismaStudentWithEnrollments = Prisma.StudentGetPayload<{
+  include: typeof prismaStudentWithEnrollments;
+}>;
 
 export class PrismaStudentMapper {
   static toDomain(student: PrismaStudentWithEnrollments): Student {

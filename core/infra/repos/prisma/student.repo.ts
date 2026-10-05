@@ -1,6 +1,9 @@
 import { Student } from '@/core/domain/entities/student.entity';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
-import { PrismaStudentMapper } from '../../mappers/student.prisma.mapper';
+import {
+  PrismaStudentMapper,
+  prismaStudentWithEnrollments,
+} from '../../mappers/prisma/student.mapper';
 import prisma from '../../orm/prisma/prisma.client';
 import { Prisma, PrismaClient } from '../../orm/prisma/generated';
 
@@ -14,9 +17,7 @@ export class PrismaStudentRepo implements IStudentRepo {
       where: {
         OR: [{ normalizedName }, { canonicalFullName }],
       },
-      include: {
-        enrollments: true,
-      },
+      include: prismaStudentWithEnrollments,
     });
 
     return students.map(PrismaStudentMapper.toDomain);
@@ -27,9 +28,7 @@ export class PrismaStudentRepo implements IStudentRepo {
       where: {
         collegeId,
       },
-      include: {
-        enrollments: true,
-      },
+      include: prismaStudentWithEnrollments,
     });
 
     if (!student) {
@@ -44,9 +43,7 @@ export class PrismaStudentRepo implements IStudentRepo {
       where: { collegeId: student.collegeId },
       create: PrismaStudentMapper.toPersistenceCreate(student),
       update: PrismaStudentMapper.toPersistenceUpdate(student),
-      include: {
-        enrollments: true,
-      },
+      include: prismaStudentWithEnrollments,
     });
 
     return PrismaStudentMapper.toDomain(prismaStudent);

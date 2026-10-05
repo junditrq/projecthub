@@ -48,7 +48,7 @@ core/infra/               ← External implementations
     services/             ← External services (S3 storage via @aws-sdk)
     orm/                  ← Prisma client setup
     config/               ← Config
-    mappers/              ← Infra mappers
+    mappers/prisma/       ← Infra mappers (`.mapper.ts` entities, `.enum.mapper.ts` enums)
 
 lib/                      ← Next.js-specific layer (client/framework code)
     actions/              ← Server actions (next-safe-action) → resolve use cases from DI container

@@ -1,4 +1,4 @@
-import { YearLevel as PrismaYearLevel } from '../orm/prisma/generated';
+import { YearLevel as PrismaYearLevel } from '../../orm/prisma/generated';
 import { YearLevel } from '@/core/domain/enums/year-level.enum';
 
 export class PrismaYearLevelMapper {

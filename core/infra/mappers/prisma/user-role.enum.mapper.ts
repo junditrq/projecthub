@@ -1,5 +1,5 @@
 import { UserRole } from '@/core/domain/enums/user-role.enum';
-import { UserRole as PrismaUserRole } from '../orm/prisma/generated';
+import { UserRole as PrismaUserRole } from '../../orm/prisma/generated';
 
 export class PrismaUserRoleMapper {
   static toDomain(role: PrismaUserRole): UserRole {
