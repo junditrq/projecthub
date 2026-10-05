@@ -5,7 +5,7 @@ import NextAuth, { type DefaultSession } from 'next-auth';
 import { VerificationRequestStatusDTO } from './core/application/dtos/verification-request.dto';
 import container from './core/infra/di/container';
 import { UserRoleDTO } from './core/application/dtos/user.dto';
-import { UserRoleDTOMapper } from './core/application/mappers/user-role.mapper';
+import { UserRoleDTOMapper } from './core/application/mappers/user-role.dto.mapper';
 
 declare module 'next-auth' {
   interface Session {
