@@ -188,7 +188,7 @@ enum year_level {
 users [icon: user, color: blue] {
   id string pk
   name string
-  email string
+  email string nullable unique
   image string nullable
 
   role user_role default USER // Role controls permissions

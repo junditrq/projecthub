@@ -15,7 +15,7 @@ declare module 'next-auth' {
       role: UserRoleDTO;
       isStudent: boolean;
       name: string;
-      email: string;
+      email?: string;
       image?: string;
       verificationStatus: VerificationRequestStatusDTO;
     } & DefaultSession['user'];

@@ -3,7 +3,7 @@ import { UserRole } from '../enums/user-role.enum';
 export interface UserProps {
   id: string;
   name: string;
-  email: string;
+  email: string | null;
   image: string | null;
   githubUsername: string | null;
   linkedinUrl: string | null;
@@ -65,6 +65,10 @@ export class User {
 
   public canRequestStudentVerification(): boolean {
     return !this._props.isStudent;
+  }
+
+  public isContactable(): boolean {
+    return !!this._props.email;
   }
 
   public static reconstitute(props: UserProps) {
