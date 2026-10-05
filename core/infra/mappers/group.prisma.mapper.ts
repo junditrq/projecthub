@@ -6,13 +6,13 @@ import { GroupSaveContext } from '@/core/domain/repos/group.repo';
 import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 export const prismaGroupWithMembers = {
-  include: {
-    groupMembers: true,
-    unresolvedGroupMembers: true,
-  },
-} satisfies Prisma.GroupDefaultArgs;
+  groupMembers: { select: { studentId: true } },
+  unresolvedGroupMembers: true,
+} satisfies Prisma.GroupInclude;
 
-export type PrismaGroupWithMembers = Prisma.GroupGetPayload<typeof prismaGroupWithMembers>;
+export type PrismaGroupWithMembers = Prisma.GroupGetPayload<{
+  include: typeof prismaGroupWithMembers;
+}>;
 
 export class PrismaGroupMapper {
   public static toDomain(prismaGroup: PrismaGroupWithMembers): Group {

@@ -21,7 +21,7 @@ const persistedGroup = (): PrismaGroupWithMembers => ({
   specialization: PrismaSpecialization.AI,
   createdAt: new Date(),
   updatedAt: new Date(),
-  groupMembers: [{ groupId: 'g-1', studentId: 's-1' }],
+  groupMembers: [{ studentId: 's-1' }],
   unresolvedGroupMembers: [
     {
       id: 'um-1',
