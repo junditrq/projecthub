@@ -5,6 +5,7 @@ import NextAuth, { type DefaultSession } from 'next-auth';
 import { VerificationRequestStatusDTO } from './core/application/dtos/verification-request.dto';
 import container from './core/infra/di/container';
 import { UserRoleDTO } from './core/application/dtos/user.dto';
+import { UserRoleDTOMapper } from './core/application/mappers/user-role.mapper';
 
 declare module 'next-auth' {
   interface Session {
@@ -12,6 +13,7 @@ declare module 'next-auth' {
       id: string;
       hasBeenPrompted: boolean;
       role: UserRoleDTO;
+      isStudent: boolean;
       name: string;
       email: string;
       image?: string;
@@ -23,6 +25,7 @@ declare module 'next-auth' {
     id: string;
     hasBeenPrompted: boolean;
     role: UserRoleDTO;
+    isStudent: boolean;
     verificationStatus: VerificationRequestStatusDTO;
   }
 }
@@ -38,6 +41,7 @@ declare module 'next-auth/jwt' {
     /** OpenID ID Token */
     hasBeenPrompted: boolean;
     role: UserRoleDTO;
+    isStudent: boolean;
     userId: string | undefined;
     verificationStatus: VerificationRequestStatusDTO;
   }
@@ -51,19 +55,21 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig.callbacks,
     jwt: async ({ user, token, trigger, session }) => {
       if (user) {
-        try {
-          const getStudentVerificationStatusUseCase = container.get(
-            'GetUserVerificationStatusUseCase'
-          );
-          token.verificationStatus = await getStudentVerificationStatusUseCase.execute(user.id);
-        } catch (error) {
-          console.error('Error fetching verification status:', error);
-          token.verificationStatus = VerificationRequestStatusDTO.NOT_SUBMITTED;
-        }
+        const getStudentVerificationStatusUseCase = container.get(
+          'GetUserVerificationStatusUseCase'
+        );
+        token.verificationStatus = await getStudentVerificationStatusUseCase.execute(user.id);
+
+        const userRepo = container.get('IUserRepo');
+        const domainUser = await userRepo.findById(user.id);
+        token.isStudent = domainUser?.isStudent ?? false;
+        token.role = domainUser ? UserRoleDTOMapper.toDTO(domainUser.role) : user.role;
 
         token.hasBeenPrompted = !!user.hasBeenPrompted;
         token.userId = user.id;
-        token.role = user.role;
+        if (!token.role) {
+          token.role = user.role;
+        }
       }
 
       if (trigger === 'update' && session?.hasBeenPrompted !== undefined) {

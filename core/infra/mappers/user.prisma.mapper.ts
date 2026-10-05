@@ -1,12 +1,13 @@
-import {
-  Prisma,
-  User as PrismaUser,
-  UserRole as PrismaUserRole,
-} from '@/core/infra/orm/prisma/generated';
-import { User, UserRole } from '@/core/domain/entities/user.entity';
+import { Prisma, User as PrismaUser } from '@/core/infra/orm/prisma/generated';
+import { User } from '@/core/domain/entities/user.entity';
+import { PrismaUserRoleMapper } from './user-role.prisma.mapper';
+
+export type PrismaUserWithStudent = PrismaUser & {
+  student?: { id: string } | null;
+};
 
 export class PrismaUserMapper {
-  static toDomain(prismaUser: PrismaUser): User {
+  static toDomain(prismaUser: PrismaUserWithStudent): User {
     return User.reconstitute({
       email: prismaUser.email,
       githubUsername: prismaUser.githubUsername,
@@ -15,7 +16,8 @@ export class PrismaUserMapper {
       image: prismaUser.image,
       name: prismaUser.name,
       linkedinUrl: prismaUser.linkedinUrl,
-      role: this.toDomainRole(prismaUser.role),
+      role: PrismaUserRoleMapper.toDomain(prismaUser.role),
+      isStudent: prismaUser.student != null,
     });
   }
 
@@ -28,33 +30,7 @@ export class PrismaUserMapper {
       image: user.image,
       name: user.name,
       linkedinUrl: user.linkedinUrl,
-      role: this.toPersistenceRole(user.role),
+      role: PrismaUserRoleMapper.toPersistence(user.role),
     };
-  }
-
-  private static toDomainRole(role: PrismaUserRole): UserRole {
-    switch (role) {
-      case PrismaUserRole.ADMIN:
-        return UserRole.ADMIN;
-      case PrismaUserRole.STUDENT:
-        return UserRole.STUDENT;
-      case PrismaUserRole.VISITOR:
-        return UserRole.VISITOR;
-      default:
-        throw new Error(`Unknown user role: ${role}`);
-    }
-  }
-
-  private static toPersistenceRole(role: UserRole): PrismaUserRole {
-    switch (role) {
-      case UserRole.ADMIN:
-        return PrismaUserRole.ADMIN;
-      case UserRole.STUDENT:
-        return PrismaUserRole.STUDENT;
-      case UserRole.VISITOR:
-        return PrismaUserRole.VISITOR;
-      default:
-        throw new Error(`Unknown domain user role: ${role}`);
-    }
   }
 }

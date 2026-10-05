@@ -1,7 +1,6 @@
 export enum UserRoleDTO {
   ADMIN = 'ADMIN',
-  STUDENT = 'STUDENT',
-  VISITOR = 'VISITOR',
+  USER = 'USER',
 }
 
 export interface UserResponseDTO {
@@ -13,4 +12,5 @@ export interface UserResponseDTO {
   linkedinUrl: string | null;
   hasBeenPrompted: boolean;
   role: UserRoleDTO;
+  isStudent: boolean;
 }

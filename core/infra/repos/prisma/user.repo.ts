@@ -13,6 +13,7 @@ export class PrismaUserRepo implements IUserRepo {
   async findById(userId: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
+      include: { student: { select: { id: true } } },
     });
 
     if (!user) return null;
@@ -26,6 +27,7 @@ export class PrismaUserRepo implements IUserRepo {
     const updatedUser = await this.prisma.user.update({
       where: { id: user.id },
       data,
+      include: { student: { select: { id: true } } },
     });
 
     return PrismaUserMapper.toDomain(updatedUser);

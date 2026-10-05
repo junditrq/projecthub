@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { Button, ShadcnButtonProps } from '../ui/button';
-import { UserRoleDTO } from '@/core/application/dtos/user.dto';
 
 const NeedsVerificationButton = ({
   onClick,
@@ -29,7 +28,7 @@ const NeedsVerificationButton = ({
             return;
           }
 
-          if (data?.user.role !== UserRoleDTO.STUDENT) {
+          if (!data?.user.isStudent) {
             e.preventDefault();
             setOpen(true);
             return;

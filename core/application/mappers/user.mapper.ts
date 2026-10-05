@@ -1,5 +1,6 @@
-import { User, UserRole } from '@/core/domain/entities/user.entity';
-import { UserResponseDTO, UserRoleDTO } from '../dtos/user.dto';
+import { User } from '@/core/domain/entities/user.entity';
+import { UserResponseDTO } from '../dtos/user.dto';
+import { UserRoleDTOMapper } from './user-role.mapper';
 
 export class UserDTOMapper {
   public static toResponseDTO(user: User): UserResponseDTO {
@@ -11,20 +12,8 @@ export class UserDTOMapper {
       githubUsername: user.githubUsername,
       linkedinUrl: user.linkedinUrl,
       hasBeenPrompted: user.hasBeenPrompted,
-      role: this.toDTORole(user.role),
+      role: UserRoleDTOMapper.toDTO(user.role),
+      isStudent: user.isStudent,
     };
-  }
-
-  public static toDTORole(role: UserRole): UserRoleDTO {
-    switch (role) {
-      case UserRole.ADMIN:
-        return UserRoleDTO.ADMIN;
-      case UserRole.STUDENT:
-        return UserRoleDTO.STUDENT;
-      case UserRole.VISITOR:
-        return UserRoleDTO.VISITOR;
-      default:
-        throw new Error(`Unknown domain user role: ${role}`);
-    }
   }
 }

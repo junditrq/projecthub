@@ -1,6 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
-import { UserRoleDTO } from './core/application/dtos/user.dto';
 
 export const authConfig = {
   pages: {
@@ -10,6 +9,7 @@ export const authConfig = {
     session: async ({ session, token }) => {
       if (session.user) {
         session.user.role = token.role;
+        session.user.isStudent = !!token.isStudent;
         session.user.hasBeenPrompted = !!token.hasBeenPrompted;
         session.user.verificationStatus = token.verificationStatus;
         if (token.userId) {
@@ -37,7 +37,7 @@ export const authConfig = {
         }
       }
 
-      if (onStudentPath && user.role !== UserRoleDTO.STUDENT) {
+      if (onStudentPath && !user.isStudent) {
         return Response.redirect(new URL('/settings/student-verification', nextUrl));
       }
 
