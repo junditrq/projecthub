@@ -9,7 +9,7 @@ import {
   UnresolvedMember,
   UnresolvedMemberType,
 } from '@/core/domain/entities/unresolved-member.entity';
-import { PrismaGroupMapper, PrismaGroupWithMembers } from '../group.prisma.mapper';
+import { PrismaGroupMapper, PrismaGroupWithMembers } from '../group.mapper';
 import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 
 const persistedGroup = (): PrismaGroupWithMembers => ({

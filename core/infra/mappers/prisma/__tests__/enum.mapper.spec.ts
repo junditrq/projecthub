@@ -7,9 +7,9 @@ import {
 import { Specialization } from '@/core/domain/enums/specialization.enum';
 import { YearLevel } from '@/core/domain/enums/year-level.enum';
 import { UserRole } from '@/core/domain/enums/user-role.enum';
-import { PrismaSpecializationMapper } from '../specialization.prisma.mapper';
-import { PrismaYearLevelMapper } from '../year-level.prisma.mapper';
-import { PrismaUserRoleMapper } from '../user-role.prisma.mapper';
+import { PrismaSpecializationMapper } from '../specialization.enum.mapper';
+import { PrismaYearLevelMapper } from '../year-level.enum.mapper';
+import { PrismaUserRoleMapper } from '../user-role.enum.mapper';
 
 describe('PrismaSpecializationMapper', () => {
   it('maps every specialization in both directions', () => {

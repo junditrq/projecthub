@@ -1,7 +1,7 @@
 import { User } from '@/core/domain/entities/user.entity';
 import { IUserRepo } from '@/core/domain/repos/user.repo';
 import prisma from '@/core/infra/orm/prisma/prisma.client';
-import { PrismaUserMapper, prismaUserWithStudentId } from '../../mappers/user.prisma.mapper';
+import { PrismaUserMapper, prismaUserWithStudentId } from '../../mappers/prisma/user.mapper';
 
 export class PrismaUserRepo implements IUserRepo {
   private prisma;

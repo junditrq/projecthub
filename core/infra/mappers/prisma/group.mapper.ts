@@ -1,7 +1,7 @@
 import { Group } from '@/core/domain/entities/group.entity';
-import { Prisma } from '../orm/prisma/generated';
-import { PrismaSpecializationMapper } from './specialization.prisma.mapper';
-import { PrismaUnresolvedGroupMemberMapper } from './unresolved-group-member.prisma.mapper';
+import { Prisma } from '../../orm/prisma/generated';
+import { PrismaSpecializationMapper } from './specialization.enum.mapper';
+import { PrismaUnresolvedGroupMemberMapper } from './unresolved-group-member.mapper';
 import { GroupSaveContext } from '@/core/domain/repos/group.repo';
 import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 

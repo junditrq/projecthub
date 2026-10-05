@@ -1,5 +1,5 @@
 import { Specialization } from '@/core/domain/enums/specialization.enum';
-import { Specialization as PrismaSpecalization } from '../orm/prisma/generated';
+import { Specialization as PrismaSpecalization } from '../../orm/prisma/generated';
 
 export class PrismaSpecializationMapper {
   static toDomain(prismaSpecialization: PrismaSpecalization): Specialization {

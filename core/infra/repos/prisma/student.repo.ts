@@ -3,7 +3,7 @@ import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import {
   PrismaStudentMapper,
   prismaStudentWithEnrollments,
-} from '../../mappers/student.prisma.mapper';
+} from '../../mappers/prisma/student.mapper';
 import prisma from '../../orm/prisma/prisma.client';
 import { Prisma, PrismaClient } from '../../orm/prisma/generated';
 

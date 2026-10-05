@@ -6,7 +6,7 @@ import {
   Prisma,
   UnresolvedGroupMember as PrismaUnresolvedGroupMember,
   UnresolvedGroupMemberType as PrismaUnresolvedGroupMemberType,
-} from '../orm/prisma/generated';
+} from '../../orm/prisma/generated';
 
 export class PrismaUnresolvedGroupMemberTypeMapper {
   public static toDomain(prismaType: PrismaUnresolvedGroupMemberType): UnresolvedMemberType {

@@ -2,7 +2,7 @@ import { Subject } from '@/core/domain/entities/subject.entity';
 import prisma from '../../orm/prisma/prisma.client';
 import { Prisma, PrismaClient } from '../../orm/prisma/generated';
 import { ISubjectRepo } from '@/core/domain/repos/subject.repo';
-import { PrismaSubjectMapper } from '../../mappers/subject.prisma.mapper';
+import { PrismaSubjectMapper } from '../../mappers/prisma/subject.mapper';
 
 export class PrismaSubjectRepo implements ISubjectRepo {
   constructor(private readonly _prisma: PrismaClient | Prisma.TransactionClient = prisma) {}

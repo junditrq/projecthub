@@ -1,7 +1,7 @@
 import { Subject } from '@/core/domain/entities/subject.entity';
-import { Prisma, Subject as PrismaSubject } from '../orm/prisma/generated';
-import { PrismaSpecializationMapper } from './specialization.prisma.mapper';
-import { PrismaYearLevelMapper } from './year-level.prisma.mapper';
+import { Prisma, Subject as PrismaSubject } from '../../orm/prisma/generated';
+import { PrismaSpecializationMapper } from './specialization.enum.mapper';
+import { PrismaYearLevelMapper } from './year-level.enum.mapper';
 
 export class PrismaSubjectMapper {
   static toDomain(prismaSubject: PrismaSubject): Subject {

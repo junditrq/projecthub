@@ -1,6 +1,6 @@
 import { User } from '@/core/domain/entities/user.entity';
-import { PrismaUserRoleMapper } from './user-role.prisma.mapper';
-import { Prisma } from '../orm/prisma/generated';
+import { PrismaUserRoleMapper } from './user-role.enum.mapper';
+import { Prisma } from '../../orm/prisma/generated';
 
 export const prismaUserWithStudentId = {
   student: {
