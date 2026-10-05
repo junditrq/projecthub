@@ -7,10 +7,13 @@ export const actionClient = createSafeActionClient({
     console.error('Action Error:', error);
 
     if (error instanceof UnauthenticatedError || error instanceof UnauthorizedError) {
-      return error.code;
+      return error.toPlainObject();
     }
 
-    return DEFAULT_SERVER_ERROR_MESSAGE;
+    return {
+      code: 'INTERNAL_SERVER_ERROR',
+      message: DEFAULT_SERVER_ERROR_MESSAGE,
+    };
   },
 });
 
