@@ -1,6 +1,6 @@
 import { VerificationRequestStatusDTO } from '@/core/application/dtos/verification-request.dto';
 import { IVerificationRequestRepo } from '@/core/domain/repos/verification-request.repo';
-import { VerificationRequestDTOMapper } from '../../mappers/verification-request.mapper';
+import { VerificationRequestDTOMapper } from '../../mappers/verification-request.dto.mapper';
 
 export class GetUserVerificationStatusUseCase {
   constructor(private readonly _verificationRequestRepo: IVerificationRequestRepo) {}

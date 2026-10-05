@@ -1,6 +1,6 @@
 import { ICategoryRepo } from '@/core/domain/repos/category.repo';
 import { CategoryDTO } from '../../dtos/category.dto';
-import { CategoryDTOMapper } from '../../mappers/category.mapper';
+import { CategoryDTOMapper } from '../../mappers/category.dto.mapper';
 
 export class GetCategoriesUseCase {
   constructor(private readonly _categoryRepo: ICategoryRepo) {}

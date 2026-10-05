@@ -1,6 +1,6 @@
 import { ITagRepo } from '@/core/domain/repos/tag.repo';
 import { TagDTO } from '../../dtos/tag.dto';
-import { TagDTOMapper } from '../../mappers/tag.mapper';
+import { TagDTOMapper } from '../../mappers/tag.dto.mapper';
 
 export class GetTagsUseCase {
   constructor(private readonly _tagRepo: ITagRepo) {}
