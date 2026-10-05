@@ -6,7 +6,7 @@ export enum UserRoleDTO {
 export interface UserResponseDTO {
   id: string;
   name: string;
-  email: string;
+  email: string | null;
   image: string | null;
   githubUsername: string | null;
   linkedinUrl: string | null;
