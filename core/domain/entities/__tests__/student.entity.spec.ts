@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Student, StudentProps } from '../student.entity';
-import { BusinessRuleError } from '../../errors/domain-errors';
+import { BusinessRuleError, DomainValidationError } from '../../errors/domain.error';
 import { AcademicContext } from '../../value-objects/academic-context.vo';
 import { AcademicYear } from '../../value-objects/academic-year.vo';
 import { Specialization } from '../../enums/specialization.enum';
@@ -94,7 +94,7 @@ describe('Student Domain Entity', () => {
           userId: null,
           enrollments: sampleEnrollments(),
         })
-      ).toThrow(BusinessRuleError);
+      ).toThrow(DomainValidationError);
     }
   });
 
@@ -109,12 +109,12 @@ describe('Student Domain Entity', () => {
           userId: null,
           enrollments: sampleEnrollments(),
         })
-      ).toThrow(BusinessRuleError);
+      ).toThrow(DomainValidationError);
     }
   );
 
   describe('enrollments', () => {
-    it('should record a new enrollment and return "recored"', () => {
+    it('should record a new enrollment and return "recorded"', () => {
       const student = Student.create({
         name: 'احمد',
         fatherName: 'خالد',
@@ -137,7 +137,10 @@ describe('Student Domain Entity', () => {
 
       const result = student.recordEnrollment(newEnrollment);
 
-      expect(result).toBe('recored');
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value).toBe('recorded');
+      }
       expect(student.enrollments).toHaveLength(2);
     });
 
@@ -158,7 +161,10 @@ describe('Student Domain Entity', () => {
 
       const result = student.recordEnrollment(enrollment);
 
-      expect(result).toBe('exists');
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.value).toBe('exists');
+      }
       expect(student.enrollments).toHaveLength(1);
     });
 
@@ -183,7 +189,13 @@ describe('Student Domain Entity', () => {
         specialization: Specialization.NET,
       });
 
-      expect(() => student.recordEnrollment(conflictingEnrollment)).toThrow(BusinessRuleError);
+      const result = student.recordEnrollment(conflictingEnrollment);
+
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.error).toBeInstanceOf(BusinessRuleError);
+      }
+      expect(student.enrollments).toHaveLength(1);
     });
 
     it('getCurrentEnrollment should return the latest enrollment by academic year', () => {

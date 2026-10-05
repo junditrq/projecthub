@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { Group, GroupCreateProps } from '../group.entity';
 import { Specialization } from '../../enums/specialization.enum';
 import { UnresolvedMember, UnresolvedMemberType } from '../unresolved-member.entity';
-import { BusinessRuleError } from '../../errors/domain-errors';
+import { BusinessRuleError } from '../../errors/domain.error';
 import { AcademicYear } from '../../value-objects/academic-year.vo';
 
 const baseProps = (): GroupCreateProps => ({

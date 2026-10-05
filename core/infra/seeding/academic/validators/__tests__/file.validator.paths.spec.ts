@@ -51,16 +51,16 @@ describe('FileValidator paths', () => {
   it('rejects paths that do not split into four segments', async () => {
     const result = await validator.validateFilePath('2025-2026__fourth__ai.json');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('Invalid path structure');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('Invalid path structure');
     }
   });
 
   it('rejects malformed academic years', async () => {
     const result = await validator.validateFilePath('25-26__fourth__ai__ids.json');
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects unknown year levels and specializations', async () => {
@@ -69,16 +69,16 @@ describe('FileValidator paths', () => {
       '2025-2026__fourth__design__ids.json',
     ]) {
       const result = await validator.validateFilePath(filePath);
-      expect(result.valid).toBe(false);
+      expect(result.ok).toBe(false);
     }
   });
 
   it('rejects file names without a json extension', async () => {
     const result = await validator.validateFilePath('2025-2026__fourth__ai__ids.txt');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('.json');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('.json');
     }
   });
 
@@ -86,9 +86,8 @@ describe('FileValidator paths', () => {
     const result = await withEmptyFile('2025-2026__fourth__ai__ids.json');
 
     expect(result).toMatchObject({
-      valid: true,
-      path: '2025-2026__fourth__ai__ids.json',
-      pathParts: {
+      ok: true,
+      value: {
         academicYear: '2025-2026',
         yearLevel: YearLevel.FOURTH,
         specialization: Specialization.AI,
@@ -101,17 +100,17 @@ describe('FileValidator paths', () => {
   it('rejects ids files with specializations outside the path year level', async () => {
     const result = await withEmptyFile('2025-2026__third__ai__ids.json');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('ai');
-      expect(result.message).toContain('third');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('ai');
+      expect(result.error.message).toContain('third');
     }
   });
 
   it('rejects subject slugs outside the canonical list', async () => {
     const result = await validator.validateFilePath('2025-2026__fourth__ai__nope.json');
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects canonical slugs missing from the database', async () => {
@@ -120,27 +119,27 @@ describe('FileValidator paths', () => {
 
     const result = await withoutVr.validateFilePath('2025-2026__fourth__ai__vr.json');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('vr');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('vr');
     }
   });
 
   it('rejects specializations the subject does not allow', async () => {
     const result = await validator.validateFilePath('2025-2026__third__ai__project-1.json');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('Project 1');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('Project 1');
     }
   });
 
   it('rejects year levels the subject does not belong to', async () => {
     const result = await validator.validateFilePath('2025-2026__third__ai__project-2.json');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('Project 2');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('Project 2');
     }
   });
 
@@ -148,9 +147,8 @@ describe('FileValidator paths', () => {
     const result = await withEmptyFile('2025-2026__fourth__ai__project-2.json');
 
     expect(result).toMatchObject({
-      valid: true,
-      path: '2025-2026__fourth__ai__project-2.json',
-      pathParts: {
+      ok: true,
+      value: {
         academicYear: '2025-2026',
         yearLevel: YearLevel.FOURTH,
         specialization: Specialization.AI,
@@ -163,9 +161,9 @@ describe('FileValidator paths', () => {
   it('rejects valid paths with no file on disk', async () => {
     const result = await validator.validateFilePath('2025-2026__fourth__ai__project-2.json');
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('does not exist');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('does not exist');
     }
   });
 });

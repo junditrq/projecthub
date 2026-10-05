@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { Student } from '../../entities/student.entity';
-import { BusinessRuleError } from '../../errors/domain-errors';
+import { BusinessRuleError } from '../../errors/domain.error';
 import { IGroupRepo } from '../../repos/group.repo';
 import { IStudentRepo } from '../../repos/student.repo';
 import { GroupMemberResolutionService, StudentCandidate } from '../group-member-resolution.service';

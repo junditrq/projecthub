@@ -55,7 +55,8 @@ const groupsFile = (overrides: Partial<SeedGroupsFile> = {}): SeedGroupsFile => 
 describe('FileValidator ids consistency', () => {
   it('passes when path parts match content', () => {
     expect(validator().validateIdsConsistency(idsPathParts(), idsFile())).toEqual({
-      valid: true,
+      ok: true,
+      value: undefined,
     });
   });
 
@@ -65,10 +66,10 @@ describe('FileValidator ids consistency', () => {
       idsFile()
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('2024-2025');
-      expect(result.message).toContain('2025-2026');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('2024-2025');
+      expect(result.error.message).toContain('2025-2026');
     }
   });
 
@@ -78,10 +79,10 @@ describe('FileValidator ids consistency', () => {
       idsFile({ specialization: Specialization.SWE })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('AI');
-      expect(result.message).toContain('SWE');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('AI');
+      expect(result.error.message).toContain('SWE');
     }
   });
 
@@ -91,10 +92,10 @@ describe('FileValidator ids consistency', () => {
       idsFile()
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('THIRD');
-      expect(result.message).toContain('FOURTH');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('THIRD');
+      expect(result.error.message).toContain('FOURTH');
     }
   });
 });
@@ -102,7 +103,8 @@ describe('FileValidator ids consistency', () => {
 describe('FileValidator groups consistency', () => {
   it('passes when path parts match content', () => {
     expect(validator().validateGroupsConsistency(groupsPathParts(), groupsFile())).toEqual({
-      valid: true,
+      ok: true,
+      value: undefined,
     });
   });
 
@@ -112,7 +114,7 @@ describe('FileValidator groups consistency', () => {
       groupsFile()
     );
 
-    expect(result.valid).toBe(false);
+    expect(result.ok).toBe(false);
   });
 
   it('rejects specialization mismatches', () => {
@@ -121,9 +123,9 @@ describe('FileValidator groups consistency', () => {
       groupsFile({ specialization: Specialization.SWE })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('SWE');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('SWE');
     }
   });
 
@@ -133,10 +135,10 @@ describe('FileValidator groups consistency', () => {
       groupsFile({ subjectSlug: 'project-1' as SeedGroupsFile['subjectSlug'] })
     );
 
-    expect(result.valid).toBe(false);
-    if (!result.valid) {
-      expect(result.message).toContain('project-2');
-      expect(result.message).toContain('project-1');
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.message).toContain('project-2');
+      expect(result.error.message).toContain('project-1');
     }
   });
 });

@@ -1,5 +1,3 @@
-import { BusinessRuleError } from '../errors/domain-errors';
-
 // TODO: refactor into rich domain model instead of this anemic model
 export interface UserProps {
   id: string;
@@ -51,9 +49,6 @@ export class User {
   }
 
   public markAsPrompted() {
-    if (this._props.hasBeenPrompted) {
-      throw new BusinessRuleError('User has already been prompted');
-    }
     this._props.hasBeenPrompted = true;
   }
 

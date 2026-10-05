@@ -42,8 +42,11 @@ export class StudentsImporter {
 
     if (dbStudent) {
       const result = dbStudent.recordEnrollment(academicContext);
+      if (!result.ok) {
+        throw result.error;
+      }
 
-      if (result === 'recored') {
+      if (result.value === 'recorded') {
         const updated = await this.studentRepo.save(dbStudent);
         return {
           student: updated,

@@ -1,30 +1,26 @@
 import { auth } from '@/auth';
-import {
-  AuthenticationError,
-  BusinessRuleError,
-  DomainError,
-} from '@/core/domain/errors/domain-errors';
+import { UnauthenticatedError, UnauthorizedError } from '@/core/application/errors/common.errors';
 import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action';
 
 export const actionClient = createSafeActionClient({
   handleServerError: async (error) => {
     console.error('Action Error:', error);
 
-    if (error instanceof DomainError) {
-      if (error instanceof BusinessRuleError) {
-        return error.message;
-      }
-      return error.code;
+    if (error instanceof UnauthenticatedError || error instanceof UnauthorizedError) {
+      return error.toPlainObject();
     }
-    return DEFAULT_SERVER_ERROR_MESSAGE;
+
+    return {
+      code: 'INTERNAL_SERVER_ERROR',
+      message: DEFAULT_SERVER_ERROR_MESSAGE,
+    };
   },
 });
 
 export const authActionClient = actionClient.use(async ({ next }) => {
   const session = await auth();
   if (!session?.user) {
-    throw new AuthenticationError();
+    throw new UnauthenticatedError();
   }
-
   return next({ ctx: { user: session.user } });
 });

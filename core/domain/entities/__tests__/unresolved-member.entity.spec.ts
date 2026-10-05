@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { UnresolvedMember, UnresolvedMemberType } from '../unresolved-member.entity';
-import { BusinessRuleError } from '../../errors/domain-errors';
+import { DomainValidationError } from '../../errors/domain.error';
 
 describe('UnresolvedMember Domain Entity', () => {
   it('creates a not-found member with null student id', () => {
@@ -54,7 +54,7 @@ describe('UnresolvedMember Domain Entity', () => {
           studentId: null,
           type: UnresolvedMemberType.STUDENT_NOT_FOUND,
         })
-      ).toThrow(BusinessRuleError);
+      ).toThrow(DomainValidationError);
     }
   });
 

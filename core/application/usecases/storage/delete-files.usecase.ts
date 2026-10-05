@@ -1,13 +1,9 @@
-import { IStorageService } from '@/core/application/services/storage.service';
+import { IStorageService } from '../../services/storage.service';
 
 export class DeleteFilesUseCase {
-  private storageRepo;
-
-  constructor(storageRepo: IStorageService) {
-    this.storageRepo = storageRepo;
-  }
+  constructor(private readonly _storageService: IStorageService) {}
 
   async execute(fileKeys: string[]): Promise<void> {
-    await this.storageRepo.deleteFiles(fileKeys);
+    await this._storageService.deleteFiles(fileKeys);
   }
 }

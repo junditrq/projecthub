@@ -1,4 +1,4 @@
-import { BusinessRuleError } from '../errors/domain-errors';
+import { BusinessRuleError, DomainValidationError } from '../errors/domain.error';
 import { normalizeArabicName } from '../utils/normalize-arabic-name.util';
 
 export enum UnresolvedMemberType {
@@ -39,7 +39,7 @@ export class UnresolvedMember {
     const { type, studentId, conflictName } = props;
 
     if (conflictName.trim() === '') {
-      throw new BusinessRuleError('Conflict name cannot be empty');
+      throw new DomainValidationError('Conflict name cannot be empty');
     }
 
     if (type === UnresolvedMemberType.STUDENT_NOT_FOUND && studentId !== null) {

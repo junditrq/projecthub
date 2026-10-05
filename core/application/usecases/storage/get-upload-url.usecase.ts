@@ -1,13 +1,9 @@
-import { IStorageService } from '@/core/application/services/storage.service';
+import { IStorageService } from '../../services/storage.service';
 
 export class GetUploadURLUseCase {
-  private storageRepo;
-
-  constructor(storageRepo: IStorageService) {
-    this.storageRepo = storageRepo;
-  }
+  constructor(private readonly _storageService: IStorageService) {}
 
   async execute(fileKey: string, fileType: string, expiresIn?: number): Promise<string> {
-    return await this.storageRepo.getUploadURL(fileKey, fileType, expiresIn);
+    return await this._storageService.getUploadURL(fileKey, fileType, expiresIn);
   }
 }

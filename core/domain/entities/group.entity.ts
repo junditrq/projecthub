@@ -1,7 +1,7 @@
-import { BusinessRuleError } from '../errors/domain-errors';
 import { AcademicYear } from '../value-objects/academic-year.vo';
 import { Specialization } from '../enums/specialization.enum';
 import { UnresolvedMember } from './unresolved-member.entity';
+import { BusinessRuleError } from '../errors/domain.error';
 
 export interface GroupCreateProps {
   projectIdeaId: string;

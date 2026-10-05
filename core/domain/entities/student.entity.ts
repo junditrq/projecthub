@@ -1,4 +1,5 @@
-import { BusinessRuleError } from '../errors/domain-errors';
+import { BusinessRuleError, DomainValidationError } from '../errors/domain.error';
+import { fail, ok, Result } from '../shared/result';
 import { getCanonicalFullName } from '../utils/get-canonical-full-name.util';
 import { normalizeArabicName } from '../utils/normalize-arabic-name.util';
 import { AcademicContext } from '../value-objects/academic-context.vo';
@@ -58,25 +59,29 @@ export class Student {
     return [...this._props.enrollments];
   }
 
-  public recordEnrollment(enrollment: AcademicContext): 'recored' | 'exists' {
+  public recordEnrollment(
+    enrollment: AcademicContext
+  ): Result<'recorded' | 'exists', BusinessRuleError> {
     const existing = this._props.enrollments.find((e) =>
       e.academicYear.equals(enrollment.academicYear)
     );
 
     if (existing && !existing.equals(enrollment)) {
-      throw new BusinessRuleError(
-        `${this.collegeId} already has an enrollment for academic year ${enrollment.academicYear.label}` +
-          `. Existing enrollment: ${existing.yearLevel} - ${existing.specialization}, ` +
-          `New enrollment: ${enrollment.yearLevel} - ${enrollment.specialization}`
+      return fail(
+        new BusinessRuleError(
+          `${this.collegeId} already has an enrollment for academic year ${enrollment.academicYear.label}` +
+            `. Existing enrollment: ${existing.yearLevel} - ${existing.specialization}, ` +
+            `New enrollment: ${enrollment.yearLevel} - ${enrollment.specialization}`
+        )
       );
     }
 
     if (existing) {
-      return 'exists';
+      return ok('exists');
     }
 
     this._props.enrollments.push(enrollment);
-    return 'recored';
+    return ok('recorded');
   }
 
   public getCurrentEnrollment(): AcademicContext {
@@ -90,10 +95,10 @@ export class Student {
 
   public static create(props: StudentCreateProps): Student {
     if (props.name.trim() === '') {
-      throw new BusinessRuleError('Student name cannot be empty');
+      throw new DomainValidationError('Student name cannot be empty');
     }
     if (!Student.COLLEGE_ID_PATTERN.test(props.collegeId)) {
-      throw new BusinessRuleError('Student collegeId must be exactly 10 digits');
+      throw new DomainValidationError('Student collegeId must be exactly 10 digits');
     }
 
     if (props.enrollments.length === 0) {

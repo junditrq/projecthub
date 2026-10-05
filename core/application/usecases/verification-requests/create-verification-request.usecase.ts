@@ -1,99 +1,54 @@
 import { VerificationRequest } from '@/core/domain/entities/verification-request.entity';
-import { DomainErrorCode } from '@/core/domain/errors/domain-error-codes';
-import { NotFoundError } from '@/core/domain/errors/domain-errors';
 import { IStudentRepo } from '@/core/domain/repos/student.repo';
 import { IUserRepo } from '@/core/domain/repos/user.repo';
 import { IVerificationRequestRepo } from '@/core/domain/repos/verification-request.repo';
 import * as path from 'path';
 import { CreateVerificationRequestDTO } from '../../dtos/verification-request.dto';
+import { ok, fail, Result } from '@/core/domain/shared/result';
+import { ActorNotFoundError } from '../../errors/common.errors';
+import { CreateVerificationRequestError } from './create-verification-request.errors';
 import { IStorageService } from '../../services/storage.service';
-import { UseCaseResult } from '../../types/usecase-result.type';
-
-export type CreateVerificationUseCaseErrorCode =
-  | Extract<DomainErrorCode, 'UNAUTHENTICATED'>
-  | 'ALREADY_VERIFIED'
-  | 'STUDENT_NOT_FOUND'
-  | 'PENDING_VERIFICATION_REQUEST_EXISTS'
-  | 'INVALID_COLLEGE_ID_FILE';
-
-export type CreateVerificationRequestUseCaseResult = UseCaseResult<
-  void,
-  CreateVerificationUseCaseErrorCode
->;
 
 export class CreateVerificationRequestUseCase {
   constructor(
-    private studentRepo: IStudentRepo,
-    private userRepo: IUserRepo,
-    private verificationRequestRepo: IVerificationRequestRepo,
-    private storageService: IStorageService
+    private readonly _studentRepo: IStudentRepo,
+    private readonly _userRepo: IUserRepo,
+    private readonly _verificationRequestRepo: IVerificationRequestRepo,
+    private readonly _storageService: IStorageService
   ) {}
 
   async execute({
-    arabicName,
     userId,
+    arabicName,
     collegeIdFileKey,
-  }: CreateVerificationRequestDTO): Promise<CreateVerificationRequestUseCaseResult> {
-    // this is the actor
-    const user = await this.userRepo.findById(userId);
+  }: CreateVerificationRequestDTO): Promise<Result<undefined, CreateVerificationRequestError>> {
+    const user = await this._userRepo.findById(userId);
     if (!user) {
-      return {
-        success: false,
-        error: {
-          code: 'UNAUTHENTICATED',
-          message: 'User not authenticated.',
-        },
-      };
+      throw new ActorNotFoundError(userId);
     }
 
     if (!user.canRequestStudentVerification()) {
-      return {
-        success: false,
-        error: {
-          code: 'ALREADY_VERIFIED',
-          message: 'You are already verified as a student.',
-        },
-      };
+      return fail(CreateVerificationRequestError.alreadyStudent());
     }
 
-    const hasPendingRequest = await this.verificationRequestRepo.hasPendingRequest(userId);
+    const hasPendingRequest = await this._verificationRequestRepo.hasPendingRequest(userId);
 
     if (hasPendingRequest) {
-      return {
-        success: false,
-        error: {
-          code: 'PENDING_VERIFICATION_REQUEST_EXISTS',
-          message: 'You already have a pending verification request.',
-        },
-      };
+      return fail(CreateVerificationRequestError.pendingVerificationRequestExists());
     }
 
-    const student = await this.studentRepo.findByName(arabicName.trim());
+    // TODO(verification-rewrite): temp shim, takes [0],
+    // full matching (using collegeId) + UI in future PR
+    const student = (await this._studentRepo.findCandidatesByName(arabicName.trim(), ''))[0];
     if (!student) {
-      return {
-        success: false,
-        error: {
-          code: 'STUDENT_NOT_FOUND',
-          message: 'No student found with the provided Arabic name.',
-        },
-      };
+      return fail(CreateVerificationRequestError.studentNotFound());
     }
 
     const destinationKey = `verification-requests/${userId}/college-id-${Date.now() + path.extname(collegeIdFileKey)}`;
 
-    try {
-      await this.storageService.moveFile(collegeIdFileKey, destinationKey);
-    } catch (error) {
-      if (error instanceof NotFoundError) {
-        return {
-          success: false,
-          error: {
-            code: 'INVALID_COLLEGE_ID_FILE',
-            message: 'The provided college ID file does not exist.',
-          },
-        };
-      }
-      throw error;
+    const moved = await this._storageService.moveFile(collegeIdFileKey, destinationKey);
+    if (!moved.ok) {
+      return fail(CreateVerificationRequestError.collegeIdFileNotFound());
     }
 
     const verificationRequest = VerificationRequest.create({
@@ -102,10 +57,8 @@ export class CreateVerificationRequestUseCase {
       userId,
     });
 
-    await this.verificationRequestRepo.save(verificationRequest);
+    await this._verificationRequestRepo.save(verificationRequest);
 
-    return {
-      success: true,
-    };
+    return ok(undefined);
   }
 }

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import { Student } from '@/core/domain/entities/student.entity';
 import { Specialization } from '@/core/domain/enums/specialization.enum';
-import { BusinessRuleError } from '@/core/domain/errors/domain-errors';
+import { BusinessRuleError } from '@/core/domain/errors/domain.error';
 import { TestPostgres } from '@/core/infra/orm/prisma/__tests__/test-postgres';
 import { PrismaStudentRepo } from '@/core/infra/repos/prisma/student.repo';
 import { PrismaSubjectRepo } from '@/core/infra/repos/prisma/subject.repo';

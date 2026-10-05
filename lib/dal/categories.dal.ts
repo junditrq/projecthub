@@ -1,7 +1,7 @@
+import { CategoryDTO } from '@/core/application/dtos/category.dto';
 import container from '@/core/infra/di/container';
 
-export const getCategories = async () => {
+export const getCategories = async (): Promise<CategoryDTO[]> => {
   const getCategoriesUseCase = container.get('GetCategoriesUseCase');
-  const { data } = await getCategoriesUseCase.execute();
-  return data;
+  return await getCategoriesUseCase.execute();
 };
