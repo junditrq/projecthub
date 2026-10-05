@@ -19,31 +19,31 @@ export class User {
     this._props = props;
   }
 
-  get id(): string {
+  get id(): UserProps['id'] {
     return this._props.id;
   }
-  get name(): string {
+  get name(): UserProps['name'] {
     return this._props.name;
   }
-  get email(): string {
+  get email(): UserProps['email'] {
     return this._props.email;
   }
-  get image(): string | null {
+  get image(): UserProps['image'] {
     return this._props.image;
   }
-  get githubUsername(): string | null {
+  get githubUsername(): UserProps['githubUsername'] {
     return this._props.githubUsername;
   }
-  get linkedinUrl(): string | null {
+  get linkedinUrl(): UserProps['linkedinUrl'] {
     return this._props.linkedinUrl;
   }
-  get hasBeenPrompted(): boolean {
+  get hasBeenPrompted(): UserProps['hasBeenPrompted'] {
     return this._props.hasBeenPrompted;
   }
   get role(): UserRole {
     return this._props.role;
   }
-  get isStudent(): boolean {
+  get isStudent(): UserProps['isStudent'] {
     return this._props.isStudent;
   }
 
