@@ -6,14 +6,12 @@ import { AcademicYear } from '@/core/domain/value-objects/academic-year.vo';
 import { PrismaYearLevelMapper } from './year-level.prisma.mapper';
 
 export const prismaStudentWithEnrollments = {
-  include: {
-    enrollments: true,
-  },
-} satisfies Prisma.StudentDefaultArgs;
+  enrollments: true,
+} satisfies Prisma.StudentInclude;
 
-export type PrismaStudentWithEnrollments = Prisma.StudentGetPayload<
-  typeof prismaStudentWithEnrollments
->;
+export type PrismaStudentWithEnrollments = Prisma.StudentGetPayload<{
+  include: typeof prismaStudentWithEnrollments;
+}>;
 
 export class PrismaStudentMapper {
   static toDomain(student: PrismaStudentWithEnrollments): Student {
