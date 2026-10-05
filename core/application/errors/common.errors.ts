@@ -18,7 +18,7 @@ export class UnauthenticatedError extends BaseError<'UNAUTHENTICATED'> {
 export class UnauthorizedError extends BaseError<'UNAUTHORIZED'> {
   readonly code = 'UNAUTHORIZED' as const;
 
-  constructor(message = 'You do not have permission perform this action.') {
+  constructor(message = 'You do not have permission to perform this action.') {
     super(message);
   }
 }
