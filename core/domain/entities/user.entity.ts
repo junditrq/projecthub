@@ -1,4 +1,5 @@
-// TODO: refactor into rich domain model instead of this anemic model
+import { UserRole } from '../enums/user-role.enum';
+
 export interface UserProps {
   id: string;
   name: string;
@@ -8,12 +9,7 @@ export interface UserProps {
   linkedinUrl: string | null;
   hasBeenPrompted: boolean;
   role: UserRole;
-}
-
-export enum UserRole {
-  ADMIN = 'ADMIN',
-  STUDENT = 'STUDENT',
-  VISITOR = 'VISITOR',
+  isStudent: boolean;
 }
 
 export class User {
@@ -47,13 +43,28 @@ export class User {
   get role(): UserRole {
     return this._props.role;
   }
+  get isStudent(): boolean {
+    return this._props.isStudent;
+  }
+
+  public isAdmin(): boolean {
+    return this._props.role === UserRole.ADMIN;
+  }
+
+  public canPerformAdminAction(): boolean {
+    return this.isAdmin();
+  }
 
   public markAsPrompted() {
     this._props.hasBeenPrompted = true;
   }
 
+  public markAsVerifiedStudent() {
+    this._props.isStudent = true;
+  }
+
   public canRequestStudentVerification(): boolean {
-    return this._props.role === UserRole.VISITOR;
+    return !this._props.isStudent;
   }
 
   public static reconstitute(props: UserProps) {
