@@ -2,9 +2,7 @@ import type { NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
 
 export const authConfig = {
-  pages: {
-    signIn: '/',
-  },
+  pages: {},
   callbacks: {
     session: async ({ session, token }) => {
       if (session.user) {
