@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import NeedsAuthButton from './needs-auth-button';
-import NeedsVerificationButton from './needs-verification-button';
+import NeedsVerificationButton from './auth/needs-verification-button';
+import NeedsAuthButton from './auth/needs-auth-button';
 
 const UploadYourProjectButton = () => {
   return (

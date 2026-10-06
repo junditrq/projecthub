@@ -3,9 +3,15 @@ import { cn } from '@/lib/utils';
 import { DialogDescription } from '@radix-ui/react-dialog';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { Button, ShadcnButtonProps } from '../ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog';
-import SignInButtonClient from './sign-in-button-client';
+import { Button, ShadcnButtonProps } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { SignInWithGoogleButton } from './google/sign-in-with-google-button-client';
 
 const NeedsAuthButton = ({
   onClick,
@@ -56,7 +62,7 @@ const NeedsAuthButton = ({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <SignInButtonClient />
+          <SignInWithGoogleButton />
         </DialogFooter>
       </DialogContent>
     </Dialog>
