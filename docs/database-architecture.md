@@ -227,12 +227,13 @@ students {
 }
 
 // Handles the manual verification process
+// request matched to a seeded student by collegeId via student_id
 verification_requests {
   id string pk
   user_id string fk
   reviewedBy string fk nullable // Admin's user_id
+  student_id string fk // Student.id, resolved from submitted collegeId
 
-  submitted_arabic_name string
   college_id_pic_url string // URL to the uploaded image
 
   status verification_status default "PENDING"

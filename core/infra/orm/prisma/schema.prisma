@@ -154,12 +154,13 @@ model Student {
   updatedAt DateTime @updatedAt
 
   // Relations
-  groups            GroupMember[] // can be in multiple groups across different academic years and subjects
-  unresolvedGroups  UnresolvedGroupMember[]
-  user              User?                   @relation(fields: [userId], references: [id])
-  publishedProjects Project[]
-  repos             ProjectRepo[]
-  enrollments       StudentEnrollments[]
+  groups               GroupMember[] // can be in multiple groups across different academic years and subjects
+  unresolvedGroups     UnresolvedGroupMember[]
+  user                 User?                   @relation(fields: [userId], references: [id])
+  publishedProjects    Project[]
+  repos                ProjectRepo[]
+  enrollments          StudentEnrollments[]
+  verificationRequests VerificationRequest[]
 
   @@map("students")
 }
@@ -186,10 +187,10 @@ model VerificationRequest {
 
   userId       String  @map("user_id")
   reviewedById String? @map("reviewed_by_id")
+  studentId    String  @map("student_id")
 
-  submittedArabicName String  @map("submitted_arabic_name")
-  collegeIdPicURL     String  @map("college_id_pic_url")
-  rejectedReason      String? @map("rejected_reason")
+  collegeIdPicURL String  @map("college_id_pic_url")
+  rejectedReason  String? @map("rejected_reason")
 
   status VerificationStatus @default(PENDING)
 
@@ -197,8 +198,9 @@ model VerificationRequest {
   updatedAt DateTime @updatedAt
 
   // Relations
-  user       User  @relation("RequestedVerificationRequests", fields: [userId], references: [id])
-  reviewedBy User? @relation("ReviewedVerificationRequests", fields: [reviewedById], references: [id])
+  user       User    @relation("RequestedVerificationRequests", fields: [userId], references: [id])
+  reviewedBy User?   @relation("ReviewedVerificationRequests", fields: [reviewedById], references: [id])
+  student    Student @relation(fields: [studentId], references: [id])
 
   @@map("verification_requests")
 }

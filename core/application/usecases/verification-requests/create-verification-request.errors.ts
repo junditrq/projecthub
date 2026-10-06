@@ -30,11 +30,19 @@ export class PendingVerificationRequestExistsError extends ConflictError<'PENDIN
   }
 }
 
+export class StudentAlreadyLinkedToUserError extends ConflictError<'STUDENT_ALREADY_LINKED_TO_USER'> {
+  readonly code = 'STUDENT_ALREADY_LINKED_TO_USER' as const;
+  constructor() {
+    super('StudentAlreadyLinkedToUserError');
+  }
+}
+
 export const CreateVerificationRequestError = {
   alreadyStudent: () => new AlreadyStudentError(),
   collegeIdFileNotFound: () => new CollegeIdFileNotFound(),
   studentNotFound: () => new StudentNotFoundError(),
   pendingVerificationRequestExists: () => new PendingVerificationRequestExistsError(),
+  studentAlreadyLinkedToUser: () => new StudentAlreadyLinkedToUserError(),
 } as const;
 
 export type CreateVerificationRequestError = InferErrorUnion<typeof CreateVerificationRequestError>;

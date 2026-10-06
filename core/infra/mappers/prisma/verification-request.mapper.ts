@@ -17,7 +17,7 @@ export class PrismaVerificationRequestMapper {
       updatedAt: prismaVerificationRequest.updatedAt,
       collegeIdPicURL: prismaVerificationRequest.collegeIdPicURL,
       status: this.toDomainStatus(prismaVerificationRequest.status),
-      submittedArabicName: prismaVerificationRequest.submittedArabicName,
+      studentId: prismaVerificationRequest.studentId,
       rejectedReason: prismaVerificationRequest.rejectedReason,
     });
   }
@@ -31,7 +31,7 @@ export class PrismaVerificationRequestMapper {
       updatedAt: request.updatedAt,
       collegeIdPicURL: request.collegeIdPicURL,
       status: this.toPersistenceStatus(request.status),
-      submittedArabicName: request.submittedArabicName,
+      studentId: request.studentId,
       rejectedReason: request.rejectedReason,
     };
   }

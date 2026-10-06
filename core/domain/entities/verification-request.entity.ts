@@ -5,9 +5,9 @@ export enum VerificationStatus {
 }
 
 export interface CreateVerificationRequestProps {
-  submittedArabicName: string;
   collegeIdPicURL: string;
   userId: string;
+  studentId: string;
 }
 
 export interface VerificationRequestProps extends CreateVerificationRequestProps {
@@ -25,9 +25,6 @@ export class VerificationRequest {
   get id(): string {
     return this._props.id;
   }
-  get submittedArabicName(): string {
-    return this._props.submittedArabicName;
-  }
   get collegeIdPicURL(): string {
     return this._props.collegeIdPicURL;
   }
@@ -36,6 +33,9 @@ export class VerificationRequest {
   }
   get userId(): string {
     return this._props.userId;
+  }
+  get studentId(): string {
+    return this._props.studentId;
   }
   get reviewedById(): string | null {
     return this._props.reviewedById;
@@ -51,15 +51,14 @@ export class VerificationRequest {
   }
 
   public static create(props: CreateVerificationRequestProps) {
-    const now = new Date();
     return new VerificationRequest({
       ...props,
       id: crypto.randomUUID(),
-      createdAt: now,
-      updatedAt: now,
+      status: VerificationStatus.PENDING,
+      createdAt: new Date(),
+      updatedAt: new Date(),
       reviewedById: null,
       rejectedReason: null,
-      status: VerificationStatus.PENDING,
     });
   }
 
