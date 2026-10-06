@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { ThemeToggle } from '../common/theme-toggle';
 import { Button } from '../ui/button';
 import NavbarAuthUI from './navbar-auth-ui';
+import { Suspense } from 'react';
+import { Skeleton } from '../ui/skeleton';
 
 const NavBar = () => {
   return (
@@ -19,7 +21,9 @@ const NavBar = () => {
           </Button>
         </div>
         <div className="flex items-center gap-2">
-          <NavbarAuthUI />
+          <Suspense fallback={<Skeleton className="size-9 rounded-full" />}>
+            <NavbarAuthUI />
+          </Suspense>
           <ThemeToggle variants={'ghost'} className="size-8 rounded-xl" />
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Dialog } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { Button, ShadcnButtonProps } from '../ui/button';
+import { Button, ShadcnButtonProps } from '@/components/ui/button';
 
 const NeedsVerificationButton = ({
   onClick,

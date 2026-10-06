@@ -1,12 +1,17 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import NeedsAuthButton from './needs-auth-button';
-import NeedsVerificationButton from './needs-verification-button';
+import NeedsVerificationButton from './auth/needs-verification-button';
+import NeedsAuthButton from './auth/needs-auth-button';
 
 const UploadYourProjectButton = () => {
   return (
     <NeedsVerificationButton asChild>
-      <NeedsAuthButton variant={'default'} asChild className="md:!px-10">
+      <NeedsAuthButton
+        variant={'default'}
+        asChild
+        className="md:!px-10"
+        redirectUrl="/create-project"
+      >
         <Link href={'/create-project'}>
           Upload{' '}
           <span className="hidden min-[28rem]:!inline">

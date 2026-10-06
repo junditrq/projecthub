@@ -1,6 +1,5 @@
-'use client';
 import { cn } from '@/lib/utils';
-import { Button, ShadcnButtonProps } from '../ui/button';
+import { Button, ShadcnButtonProps } from '@/components/ui/button';
 
 const ActionButton = ({ children, className, ...props }: ShadcnButtonProps) => {
   return (

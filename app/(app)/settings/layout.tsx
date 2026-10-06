@@ -2,8 +2,10 @@ import Container from '@/components/common/container';
 import NavTabBar from '@/components/nav-tabs/nav-tab-bar';
 import NavTabItem from '@/components/nav-tabs/nav-tab-item';
 import PageHeading from '@/components/page-heading';
+import { requiresAuth } from '@/lib/dal/utils/requires-auth';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
+  await requiresAuth();
   return (
     <>
       <PageHeading title="Settings">
