@@ -4,11 +4,20 @@ import SignInButton from '../ui/sign-in-button';
 import GoogleIcon from './google-icon';
 import { signIn } from 'next-auth/react';
 
-export const SignInWithGoogleButton = ({ ...props }: ShadcnButtonProps) => (
+export const SignInWithGoogleButton = ({
+  redirectURL,
+  ...props
+}: {
+  redirectURL?: string;
+} & ShadcnButtonProps) => (
   <SignInButton
     withWhat={'Google'}
     icon={<GoogleIcon />}
-    onClick={() => signIn('google')}
+    onClick={() =>
+      signIn('google', {
+        redirectTo: redirectURL,
+      })
+    }
     {...props}
   />
 );

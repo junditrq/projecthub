@@ -6,7 +6,12 @@ import NeedsAuthButton from './auth/needs-auth-button';
 const UploadYourProjectButton = () => {
   return (
     <NeedsVerificationButton asChild>
-      <NeedsAuthButton variant={'default'} asChild className="md:!px-10">
+      <NeedsAuthButton
+        variant={'default'}
+        asChild
+        className="md:!px-10"
+        redirectUrl="/create-project"
+      >
         <Link href={'/create-project'}>
           Upload{' '}
           <span className="hidden min-[28rem]:!inline">

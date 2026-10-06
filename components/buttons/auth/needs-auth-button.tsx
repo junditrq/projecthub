@@ -15,12 +15,14 @@ import { SignInWithGoogleButton } from './google/sign-in-with-google-button-clie
 
 const NeedsAuthButton = ({
   onClick,
+  redirectUrl,
   children,
   className,
   skeleton,
   disabled,
   ...props
 }: ShadcnButtonProps & {
+  redirectUrl?: string;
   skeleton?: React.ReactNode;
 }) => {
   const { status } = useSession();
@@ -62,7 +64,7 @@ const NeedsAuthButton = ({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <SignInWithGoogleButton />
+          <SignInWithGoogleButton redirectURL={redirectUrl} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
