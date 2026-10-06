@@ -39,7 +39,7 @@ const VerificationForm = () => {
   } = useForm<CreateVerificationRequestFormData>({
     resolver: zodResolver(CreateVerificationRequestSchema),
     defaultValues: {
-      arabicName: '',
+      collegeId: '',
       collegeIdFileKey: '',
     },
   });
@@ -82,20 +82,20 @@ const VerificationForm = () => {
           <FieldGroup>
             {errors.root?.message && <FieldError>{errors.root.message}</FieldError>}
             <Controller
-              name="arabicName"
+              name="collegeId"
               control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Your Name</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Your College ID</FieldLabel>
                   <Input
                     {...field}
                     id={field.name}
                     type="text"
-                    placeholder="Your name in the college list."
+                    placeholder="Enter your 10-digit college ID"
                     aria-invalid={fieldState.invalid}
                   />
                   <FieldDescription>
-                    Copy paste your name from the college project list to make sure it matches.
+                    If your college ID is valid but not found. Contact us.
                   </FieldDescription>
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
@@ -106,7 +106,7 @@ const VerificationForm = () => {
               name="collegeIdFileKey"
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>College Id</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>College ID Image</FieldLabel>
                   <FileUploader
                     inputId={field.name}
                     restrictions={{

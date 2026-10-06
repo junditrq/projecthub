@@ -7,6 +7,6 @@ export enum VerificationRequestStatusDTO {
 
 export interface CreateVerificationRequestDTO {
   userId: string;
-  arabicName: string;
+  collegeId: string;
   collegeIdFileKey: string;
 }

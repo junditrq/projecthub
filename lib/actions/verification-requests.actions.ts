@@ -7,11 +7,11 @@ import { CreateVerificationRequestSchema } from '@/lib/schemas/verification-form
 
 export const createVerificationRequestAction = authActionClient
   .inputSchema(CreateVerificationRequestSchema)
-  .action(async ({ parsedInput: { arabicName, collegeIdFileKey }, ctx: { user } }) => {
+  .action(async ({ parsedInput: { collegeId, collegeIdFileKey }, ctx: { user } }) => {
     const createVerificationRequestUseCase = container.get('CreateVerificationRequestUseCase');
 
     const result = await createVerificationRequestUseCase.execute({
-      arabicName,
+      collegeId,
       collegeIdFileKey,
       userId: user.id,
     });

@@ -161,7 +161,7 @@ pnpm prisma db seed
 > - **Categories**: `["Web", "Mobile"]`
 > - **Academic Year**: `2024-2025` (slug `2024-2025`)
 > - **Subject**: `Graduation Project` (slug `graduation-project`)
-> - Groups are linked to a **ProjectIdea** per unique `projectIdea` name, with students created via `publishers` array (field `arabicName` on Student model).
+> - Groups are linked to a **ProjectIdea** per unique `projectIdea` name, with students created via `publishers` array (matched by `collegeId` on Student model).
 
 ---
 

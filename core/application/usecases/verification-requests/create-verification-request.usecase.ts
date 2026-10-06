@@ -19,7 +19,7 @@ export class CreateVerificationRequestUseCase {
 
   async execute({
     userId,
-    arabicName,
+    collegeId,
     collegeIdFileKey,
   }: CreateVerificationRequestDTO): Promise<Result<undefined, CreateVerificationRequestError>> {
     const user = await this._userRepo.findById(userId);
@@ -37,11 +37,14 @@ export class CreateVerificationRequestUseCase {
       return fail(CreateVerificationRequestError.pendingVerificationRequestExists());
     }
 
-    // TODO(verification-rewrite): temp shim, takes [0],
-    // full matching (using collegeId) + UI in future PR
-    const student = (await this._studentRepo.findCandidatesByName(arabicName.trim(), ''))[0];
+    const student = await this._studentRepo.findByCollegeId(collegeId);
+
     if (!student) {
       return fail(CreateVerificationRequestError.studentNotFound());
+    }
+
+    if (student.userId !== null) {
+      return fail(CreateVerificationRequestError.studentAlreadyLinkedToUser());
     }
 
     const destinationKey = `verification-requests/${userId}/college-id-${Date.now() + path.extname(collegeIdFileKey)}`;
@@ -53,7 +56,7 @@ export class CreateVerificationRequestUseCase {
 
     const verificationRequest = VerificationRequest.create({
       collegeIdPicURL: destinationKey,
-      submittedArabicName: arabicName.trim(),
+      studentId: student.id,
       userId,
     });
 

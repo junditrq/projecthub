@@ -18,13 +18,16 @@ export const VERIFICATION_ERROR_MAP: Record<
     message: 'Your verification request has already been approved.',
   },
   STUDENT_NOT_FOUND: {
-    field: 'arabicName',
-    message:
-      'Your name was not found in the college list. Please make sure you entered it correctly.',
+    field: 'collegeId',
+    message: 'The provided college ID does not match any student records.',
   },
   INVALID_COLLEGE_ID_FILE: {
     field: 'collegeIdFileKey',
     message: 'File does not exist or expired. Re-upload your college ID file and try again.',
+  },
+  STUDENT_ALREADY_LINKED_TO_USER: {
+    field: 'collegeId',
+    message: 'This student is already linked to another user.',
   },
 };
 
