@@ -5,11 +5,11 @@ import { cn } from '@/lib/utils';
 import { ArrowBigUp } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import NeedsAuthButton from '../buttons/needs-auth-button';
 import ContributorAvatar from './contributor-avatar';
 import ProjectCategory from './project-category';
 import ProjectTag from './project-tag';
 import { ProjectCardProps } from './types';
+import NeedsAuthButton from '../buttons/auth/needs-auth-button';
 
 export default function ProjectCard({ project }: { project: ProjectCardProps }) {
   const [isLiked, setIsLiked] = useState(false);

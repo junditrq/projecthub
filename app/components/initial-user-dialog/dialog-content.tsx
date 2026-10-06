@@ -1,4 +1,4 @@
-import ActionButton from '@/components/buttons/oauth-button';
+import ActionButton from '@/components/buttons/ui/action-button';
 import {
   DialogContent,
   DialogDescription,
