@@ -24,6 +24,7 @@ pnpm typecheck    # TypeScript type check
 ## Code Quality Order
 
 `lint` → `format:check` (or `format` to fix)
+After making changes, run `pnpm lint` and fix all errors.
 
 ## Architecture (Clean Architecture + Next.js Layer)
 
