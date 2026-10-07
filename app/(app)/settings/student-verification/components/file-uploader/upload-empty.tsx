@@ -12,8 +12,8 @@ const UploaderEmpty = () => {
   } = useFileUploaderContext();
   return (
     <>
-      <div className="animate-fade-in flex flex-col items-center justify-center gap-2">
-        <span className="bg-input text-input-foreground rounded-full p-2">
+      <div className="animate-in fade-in-0 flex flex-col items-center justify-center gap-2">
+        <span className="bg-input text-muted-foreground rounded-full p-2">
           <UploadCloud className="size-8 text-center" />
         </span>
         <p className="text-sm">
