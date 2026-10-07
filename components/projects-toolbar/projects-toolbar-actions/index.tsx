@@ -20,7 +20,7 @@ const ProjectsToolbarActions = ({ className }: FiltersActionsProps) => {
           fallback={
             <section className="p-4">
               <h3 className="mb-6 text-lg font-semibold">Categories</h3>
-              <p className="text-sm text-red-500">
+              <p className="text-destructive text-sm">
                 Failed to load categories. Please try again later.
               </p>
             </section>
@@ -37,7 +37,9 @@ const ProjectsToolbarActions = ({ className }: FiltersActionsProps) => {
           fallback={
             <section className="p-4">
               <h3 className="mb-6 text-lg font-semibold">Tags</h3>
-              <p className="text-sm text-red-500">Failed to load tags. Please try again later.</p>
+              <p className="text-destructive text-sm">
+                Failed to load tags. Please try again later.
+              </p>
             </section>
           }
         >

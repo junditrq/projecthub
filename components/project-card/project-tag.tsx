@@ -10,7 +10,7 @@ const ProjectTag = ({ name }: { name: string }) => {
       <Link href={'#'}>
         <Badge
           variant="secondary"
-          className="text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-2.5 py-0 leading-[1.25rem] font-medium lowercase transition-colors"
+          className="text-primary hover:bg-primary hover:text-primary-foreground rounded-full px-2.5 py-0 leading-5 font-medium lowercase transition-colors"
         >
           # {name}
         </Badge>

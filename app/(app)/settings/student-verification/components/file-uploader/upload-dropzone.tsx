@@ -26,7 +26,7 @@ const UploadDropzone = ({ rootProps, inputProps, isDragActive }: UploadDropzoneP
       className={cn(
         'bg-background min-h-64 transition-all',
         'border-input border-2 border-dashed ring-0 outline-0',
-        'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+        'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-3',
         {
           'bg-muted/50 border-primary border-dashed': isDragActive,
           'ring-destructive/20 dark:ring-destructive/40 !border-destructive': error,

@@ -36,7 +36,7 @@ const TagsFilter = ({ tags }: TagsFilterProps) => {
             cn(
               theme === 'dark' ? '!bg-input/30' : '!bg-transparent',
               '!min-h-9 !border-input !rounded-md !cursor-pointer',
-              isFocused && '!border-ring !ring-ring/50 !ring-[3px] outline-none',
+              isFocused && '!border-ring !ring-ring/50 !ring-3 outline-none',
               hasValue && '!py-2'
             ),
           placeholder: () => 'text-muted-foreground text-sm ',
@@ -45,7 +45,7 @@ const TagsFilter = ({ tags }: TagsFilterProps) => {
           menuList: () =>
             'bg-popover text-popover-foreground !border-none !outline-none !shadow-none !py-2',
           option: ({ isFocused }) =>
-            cn(isFocused && '!bg-accent !text-accent-foreground', '!text-md'),
+            cn(isFocused && '!bg-accent !text-accent-foreground', '!text-sm'),
           multiValue: () => '!rounded-lg !bg-secondary !text-primary',
           multiValueLabel: () => '!text-primary',
           valueContainer: () => 'gap-1',
